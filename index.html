@@ -28,6 +28,8 @@
             overflow-x: hidden;
         }
 
+        html { scroll-behavior: smooth; }
+
         /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .section-padding { padding: 80px 0; }
@@ -78,10 +80,7 @@
         .btn-outline { border: 1px solid var(--accent-cyan); color: var(--accent-cyan); margin-left: 15px; }
         .btn-outline:hover { background: rgba(0, 242, 255, 0.1); }
         
-        .hero-image-box {
-            position: relative;
-            z-index: 1;
-        }
+        .hero-image-box { position: relative; z-index: 1; }
         .hero-img {
             width: 100%; border-radius: 20px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
@@ -94,7 +93,7 @@
         .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--accent-cyan); }
         .stat-label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
 
-        /* --- PROJECTS SECTION (ENHANCED) --- */
+        /* --- PROJECTS SECTION --- */
         .section-title { font-size: 2.5rem; margin-bottom: 50px; text-align: center; }
         .section-title span { border-bottom: 3px solid var(--accent-purple); }
         
@@ -108,6 +107,8 @@
             border-radius: 15px;
             overflow: hidden;
             border: var(--glass-border);
+            display: flex;
+            flex-direction: column;
             transition: transform 0.3s ease;
         }
         .project-card:hover { transform: translateY(-5px); border-color: var(--accent-cyan); }
@@ -115,16 +116,38 @@
         .project-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
         .project-card:hover .project-img { transform: scale(1.1); }
         
-        .project-content { padding: 25px; }
+        .project-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .project-category { 
             font-size: 0.8rem; color: var(--accent-cyan); text-transform: uppercase; 
             letter-spacing: 1px; font-weight: 700; margin-bottom: 10px; display: block;
         }
         .project-title { font-size: 1.4rem; margin-bottom: 10px; color: #fff; }
-        .project-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+        .project-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
         
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
         .tech-pill { font-size: 0.75rem; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 12px; color: var(--text-muted); }
+
+        /* Button to visit website */
+        .project-link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--accent-cyan);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+        .project-link-btn:hover {
+            background: var(--accent-cyan);
+            color: #000;
+        }
 
         /* --- SKILLS --- */
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
@@ -156,7 +179,7 @@
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
             .hero-text h1 { font-size: 2.5rem; }
             .hero-text p { margin: 0 auto 30px; }
-            .hero-image-box { display: none; /* Hide hero image on small mobile to save space, or keep if preferred */ }
+            .hero-image-box { display: none; }
             
             .nav-links {
                 display: none; position: absolute; top: 100%; left: 0; width: 100%;
@@ -167,7 +190,7 @@
             .hamburger { display: block; }
             
             .stats-grid { flex-direction: column; gap: 20px; }
-            .project-grid { grid-template-columns: 1fr; } /* Stack projects vertically */
+            .project-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -208,11 +231,11 @@
         <div class="container stats-grid">
             <div>
                 <div class="stat-num">2+</div>
-                <div class="stat-label">Years Experience [cite: 19]</div>
+                <div class="stat-label">Years Experience</div>
             </div>
             <div>
                 <div class="stat-num">6</div>
-                <div class="stat-label">Major Projects </div>
+                <div class="stat-label">Major Projects</div>
             </div>
             <div>
                 <div class="stat-num">100%</div>
@@ -226,7 +249,7 @@
             <h2 class="section-title"><span>Professional Profile</span></h2>
             <div style="background: rgba(255,255,255,0.03); padding: 40px; border-radius: 20px; border: var(--glass-border); text-align: center; max-width: 900px; margin: 0 auto;">
                 <p style="font-size: 1.1rem; color: var(--text-main);">
-                    "I am a detailed-oriented QA Engineer seeking a challenging role to utilize my skills in Software Testing and Development Support. My goal is to drive quality through innovation, ensuring reliable and scalable solutions for reputable organizations. I bring strong expertise in defect management, API testing, and continuous process improvement." [cite: 8, 9]
+                    "I am a detailed-oriented QA Engineer seeking a challenging role to utilize my skills in Software Testing and Development Support. My goal is to drive quality through innovation, ensuring reliable and scalable solutions for reputable organizations. I bring strong expertise in defect management, API testing, and continuous process improvement."
                 </p>
             </div>
         </div>
@@ -281,13 +304,16 @@
                     </div>
                     <div class="project-content">
                         <span class="project-category">Charity Management</span>
-                        <h3 class="project-title">Icharms [cite: 31]</h3>
+                        <h3 class="project-title">Icharms</h3>
                         <p class="project-desc">Executed end-to-end functional testing and API validation. Managed daily defect reporting via Jira to ensure critical donation workflows were bug-free.</p>
                         <div class="tech-stack">
                             <span class="tech-pill">Manual Testing</span>
                             <span class="tech-pill">Jira</span>
                             <span class="tech-pill">API</span>
                         </div>
+                        <a href="#" class="project-link-btn" target="_blank">
+                            Visit Live Site <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -297,13 +323,16 @@
                     </div>
                     <div class="project-content">
                         <span class="project-category">Logistics</span>
-                        <h3 class="project-title">Logibuddy [cite: 34]</h3>
+                        <h3 class="project-title">Logibuddy</h3>
                         <p class="project-desc">Comprehensive system validation for a logistics platform. Verified business logic for shipment tracking and operational efficiency.</p>
                         <div class="tech-stack">
                             <span class="tech-pill">Functional</span>
                             <span class="tech-pill">Regression</span>
                             <span class="tech-pill">SQL</span>
                         </div>
+                        <a href="#" class="project-link-btn" target="_blank">
+                            Visit Live Site <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -313,12 +342,15 @@
                     </div>
                     <div class="project-content">
                         <span class="project-category">Non-Profit</span>
-                        <h3 class="project-title">Al-Wahab Foundation [cite: 37]</h3>
+                        <h3 class="project-title">Al-Wahab Foundation</h3>
                         <p class="project-desc">Quality assurance for a donation platform. Tested volunteer coordination tools and fundraising features for financial security.</p>
                         <div class="tech-stack">
                             <span class="tech-pill">Security Checks</span>
                             <span class="tech-pill">UI/UX Testing</span>
                         </div>
+                        <a href="#" class="project-link-btn" target="_blank">
+                            Visit Live Site <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -328,12 +360,15 @@
                     </div>
                     <div class="project-content">
                         <span class="project-category">Global NGO</span>
-                        <h3 class="project-title">Edhi International UK [cite: 42]</h3>
+                        <h3 class="project-title">Edhi International UK</h3>
                         <p class="project-desc">Thorough validation of the UK donation portal. Managed test scenarios for international currency handling and volunteer databases.</p>
                         <div class="tech-stack">
                             <span class="tech-pill">Cross-Border</span>
                             <span class="tech-pill">Payment Gateways</span>
                         </div>
+                        <a href="#" class="project-link-btn" target="_blank">
+                            Visit Live Site <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -343,12 +378,15 @@
                     </div>
                     <div class="project-content">
                         <span class="project-category">Digital Agency</span>
-                        <h3 class="project-title">Muslim Rose Welfare [cite: 46]</h3>
+                        <h3 class="project-title">Muslim Rose Welfare</h3>
                         <p class="project-desc">CMS platform testing. Validated "Drag-and-Drop" page builders and content management features for usability and stability.</p>
                         <div class="tech-stack">
                             <span class="tech-pill">CMS Testing</span>
                             <span class="tech-pill">Usability</span>
                         </div>
+                        <a href="#" class="project-link-btn" target="_blank">
+                            Visit Live Site <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -358,12 +396,15 @@
                     </div>
                     <div class="project-content">
                         <span class="project-category">Digital Marketing</span>
-                        <h3 class="project-title">Techno Serve Solutions [cite: 49]</h3>
+                        <h3 class="project-title">Techno Serve Solutions</h3>
                         <p class="project-desc">Tested end-to-end digital marketing tools, ensuring accurate data tracking from campaign strategy to analytics reporting.</p>
                         <div class="tech-stack">
                             <span class="tech-pill">Analytics</span>
                             <span class="tech-pill">Data Validation</span>
                         </div>
+                        <a href="#" class="project-link-btn" target="_blank">
+                            Visit Live Site <i class="fas fa-external-link-alt"></i>
+                        </a>
                     </div>
                 </div>
 
@@ -377,8 +418,8 @@
             <div class="timeline">
                 <div class="timeline-card">
                     <h3 style="color: var(--accent-cyan); margin-bottom: 5px;">Software Tester</h3>
-                    <h4 style="color: #fff;">Techno Serve Software Solutions Pvt.Ltd [cite: 15]</h4>
-                    <span style="font-size: 0.9rem; color: var(--text-muted);">2023 - Present [cite: 19]</span>
+                    <h4 style="color: #fff;">Techno Serve Software Solutions Pvt.Ltd</h4>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">2023 - Present</span>
                     <p style="margin-top: 10px; color: var(--text-muted);">
                         Leading QA initiatives for multiple clients. Responsible for Test Documentation, Defect Management (Jira), and API Testing.
                     </p>
@@ -386,12 +427,12 @@
                 <div class="timeline-card">
                     <h3 style="color: var(--accent-cyan); margin-bottom: 5px;">Certification</h3>
                     <h4 style="color: #fff;">Manual Software Testing</h4>
-                    <span style="font-size: 0.9rem; color: var(--text-muted);">SQUAD Infotech Pvt.Ltd | 2023 [cite: 24]</span>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">SQUAD Infotech Pvt.Ltd | 2023</span>
                 </div>
                 <div class="timeline-card">
                     <h3 style="color: var(--accent-cyan); margin-bottom: 5px;">Education</h3>
                     <h4 style="color: #fff;">Bachelor of Commerce</h4>
-                    <span style="font-size: 0.9rem; color: var(--text-muted);">MVM College | 2020-2022 [cite: 26, 27]</span>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">MVM College | 2020-2022</span>
                 </div>
             </div>
         </div>
@@ -405,15 +446,15 @@
             <div class="contact-box">
                 <div class="contact-row">
                     <i class="fas fa-map-marker-alt"></i>
-                    <span>Andheri (W), Mumbai-58 [cite: 3]</span>
+                    <span>Andheri (W), Mumbai-58</span>
                 </div>
                 <div class="contact-row">
                     <i class="fas fa-phone"></i>
-                    <span>+91 9867574386 [cite: 3]</span>
+                    <span>+91 9867574386</span>
                 </div>
                 <div class="contact-row">
                     <i class="fas fa-envelope"></i>
-                    <span>sayedasif83838@gmail.com [cite: 3]</span>
+                    <span>sayedasif83838@gmail.com</span>
                 </div>
             </div>
             
