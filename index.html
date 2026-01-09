@@ -3,36 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sayed Asif | Software Tester & QA Professional</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Sayed Asif | QA Professional & Software Tester</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- Reset & Variables --- */
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0a0f1c; /* Deep Dark Blue from PDF aesthetics */
+            --card-bg: #111a2e;
+            --primary: #00f2ff; /* Neon Cyan */
+            --secondary: #7b4dff; /* Neon Purple */
+            --text-light: #e0e6ed;
+            --text-dim: #94a3b8;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        :root {
-            --primary-bg: #0a0e27;
-            --secondary-bg: #131730;
-            --accent-blue: #00d4ff;
-            --accent-cyan: #00f7ff;
-            --accent-purple: #b24bf3;
-            --accent-violet: #8b5cf6;
-            --text-light: #f1f5f9;
-            --text-gray: #94a3b8;
-            --gradient-main: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
-            --gradient-card: linear-gradient(145deg, rgba(26, 31, 58, 0.6) 0%, rgba(26, 31, 58, 0.3) 100%);
-            --glass-border: 1px solid rgba(255, 255, 255, 0.05);
-            --font-heading: 'Outfit', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         html {
@@ -40,50 +29,45 @@
         }
 
         body {
-            font-family: var(--font-body);
-            background: var(--primary-bg);
+            background-color: var(--bg-color);
             color: var(--text-light);
-            line-height: 1.7;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* --- Global Styles --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: var(--font-heading);
-        }
-
-        a { text-decoration: none; }
-
-        /* --- Navigation --- */
-        .navbar {
+        /* --- BACKGROUND FX --- */
+        .bg-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 1rem 0;
-            background: rgba(10, 14, 39, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: var(--glass-border);
-            transition: all 0.3s ease;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(123, 77, 255, 0.1), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 242, 255, 0.1), transparent 25%);
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .nav-container {
+        /* --- NAVIGATION --- */
+        nav {
+            background: rgba(10, 15, 28, 0.95);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            background: var(--gradient-main);
+            background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -95,261 +79,198 @@
 
         .nav-links a {
             color: var(--text-light);
-            font-size: 0.95rem;
+            text-decoration: none;
+            font-size: 0.9rem;
             font-weight: 500;
             transition: color 0.3s;
         }
 
         .nav-links a:hover {
-            color: var(--accent-cyan);
+            color: var(--primary);
         }
 
-        .mobile-menu-btn {
+        .hamburger {
             display: none;
-            color: var(--text-light);
             font-size: 1.5rem;
             cursor: pointer;
         }
 
-        /* --- Section Defaults --- */
-        section {
-            min-height: 100vh;
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 8rem 5% 4rem;
             display: flex;
             align-items: center;
-            padding: 6rem 0; /* Increased top padding for fixed nav */
-            position: relative;
-        }
-
-        .section-tag {
-            font-size: 0.85rem;
-            color: var(--accent-purple);
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-            display: inline-block;
-            background: rgba(178, 75, 243, 0.1);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 2.8rem); /* Responsive Font Size */
-            color: var(--text-light);
-            margin-bottom: 3rem;
-            line-height: 1.2;
-        }
-
-        .section-title span {
-            color: var(--accent-cyan);
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            padding-top: 8rem;
-            background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.05) 0%, transparent 40%),
-                        radial-gradient(circle at bottom left, rgba(178, 75, 243, 0.05) 0%, transparent 40%);
+            justify-content: space-between;
+            min-height: 100vh;
+            gap: 2rem;
         }
 
         .hero-content {
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-        }
-
-        .hero-text {
             flex: 1;
+            max-width: 600px;
         }
 
-        .hero-text h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            line-height: 1.1;
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
             margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
-        .hero-text .role {
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
-            color: var(--accent-cyan);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
+        .hero h1 span {
+            color: var(--primary);
         }
 
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
             margin-bottom: 2rem;
         }
 
-        .contact-info span {
-            color: var(--text-gray);
+        .hero-btns {
             display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            font-size: 1rem;
+            gap: 1rem;
         }
 
-        .contact-info i {
-            color: var(--accent-cyan);
-            width: 20px;
-            text-align: center;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            padding: 1rem 2.5rem;
-            background: var(--gradient-main);
-            color: white;
+        .btn {
+            padding: 0.8rem 2rem;
             border-radius: 50px;
+            text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: #fff;
             border: none;
         }
 
-        .cta-button:hover {
+        .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.3);
         }
 
-        .hero-image {
+        .btn-secondary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 242, 255, 0.1);
+        }
+
+        .hero-img-container {
             flex: 1;
             display: flex;
             justify-content: center;
             position: relative;
         }
 
-        /* Responsive Illustration Fix */
-        .hero-illustration {
+        .hero-img {
             width: 100%;
-            max-width: 450px;
-            aspect-ratio: 1;
-            background: var(--gradient-card);
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: var(--glass-border);
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             animation: float 6s ease-in-out infinite;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .hero-illustration i {
-            font-size: clamp(5rem, 15vw, 10rem);
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0.8;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* --- Career Vision --- */
-        .section-content {
+        /* --- STATS BAR --- */
+        .stats-bar {
+            background: var(--card-bg);
+            padding: 2rem 5%;
             display: flex;
-            gap: 4rem;
-            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+            border-y: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .vision-text {
-            flex: 1;
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
         }
 
-        .vision-text p {
-            color: var(--text-gray);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
         }
 
-        .vision-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .vision-illustration {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 1;
-            background: var(--gradient-card);
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(178, 75, 243, 0.2);
-        }
-
-        .vision-illustration i {
-            font-size: clamp(4rem, 12vw, 8rem);
-            color: var(--accent-purple);
-        }
-
-        /* --- Timeline (Experience) --- */
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-            max-width: 800px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent-blue), var(--accent-purple));
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-            padding-left: 2rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -9px; /* Adjust to center on line */
-            top: 0;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-bg);
-            border: 3px solid var(--accent-cyan);
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .timeline-item h3 {
-            color: var(--accent-cyan);
-            font-size: 1.4rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .timeline-item .company {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .timeline-item .duration {
-            color: var(--text-gray);
+        .stat-label {
+            color: var(--text-dim);
             font-size: 0.9rem;
-            margin-top: 0.5rem;
-            display: inline-block;
-            background: rgba(255,255,255,0.05);
-            padding: 0.2rem 0.8rem;
-            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* --- Projects Grid --- */
+        /* --- SECTIONS COMMON --- */
+        section {
+            padding: 4rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-title span {
+            border-bottom: 3px solid var(--primary);
+        }
+
+        /* --- VISION & ABOUT --- */
+        .vision-container {
+            background: linear-gradient(rgba(17, 26, 46, 0.8), rgba(17, 26, 46, 0.8)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 4rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .skill-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* --- PROJECTS GALLERY --- */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -357,738 +278,355 @@
         }
 
         .project-card {
-            background: var(--gradient-card);
-            padding: 2rem;
-            border-radius: 16px;
-            border: var(--glass-border);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
         }
 
         .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            border-color: rgba(0, 212, 255, 0.3);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .project-card h3 {
-            color: var(--accent-cyan);
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
         }
 
-        .project-card .domain {
-            color: var(--accent-purple);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 1.2rem;
-            text-transform: uppercase;
-        }
-
-        .project-card p {
-            color: var(--text-gray);
-            font-size: 1rem;
-            flex-grow: 1;
-        }
-
-        /* --- Expertise --- */
-        .expertise-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .expertise-card {
-            background: rgba(255, 255, 255, 0.03);
+        .project-info {
             padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-cyan);
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
         }
 
-        .expertise-card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateX(5px);
-        }
-
-        .expertise-card h3 {
-            color: var(--text-light);
-            font-size: 1.2rem;
+        .project-info h3 {
+            color: var(--primary);
             margin-bottom: 0.5rem;
         }
-        
-        .expertise-card p {
-            font-size: 0.95rem;
-            color: var(--text-gray);
+
+        .project-domain {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
-        .expertise-diagram {
-            background: var(--gradient-card);
-            border-radius: 24px;
+        /* --- EXPERIENCE TIMELINE --- */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            border-left: 2px solid var(--primary);
+            padding-left: 2rem;
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 0;
+            width: 1rem;
+            height: 1rem;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* --- CONTACT FOOTER --- */
+        footer {
+            background: #05080f;
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .contact-info {
             display: flex;
-            align-items: center;
             justify-content: center;
-            border: var(--glass-border);
-            min-height: 350px;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
         }
 
-        .expertise-diagram i {
-            font-size: 8rem;
-            color: var(--accent-cyan);
-            opacity: 0.15;
-        }
-
-        /* --- Skills --- */
-        .skills-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
-        }
-
-        .skills-column h3 {
-            color: var(--accent-purple);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+        .contact-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--text-dim);
         }
 
-        .skills-list {
-            list-style: none;
+        .contact-item i {
+            color: var(--primary);
         }
 
-        .skills-list li {
-            background: rgba(255, 255, 255, 0.03);
-            margin-bottom: 0.8rem;
-            padding: 1rem;
-            border-radius: 8px;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: background 0.2s;
+        /* --- ANIMATIONS --- */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
-        .skills-list li:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .skills-list li i {
-            color: var(--accent-cyan);
-        }
-
-        /* --- Education Timeline --- */
-        .education-timeline {
-            display: flex;
-            justify-content: space-between;
-            gap: 2rem;
-            position: relative;
-        }
-
-        /* Connector Line for Desktop */
-        .education-timeline::after {
-            content: '';
-            position: absolute;
-            top: 40px; /* Align with icons */
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--gradient-main);
-            z-index: 0;
-            opacity: 0.3;
-        }
-
-        .education-item {
-            background: var(--secondary-bg);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            flex: 1;
-            transition: transform 0.3s;
-        }
-
-        .education-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-cyan);
-        }
-
-        .edu-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--primary-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            border: 2px solid var(--accent-cyan);
-            font-size: 2rem;
-            color: var(--accent-cyan);
-        }
-
-        .education-item h3 {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-        }
-
-        .education-item .institution {
-            color: var(--accent-purple);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        /* --- Competencies --- */
-        .competencies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .competency-card {
-            text-align: center;
-            padding: 2.5rem 1.5rem;
-            background: var(--gradient-card);
-            border-radius: 16px;
-            border: var(--glass-border);
-            transition: all 0.3s;
-        }
-
-        .competency-card:hover {
-            background: linear-gradient(145deg, rgba(26, 31, 58, 0.8), rgba(0, 212, 255, 0.1));
-            transform: translateY(-5px);
-        }
-
-        .competency-card i {
-            font-size: 3rem;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-        }
-
-        /* --- Footer --- */
-        .connect-section {
-            text-align: center;
-            padding: 8rem 0 4rem;
-            background: linear-gradient(to top, #050818, var(--primary-bg));
-        }
-
-        .connect-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            margin-top: 4rem;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            line-height: 1;
-        }
-
-        .stat-label {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .copyright {
-            margin-top: 4rem;
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 2rem;
-        }
-
-        /* --- Scroll to Top --- */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--gradient-main);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            z-index: 999;
-            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
-        }
-
-        .scroll-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* --- MOBILE RESPONSIVENESS --- */
-        @media (max-width: 992px) {
-            .hero-content, 
-            .section-content,
-            .expertise-content {
-                flex-direction: column;
+        /* --- MOBILE RESPONSIVE QUERIES --- */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse; /* Puts text below image on mobile */
+                padding-top: 6rem;
                 text-align: center;
             }
 
-            .hero-content {
-                gap: 3rem;
-            }
-
-            .hero-text {
-                order: 1; /* Image first? No, keep text first usually, or swap if preferred */
-            }
-
-            .hero-image {
-                order: 2;
-            }
-
-            .hero-illustration, .vision-illustration {
-                margin: 0 auto;
-            }
-
-            .contact-info {
-                align-items: center;
-            }
-
-            .education-timeline {
-                flex-direction: column;
-                gap: 2rem;
-            }
-            
-            .education-timeline::after {
-                display: none; /* Hide line on mobile */
-            }
-            
-            .expertise-diagram {
-                display: none; /* Hide diagram on tablets to save space */
-            }
-            
-            .expertise-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 1rem;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
             .nav-links {
-                display: none; /* Simple toggle can be added with JS, hidden for now */
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--secondary-bg);
-                flex-direction: column;
-                padding: 2rem;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                display: none; /* Hidden by default on mobile, can add JS toggle */
             }
 
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
+            .hamburger {
                 display: block;
             }
 
-            section {
-                padding: 4rem 0;
+            .hero-btns {
+                justify-content: center;
             }
 
-            .hero-text h1 {
-                font-size: 2.8rem;
+            .stat-item {
+                flex: 1 1 100%; /* Stack stats vertically */
             }
-
-            .timeline {
-                padding-left: 0; /* Remove left padding */
+            
+            .vision-container {
+                padding: 2rem;
             }
-
-            .timeline::before {
-                left: 0; /* Move line to edge or remove */
-                display: none; /* Simplest for mobile: remove vertical line */
-            }
-
-            .timeline-item {
-                padding-left: 0;
-                border-left: 2px solid var(--accent-cyan);
-                padding-left: 1.5rem;
-                margin-left: 0.5rem;
-            }
-
-            .timeline-item::before {
-                left: -0.6rem;
-                width: 16px;
-                height: 16px;
-                background: var(--accent-cyan);
-                border: none;
-            }
-
-            .stats {
-                gap: 2rem;
-            }
-        }
-
-        /* Animation classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container nav-container">
-            <div class="logo">Sayed Asif.</div>
-            <div class="mobile-menu-btn" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </div>
-            <div class="nav-links">
-                <a href="#vision" onclick="toggleMenu()">Vision</a>
-                <a href="#experience" onclick="toggleMenu()">Experience</a>
-                <a href="#projects" onclick="toggleMenu()">Projects</a>
-                <a href="#skills" onclick="toggleMenu()">Skills</a>
-                <a href="#connect" onclick="toggleMenu()">Contact</a>
-            </div>
+    <div class="bg-overlay"></div>
+
+    <nav>
+        <div class="logo">Sayed Asif <span style="color:var(--secondary)">.QA</span></div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="hamburger">
+            <i class="fas fa-bars"></i>
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text fade-in">
-                    <p class="section-tag">Welcome</p>
-                    <h1>Sayed Asif</h1>
-                    <p class="role">Software Tester | Quality Assurance Professional</p>
-                    <div class="contact-info">
-                        <span><i class="fas fa-map-marker-alt"></i> Andheri (W) Mumbai</span>
-                        <span><i class="fas fa-envelope"></i> sayedasif@gmail.com</span>
-                    </div>
-                    <a href="#connect" class="cta-button">
-                        Contact Me &nbsp; <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-                <div class="hero-image fade-in">
-                    <div class="hero-illustration">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                </div>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Driving Quality Through <br><span>Innovation</span></h1>
+            <p>I am a Software Tester & QA Engineer dedicated to delivering high-quality, reliable, and scalable solutions. Experienced in manual testing, API validation, and defect management.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-primary">Hire Me</a>
+                <a href="#projects" class="btn btn-secondary">View Work</a>
             </div>
+        </div>
+        <div class="hero-img-container">
+            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&q=80&w=800" alt="Sayed Asif Tech" class="hero-img">
         </div>
     </section>
 
-    <section id="vision">
-        <div class="container">
-            <div class="section-content">
-                <div class="vision-text fade-in">
-                    <span class="section-tag">Career Vision</span>
-                    <h2 class="section-title">Driving Quality Through <span>Innovation</span></h2>
-                    <p>Seeking a challenging role in a reputable organization where I can effectively utilize my skills as a QA Engineer and Software Tester. My goal is to deliver high-quality, reliable, and scalable solutions.</p>
-                    <p>I am experienced in quality assurance, testing methodologies, and IT operations, with a strong focus on continuous learning and adopting emerging technologies to drive organizational growth.</p>
-                </div>
-                <div class="vision-image fade-in">
-                    <div class="vision-illustration">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                </div>
-            </div>
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">2+</div>
+            <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">7+</div>
+            <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Bug Free Delivery</div>
+        </div>
+    </div>
+
+    <section id="about">
+        <h2 class="section-title"><span>Career Vision</span></h2>
+        <div class="vision-container">
+            <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
+                "Seeking a challenging role in a reputable organization where I can effectively utilize my skills as a QA Engineer, Software Tester, and IT Executive to deliver high-quality solutions. Focused on continuous learning and adopting emerging technologies."
+            </p>
         </div>
     </section>
 
     <section id="experience">
-        <div class="container">
-            <span class="section-tag">My Journey</span>
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="timeline fade-in">
-                <div class="timeline-item">
-                    <h3>Software Tester</h3>
-                    <p class="company">Techno Serve Software Solutions Pvt.Ltd</p>
-                    <span class="duration">2023 - Present</span>
+        <h2 class="section-title"><span>Experience</span></h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3 style="color: var(--primary);">Software Tester</h3>
+                <h4 style="color: var(--text-light);">Techno Serve Software Solutions Pvt.Ltd</h4>
+                <p style="color: var(--text-dim); margin-bottom: 0.5rem;">2023 - Present</p>
+                <p>
+                    Specializing in end-to-end testing, defect reporting via Jira, and API testing. Collaborating with development teams to ensure seamless system communication and optimal user experience.
+                </p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3 style="color: var(--primary);">Education & Certification</h3>
+                <div style="margin-top: 10px;">
+                    <strong style="color: #fff;">Manual Software Testing</strong><br>
+                    <span style="color: var(--text-dim);">SQUAD Infotech Pvt.Ltd | 2023</span>
                 </div>
-                <div class="timeline-item">
-                    <h3>Manual Software Testing (Certification)</h3>
-                    <p class="company">SQUAD Infotech Pvt.Ltd</p>
-                    <span class="duration">2023</span>
-                </div>
-                <div class="timeline-item">
-                    <h3>Bachelor of Commerce</h3>
-                    <p class="company">MVM College, Mumbai University</p>
-                    <span class="duration">2020 - 2022</span>
+                <div style="margin-top: 15px;">
+                    <strong style="color: #fff;">Bachelor of Commerce</strong><br>
+                    <span style="color: var(--text-dim);">MVM College | 2020 - 2022</span>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="projects">
-        <div class="container">
-            <span class="section-tag">Portfolio</span>
-            <h2 class="section-title">Key Projects</h2>
-            <div class="projects-grid fade-in">
-                <div class="project-card">
+        <h2 class="section-title"><span>Key Projects</span></h2>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=500" class="project-img" alt="Icharms">
+                <div class="project-info">
                     <h3>Icharms</h3>
-                    <p class="domain">Charity Management</p>
-                    <p>End-to-end test case preparation, execution, functional testing, and API testing with daily defect reporting via Jira.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Logibuddy</h3>
-                    <p class="domain">Logistics Management</p>
-                    <p>Comprehensive testing of logistics system simplifying business operations with complete service range coverage.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Al-Wahab Foundation</h3>
-                    <p class="domain">Nonprofit Operations</p>
-                    <p>Testing donation tools, volunteer coordination, and fundraising platform features.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Edhi International UK</h3>
-                    <p class="domain">Donation Portal</p>
-                    <p>Thorough testing of donation portal, handling donations, volunteer management, and fundraising QA.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Muslim Rose Welfare</h3>
-                    <p class="domain">Digital Agency CMS</p>
-                    <p>CMS platform testing, page building using drag-and-drop functionality, and feature validation.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Techno Serve Solutions</h3>
-                    <p class="domain">Corporate Website</p>
-                    <p>Testing comprehensive services from strategy development to campaign execution and analytics.</p>
+                    <div class="project-domain">Domain: Charity Management</div>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">
+                        End-to-end test case preparation, execution, functional testing, and API testing with daily defect reporting via Jira.
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="expertise">
-        <div class="container">
-            <span class="section-tag">Specialization</span>
-            <h2 class="section-title">Testing Expertise</h2>
-            <div class="expertise-content">
-                <div class="expertise-cards fade-in">
-                    <div class="expertise-card">
-                        <h3><i class="fas fa-box"></i> Black-Box Testing</h3>
-                        <p>Comprehensive functional validation without internal code knowledge.</p>
-                    </div>
-                    <div class="expertise-card">
-                        <h3><i class="fas fa-sync"></i> Regression Testing</h3>
-                        <p>Ensuring existing functionality remains intact after code changes.</p>
-                    </div>
-                    <div class="expertise-card">
-                        <h3><i class="fas fa-fire"></i> Smoke & Sanity</h3>
-                        <p>Quick validation of critical functionality and logical correctness.</p>
-                    </div>
-                    <div class="expertise-card">
-                        <h3><i class="fas fa-check-circle"></i> Functional Testing</h3>
-                        <p>Verifying system behavior against strict requirements.</p>
-                    </div>
-                </div>
-                <div class="expertise-diagram fade-in">
-                    <i class="fas fa-bug-slash"></i>
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=500" class="project-img" alt="Logibuddy">
+                <div class="project-info">
+                    <h3>Logibuddy</h3>
+                    <div class="project-domain">Domain: Logistics Management</div>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">
+                        Comprehensive testing of logistics system simplifying business operations with complete service range coverage.
+                    </p>
                 </div>
             </div>
+
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&q=80&w=500" class="project-img" alt="Al-Wahab Foundation">
+                <div class="project-info">
+                    <h3>Al-Wahab Foundation</h3>
+                    <div class="project-domain">Domain: Non-Profit</div>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">
+                        Testing donation tools, volunteer coordination, and fundraising platform features for nonprofit operations.
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500" class="project-img" alt="Techno Serve">
+                <div class="project-info">
+                    <h3>Techno Serve Solutions</h3>
+                    <div class="project-domain">Domain: Digital Marketing</div>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">
+                        Testing comprehensive services from strategy development to campaign execution and analytics.
+                    </p>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <section id="skills">
-        <div class="container">
-            <span class="section-tag">Capabilities</span>
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="skills-content fade-in">
-                <div class="skills-column">
-                    <h3><i class="fas fa-vial"></i> Testing & Quality</h3>
-                    <ul class="skills-list">
-                        <li><i class="fas fa-check"></i> API Testing (Postman)</li>
-                        <li><i class="fas fa-check"></i> Functional & Non-Functional</li>
-                        <li><i class="fas fa-check"></i> Test Case Writing & Execution</li>
-                        <li><i class="fas fa-check"></i> STLC Cycle Management</li>
-                        <li><i class="fas fa-check"></i> Performance Testing (JMeter)</li>
-                    </ul>
-                </div>
-                <div class="skills-column">
-                    <h3><i class="fas fa-code"></i> Technical Proficiency</h3>
-                    <ul class="skills-list">
-                        <li><i class="fas fa-database"></i> SQL Databases</li>
-                        <li><i class="fab fa-java"></i> Java Basics</li>
-                        <li><i class="fab fa-html5"></i> HTML5 & CSS3</li>
-                        <li><i class="fab fa-jira"></i> Jira & GitHub</li>
-                        <li><i class="fab fa-microsoft"></i> MS Office Suite</li>
-                    </ul>
+        <h2 class="section-title"><span>Technical Expertise</span></h2>
+        <div class="skills-grid">
+            
+            <div class="skill-card">
+                <i class="fas fa-bug skill-icon"></i>
+                <h3>Testing Types</h3>
+                <div class="skill-tags">
+                    <span class="tag">Black-Box</span>
+                    <span class="tag">Regression</span>
+                    <span class="tag">Smoke & Sanity</span>
+                    <span class="tag">Functional</span>
+                    <span class="tag">API Testing</span>
                 </div>
             </div>
+
+            <div class="skill-card">
+                <i class="fas fa-code skill-icon"></i>
+                <h3>Technical Skills</h3>
+                <div class="skill-tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">HTML/CSS</span>
+                    <span class="tag">SQL Database</span>
+                    <span class="tag">Responsive Testing</span>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-tools skill-icon"></i>
+                <h3>Tools</h3>
+                <div class="skill-tags">
+                    <span class="tag">Jira</span>
+                    <span class="tag">GitHub</span>
+                    <span class="tag">JMeter</span>
+                    <span class="tag">MS Office</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section id="education">
-        <div class="container">
-            <span class="section-tag">Academic</span>
-            <h2 class="section-title">Education</h2>
-            <div class="education-timeline fade-in">
-                <div class="education-item">
-                    <div class="edu-icon"><i class="fas fa-school"></i></div>
-                    <h3>HSC</h3>
-                    <p class="institution">Mumbai University</p>
-                    <p>2019</p>
-                </div>
-                <div class="education-item">
-                    <div class="edu-icon"><i class="fas fa-university"></i></div>
-                    <h3>B.Com</h3>
-                    <p class="institution">MVM College</p>
-                    <p>2020 - 2022</p>
-                </div>
-                <div class="education-item">
-                    <div class="edu-icon"><i class="fas fa-certificate"></i></div>
-                    <h3>Software Testing</h3>
-                    <p class="institution">SQUAD Infotech</p>
-                    <p>2023</p>
-                </div>
+    <footer id="contact">
+        <h2 style="margin-bottom: 2rem;">Let's Connect</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Andheri (W), Mumbai-58</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <span>+91 9867574386</span>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>sayedasif83838@gmail.com</span>
             </div>
         </div>
-    </section>
-
-    <section id="competencies">
-        <div class="container">
-            <span class="section-tag">Strengths</span>
-            <h2 class="section-title">Core Competencies</h2>
-            <div class="competencies-grid fade-in">
-                <div class="competency-card">
-                    <i class="fas fa-file-alt"></i>
-                    <h3>Documentation</h3>
-                    <p>Expert in preparing end-to-end test cases and systematic execution protocols.</p>
-                </div>
-                <div class="competency-card">
-                    <i class="fas fa-bug"></i>
-                    <h3>Defect Mgmt</h3>
-                    <p>Reporting via Jira with clear documentation and priority assignment.</p>
-                </div>
-                <div class="competency-card">
-                    <i class="fas fa-network-wired"></i>
-                    <h3>API Testing</h3>
-                    <p>Validating API endpoints and integration points for seamless communication.</p>
-                </div>
-                <div class="competency-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Responsive</h3>
-                    <p>Cross-browser and cross-device testing ensuring optimal UX.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="connect" class="connect-section">
-        <div class="container">
-            <div class="connect-content fade-in">
-                <h2>Let's Work Together</h2>
-                <p>I am eager to contribute my skills to an organization that values innovation. Thank you for considering my application.</p>
-                <a href="mailto:sayedasif@gmail.com" class="cta-button">
-                    <i class="fas fa-envelope"></i> &nbsp; Get In Touch
-                </a>
-                
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="2">0</div>
-                        <div class="stat-label">Years Exp.</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" data-target="7">0</div>
-                        <div class="stat-label">Projects</div>
-                    </div>
-                </div>
-            </div>
-            <div class="copyright">
-                &copy; 2024 Sayed Asif. All rights reserved.
-            </div>
-        </div>
-    </section>
-
-    <div class="scroll-top" onclick="window.scrollTo(0,0)">
-        <i class="fas fa-arrow-up"></i>
-    </div>
+        <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 2rem;">
+            © 2026 Sayed Asif. All rights reserved.
+        </p>
+    </footer>
 
     <script>
-        // Mobile Menu Toggle
-        function toggleMenu() {
-            const nav = document.querySelector('.nav-links');
-            nav.classList.toggle('active');
-        }
-
-        // Intersection Observer for Animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-        }, { threshold: 0.1 });
+        });
 
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        // Mobile Menu Toggle logic
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
 
-        // Stats Counter Animation
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counters = entry.target.querySelectorAll('.stat-number');
-                    counters.forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
-                        const speed = 200; 
-                        const updateCount = () => {
-                            const count = +counter.innerText.replace('+','');
-                            const inc = target / speed * 10;
-                            if (count < target) {
-                                counter.innerText = Math.ceil(count + inc);
-                                setTimeout(updateCount, 30);
-                            } else {
-                                counter.innerText = target + "+";
-                            }
-                        };
-                        updateCount();
-                    });
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        const statsSection = document.querySelector('.stats');
-        if (statsSection) statsObserver.observe(statsSection);
-
-        // Scroll To Top Visibility
-        window.addEventListener('scroll', () => {
-            const scrollBtn = document.querySelector('.scroll-top');
-            if (window.scrollY > 500) {
-                scrollBtn.classList.add('active');
+        hamburger.addEventListener('click', () => {
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
             } else {
-                scrollBtn.classList.remove('active');
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '60px';
+                navLinks.style.right = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.background = 'rgba(10, 15, 28, 0.98)';
+                navLinks.style.padding = '2rem';
             }
         });
     </script>
