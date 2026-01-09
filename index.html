@@ -3,631 +3,450 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sayed Asif | QA Professional & Software Tester</title>
+    <title>Sayed Asif | QA Engineer & Software Tester</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- CSS VARIABLES & RESET --- */
+        /* --- CSS VARIABLES --- */
         :root {
-            --bg-color: #0a0f1c; /* Deep Dark Blue from PDF aesthetics */
-            --card-bg: #111a2e;
-            --primary: #00f2ff; /* Neon Cyan */
-            --secondary: #7b4dff; /* Neon Purple */
-            --text-light: #e0e6ed;
-            --text-dim: #94a3b8;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --bg-dark: #050a14;
+            --bg-card: #101827;
+            --accent-cyan: #00f2ff;
+            --accent-purple: #7b4dff;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --gradient-main: linear-gradient(135deg, #00f2ff 0%, #7b4dff 100%);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        /* --- GLOBAL RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        
         body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.7;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        /* --- BACKGROUND FX --- */
-        .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 15% 50%, rgba(123, 77, 255, 0.1), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(0, 242, 255, 0.1), transparent 25%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
+        /* --- UTILITIES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .section-padding { padding: 80px 0; }
+        .text-gradient { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
         /* --- NAVIGATION --- */
         nav {
-            background: rgba(10, 15, 28, 0.95);
-            padding: 1rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 10, 20, 0.95);
             backdrop-filter: blur(10px);
+            border-bottom: var(--glass-border);
+            padding: 15px 0;
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .hamburger {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent-cyan); }
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--accent-cyan); }
 
         /* --- HERO SECTION --- */
         .hero {
-            padding: 8rem 5% 4rem;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            min-height: 100vh;
-            gap: 2rem;
-        }
-
-        .hero-content {
-            flex: 1;
-            max-width: 600px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-
-        .hero h1 span {
-            color: var(--primary);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-dim);
-            margin-bottom: 2rem;
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: #fff;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 242, 255, 0.3);
-        }
-
-        .btn-secondary {
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(0, 242, 255, 0.1);
-        }
-
-        .hero-img-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
+            padding-top: 80px;
             position: relative;
         }
-
+        .hero::before {
+            content: ''; position: absolute; top: -10%; right: -10%;
+            width: 500px; height: 500px; background: var(--accent-purple);
+            filter: blur(150px); opacity: 0.15; border-radius: 50%;
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 50px;
+        }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
+        .hero-text p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; max-width: 500px; }
+        .btn {
+            display: inline-block; padding: 12px 30px; border-radius: 50px;
+            font-weight: 600; text-decoration: none; transition: 0.3s;
+        }
+        .btn-primary { background: var(--gradient-main); color: #fff; border: none; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 242, 255, 0.2); }
+        .btn-outline { border: 1px solid var(--accent-cyan); color: var(--accent-cyan); margin-left: 15px; }
+        .btn-outline:hover { background: rgba(0, 242, 255, 0.1); }
+        
+        .hero-image-box {
+            position: relative;
+            z-index: 1;
+        }
         .hero-img {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* --- STATS BAR --- */
-        .stats-bar {
-            background: var(--card-bg);
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-bottom: 4rem;
-            border-y: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .stat-label {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* --- SECTIONS COMMON --- */
-        section {
-            padding: 4rem 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .section-title span {
-            border-bottom: 3px solid var(--primary);
-        }
-
-        /* --- VISION & ABOUT --- */
-        .vision-container {
-            background: linear-gradient(rgba(17, 26, 46, 0.8), rgba(17, 26, 46, 0.8)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=1000');
-            background-size: cover;
-            background-attachment: fixed;
-            padding: 4rem;
-            border-radius: 20px;
-            text-align: center;
+            width: 100%; border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* --- SKILLS GRID --- */
-        .skills-grid {
+        /* --- STATS --- */
+        .stats { border-top: var(--glass-border); border-bottom: var(--glass-border); padding: 30px 0; background: var(--bg-card); }
+        .stats-grid { display: flex; justify-content: space-around; text-align: center; }
+        .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--accent-cyan); }
+        .stat-label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+
+        /* --- PROJECTS SECTION (ENHANCED) --- */
+        .section-title { font-size: 2.5rem; margin-bottom: 50px; text-align: center; }
+        .section-title span { border-bottom: 3px solid var(--accent-purple); }
+        
+        .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
         }
-
-        .skill-card {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
-        }
-
-        .skill-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .skill-icon {
-            font-size: 2rem;
-            color: var(--secondary);
-            margin-bottom: 1rem;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .tag {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-
-        /* --- PROJECTS GALLERY --- */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
         .project-card {
-            background: var(--card-bg);
+            background: var(--bg-card);
             border-radius: 15px;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: 0.3s;
+            border: var(--glass-border);
+            transition: transform 0.3s ease;
         }
+        .project-card:hover { transform: translateY(-5px); border-color: var(--accent-cyan); }
+        .project-img-wrapper { position: relative; height: 200px; overflow: hidden; }
+        .project-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .project-card:hover .project-img { transform: scale(1.1); }
+        
+        .project-content { padding: 25px; }
+        .project-category { 
+            font-size: 0.8rem; color: var(--accent-cyan); text-transform: uppercase; 
+            letter-spacing: 1px; font-weight: 700; margin-bottom: 10px; display: block;
+        }
+        .project-title { font-size: 1.4rem; margin-bottom: 10px; color: #fff; }
+        .project-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
+        
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; }
+        .tech-pill { font-size: 0.75rem; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 12px; color: var(--text-muted); }
 
-        .project-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        /* --- SKILLS --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .skill-item {
+            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px;
+            text-align: center; border: 1px solid transparent; transition: 0.3s;
         }
-
-        .project-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .project-info {
-            padding: 1.5rem;
-        }
-
-        .project-info h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .project-domain {
-            color: var(--secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
+        .skill-item:hover { border-color: var(--accent-purple); background: rgba(123, 77, 255, 0.1); }
+        .skill-item i { font-size: 2rem; margin-bottom: 15px; color: var(--accent-cyan); }
+        .skill-item h4 { font-size: 1.1rem; }
 
         /* --- EXPERIENCE TIMELINE --- */
-        .timeline {
-            max-width: 800px;
-            margin: 0 auto;
-            border-left: 2px solid var(--primary);
-            padding-left: 2rem;
+        .timeline { max-width: 800px; margin: 0 auto; padding-left: 20px; border-left: 2px solid rgba(255,255,255,0.1); }
+        .timeline-card { position: relative; padding-left: 30px; margin-bottom: 40px; }
+        .timeline-card::before {
+            content: ''; position: absolute; left: -9px; top: 0;
+            width: 16px; height: 16px; background: var(--accent-cyan); border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-cyan);
         }
 
-        .timeline-item {
-            margin-bottom: 3rem;
-            position: relative;
-        }
+        /* --- FOOTER --- */
+        footer { background: #020408; padding: 50px 0; text-align: center; border-top: var(--glass-border); }
+        .contact-box { background: var(--bg-card); padding: 30px; border-radius: 20px; display: inline-block; margin-top: 20px; border: var(--glass-border); }
+        .contact-row { display: flex; align-items: center; gap: 15px; margin: 15px 0; color: var(--text-muted); justify-content: center; }
+        .contact-row i { color: var(--accent-cyan); }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.6rem;
-            top: 0;
-            width: 1rem;
-            height: 1rem;
-            background: var(--primary);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        /* --- CONTACT FOOTER --- */
-        footer {
-            background: #05080f;
-            padding: 4rem 5% 2rem;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-dim);
-        }
-
-        .contact-item i {
-            color: var(--primary);
-        }
-
-        /* --- ANIMATIONS --- */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        /* --- MOBILE RESPONSIVE QUERIES --- */
+        /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 768px) {
-            .hero {
-                flex-direction: column-reverse; /* Puts text below image on mobile */
-                padding-top: 6rem;
-                text-align: center;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .nav-links {
-                display: none; /* Hidden by default on mobile, can add JS toggle */
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .hero-btns {
-                justify-content: center;
-            }
-
-            .stat-item {
-                flex: 1 1 100%; /* Stack stats vertically */
-            }
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text p { margin: 0 auto 30px; }
+            .hero-image-box { display: none; /* Hide hero image on small mobile to save space, or keep if preferred */ }
             
-            .vision-container {
-                padding: 2rem;
+            .nav-links {
+                display: none; position: absolute; top: 100%; left: 0; width: 100%;
+                background: var(--bg-card); flex-direction: column; padding: 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
             }
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+            
+            .stats-grid { flex-direction: column; gap: 20px; }
+            .project-grid { grid-template-columns: 1fr; } /* Stack projects vertically */
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-overlay"></div>
-
     <nav>
-        <div class="logo">Sayed Asif <span style="color:var(--secondary)">.QA</span></div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
-        </div>
-        <div class="hamburger">
-            <i class="fas fa-bars"></i>
+        <div class="container nav-inner">
+            <div class="logo">Sayed<span class="text-gradient">Asif</span></div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Portfolio</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="hamburger"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
 
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Driving Quality Through <br><span>Innovation</span></h1>
-            <p>I am a Software Tester & QA Engineer dedicated to delivering high-quality, reliable, and scalable solutions. Experienced in manual testing, API validation, and defect management.</p>
-            <div class="hero-btns">
-                <a href="#contact" class="btn btn-primary">Hire Me</a>
-                <a href="#projects" class="btn btn-secondary">View Work</a>
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <p style="color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px;">QA Engineer & Tester</p>
+                <h1>Ensuring <span class="text-gradient">Digital Perfection</span> Through Testing</h1>
+                <p>I help organizations ship bug-free software. Specializing in Manual Testing, API Validation, and Defect Lifecycle Management to deliver scalable, high-quality solutions.</p>
+                <div>
+                    <a href="#contact" class="btn btn-primary">Hire Me</a>
+                    <a href="#projects" class="btn btn-outline">View Projects</a>
+                </div>
             </div>
-        </div>
-        <div class="hero-img-container">
-            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&q=80&w=800" alt="Sayed Asif Tech" class="hero-img">
+            <div class="hero-image-box">
+                <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=600" alt="Sayed Asif QA" class="hero-img">
+            </div>
         </div>
     </section>
 
-    <div class="stats-bar">
-        <div class="stat-item">
-            <div class="stat-number">2+</div>
-            <div class="stat-label">Years Experience</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">7+</div>
-            <div class="stat-label">Projects Completed</div>
-        </div>
-        <div class="stat-item">
-            <div class="stat-number">100%</div>
-            <div class="stat-label">Bug Free Delivery</div>
+    <div class="stats">
+        <div class="container stats-grid">
+            <div>
+                <div class="stat-num">2+</div>
+                <div class="stat-label">Years Experience [cite: 19]</div>
+            </div>
+            <div>
+                <div class="stat-num">6</div>
+                <div class="stat-label">Major Projects </div>
+            </div>
+            <div>
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Test Coverage</div>
+            </div>
         </div>
     </div>
 
-    <section id="about">
-        <h2 class="section-title"><span>Career Vision</span></h2>
-        <div class="vision-container">
-            <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
-                "Seeking a challenging role in a reputable organization where I can effectively utilize my skills as a QA Engineer, Software Tester, and IT Executive to deliver high-quality solutions. Focused on continuous learning and adopting emerging technologies."
-            </p>
-        </div>
-    </section>
-
-    <section id="experience">
-        <h2 class="section-title"><span>Experience</span></h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <h3 style="color: var(--primary);">Software Tester</h3>
-                <h4 style="color: var(--text-light);">Techno Serve Software Solutions Pvt.Ltd</h4>
-                <p style="color: var(--text-dim); margin-bottom: 0.5rem;">2023 - Present</p>
-                <p>
-                    Specializing in end-to-end testing, defect reporting via Jira, and API testing. Collaborating with development teams to ensure seamless system communication and optimal user experience.
+    <section id="about" class="section-padding">
+        <div class="container">
+            <h2 class="section-title"><span>Professional Profile</span></h2>
+            <div style="background: rgba(255,255,255,0.03); padding: 40px; border-radius: 20px; border: var(--glass-border); text-align: center; max-width: 900px; margin: 0 auto;">
+                <p style="font-size: 1.1rem; color: var(--text-main);">
+                    "I am a detailed-oriented QA Engineer seeking a challenging role to utilize my skills in Software Testing and Development Support. My goal is to drive quality through innovation, ensuring reliable and scalable solutions for reputable organizations. I bring strong expertise in defect management, API testing, and continuous process improvement." [cite: 8, 9]
                 </p>
             </div>
-            
-            <div class="timeline-item">
-                <h3 style="color: var(--primary);">Education & Certification</h3>
-                <div style="margin-top: 10px;">
-                    <strong style="color: #fff;">Manual Software Testing</strong><br>
-                    <span style="color: var(--text-dim);">SQUAD Infotech Pvt.Ltd | 2023</span>
+        </div>
+    </section>
+
+    <section id="skills" class="section-padding" style="background: #0b111e;">
+        <div class="container">
+            <h2 class="section-title"><span>Technical Arsenal</span></h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>Functional Testing</h4>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Black-Box, Smoke, Sanity</p>
                 </div>
-                <div style="margin-top: 15px;">
-                    <strong style="color: #fff;">Bachelor of Commerce</strong><br>
-                    <span style="color: var(--text-dim);">MVM College | 2020 - 2022</span>
+                <div class="skill-item">
+                    <i class="fas fa-network-wired"></i>
+                    <h4>API Testing</h4>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Endpoints, Postman</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-database"></i>
+                    <h4>Database (SQL)</h4>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Querying, Validation</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-code"></i>
+                    <h4>Programming</h4>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Java, HTML, CSS</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-tasks"></i>
+                    <h4>Tools</h4>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Jira, GitHub, JMeter</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>Responsive</h4>
+                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Cross-browser Testing</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="projects">
-        <h2 class="section-title"><span>Key Projects</span></h2>
-        <div class="projects-grid">
-            
-            <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=500" class="project-img" alt="Icharms">
-                <div class="project-info">
-                    <h3>Icharms</h3>
-                    <div class="project-domain">Domain: Charity Management</div>
-                    <p style="font-size: 0.9rem; color: var(--text-dim);">
-                        End-to-end test case preparation, execution, functional testing, and API testing with daily defect reporting via Jira.
-                    </p>
-                </div>
-            </div>
+    <section id="projects" class="section-padding">
+        <div class="container">
+            <h2 class="section-title"><span>Project Portfolio</span></h2>
+            <div class="project-grid">
 
-            <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=500" class="project-img" alt="Logibuddy">
-                <div class="project-info">
-                    <h3>Logibuddy</h3>
-                    <div class="project-domain">Domain: Logistics Management</div>
-                    <p style="font-size: 0.9rem; color: var(--text-dim);">
-                        Comprehensive testing of logistics system simplifying business operations with complete service range coverage.
-                    </p>
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&q=80&w=500" alt="Icharms" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">Charity Management</span>
+                        <h3 class="project-title">Icharms [cite: 31]</h3>
+                        <p class="project-desc">Executed end-to-end functional testing and API validation. Managed daily defect reporting via Jira to ensure critical donation workflows were bug-free.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Manual Testing</span>
+                            <span class="tech-pill">Jira</span>
+                            <span class="tech-pill">API</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&q=80&w=500" class="project-img" alt="Al-Wahab Foundation">
-                <div class="project-info">
-                    <h3>Al-Wahab Foundation</h3>
-                    <div class="project-domain">Domain: Non-Profit</div>
-                    <p style="font-size: 0.9rem; color: var(--text-dim);">
-                        Testing donation tools, volunteer coordination, and fundraising platform features for nonprofit operations.
-                    </p>
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=500" alt="Logibuddy" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">Logistics</span>
+                        <h3 class="project-title">Logibuddy [cite: 34]</h3>
+                        <p class="project-desc">Comprehensive system validation for a logistics platform. Verified business logic for shipment tracking and operational efficiency.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Functional</span>
+                            <span class="tech-pill">Regression</span>
+                            <span class="tech-pill">SQL</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="project-card">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500" class="project-img" alt="Techno Serve">
-                <div class="project-info">
-                    <h3>Techno Serve Solutions</h3>
-                    <div class="project-domain">Domain: Digital Marketing</div>
-                    <p style="font-size: 0.9rem; color: var(--text-dim);">
-                        Testing comprehensive services from strategy development to campaign execution and analytics.
-                    </p>
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=500" alt="Al-Wahab" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">Non-Profit</span>
+                        <h3 class="project-title">Al-Wahab Foundation [cite: 37]</h3>
+                        <p class="project-desc">Quality assurance for a donation platform. Tested volunteer coordination tools and fundraising features for financial security.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Security Checks</span>
+                            <span class="tech-pill">UI/UX Testing</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=500" alt="Edhi Foundation" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">Global NGO</span>
+                        <h3 class="project-title">Edhi International UK [cite: 42]</h3>
+                        <p class="project-desc">Thorough validation of the UK donation portal. Managed test scenarios for international currency handling and volunteer databases.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Cross-Border</span>
+                            <span class="tech-pill">Payment Gateways</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=500" alt="Muslim Rose" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">Digital Agency</span>
+                        <h3 class="project-title">Muslim Rose Welfare [cite: 46]</h3>
+                        <p class="project-desc">CMS platform testing. Validated "Drag-and-Drop" page builders and content management features for usability and stability.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">CMS Testing</span>
+                            <span class="tech-pill">Usability</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500" alt="Techno Serve" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">Digital Marketing</span>
+                        <h3 class="project-title">Techno Serve Solutions [cite: 49]</h3>
+                        <p class="project-desc">Tested end-to-end digital marketing tools, ensuring accurate data tracking from campaign strategy to analytics reporting.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Analytics</span>
+                            <span class="tech-pill">Data Validation</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
-    <section id="skills">
-        <h2 class="section-title"><span>Technical Expertise</span></h2>
-        <div class="skills-grid">
-            
-            <div class="skill-card">
-                <i class="fas fa-bug skill-icon"></i>
-                <h3>Testing Types</h3>
-                <div class="skill-tags">
-                    <span class="tag">Black-Box</span>
-                    <span class="tag">Regression</span>
-                    <span class="tag">Smoke & Sanity</span>
-                    <span class="tag">Functional</span>
-                    <span class="tag">API Testing</span>
+    <section id="experience" class="section-padding" style="background: #0b111e;">
+        <div class="container">
+            <h2 class="section-title"><span>Career Timeline</span></h2>
+            <div class="timeline">
+                <div class="timeline-card">
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 5px;">Software Tester</h3>
+                    <h4 style="color: #fff;">Techno Serve Software Solutions Pvt.Ltd [cite: 15]</h4>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">2023 - Present [cite: 19]</span>
+                    <p style="margin-top: 10px; color: var(--text-muted);">
+                        Leading QA initiatives for multiple clients. Responsible for Test Documentation, Defect Management (Jira), and API Testing.
+                    </p>
+                </div>
+                <div class="timeline-card">
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 5px;">Certification</h3>
+                    <h4 style="color: #fff;">Manual Software Testing</h4>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">SQUAD Infotech Pvt.Ltd | 2023 [cite: 24]</span>
+                </div>
+                <div class="timeline-card">
+                    <h3 style="color: var(--accent-cyan); margin-bottom: 5px;">Education</h3>
+                    <h4 style="color: #fff;">Bachelor of Commerce</h4>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);">MVM College | 2020-2022 [cite: 26, 27]</span>
                 </div>
             </div>
-
-            <div class="skill-card">
-                <i class="fas fa-code skill-icon"></i>
-                <h3>Technical Skills</h3>
-                <div class="skill-tags">
-                    <span class="tag">Java</span>
-                    <span class="tag">HTML/CSS</span>
-                    <span class="tag">SQL Database</span>
-                    <span class="tag">Responsive Testing</span>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <i class="fas fa-tools skill-icon"></i>
-                <h3>Tools</h3>
-                <div class="skill-tags">
-                    <span class="tag">Jira</span>
-                    <span class="tag">GitHub</span>
-                    <span class="tag">JMeter</span>
-                    <span class="tag">MS Office</span>
-                </div>
-            </div>
-
         </div>
     </section>
 
     <footer id="contact">
-        <h2 style="margin-bottom: 2rem;">Let's Connect</h2>
-        <div class="contact-info">
-            <div class="contact-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Andheri (W), Mumbai-58</span>
+        <div class="container">
+            <h2 style="font-size: 2rem; margin-bottom: 20px;">Ready to Optimize Your Software?</h2>
+            <p style="color: var(--text-muted);">I am available for full-time roles and projects.</p>
+            
+            <div class="contact-box">
+                <div class="contact-row">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Andheri (W), Mumbai-58 [cite: 3]</span>
+                </div>
+                <div class="contact-row">
+                    <i class="fas fa-phone"></i>
+                    <span>+91 9867574386 [cite: 3]</span>
+                </div>
+                <div class="contact-row">
+                    <i class="fas fa-envelope"></i>
+                    <span>sayedasif83838@gmail.com [cite: 3]</span>
+                </div>
             </div>
-            <div class="contact-item">
-                <i class="fas fa-phone"></i>
-                <span>+91 9867574386</span>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-envelope"></i>
-                <span>sayedasif83838@gmail.com</span>
-            </div>
+            
+            <p style="margin-top: 50px; opacity: 0.5; font-size: 0.8rem;">&copy; 2026 Sayed Asif. All rights reserved.</p>
         </div>
-        <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 2rem;">
-            © 2026 Sayed Asif. All rights reserved.
-        </p>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Mobile Menu Toggle logic
+        // Mobile Menu Toggle
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
 
         hamburger.addEventListener('click', () => {
-            if (navLinks.style.display === 'flex') {
-                navLinks.style.display = 'none';
+            navLinks.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            if(navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
             } else {
-                navLinks.style.display = 'flex';
-                navLinks.style.flexDirection = 'column';
-                navLinks.style.position = 'absolute';
-                navLinks.style.top = '60px';
-                navLinks.style.right = '0';
-                navLinks.style.width = '100%';
-                navLinks.style.background = 'rgba(10, 15, 28, 0.98)';
-                navLinks.style.padding = '2rem';
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                navLinks.classList.remove('active'); // Close menu on click
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
     </script>
 </body>
