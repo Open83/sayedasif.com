@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayed Asif | Software Tester & QA Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-bg: #0a0e27;
+            --secondary-bg: #1a1f3a;
+            --accent-blue: #00d4ff;
+            --accent-cyan: #00f7ff;
+            --accent-purple: #b24bf3;
+            --accent-violet: #8b5cf6;
+            --text-light: #e2e8f0;
+            --text-gray: #94a3b8;
+            --gradient-main: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            --gradient-card: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(178, 75, 243, 0.1) 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            width: 100%;
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-text .role {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .contact-info span {
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-info i {
+            color: var(--accent-cyan);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--gradient-main);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .hero-illustration {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            background: var(--gradient-card);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-illustration i {
+            font-size: 10rem;
+            color: var(--accent-cyan);
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Styling */
+        .section-tag {
+            font-size: 0.9rem;
+            color: var(--accent-purple);
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-content {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Career Vision */
+        .vision-text {
+            flex: 1;
+        }
+
+        .vision-text p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .vision-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .vision-illustration {
+            width: 400px;
+            height: 400px;
+            background: var(--gradient-card);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(178, 75, 243, 0.2);
+        }
+
+        .vision-illustration i {
+            font-size: 8rem;
+            color: var(--accent-purple);
+            opacity: 0.3;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 4rem;
+            width: 100%;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient-main);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: slideInLeft 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .timeline-item::before {
+            content: attr(data-number);
+            position: absolute;
+            left: -3rem;
+            width: 3rem;
+            height: 3rem;
+            background: var(--gradient-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .timeline-item h3 {
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item .company {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-item .duration {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .project-card {
+            background: var(--gradient-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            border-color: var(--accent-cyan);
+        }
+
+        .project-card h3 {
+            color: var(--accent-cyan);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card .domain {
+            color: var(--accent-purple);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Additional Projects */
+        .additional-projects {
+            background: var(--secondary-bg);
+        }
+
+        .numbered-card {
+            background: var(--gradient-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(178, 75, 243, 0.2);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .numbered-card::before {
+            content: attr(data-number);
+            position: absolute;
+            top: -1rem;
+            left: 2rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--gradient-main);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .numbered-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(178, 75, 243, 0.4);
+        }
+
+        /* Testing Expertise */
+        .expertise-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            width: 100%;
+        }
+
+        .expertise-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .expertise-card {
+            background: var(--gradient-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .expertise-card:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(178, 75, 243, 0.2) 100%);
+            border-left-width: 6px;
+        }
+
+        .expertise-card h3 {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .expertise-diagram {
+            background: var(--gradient-card);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            min-height: 400px;
+        }
+
+        .expertise-diagram i {
+            font-size: 10rem;
+            color: var(--accent-cyan);
+            opacity: 0.2;
+        }
+
+        /* Skills Arsenal */
+        .skills-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            width: 100%;
+        }
+
+        .skills-column h3 {
+            color: var(--accent-purple);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skills-list li {
+            color: var(--text-gray);
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeInLeft 0.5s ease forwards;
+        }
+
+        .skills-list li:nth-child(1) { animation-delay: 0.1s; }
+        .skills-list li:nth-child(2) { animation-delay: 0.2s; }
+        .skills-list li:nth-child(3) { animation-delay: 0.3s; }
+        .skills-list li:nth-child(4) { animation-delay: 0.4s; }
+        .skills-list li:nth-child(5) { animation-delay: 0.5s; }
+        .skills-list li:nth-child(6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .skills-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+        }
+
+        /* Educational Timeline */
+        .education-timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .education-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-main);
+            z-index: 0;
+        }
+
+        .education-item {
+            background: var(--secondary-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            width: 30%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .education-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .education-item i {
+            font-size: 2.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .education-item h3 {
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item .institution {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .education-item .year {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Core Competencies */
+        .competencies-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .competency-card {
+            background: var(--gradient-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .competency-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+        }
+
+        .competency-card i {
+            font-size: 2.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .competency-card h3 {
+            color: var(--accent-cyan);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .competency-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Footer / Connect */
+        .connect-section {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            text-align: center;
+        }
+
+        .connect-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .connect-content h2 {
+            font-size: 2.5rem;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .connect-content p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content, .section-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .expertise-content, .skills-content {
+                grid-template-columns: 1fr;
+            }
+
+            .education-timeline {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .education-timeline::before {
+                display: none;
+            }
+
+            .education-item {
+                width: 100%;
+            }
+
+            .competencies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Sayed Asif</h1>
+                    <p class="role">Software Tester | Quality Assurance Professional</p>
+                    <div class="contact-info">
+                        <span><i class="fas fa-map-marker-alt"></i> Andheri (W) Mumbai</span>
+                        <span><i class="fas fa-phone"></i> [Phone Number]</span>
+                        <span><i class="fas fa-envelope"></i> sayedasif@gmail.com</span>
+                    </div>
+                    <a href="#connect" class="cta-button">Contact Me</a>
+                </div>
+                <div class="hero-image">
+                    <div class="hero-illustration">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Vision -->
+    <section id="vision" class="fade-in">
+        <div class="container">
+            <div class="section-content">
+                <div class="vision-text">
+                    <p class="section-tag">CAREER VISION</p>
+                    <h2 class="section-title">Driving Quality Through Innovation</h2>
+                    <p>Seeking a challenging role in a reputable organization where I can effectively utilize my skills as a QA Engineer, Software Tester, IT Executive, and Developer to deliver high-quality, reliable, and scalable solutions. Experienced in quality assurance, testing methodologies, development support, and IT operations, with a strong focus on continuous learning, adopting emerging technologies, and contributing to organizational growth through process improvement, collaboration, and technical excellence.</p>
+                </div>
+                <div class="vision-image">
+                    <div class="vision-illustration">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section id="experience" class="fade-in">
+        <div class="container">
+            <p class="section-tag">Professional Journey</p>
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item" data-number="1">
+                    <h3>Software Tester</h3>
+                    <p class="company">Techno Serve Software Solutions Pvt.Ltd</p>
+                    <p class="duration">2023 - Present | 2+ Years</p>
+                </div>
+                <div class="timeline-item" data-number="2">
+                    <h3>Education Completed</h3>
+                    <p class="company">Bachelor of Commerce</p>
+                    <p class="duration">MVM College | 2020 - 2022</p>
+                </div>
+                <div class="timeline-item" data-number="3">
+                    <h3>Certification Achieved</h3>
+                    <p class="company">Manual Software Testing</p>
+                    <p class="duration">SQUAD Infotech Pvt.Ltd | 2023</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Projects -->
+    <section id="projects" class="fade-in">
+        <div class="container">
+            <p class="section-tag">Portfolio</p>
+            <h2 class="section-title">Key Projects & Domains</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Icharms</h3>
+                    <p class="domain">Domain: Charity Management</p>
+                    <p>End-to-end test case preparation, execution, functional testing, and API testing with daily defect reporting via Jira.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Logibuddy</h3>
+                    <p class="domain">Domain: Logistics Management</p>
+                    <p>Comprehensive testing of logistics system simplifying business operations with complete service range coverage.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Al-Wahab Foundation</h3>
+                    <p class="domain">Domain: Charity Management</p>
+                    <p>Testing donation tools, volunteer coordination, and fundraising platform features for nonprofit operations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Projects -->
+    <section id="additional-projects" class="additional-projects fade-in">
+        <div class="container">
+            <p class="section-tag">Extended Portfolio</p>
+            <h2 class="section-title">Additional Project Portfolio</h2>
+            <div class="projects-grid">
+                <div class="numbered-card" data-number="1">
+                    <h3>Edhi International Foundation UK</h3>
+                    <p class="domain">Domain: Non-Profit Organization</p>
+                    <p>Thorough testing of donation portal and website, handling donations, volunteers, and fundraising activities with comprehensive quality assurance.</p>
+                </div>
+                <div class="numbered-card" data-number="2">
+                    <h3>Muslim Rose Welfare</h3>
+                    <p class="domain">Domain: Digital Marketing Agency</p>
+                    <p>CMS platform testing, page building using drag-and-drop functionality, and additional CMS feature validation.</p>
+                </div>
+                <div class="numbered-card" data-number="3">
+                    <h3>Techno Serve Solutions</h3>
+                    <p class="domain">Domain: Digital Marketing</p>
+                    <p>Testing comprehensive services from strategy development to campaign execution and analytics for business growth enhancement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testing Expertise -->
+    <section id="expertise" class="fade-in">
+        <div class="container">
+            <p class="section-tag">Specialization</p>
+            <h2 class="section-title">Testing Expertise</h2>
+            <div class="expertise-content">
+                <div class="expertise-cards">
+                    <div class="expertise-card">
+                        <h3>Black-Box Testing</h3>
+                        <p>Comprehensive functional validation without internal code knowledge</p>
+                    </div>
+                    <div class="expertise-card">
+                        <h3>Regression Testing</h3>
+                        <p>Ensuring existing functionality remains intact after changes</p>
+                    </div>
+                    <div class="expertise-card">
+                        <h3>Smoke & Sanity</h3>
+                        <p>Quick validation of critical functionality and logical correctness</p>
+                    </div>
+                    <div class="expertise-card">
+                        <h3>Functional Testing</h3>
+                        <p>Verifying system behavior against requirements</p>
+                    </div>
+                </div>
+                <div class="expertise-diagram">
+                    <i class="fas fa-vial"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills -->
+    <section id="skills" class="fade-in">
+        <div class="container">
+            <p class="section-tag">Capabilities</p>
+            <h2 class="section-title">Technical Skills Arsenal</h2>
+            <div class="skills-content">
+                <div class="skills-column">
+                    <h3>Testing & Quality</h3>
+                    <ul class="skills-list">
+                        <li>API Testing & Responsive Testing</li>
+                        <li>Functional & Non-Functional Testing</li>
+                        <li>Test Case Writing & Execution</li>
+                        <li>STLC Cycle Management</li>
+                        <li>End User Testing</li>
+                        <li>Performance Testing (JMeter)</li>
+                    </ul>
+                </div>
+                <div class="skills-column">
+                    <h3>Technical Proficiency</h3>
+                    <ul class="skills-list">
+                        <li>Databases: SQL</li>
+                        <li>Programming: Java, HTML, CSS</li>
+                        <li>Tools: Jira, GitHub</li>
+                        <li>Microsoft Office Suite</li>
+                        <li>Microsoft Word, Excel, PowerPoint</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Background -->
+    <section id="education" class="fade-in">
+        <div class="container">
+            <p class="section-tag">Academic Journey</p>
+            <h2 class="section-title">Educational Background</h2>
+            <div class="education-timeline">
+                <div class="education-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>HSC</h3>
+                    <p class="institution">Mumbai University</p>
+                    <p class="year">2019</p>
+                </div>
+                <div class="education-item">
+                    <i class="fas fa-university"></i>
+                    <h3>Bachelor of Commerce</h3>
+                    <p class="institution">MVM College of Commerce & Science</p>
+                    <p class="year">2020 - 2022</p>
+                </div>
+                <div class="education-item">
+                    <i class="fas fa-certificate"></i>
+                    <h3>Manual Software Testing</h3>
+                    <p class="institution">SQUAD Infotech Pvt.Ltd</p>
+                    <p class="year">2023</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Competencies -->
+    <section id="competencies" class="fade-in">
+        <div class="container">
+            <p class="section-tag">Key Strengths</p>
+            <h2 class="section-title">Core Competencies</h2>
+            <div class="competencies-grid">
+                <div class="competency-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Test Documentation</h3>
+                    <p>Expert in preparing comprehensive end-to-end test cases, detailed test steps, and systematic execution protocols ensuring complete coverage.</p>
+                </div>
+                <div class="competency-card">
+                    <i class="fas fa-bug"></i>
+                    <h3>Defect Management</h3>
+                    <p>Daily defect reporting through Jira tool with clear documentation, priority assignment, and effective communication with development teams.</p>
+                </div>
+                <div class="competency-card">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>API Testing</h3>
+                    <p>Proficient in validating API endpoints, request-response cycles, and integration points to ensure seamless system communication.</p>
+                </div>
+                <div class="competency-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Responsive Testing</h3>
+                    <p>Thorough cross-browser and cross-device testing ensuring optimal user experience across all platforms and screen sizes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Let's Connect -->
+    <section id="connect" class="connect-section fade-in">
+        <div class="container">
+            <div class="connect-content">
+                <h2>Let's Connect</h2>
+                <p>Thank you for considering my application. I am eager to contribute my skills, experience, and passion to an organization that values innovation, collaboration, and growth.</p>
+                <p>I am confident that my expertise aligns with your needs and would welcome the opportunity to discuss how I can contribute to your team's success.</p>
+                <a href="mailto:sayedasif@gmail.com" class="cta-button">Get In Touch</a>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="2">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="7">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Counter animation for stats
+        const animateCounter = (element) => {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += step;
+                if (current < target) {
+                    element.textContent = Math.floor(current) + '+';
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target + '+';
+                }
+            };
+
+            updateCounter();
+        };
+
+        // Observe stats section for counter animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.stat-number').forEach(stat => {
+                        animateCounter(stat);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Add animation class to skills list items when visible
+        const skillsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('.skills-list li').forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                        }, index * 100);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.skills-content').forEach(section => {
+            skillsObserver.observe(section);
+        });
+    </script>
+</body>
+</html>
