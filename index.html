@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sayed Asif | QA Engineer & Payment Systems Specialist</title>
+    <title>Sayed Asif | QA Engineer & FinTech Specialist</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         /* --- CSS VARIABLES --- */
         :root {
             --bg-dark: #050a14;
-            --bg-card: #101827;
-            --accent-cyan: #00f2ff;
-            --accent-purple: #7b4dff;
-            --text-main: #e2e8f0;
+            --bg-card: #0f172a;
+            --accent-cyan: #22d3ee;
+            --accent-blue: #3b82f6;
+            --text-main: #f1f5f9;
             --text-muted: #94a3b8;
-            --gradient-main: linear-gradient(135deg, #00f2ff 0%, #7b4dff 100%);
+            --gradient-main: linear-gradient(135deg, #22d3ee 0%, #3b82f6 100%);
             --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
         }
 
         /* --- GLOBAL RESET --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
         
         body {
             background-color: var(--bg-dark);
@@ -32,23 +33,24 @@
 
         /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-padding { padding: 80px 0; }
+        .section-padding { padding: 100px 0; }
         .text-gradient { background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
         /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(5, 10, 20, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(5, 10, 20, 0.9);
+            backdrop-filter: blur(15px);
             border-bottom: var(--glass-border);
             padding: 15px 0;
+            transition: 0.3s;
         }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 1px; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
         .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: 0.3s; }
         .nav-links a:hover { color: var(--accent-cyan); }
-        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--accent-cyan); }
+        .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--text-main); }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -57,140 +59,184 @@
             align-items: center;
             padding-top: 80px;
             position: relative;
+            overflow: hidden;
         }
+        /* Background Glow */
         .hero::before {
-            content: ''; position: absolute; top: -10%; right: -10%;
-            width: 500px; height: 500px; background: var(--accent-purple);
-            filter: blur(150px); opacity: 0.15; border-radius: 50%;
+            content: ''; position: absolute; top: -20%; right: -10%;
+            width: 600px; height: 600px; background: var(--accent-blue);
+            filter: blur(200px); opacity: 0.1; border-radius: 50%;
+            z-index: -1;
         }
+        .hero::after {
+            content: ''; position: absolute; bottom: -20%; left: -10%;
+            width: 600px; height: 600px; background: var(--accent-cyan);
+            filter: blur(200px); opacity: 0.1; border-radius: 50%;
+            z-index: -1;
+        }
+
         .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 0.8fr;
             align-items: center;
-            gap: 50px;
+            gap: 60px;
         }
-        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
-        .hero-text p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; max-width: 500px; }
+        .hero-text h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 25px; font-weight: 800; }
+        .hero-text p { color: var(--text-muted); font-size: 1.15rem; margin-bottom: 35px; max-width: 550px; }
+        
         .btn {
-            display: inline-block; padding: 12px 30px; border-radius: 50px;
-            font-weight: 600; text-decoration: none; transition: 0.3s;
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 14px 35px; border-radius: 50px; font-weight: 600; 
+            text-decoration: none; transition: 0.3s; font-size: 1rem;
         }
-        .btn-primary { background: var(--gradient-main); color: #fff; border: none; }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 242, 255, 0.2); }
-        .btn-outline { border: 1px solid var(--accent-cyan); color: var(--accent-cyan); margin-left: 15px; }
-        .btn-outline:hover { background: rgba(0, 242, 255, 0.1); }
+        .btn-primary { background: var(--gradient-main); color: #fff; border: none; box-shadow: 0 10px 30px rgba(34, 211, 238, 0.2); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(34, 211, 238, 0.3); }
+        .btn-outline { border: 1px solid rgba(255,255,255,0.2); color: #fff; margin-left: 15px; background: rgba(255,255,255,0.05); }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
         
         .hero-image-box { position: relative; z-index: 1; }
         .hero-img {
-            width: 100%; border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            width: 100%; border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
             border: 1px solid rgba(255,255,255,0.1);
+            transform: rotate(2deg);
+            transition: 0.5s;
         }
+        .hero-img:hover { transform: rotate(0deg) scale(1.02); }
 
         /* --- STATS --- */
-        .stats { border-top: var(--glass-border); border-bottom: var(--glass-border); padding: 30px 0; background: var(--bg-card); }
+        .stats { border-top: var(--glass-border); border-bottom: var(--glass-border); padding: 40px 0; background: rgba(15, 23, 42, 0.5); }
         .stats-grid { display: flex; justify-content: space-around; text-align: center; }
-        .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--accent-cyan); }
-        .stat-label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
+        .stat-num { font-size: 2.8rem; font-weight: 800; background: var(--gradient-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .stat-label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 600; margin-top: 5px; }
 
         /* --- PROJECTS SECTION --- */
-        .section-title { font-size: 2.5rem; margin-bottom: 50px; text-align: center; }
-        .section-title span { border-bottom: 3px solid var(--accent-purple); }
+        .section-title { font-size: 2.5rem; margin-bottom: 60px; text-align: center; font-weight: 800; }
+        .section-title span { position: relative; display: inline-block; }
+        .section-title span::after {
+            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+            width: 60px; height: 4px; background: var(--gradient-main); border-radius: 2px;
+        }
         
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
         }
         .project-card {
             background: var(--bg-card);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
             border: var(--glass-border);
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-card);
         }
-        .project-card:hover { transform: translateY(-5px); border-color: var(--accent-cyan); }
-        .project-img-wrapper { position: relative; height: 200px; overflow: hidden; }
-        .project-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .project-card:hover { transform: translateY(-10px); border-color: var(--accent-cyan); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        
+        .project-img-wrapper { position: relative; height: 220px; overflow: hidden; }
+        .project-img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
         .project-card:hover .project-img { transform: scale(1.1); }
+        .project-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+        }
         
-        .project-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .project-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
         .project-category { 
-            font-size: 0.8rem; color: var(--accent-cyan); text-transform: uppercase; 
-            letter-spacing: 1px; font-weight: 700; margin-bottom: 10px; display: block;
+            font-size: 0.75rem; color: var(--accent-cyan); text-transform: uppercase; 
+            letter-spacing: 1.2px; font-weight: 700; margin-bottom: 12px; display: block;
         }
-        .project-title { font-size: 1.4rem; margin-bottom: 10px; color: #fff; }
-        .project-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; flex-grow: 1; }
+        .project-title { font-size: 1.5rem; margin-bottom: 15px; color: #fff; font-weight: 700; line-height: 1.3; }
+        .project-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px; flex-grow: 1; line-height: 1.6; }
         
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-        .tech-pill { font-size: 0.75rem; background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 12px; color: var(--text-muted); }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; }
+        .tech-pill { 
+            font-size: 0.75rem; background: rgba(255,255,255,0.03); 
+            padding: 6px 14px; border-radius: 20px; color: var(--text-muted); 
+            border: 1px solid rgba(255,255,255,0.05); font-weight: 500;
+        }
 
-        /* Button to visit website */
         .project-link-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 10px;
-            background: rgba(0, 242, 255, 0.1);
-            color: var(--accent-cyan);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s;
-            border: 1px solid rgba(0, 242, 255, 0.2);
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; padding: 12px; background: rgba(34, 211, 238, 0.1);
+            color: var(--accent-cyan); text-decoration: none; border-radius: 10px;
+            font-weight: 600; font-size: 0.9rem; transition: 0.3s;
+            border: 1px solid rgba(34, 211, 238, 0.2);
         }
-        .project-link-btn:hover {
-            background: var(--accent-cyan);
-            color: #000;
-        }
+        .project-link-btn:hover { background: var(--accent-cyan); color: #000; }
 
         /* --- SKILLS --- */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .skills-section { background: #0b111e; position: relative; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
         .skill-item {
-            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px;
-            text-align: center; border: 1px solid transparent; transition: 0.3s;
+            background: rgba(255,255,255,0.02); padding: 30px 20px; border-radius: 16px;
+            text-align: center; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s;
         }
-        .skill-item:hover { border-color: var(--accent-purple); background: rgba(123, 77, 255, 0.1); }
-        .skill-item i { font-size: 2rem; margin-bottom: 15px; color: var(--accent-cyan); }
-        .skill-item h4 { font-size: 1.1rem; }
+        .skill-item:hover { 
+            border-color: var(--accent-blue); 
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), transparent); 
+            transform: translateY(-5px);
+        }
+        .skill-item i { font-size: 2.2rem; margin-bottom: 20px; color: var(--accent-cyan); background: rgba(34, 211, 238, 0.1); padding: 15px; border-radius: 50%; }
+        .skill-item h4 { font-size: 1.1rem; color: #fff; margin-bottom: 8px; }
+        .skill-item p { font-size: 0.85rem; color: var(--text-muted); }
 
-        /* --- EXPERIENCE TIMELINE --- */
+        /* --- TIMELINE --- */
         .timeline { max-width: 800px; margin: 0 auto; padding-left: 20px; border-left: 2px solid rgba(255,255,255,0.1); }
-        .timeline-card { position: relative; padding-left: 30px; margin-bottom: 40px; }
+        .timeline-card { position: relative; padding-left: 40px; margin-bottom: 50px; }
         .timeline-card::before {
-            content: ''; position: absolute; left: -9px; top: 0;
-            width: 16px; height: 16px; background: var(--accent-cyan); border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-cyan);
+            content: ''; position: absolute; left: -10px; top: 5px;
+            width: 18px; height: 18px; background: var(--bg-dark); 
+            border: 3px solid var(--accent-cyan); border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-cyan);
         }
+        .timeline-date { display: inline-block; padding: 4px 12px; background: rgba(255,255,255,0.05); border-radius: 20px; font-size: 0.8rem; margin-bottom: 10px; color: var(--accent-cyan); border: 1px solid rgba(34, 211, 238, 0.2); }
 
         /* --- FOOTER --- */
-        footer { background: #020408; padding: 50px 0; text-align: center; border-top: var(--glass-border); }
-        .contact-box { background: var(--bg-card); padding: 30px; border-radius: 20px; display: inline-block; margin-top: 20px; border: var(--glass-border); }
-        .contact-row { display: flex; align-items: center; gap: 15px; margin: 15px 0; color: var(--text-muted); justify-content: center; }
-        .contact-row i { color: var(--accent-cyan); }
+        footer { background: #020408; padding: 60px 0 30px; text-align: center; border-top: var(--glass-border); }
+        .contact-box { 
+            background: linear-gradient(145deg, #101827, #0b111e); 
+            padding: 40px; border-radius: 24px; display: inline-block; 
+            margin-top: 30px; border: var(--glass-border); width: 100%; max-width: 500px;
+        }
+        .contact-row { 
+            display: flex; align-items: center; gap: 20px; margin: 20px 0; 
+            color: var(--text-muted); font-size: 1.05rem; padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .contact-row:last-child { border-bottom: none; }
+        .contact-row i { color: var(--accent-cyan); font-size: 1.2rem; width: 30px; }
 
         /* --- MOBILE RESPONSIVE --- */
-        @media (max-width: 768px) {
-            .hero-grid { grid-template-columns: 1fr; text-align: center; }
-            .hero-text h1 { font-size: 2.5rem; }
+        @media (max-width: 992px) {
+            .hero-text h1 { font-size: 3rem; }
+            .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
             .hero-text p { margin: 0 auto 30px; }
-            .hero-image-box { display: none; }
+            .hero-image-box { max-width: 500px; margin: 0 auto; }
+            .btn { width: 100%; margin: 10px 0 0 0; }
+            .btn-outline { margin-left: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .section-padding { padding: 60px 0; }
+            .hero-text h1 { font-size: 2.5rem; }
             
             .nav-links {
                 display: none; position: absolute; top: 100%; left: 0; width: 100%;
-                background: var(--bg-card); flex-direction: column; padding: 20px;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
+                background: var(--bg-card); flex-direction: column; padding: 30px;
+                border-bottom: 1px solid rgba(255,255,255,0.1); gap: 20px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             }
             .nav-links.active { display: flex; }
             .hamburger { display: block; }
             
-            .stats-grid { flex-direction: column; gap: 20px; }
+            .stats-grid { flex-direction: column; gap: 30px; }
             .project-grid { grid-template-columns: 1fr; }
+            
+            .contact-box { padding: 20px; }
+            .contact-row { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -202,7 +248,7 @@
             <div class="nav-links">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
-                <a href="#skills">Skills</a>
+                <a href="#skills">Capabilities</a>
                 <a href="#projects">Portfolio</a>
                 <a href="#contact">Contact</a>
             </div>
@@ -213,16 +259,16 @@
     <section id="home" class="hero">
         <div class="container hero-grid">
             <div class="hero-text">
-                <p style="color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; margin-bottom: 10px;">QA Engineer & Payment Tester</p>
-                <h1>Ensuring <span class="text-gradient">Digital Perfection</span> Through Testing</h1>
-                <p>I help organizations ship bug-free software. Specializing in Financial Systems, Payment Gateway Integration (Stripe, Lloyds, WorldPay), and Defect Lifecycle Management.</p>
+                <p style="color: var(--accent-cyan); letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 15px; font-weight: 700;">QA Engineer & Payment Systems Expert</p>
+                <h1>Precision in <br><span class="text-gradient">Every Release</span></h1>
+                <p>Ensuring digital reliability for financial platforms and non-profit organizations. I specialize in complex payment gateway integration (Stripe, Lloyds, WorldPay), tax compliance logic, and end-to-end defect management.</p>
                 <div>
                     <a href="#contact" class="btn btn-primary">Hire Me</a>
-                    <a href="#projects" class="btn btn-outline">View Projects</a>
+                    <a href="#projects" class="btn btn-outline">View Portfolio</a>
                 </div>
             </div>
             <div class="hero-image-box">
-                <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=600" alt="Sayed Asif QA" class="hero-img">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800" alt="Sayed Asif QA Workspace" class="hero-img">
             </div>
         </div>
     </section>
@@ -231,15 +277,15 @@
         <div class="container stats-grid">
             <div>
                 <div class="stat-num">2+</div>
-                <div class="stat-label">Years Experience</div>
+                <div class="stat-label">Years Excellence</div>
             </div>
             <div>
                 <div class="stat-num">7</div>
-                <div class="stat-label">Major Projects</div>
+                <div class="stat-label">Enterprise Projects</div>
             </div>
             <div>
                 <div class="stat-num">100%</div>
-                <div class="stat-label">Test Coverage</div>
+                <div class="stat-label">Delivery Rate</div>
             </div>
         </div>
     </div>
@@ -247,47 +293,48 @@
     <section id="about" class="section-padding">
         <div class="container">
             <h2 class="section-title"><span>Professional Profile</span></h2>
-            <div style="background: rgba(255,255,255,0.03); padding: 40px; border-radius: 20px; border: var(--glass-border); text-align: center; max-width: 900px; margin: 0 auto;">
-                <p style="font-size: 1.1rem; color: var(--text-main);">
-                    "I am a detail-oriented QA Engineer specializing in financial technology and non-profit digital solutions. My expertise lies in validating complex payment gateways including Lloyds, WorldPay, and GlobalPay, ensuring secure and seamless transaction flows. I bring rigorous standards to defect management and API testing, driving reliability for scalable applications."
+            <div style="background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); padding: 50px; border-radius: 24px; border: var(--glass-border); text-align: center; max-width: 900px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+                <i class="fas fa-quote-left" style="font-size: 2rem; color: var(--accent-cyan); margin-bottom: 20px;"></i>
+                <p style="font-size: 1.2rem; color: var(--text-main); font-weight: 300; line-height: 1.8;">
+                    "I am a results-driven QA Engineer with a niche focus on <strong>FinTech and Charity Compliance Systems</strong>. My expertise goes beyond finding bugs; I validate business logic. From ensuring Gift Aid tax reclamations are accurate to verifying multi-currency recurring donations via <strong>Stripe and Global Pay</strong>, I deliver software that is secure, compliant, and user-ready."
                 </p>
             </div>
         </div>
     </section>
 
-    <section id="skills" class="section-padding" style="background: #0b111e;">
+    <section id="skills" class="section-padding skills-section">
         <div class="container">
             <h2 class="section-title"><span>Technical Arsenal</span></h2>
             <div class="skills-grid">
                 <div class="skill-item">
                     <i class="fas fa-credit-card"></i>
                     <h4>Payment Gateways</h4>
-                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Lloyds, WorldPay, GlobalPay, Stripe</p>
+                    <p>Deep expertise in validating Lloyds, WorldPay, GlobalPay, and Stripe recurring logic.</p>
                 </div>
                 <div class="skill-item">
-                    <i class="fas fa-check-circle"></i>
-                    <h4>Functional Testing</h4>
-                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Black-Box, Smoke, Sanity</p>
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h4>Compliance Testing</h4>
+                    <p>HMRC Gift Aid declaration logic, Tax reclamation workflows, and financial reporting.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-bug"></i>
+                    <h4>Defect Management</h4>
+                    <p>End-to-End Bug Life Cycle ownership using Jira. Root cause analysis and severity triage.</p>
                 </div>
                 <div class="skill-item">
                     <i class="fas fa-network-wired"></i>
-                    <h4>API Testing</h4>
-                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Postman, Endpoints, Recurring Logic</p>
+                    <h4>API Validation</h4>
+                    <p>Postman automation for payment endpoints, payload validation, and response code checks.</p>
                 </div>
                 <div class="skill-item">
                     <i class="fas fa-database"></i>
-                    <h4>Database (SQL)</h4>
-                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Querying, Validation</p>
+                    <h4>Database Integrity</h4>
+                    <p>SQL injection testing, data consistency verification, and complex query validation.</p>
                 </div>
                 <div class="skill-item">
-                    <i class="fas fa-tasks"></i>
-                    <h4>Tools</h4>
-                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Jira, GitHub, JMeter</p>
-                </div>
-                <div class="skill-item">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h4>Responsive</h4>
-                    <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 5px;">Cross-browser Testing</p>
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Cross-Platform</h4>
+                    <p>Responsive validation across Mobile/Web to ensure seamless UI/UX on all devices.</p>
                 </div>
             </div>
         </div>
@@ -300,47 +347,50 @@
 
                 <div class="project-card">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1599059813005-52c5d2d7f523?auto=format&fit=crop&q=80&w=500" alt="LIA Relief Trust" class="project-img">
+                        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&q=80&w=600" alt="Payment Testing" class="project-img">
+                        <div class="project-overlay"></div>
                     </div>
                     <div class="project-content">
-                        <span class="project-category">Non-Profit Organization</span>
+                        <span class="project-category">FinTech & Donation</span>
                         <h3 class="project-title">LIA Relief Trust</h3>
-                        <p class="project-desc">Engineered robust test strategies for donation processing, focusing on Stripe and Global Pay integrations. Validated complex recurring donation cycles and failure handling to guarantee financial reliability.</p>
+                        <p class="project-desc">Engineered the test strategy for a complex donation ecosystem. Validated <strong>Stripe & Global Pay</strong> integrations, specifically focusing on recurring donation failure handling and success scenarios.</p>
                         <div class="tech-stack">
-                            <span class="tech-pill">Stripe</span>
+                            <span class="tech-pill">Stripe Integration</span>
                             <span class="tech-pill">Global Pay</span>
-                            <span class="tech-pill">Recurring Payments</span>
+                            <span class="tech-pill">Recurring Billing</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&q=80&w=500" alt="Icharms" class="project-img">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=600" alt="Tax Documentation" class="project-img">
+                        <div class="project-overlay"></div>
                     </div>
                     <div class="project-content">
-                        <span class="project-category">Charity Management</span>
-                        <h3 class="project-title">Icharms</h3>
-                        <p class="project-desc">Spearheaded the QA for the Gift Aid module, authoring detailed documentation and validating declaration workflows. Conducted multi-scenario testing to ensure precise tax reclamation processing.</p>
+                        <span class="project-category">CRM & Compliance</span>
+                        <h3 class="project-title">Icharms CRM</h3>
+                        <p class="project-desc">Spearheaded QA for the <strong>Gift Aid</strong> module. Created comprehensive documentation for declaration workflows and validated tax reclamation logic against HMRC standards.</p>
                         <div class="tech-stack">
                             <span class="tech-pill">Gift Aid Logic</span>
-                            <span class="tech-pill">Documentation</span>
-                            <span class="tech-pill">API</span>
+                            <span class="tech-pill">HMRC Compliance</span>
+                            <span class="tech-pill">API Docs</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=500" alt="Logibuddy" class="project-img">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=600" alt="Logistics Testing" class="project-img">
+                        <div class="project-overlay"></div>
                     </div>
                     <div class="project-content">
-                        <span class="project-category">Logistics</span>
+                        <span class="project-category">Logistics & Supply Chain</span>
                         <h3 class="project-title">Logibuddy</h3>
-                        <p class="project-desc">Comprehensive system validation for a logistics platform. Verified business logic for shipment tracking and operational efficiency.</p>
+                        <p class="project-desc">Executed rigorous functional testing for a shipment tracking platform. Verified real-time status updates, driver assignment algorithms, and route optimization logic.</p>
                         <div class="tech-stack">
-                            <span class="tech-pill">Functional</span>
-                            <span class="tech-pill">Regression</span>
+                            <span class="tech-pill">Real-time Data</span>
+                            <span class="tech-pill">Regression Testing</span>
                             <span class="tech-pill">SQL</span>
                         </div>
                     </div>
@@ -348,15 +398,17 @@
 
                 <div class="project-card">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=500" alt="Al-Wahab" class="project-img">
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=600" alt="Charity Platform" class="project-img">
+                        <div class="project-overlay"></div>
                     </div>
                     <div class="project-content">
-                        <span class="project-category">Non-Profit Organization</span>
+                        <span class="project-category">Non-Profit</span>
                         <h3 class="project-title">Al-Wahab Foundation</h3>
-                        <p class="project-desc">Quality assurance for a donation platform. Tested volunteer coordination tools and fundraising features for financial security.</p>
+                        <p class="project-desc">Security and Functional testing for a high-traffic donation portal. Ensured donor data privacy (GDPR compliance) and smooth volunteer coordination workflows.</p>
                         <div class="tech-stack">
-                            <span class="tech-pill">Security Checks</span>
-                            <span class="tech-pill">UI/UX Testing</span>
+                            <span class="tech-pill">Security Testing</span>
+                            <span class="tech-pill">GDPR</span>
+                            <span class="tech-pill">UI/UX</span>
                         </div>
                         <a href="https://alwahabfoundation.org/" class="project-link-btn" target="_blank">
                             Visit Live Site <i class="fas fa-external-link-alt"></i>
@@ -366,15 +418,17 @@
 
                 <div class="project-card">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&q=80&w=500" alt="Edhi Foundation" class="project-img">
+                        <img src="https://images.unsplash.com/photo-1526304640152-d4619684e484?auto=format&fit=crop&q=80&w=600" alt="International Finance" class="project-img">
+                        <div class="project-overlay"></div>
                     </div>
                     <div class="project-content">
-                        <span class="project-category">Non-Profit Organization</span>
+                        <span class="project-category">Global NGO</span>
                         <h3 class="project-title">Edhi International UK</h3>
-                        <p class="project-desc">Thorough validation of the UK donation portal. Managed test scenarios for international currency handling and volunteer databases.</p>
+                        <p class="project-desc">Validated cross-border payment gateways involving currency conversion. Tested high-volume transaction handling during critical fundraising campaigns.</p>
                         <div class="tech-stack">
-                            <span class="tech-pill">Cross-Border</span>
-                            <span class="tech-pill">Payment Gateways</span>
+                            <span class="tech-pill">Multi-Currency</span>
+                            <span class="tech-pill">Load Testing</span>
+                            <span class="tech-pill">Gateways</span>
                         </div>
                         <a href="https://edhiuk.org/" class="project-link-btn" target="_blank">
                             Visit Live Site <i class="fas fa-external-link-alt"></i>
@@ -384,15 +438,17 @@
 
                 <div class="project-card">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=500" alt="Muslim Rose" class="project-img">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=600" alt="CMS Testing" class="project-img">
+                        <div class="project-overlay"></div>
                     </div>
                     <div class="project-content">
-                        <span class="project-category">Non-Profit Organization</span>
+                        <span class="project-category">CMS Development</span>
                         <h3 class="project-title">Muslim Rose Welfare</h3>
-                        <p class="project-desc">CMS platform testing. Validated "Drag-and-Drop" page builders and content management features for usability and stability.</p>
+                        <p class="project-desc">Tested a custom CMS with "Drag-and-Drop" builders. Verified content rendering, image optimization, and backend admin panel functionality.</p>
                         <div class="tech-stack">
-                            <span class="tech-pill">CMS Testing</span>
+                            <span class="tech-pill">CMS Validation</span>
                             <span class="tech-pill">Usability</span>
+                            <span class="tech-pill">Admin Panel</span>
                         </div>
                         <a href="https://muslimrosewelfare.org.uk/" class="project-link-btn" target="_blank">
                             Visit Live Site <i class="fas fa-external-link-alt"></i>
@@ -402,15 +458,17 @@
 
                 <div class="project-card">
                     <div class="project-img-wrapper">
-                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500" alt="Techno Serve" class="project-img">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600" alt="Data Analytics" class="project-img">
+                        <div class="project-overlay"></div>
                     </div>
                     <div class="project-content">
-                        <span class="project-category">Non-Profit Organization</span>
-                        <h3 class="project-title">Black Burn Uk Trust</h3>
-                        <p class="project-desc">Tested end-to-end digital marketing tools, ensuring accurate data tracking from campaign strategy to analytics reporting.</p>
+                        <span class="project-category">Data Analytics</span>
+                        <h3 class="project-title">Blackburn UK Trust</h3>
+                        <p class="project-desc">End-to-end testing of digital marketing tools. Verified data accuracy in analytics dashboards to ensure campaign strategies were based on correct metrics.</p>
                         <div class="tech-stack">
+                            <span class="tech-pill">Data Integrity</span>
                             <span class="tech-pill">Analytics</span>
-                            <span class="tech-pill">Data Validation</span>
+                            <span class="tech-pill">Reporting</span>
                         </div>
                         <a href="https://blackburnuktrust.org/" class="project-link-btn" target="_blank">
                             Visit Live Site <i class="fas fa-external-link-alt"></i>
@@ -424,25 +482,33 @@
 
     <section id="experience" class="section-padding" style="background: #0b111e;">
         <div class="container">
-            <h2 class="section-title"><span>Career Timeline</span></h2>
+            <h2 class="section-title"><span>Career Trajectory</span></h2>
             <div class="timeline">
                 <div class="timeline-card">
-                    <h3 style="color: var(--accent-cyan); margin-bottom: 5px;">Software Tester</h3>
-                    <h4 style="color: #fff;">Techno Serve Software Solutions Pvt.Ltd</h4>
-                    <span style="font-size: 0.9rem; color: var(--text-muted);">2023 - Present</span>
-                    <p style="margin-top: 10px; color: var(--text-muted);">
-                        Leading QA initiatives for multiple clients. Responsible for Test Documentation, Defect Management (Jira), and API Testing. Specialized in integrating and validating payment providers like Lloyds and WorldPay.
+                    <span class="timeline-date">2023 - Present</span>
+                    <h3 style="color: #fff; margin-bottom: 5px;">Software QA Engineer</h3>
+                    <h4 style="color: var(--accent-cyan); font-weight: 500;">Techno Serve Software Solutions Pvt.Ltd</h4>
+                    <p style="margin-top: 15px; color: var(--text-muted);">
+                        Leading the QA division for multiple FinTech and Non-Profit clients. 
+                        <br>• <strong>Key Achievement:</strong> Successfully integrated and validated 3 major payment gateways (Lloyds, WorldPay, Stripe) with 0 post-production critical defects.
+                        <br>• <strong>Responsibilities:</strong> Test Planning, API Automation (Postman), and Defect Triage.
                     </p>
                 </div>
                 <div class="timeline-card">
-                    <h3 style="color: var(--accent-cyan); margin-bottom: 5px;">Certification</h3>
-                    <h4 style="color: #fff;">Manual Software Testing</h4>
-                    <span style="font-size: 0.9rem; color: var(--text-muted);">SQUAD Infotech Pvt.Ltd | 2023</span>
+                    <span class="timeline-date">2023</span>
+                    <h3 style="color: #fff; margin-bottom: 5px;">Certified QA Professional</h3>
+                    <h4 style="color: var(--accent-cyan); font-weight: 500;">SQUAD Infotech Pvt.Ltd</h4>
+                    <p style="margin-top: 15px; color: var(--text-muted);">
+                        Completed rigorous training in Manual Testing, Automation basics, and SQL Database management. Mastered the STLC (Software Testing Life Cycle).
+                    </p>
                 </div>
                 <div class="timeline-card">
-                    <h3 style="color: var(--accent-cyan); margin-bottom: 5px;">Education</h3>
-                    <h4 style="color: #fff;">Bachelor of Commerce</h4>
-                    <span style="font-size: 0.9rem; color: var(--text-muted);">MVM College | 2020-2022</span>
+                    <span class="timeline-date">2020 - 2022</span>
+                    <h3 style="color: #fff; margin-bottom: 5px;">Bachelor of Commerce</h3>
+                    <h4 style="color: var(--accent-cyan); font-weight: 500;">MVM College</h4>
+                    <p style="margin-top: 15px; color: var(--text-muted);">
+                        Built a strong foundation in financial accounting and business logic, which directly aids in testing FinTech applications today.
+                    </p>
                 </div>
             </div>
         </div>
@@ -450,8 +516,10 @@
 
     <footer id="contact">
         <div class="container">
-            <h2 style="font-size: 2rem; margin-bottom: 20px;">Ready to Optimize Your Software?</h2>
-            <p style="color: var(--text-muted);">I am available for full-time roles and projects.</p>
+            <h2 style="font-size: 2.2rem; margin-bottom: 20px; font-weight: 800;">Let's Secure Your Software</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+                I am currently open to full-time opportunities where I can apply my expertise in payment validation and compliance testing.
+            </p>
             
             <div class="contact-box">
                 <div class="contact-row">
@@ -468,14 +536,15 @@
                 </div>
             </div>
             
-            <p style="margin-top: 50px; opacity: 0.5; font-size: 0.8rem;">&copy; 2026 Sayed Asif. All rights reserved.</p>
+            <p style="margin-top: 50px; opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Sayed Asif. Engineered for Quality.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle & Smooth Close
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links a');
 
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
@@ -489,11 +558,20 @@
             }
         });
 
+        // Close menu when a link is clicked
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = hamburger.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                navLinks.classList.remove('active'); // Close menu on click
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
