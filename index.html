@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -183,6 +183,24 @@
         .skill-item h4 { font-size: 1.1rem; color: #fff; margin-bottom: 8px; }
         .skill-item p { font-size: 0.85rem; color: var(--text-muted); }
 
+        /* --- PROFILE BOX OPTIMIZATION --- */
+        .profile-box {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+            padding: 50px;
+            border-radius: 24px;
+            border: var(--glass-border);
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .profile-text {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
         /* --- TIMELINE --- */
         .timeline { max-width: 800px; margin: 0 auto; padding-left: 20px; border-left: 2px solid rgba(255,255,255,0.1); }
         .timeline-card { position: relative; padding-left: 40px; margin-bottom: 50px; }
@@ -208,6 +226,23 @@
         }
         .contact-row:last-child { border-bottom: none; }
         .contact-row i { color: var(--accent-cyan); font-size: 1.2rem; width: 30px; }
+
+        /* Social Icons */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .social-icon {
+            color: var(--text-muted);
+            font-size: 1.8rem;
+            transition: 0.3s;
+        }
+        .social-icon:hover {
+            color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
 
         /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 992px) {
@@ -237,6 +272,14 @@
             
             .contact-box { padding: 20px; }
             .contact-row { font-size: 0.95rem; }
+
+            /* Mobile Optimization for Profile Box */
+            .profile-box {
+                padding: 30px 20px; /* Reduced padding */
+            }
+            .profile-text {
+                font-size: 1rem; /* Slightly smaller text for better readability */
+            }
         }
     </style>
 </head>
@@ -293,9 +336,9 @@
     <section id="about" class="section-padding">
         <div class="container">
             <h2 class="section-title"><span>Professional Profile</span></h2>
-            <div style="background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); padding: 50px; border-radius: 24px; border: var(--glass-border); text-align: center; max-width: 900px; margin: 0 auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+            <div class="profile-box">
                 <i class="fas fa-quote-left" style="font-size: 2rem; color: var(--accent-cyan); margin-bottom: 20px;"></i>
-                <p style="font-size: 1.2rem; color: var(--text-main); font-weight: 300; line-height: 1.8;">
+                <p class="profile-text">
                    Results-driven QA Engineer with a strong focus on<strong> Logistics Management System,  Charity Management and charity compliance platforms.</strong> I validate critical business logic, including Gift Aid tax reclaim processes and multi-currency recurring donation flows via<strong> Stripe and Global Pay,</strong> ensuring software meets security, compliance, and usability standards.
                 </p>
             </div>
@@ -538,6 +581,20 @@
                     <i class="fas fa-envelope"></i>
                     <span>sayedasif83838@gmail.com</span>
                 </div>
+            </div>
+
+            <div class="social-links">
+                <a href="#" target="_blank" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                
+                <a href="#" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://wa.me/919867574386" target="_blank" class="social-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
             </div>
             
             <p style="margin-top: 50px; opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Sayed Asif. Engineered for Quality.</p>
