@@ -3,25 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sayed Asif is a QA Engineer specializing in manual and automation testing. View portfolio and projects.">
-    <title>Sayed Asif | QA Engineer Portfolio</title>
+    <meta name="description" content="Sayed Asif is a skilled QA Engineer with expertise in manual and automation testing. View portfolio, experience, skills, and contact information.">
+    <title>Sayed Asif | Quality Assurance (QA) Engineer</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB81P8QC1J"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BB81P8QC1J');
-    </script>
-    
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-BB81P8QC1J');
+</script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Sayed Asif",
+  "url": "https://sayedasif.com",
+  "jobTitle": "QA Engineer",
+  "sameAs": [
+    "https://www.linkedin.com/in/asifsayed83/"
+  ]
+}
+</script>
+
+
     <style>
-        /* --- CSS VARIABLES --- */
+        /* --- CSS VARIABLES (ClearTax Theme) --- */
         :root {
-            --bg-main: #ffffff;
-            --bg-secondary: #f0f4f8;
-            --brand-primary: #00baf2;
-            --brand-dark: #314259;
-            --brand-text: #334155;
+            --bg-main: #ffffff;             /* Clean White */
+            --bg-secondary: #f0f4f8;        /* Soft Blue-Gray for alternate sections */
+            --bg-card: #ffffff;             
+            
+            --brand-primary: #00baf2;       /* ClearTax Bright Blue */
+            --brand-dark: #314259;          /* Deep Navy */
+            --brand-text: #334155;          /* Slate Gray for body text */
+            
             --gradient-brand: linear-gradient(135deg, #00baf2 0%, #0088cc 100%);
             --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
             --shadow-hover: 0 10px 25px rgba(0, 186, 242, 0.15);
@@ -30,72 +46,105 @@
 
         /* --- GLOBAL RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--brand-text); line-height: 1.6; overflow-x: hidden; }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--brand-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
         html { scroll-behavior: smooth; }
+        
         h1, h2, h3, h4 { color: var(--brand-dark); font-weight: 700; }
-        a { text-decoration: none; }
 
         /* --- UTILITIES --- */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .section-padding { padding: 80px 0; }
         .text-gradient { background: var(--gradient-brand); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
+        
         /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            border-bottom: var(--border-light); padding: 15px 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-light);
+            padding: 15px 0;
+            transition: 0.3s;
         }
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--brand-dark); }
         .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: var(--brand-text); font-size: 0.95rem; font-weight: 600; transition: 0.3s; }
+        .nav-links a { color: var(--brand-text); text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: 0.3s; }
         .nav-links a:hover, .nav-links a.active { color: var(--brand-primary); }
         .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--brand-dark); }
 
         /* --- HERO SECTION --- */
         .hero {
-            min-height: 100vh; display: flex; align-items: center; padding-top: 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
             background: radial-gradient(circle at 90% 10%, rgba(0, 186, 242, 0.05) 0%, transparent 40%);
         }
-        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; align-items: center; gap: 60px; }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 60px;
+        }
         .hero-text h1 { font-size: 3.5rem; line-height: 1.2; margin-bottom: 25px; }
         .hero-text p { font-size: 1.15rem; margin-bottom: 35px; max-width: 550px; color: #64748b; }
         
         .btn {
             display: inline-flex; align-items: center; justify-content: center;
             padding: 14px 35px; border-radius: 8px; font-weight: 600; 
-            transition: 0.3s; font-size: 1rem;
+            text-decoration: none; transition: 0.3s; font-size: 1rem;
         }
         .btn-primary { background: var(--brand-primary); color: #fff; border: none; box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3); }
         .btn-primary:hover { background: #0099cc; transform: translateY(-2px); }
         .btn-outline { border: 2px solid var(--brand-dark); color: var(--brand-dark); margin-left: 15px; background: transparent; }
         .btn-outline:hover { background: var(--brand-dark); color: #fff; }
         
+        .hero-image-box { position: relative; }
         .hero-img {
-            width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            transform: rotate(1deg); transition: 0.5s; border: 4px solid #fff;
+            width: 100%; border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: rotate(1deg);
+            transition: 0.5s;
+            border: 4px solid #fff;
         }
         .hero-img:hover { transform: rotate(0deg); }
 
-        /* --- STATS --- */
+        /* --- STATS (Trust Indicators) --- */
         .stats { border-top: var(--border-light); border-bottom: var(--border-light); padding: 40px 0; background: #fff; }
         .stats-grid { display: flex; justify-content: space-around; text-align: center; }
         .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--brand-primary); }
         .stat-label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600; margin-top: 5px; }
 
-        /* --- INTRO SECTION (REPLACED BIG ABOUT) --- */
-        .intro-box {
-            text-align: center; max-width: 800px; margin: 0 auto;
-        }
-        .intro-text { font-size: 1.25rem; color: var(--brand-dark); line-height: 1.6; margin-bottom: 30px; }
-
-        /* --- SKILLS GRID --- */
+        /* --- SECTIONS --- */
         .section-title { font-size: 2.2rem; margin-bottom: 50px; text-align: center; color: var(--brand-dark); position: relative; }
         .section-title::after {
             content: ''; display: block; width: 60px; height: 4px; 
             background: var(--brand-primary); margin: 15px auto 0; border-radius: 2px;
         }
+
+        /* --- PROFILE BOX (Optimized for Mobile) --- */
+        .profile-box {
+            background: #fff;
+            padding: 50px;
+            border-radius: 16px;
+            border: var(--border-light);
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: var(--shadow-soft);
+        }
+        .profile-text { font-size: 1.2rem; color: var(--brand-text); font-weight: 400; line-height: 1.8; }
+
+        /* --- SKILLS GRID --- */
+        .skills-section { background: var(--bg-secondary); }
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
         .skill-item {
             background: #fff; padding: 30px; border-radius: 12px;
@@ -137,7 +186,7 @@
         }
         .timeline-date { display: inline-block; padding: 4px 12px; background: #e0f7ff; border-radius: 20px; font-size: 0.8rem; margin-bottom: 10px; color: var(--brand-primary); font-weight: 700; }
 
-        /* --- FAQ --- */
+        /* --- NEW FAQ SECTION (ClearTax Style) --- */
         .faq-section { background: #fff; padding: 80px 0; }
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item {
@@ -150,12 +199,14 @@
             display: flex; justify-content: space-between; align-items: center; color: var(--brand-dark);
             background: #fff;
         }
+        .faq-question i { color: var(--brand-primary); transition: 0.3s; }
         .faq-answer {
             max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out;
             background: #f8fafc; color: var(--brand-text); padding: 0 20px;
         }
         .faq-answer p { padding: 20px 0; }
         .faq-item.active .faq-answer { max-height: 300px; border-top: 1px solid #e2e8f0; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
 
         /* --- FOOTER --- */
         footer { background: var(--bg-secondary); padding: 60px 0 30px; text-align: center; border-top: var(--border-light); }
@@ -164,12 +215,15 @@
             margin-top: 30px; border: var(--border-light); width: 100%; max-width: 500px;
             box-shadow: var(--shadow-soft);
         }
-        .contact-row { display: flex; align-items: center; gap: 15px; margin: 15px 0; color: var(--brand-text); font-size: 1rem; }
+        .contact-row { 
+            display: flex; align-items: center; gap: 15px; margin: 15px 0; 
+            color: var(--brand-text); font-size: 1rem;
+        }
         .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
         .social-icon { color: #64748b; font-size: 1.5rem; transition: 0.3s; }
         .social-icon:hover { color: var(--brand-primary); transform: translateY(-3px); }
 
-        /* --- MOBILE --- */
+        /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 992px) {
             .hero-text h1 { font-size: 2.8rem; }
             .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
@@ -178,9 +232,11 @@
             .btn { width: 100%; margin: 10px 0 0 0; }
             .btn-outline { margin-left: 0; }
         }
+
         @media (max-width: 768px) {
             .section-padding { padding: 50px 0; }
             .hero-text h1 { font-size: 2.2rem; }
+            
             .nav-links {
                 display: none; position: absolute; top: 100%; left: 0; width: 100%;
                 background: #fff; flex-direction: column; padding: 20px;
@@ -188,8 +244,13 @@
             }
             .nav-links.active { display: flex; }
             .hamburger { display: block; }
+            
             .stats-grid { flex-direction: column; gap: 30px; }
             .project-grid { grid-template-columns: 1fr; }
+            
+            /* Profile Box Mobile Optimization */
+            .profile-box { padding: 25px 20px; }
+            .profile-text { font-size: 1rem; line-height: 1.6; }
         }
     </style>
 </head>
@@ -214,7 +275,7 @@
             <div class="hero-text">
                 <p style="color: var(--brand-primary); letter-spacing: 2px; text-transform: uppercase; font-size: 0.85rem; margin-bottom: 15px; font-weight: 700;">QA Engineer & Payment Systems Expert</p>
                 <h1>Delivering Precision  <br><span class="text-gradient">in Every Release</span></h1>
-                <p>Ensuring the reliability and quality of digital platforms for logistics management and non-profit organizations. Experienced in validating complex payment gateway testing (Stripe, Lloyds, WorldPay), tax compliance, and defect lifecycles.</p>
+                <p>Ensuring the reliability and quality of digital platforms for logistics management and non-profit organizations. Experienced in validating complex payment gateway testing (Stripe, Lloyds, WorldPay, Paypal), tax compliance logic, and managing end-to-end defect lifecycles.</p>
                 <div>
                     <a href="mailto:sayedasif83838@gmail.com" class="btn btn-primary">Hire Me</a>
                     <a href="#projects" class="btn btn-outline">View Portfolio</a>
@@ -228,19 +289,31 @@
 
     <div class="stats">
         <div class="container stats-grid">
-            <div><div class="stat-num">2+</div><div class="stat-label">Years Excellence</div></div>
-            <div><div class="stat-num">7+</div><div class="stat-label">Enterprise Projects</div></div>
-            <div><div class="stat-num">90+</div><div class="stat-label">Delivery Rate</div></div>
+            <div>
+                <div class="stat-num">2+</div>
+                <div class="stat-label">Years Excellence</div>
+            </div>
+            <div>
+                <div class="stat-num">7+</div>
+                <div class="stat-label">Enterprise Projects</div>
+            </div>
+            <div>
+                <div class="stat-num">90+</div>
+                <div class="stat-label">Delivery Rate</div>
+            </div>
         </div>
     </div>
 
-    <section class="section-padding" style="background: var(--bg-secondary);">
-        <div class="container intro-box">
+    <section id="about" class="section-padding" style="background: var(--bg-secondary);">
+        <div class="container">
             <h2 class="section-title">Professional Profile</h2>
-            <p class="intro-text">
-                I am a results-driven QA Engineer specializing in <strong>Logistics, Charity Management, and FinTech compliance</strong>. I validate critical business logic, ensuring software meets strict security and usability standards.
-            </p>
-            <a href="about.html" class="btn btn-outline" style="border-width: 1px;">Read Full Bio & Philosophy &rarr;</a>
+            <div class="profile-box">
+                <i class="fas fa-quote-left" style="font-size: 2rem; color: var(--brand-primary); margin-bottom: 20px;"></i>
+                <p class="profile-text">
+                   Results-driven QA Engineer with a strong focus on<strong> Logistics Management System,  Charity Management and charity compliance platforms.</strong> I validate critical business logic, including Gift Aid tax reclaim processes and multi-currency recurring donation flows via<strong> Stripe and Global Pay,</strong> ensuring software meets security, compliance, and usability standards.
+                </p>
+                <a href="about.html" class="btn btn-outline" style="margin-top: 25px; border-width: 1px; padding: 10px 25px;">Read Full Bio & Philosophy &rarr;</a>
+            </div>
         </div>
     </section>
 
@@ -248,12 +321,36 @@
         <div class="container">
             <h2 class="section-title">Technical Arsenal</h2>
             <div class="skills-grid">
-                <div class="skill-item"><i class="fas fa-credit-card"></i><h4>Payment Gateways</h4><p>Deep expertise in validating Lloyds, WorldPay, GlobalPay, Paypal and Stripe.</p></div>
-                <div class="skill-item"><i class="fas fa-file-invoice-dollar"></i><h4>Compliance Testing</h4><p>HMRC Gift Aid declaration logic, Tax reclamation workflows.</p></div>
-                <div class="skill-item"><i class="fas fa-bug"></i><h4>Defect Management</h4><p>End-to-End Bug Life Cycle ownership using Jira.</p></div>
-                <div class="skill-item"><i class="fas fa-network-wired"></i><h4>API Validation</h4><p>Postman automation and HTTPie for payment endpoints.</p></div>
-                <div class="skill-item"><i class="fas fa-database"></i><h4>Database Integrity</h4><p>SQL injection testing, data consistency verification.</p></div>
-                <div class="skill-item"><i class="fas fa-laptop-code"></i><h4>Cross-Platform</h4><p>Responsive validation across Mobile/Web.</p></div>
+                <div class="skill-item">
+                    <i class="fas fa-credit-card"></i>
+                    <h4>Payment Gateways</h4>
+                    <p>Deep expertise in validating Lloyds, WorldPay, GlobalPay, Paypal and Stripe recurring logic.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <h4>Compliance Testing</h4>
+                    <p>HMRC Gift Aid declaration logic, Tax reclamation workflows, and financial reporting.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-bug"></i>
+                    <h4>Defect Management</h4>
+                    <p>End-to-End Bug Life Cycle ownership using Jira. Root cause analysis and severity triage.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-network-wired"></i>
+                    <h4>API Validation</h4>
+                    <p>Postman automation and HTTPie for payment endpoints, payload validation, and response code checks.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-database"></i>
+                    <h4>Database Integrity</h4>
+                    <p>SQL injection testing, data consistency verification, and complex query validation.</p>
+                </div>
+                <div class="skill-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <h4>Cross-Platform</h4>
+                    <p>Responsive validation across Mobile/Web to ensure seamless UI/UX on all devices.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -263,37 +360,114 @@
             <h2 class="section-title">Project Portfolio</h2>
             <div class="project-grid">
                 <div class="project-card">
-                    <div class="project-img-wrapper"><img src="/image/1.png" alt="Payment Testing" class="project-img"></div>
+                    <div class="project-img-wrapper">
+                        <img src="/image/1.png" alt="Payment Testing" class="project-img">
+                    </div>
                     <div class="project-content">
-                        <span class="project-category">Non-Profit organization</span><h3 class="project-title">LIA Relief Trust</h3>
-                        <p class="project-desc">Engineered the test strategy for a complex donation ecosystem. Validated <strong>Stripe & Global Pay</strong> testing.</p>
-                        <div class="tech-stack"><span class="tech-pill">Stripe Testing</span><span class="tech-pill">Global Pay</span></div>
+                        <span class="project-category">Non-Profit organization</span>
+                        <h3 class="project-title">LIA Relief Trust</h3>
+                        <p class="project-desc">Engineered the test strategy for a complex donation ecosystem. Validated <strong>Stripe & Global Pay</strong> testing, specifically focusing on recurring donation failure handling.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Stripe Testing</span>
+                            <span class="tech-pill">Global Pay</span>
+                            <span class="tech-pill">CMS Testing</span>
+                        </div>
                         <a href="https://liarelieftrust.org/" class="project-link-btn" target="_blank">Visit Live Site <i class="fas fa-external-link-alt"></i></a>
                     </div>
                 </div>
+
                 <div class="project-card">
-                    <div class="project-img-wrapper"><img src="/image/3.png" alt="Tax Documentation" class="project-img"></div>
+                    <div class="project-img-wrapper">
+                        <img src="/image/3.png" alt="Tax Documentation" class="project-img">
+                    </div>
                     <div class="project-content">
-                        <span class="project-category">Charity Management System</span><h3 class="project-title">iCHARMS</h3>
-                        <p class="project-desc">Spearheaded QA for the <strong>Gift Aid</strong> module. Validated tax reclamation logic.</p>
-                        <div class="tech-stack"><span class="tech-pill">Gift Aid Testing</span><span class="tech-pill">Donation Module</span></div>
+                        <span class="project-category">Charity Management System</span>
+                        <h3 class="project-title">iCHARMS</h3>
+                        <p class="project-desc">Spearheaded QA for the <strong>Gift Aid</strong> module. Created comprehensive documentation for declaration workflows and validated tax reclamation logic.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Gift Aid Testing</span>
+                            <span class="tech-pill">Donation Module</span>
+                        </div>
                     </div>
                 </div>
+
                 <div class="project-card">
-                    <div class="project-img-wrapper"><img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=600" alt="Logistics Testing" class="project-img"></div>
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=600" alt="Logistics Testing" class="project-img">
+                    </div>
                     <div class="project-content">
-                        <span class="project-category">Logistics & Supply Chain</span><h3 class="project-title">Logibuddy</h3>
-                        <p class="project-desc">Executed rigorous functional testing for a shipment tracking platform.</p>
-                        <div class="tech-stack"><span class="tech-pill">Real-time Data</span><span class="tech-pill">Regression Testing</span></div>
+                        <span class="project-category">Logistics & Supply Chain</span>
+                        <h3 class="project-title">Logibuddy</h3>
+                        <p class="project-desc">Executed rigorous functional testing for a shipment tracking platform. Verified real-time status updates and route optimization logic.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Real-time Data</span>
+                            <span class="tech-pill">Regression Testing</span>
+                            <span class="tech-pill">SQL</span>
+                        </div>
                     </div>
                 </div>
-                 <div class="project-card">
-                    <div class="project-img-wrapper"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=600" alt="Charity Platform" class="project-img"></div>
+
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=600" alt="Charity Platform" class="project-img">
+                    </div>
                     <div class="project-content">
-                        <span class="project-category">Non-Profit organization</span><h3 class="project-title">Al-Wahab Foundation</h3>
-                        <p class="project-desc">Security and Functional testing for a high-traffic donation portal.</p>
-                        <div class="tech-stack"><span class="tech-pill">Security Testing</span><span class="tech-pill">GDPR</span></div>
+                        <span class="project-category">Non-Profit organization</span>
+                        <h3 class="project-title">Al-Wahab Foundation</h3>
+                        <p class="project-desc">Security and Functional testing for a high-traffic donation portal. Ensured donor data privacy (GDPR compliance) and smooth volunteer coordination.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Security Testing</span>
+                            <span class="tech-pill">GDPR</span>
+                        </div>
                         <a href="https://alwahabfoundation.org/" class="project-link-btn" target="_blank">Visit Live Site <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="/image/2.png" alt="International Finance" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">Non-Profit organization</span>
+                        <h3 class="project-title">Edhi International UK</h3>
+                        <p class="project-desc">Performed security and functional testing on a high-traffic donation portal, maintaining GDPR-compliant data protection and ensuring smooth workflows.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Multi-Currency</span>
+                            <span class="tech-pill">Load Testing</span>
+                        </div>
+                        <a href="https://edhiuk.org/" class="project-link-btn" target="_blank">Visit Live Site <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="/image/4.png" alt="CMS Testing" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">Non-Profit organization</span>
+                        <h3 class="project-title">Muslim Rose Welfare</h3>
+                        <p class="project-desc">Tested a custom CMS with "Drag-and-Drop" builders. Verified content rendering, image optimization, and backend admin panel functionality.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">CMS Validation</span>
+                            <span class="tech-pill">Usability</span>
+                        </div>
+                        <a href="https://muslimrosewelfare.org.uk/" class="project-link-btn" target="_blank">Visit Live Site <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="/image/1.png" alt="Data Analytics" class="project-img">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-category">Non-Profit organization</span>
+                        <h3 class="project-title">Blackburn UK Trust</h3>
+                        <p class="project-desc">Executed security and functional testing for a large-scale donation portal, ensuring donor data privacy and efficient volunteer coordination.</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Data Integrity</span>
+                            <span class="tech-pill">Analytics</span>
+                        </div>
+                        <a href="https://blackburnuktrust.org/" class="project-link-btn" target="_blank">Visit Live Site <i class="fas fa-external-link-alt"></i></a>
                     </div>
                 </div>
             </div>
@@ -308,19 +482,27 @@
                     <span class="timeline-date">2023 - Present</span>
                     <h3>Software QA Engineer</h3>
                     <h4 style="color: var(--brand-primary);">Techno Serve Software Solutions Pvt.Ltd</h4>
-                    <p style="margin-top: 15px; color: var(--brand-text);">Leading the QA division. Validated 3 major payment gateways (Lloyds, WorldPay, Stripe) with 0 post-production critical defects.</p>
+                    <p style="margin-top: 15px; color: var(--brand-text);">
+                        Leading the QA division for multiple clients. 
+                        <br>• <strong>Key Achievement:</strong> Successfully Tested and validated 3 major payment gateways (Lloyds, WorldPay, Stripe) with 0 post-production critical defects.
+                        <br>• <strong>Responsibilities:</strong> Test Planning, API Automation (Postman and HTTPie), and Defect Triage.
+                    </p>
                 </div>
                 <div class="timeline-card">
                     <span class="timeline-date">2023</span>
                     <h3>Certified QA Professional</h3>
                     <h4 style="color: var(--brand-primary);">SQUAD Infotech Pvt.Ltd</h4>
-                    <p style="margin-top: 15px; color: var(--brand-text);">Mastered the STLC (Software Testing Life Cycle) and SQL Database management.</p>
+                    <p style="margin-top: 15px; color: var(--brand-text);">
+                        Completed rigorous training in Manual Testing, Automation basics, and SQL Database management. Mastered the STLC (Software Testing Life Cycle).
+                    </p>
                 </div>
                 <div class="timeline-card">
                     <span class="timeline-date">2020 - 2022</span>
                     <h3>Bachelor of Commerce</h3>
                     <h4 style="color: var(--brand-primary);">MVM College</h4>
-                    <p style="margin-top: 15px; color: var(--brand-text);">Financial accounting foundation aiding in FinTech application testing.</p>
+                    <p style="margin-top: 15px; color: var(--brand-text);">
+                        Built a strong foundation in financial accounting and business logic, which directly aids in testing FinTech applications today.
+                    </p>
                 </div>
             </div>
         </div>
@@ -331,12 +513,43 @@
             <h2 class="section-title">Testing & Compliance FAQs</h2>
             <div class="faq-container">
                 <div class="faq-item">
-                    <div class="faq-question">What services does SayedAsif.com offer?<i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer"><p>Expert Quality Assurance (QA) focused on payment gateways, compliance logic, and API workflows.</p></div>
+                    <div class="faq-question">
+                        What services does SayedAsif.com offer?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>At sayedasif.com, we provide expert Quality Assurance (QA) and software testing services, with a focus on validating complex payment gateways, compliance logic, API workflows, and end-to-end defect lifecycle management to ensure robust, reliable digital platforms.</p>
+                    </div>
                 </div>
+                
                 <div class="faq-item">
-                    <div class="faq-question">Which industries do you specialize in?<i class="fas fa-chevron-down"></i></div>
-                    <div class="faq-answer"><p>Logistics management, non-profit donation platforms, and financial compliance environments.</p></div>
+                    <div class="faq-question">
+                        Which industries and systems do you specialize in?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our expertise spans logistics management systems, non-profit donation platforms, and financial compliance environments, including rigorous testing of payment integrations like Stripe, Lloyds, and WorldPay, as well as tax and compliance logic validation.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Why is professional QA testing essential for my product?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Professional QA testing ensures that your software performs securely and efficiently under real-world conditions. It helps identify critical issues early, reduces risk of post-launch defects, improves user satisfaction, and strengthens system security—especially for mission-critical applications such as payment processing and compliance modules.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do you ensure high-quality deliverables?
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Quality is ensured through a structured testing approach that combines functional testing, API validation (using tools like Postman and HTTPie), cross-platform compatibility checks, SQL database integrity verification, and comprehensive defect tracking—from test planning through final deployment.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -345,28 +558,80 @@
     <footer id="contact">
         <div class="container">
             <h2 style="font-size: 2rem; margin-bottom: 20px; font-weight: 800; color: var(--brand-dark);">Let's Secure Your Software</h2>
+            <p style="color: var(--brand-text); max-width: 600px; margin: 0 auto;">
+                I am currently open to full-time opportunities where I can apply my expertise in payment validation and compliance testing.
+            </p>
+            
             <div class="contact-box">
-                <div class="contact-row"><i class="fas fa-phone" style="color: var(--brand-primary);"></i><span>+91 9867574386</span></div>
-                <div class="contact-row"><i class="fas fa-envelope" style="color: var(--brand-primary);"></i><span>sayedasif83838@gmail.com</span></div>
+                <div class="contact-row">
+                    <i class="fas fa-map-marker-alt" style="color: var(--brand-primary);"></i>
+                    <span>Andheri (W), Mumbai-58</span>
+                </div>
+                <div class="contact-row">
+                    <i class="fas fa-phone" style="color: var(--brand-primary);"></i>
+                    <span>+91 9867574386</span>
+                </div>
+                <div class="contact-row">
+                    <i class="fas fa-envelope" style="color: var(--brand-primary);"></i>
+                    <span>sayedasif83838@gmail.com</span>
+                </div>
             </div>
+
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/asifsayed83/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                <a href="https://wa.me/919867574386" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.linkedin.com/in/asifsayed83/" target="_blank" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                
+                <a href="https://www.instagram.com/sayedasif.me?igsh=MWpndGp2NjhkanlnMQ==" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://wa.me/919867574386" target="_blank" class="social-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
             </div>
+            
             <p style="margin-top: 50px; opacity: 0.6; font-size: 0.8rem;">&copy; 2026 Sayed Asif. Engineered for Quality.</p>
         </div>
     </footer>
 
     <script>
+        // Mobile Menu Toggle
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
+        const links = document.querySelectorAll('.nav-links a');
+
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            hamburger.querySelector('i').classList.toggle('fa-bars');
-            hamburger.querySelector('i').classList.toggle('fa-times');
+            const icon = hamburger.querySelector('i');
+            if(navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
-        document.querySelectorAll('.faq-item').forEach(item => {
+
+        // Close menu on link click
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.remove('fa-times');
+                hamburger.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // FAQ Toggle Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
             item.querySelector('.faq-question').addEventListener('click', () => {
+                // Close other open FAQs (optional, for accordion effect)
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
                 item.classList.toggle('active');
             });
         });
