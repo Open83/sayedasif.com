@@ -15,16 +15,18 @@
     </script>
 
     <style>
-        /* --- COPYING KEY STYLES FROM INDEX FOR CONSISTENCY --- */
+        /* --- COPYING ALL STYLES FROM INDEX FOR CONSISTENCY --- */
         :root {
             --bg-main: #ffffff;
             --brand-primary: #00baf2;
             --brand-dark: #314259;
             --brand-text: #334155;
             --border-light: 1px solid #e2e8f0;
+            --gradient-brand: linear-gradient(135deg, #00baf2 0%, #0088cc 100%);
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
-        body { background-color: var(--bg-main); color: var(--brand-text); line-height: 1.8; }
+        body { background-color: var(--bg-main); color: var(--brand-text); line-height: 1.8; overflow-x: hidden; }
         a { text-decoration: none; color: inherit; }
         
         /* --- NAV (Identical to Home) --- */
@@ -41,7 +43,7 @@
         .nav-links a:hover, .nav-links a.active { color: var(--brand-primary); }
         .hamburger { display: none; font-size: 1.5rem; cursor: pointer; color: var(--brand-dark); }
 
-        /* --- BLOG / ARTICLE LAYOUT --- */
+        /* --- BLOG / ARTICLE LAYOUT (New for this page) --- */
         .article-container {
             max-width: 800px; /* Narrower for reading comfort */
             margin: 120px auto 80px; /* Space for fixed nav */
@@ -71,15 +73,21 @@
         .btn-cta {
             display: inline-block; background: var(--brand-primary); color: #fff;
             padding: 12px 30px; border-radius: 8px; font-weight: 600; margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3);
         }
         .btn-cta:hover { background: #0099cc; }
 
         /* --- FOOTER --- */
         footer { background: #f0f4f8; padding: 40px 0; text-align: center; border-top: var(--border-light); font-size: 0.9rem; color: #64748b; }
 
-        @media (max-width: 768px) {
-            .article-title { font-size: 2rem; }
-            .nav-links { display: none; } /* Add JS for toggle if needed, or keep simple for now */
+        /* --- MOBILE --- */
+        @media (max-width: 992px) {
+             .nav-links {
+                display: none; position: absolute; top: 100%; left: 0; width: 100%;
+                background: #fff; flex-direction: column; padding: 20px;
+                border-bottom: 1px solid #eee; gap: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+            .nav-links.active { display: flex; }
             .hamburger { display: block; }
         }
     </style>
@@ -96,14 +104,14 @@
                 <a href="index.html#projects">Portfolio</a>
                 <a href="index.html#contact">Contact</a>
             </div>
-            <div class="hamburger" onclick="alert('Menu works same as home!')"><i class="fas fa-bars"></i></div>
+            <div class="hamburger"><i class="fas fa-bars"></i></div>
         </div>
     </nav>
 
     <article class="article-container">
         <header class="article-header">
-            <h1 class="article-title">Beyond the Bug Report</h1>
-            <p class="article-subtitle">The story and philosophy of Sayed Asif, QA Engineer.</p>
+            <h1 class="article-title">About Sayed Asif – QA Engineer</h1>
+            <p class="article-subtitle">The story, philosophy, and expertise behind the testing.</p>
         </header>
 
         <section class="content-block">
@@ -155,6 +163,26 @@
             &copy; 2026 Sayed Asif. Engineered for Quality.
         </div>
     </footer>
+
+    <script>
+        // Copying Mobile Menu Logic to ensure about.html works on phone
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if(hamburger) {
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                const icon = hamburger.querySelector('i');
+                if(navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
