@@ -7,36 +7,35 @@
     <title>Sayed Asif | Quality Assurance (QA) Engineer</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB81P8QC1J"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-BB81P8QC1J');
-</script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BB81P8QC1J');
+    </script>
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Sayed Asif",
-  "url": "https://sayedasif.com",
-  "jobTitle": "QA Engineer",
-  "sameAs": [
-    "https://www.linkedin.com/in/asifsayed83/"
-  ]
-}
-</script>
-
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Sayed Asif",
+      "url": "https://sayedasif.com",
+      "jobTitle": "QA Engineer",
+      "sameAs": [
+        "https://www.linkedin.com/in/asifsayed83/"
+      ]
+    }
+    </script>
 
     <style>
         /* --- CSS VARIABLES (ClearTax Theme) --- */
         :root {
             --bg-main: #ffffff;             /* Clean White */
-            --bg-secondary: #f0f4f8;        /* Soft Blue-Gray for alternate sections */
-            --bg-card: #ffffff;             
+            --bg-secondary: #f0f4f8;        /* Soft Blue-Gray */
+            --bg-highlight: #e0f7ff;        /* Light Blue Highlight */
             
             --brand-primary: #00baf2;       /* ClearTax Bright Blue */
             --brand-dark: #314259;          /* Deep Navy */
-            --brand-text: #334155;          /* Slate Gray for body text */
+            --brand-text: #334155;          /* Slate Gray */
             
             --gradient-brand: linear-gradient(135deg, #00baf2 0%, #0088cc 100%);
             --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -117,29 +116,23 @@
         }
         .hero-img:hover { transform: rotate(0deg); }
 
-        /* --- STATS (Trust Indicators) --- */
+        /* --- STATS --- */
         .stats { border-top: var(--border-light); border-bottom: var(--border-light); padding: 40px 0; background: #fff; }
         .stats-grid { display: flex; justify-content: space-around; text-align: center; }
         .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--brand-primary); }
         .stat-label { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 600; margin-top: 5px; }
 
-        /* --- SECTIONS --- */
+        /* --- COMMON SECTIONS --- */
         .section-title { font-size: 2.2rem; margin-bottom: 50px; text-align: center; color: var(--brand-dark); position: relative; }
         .section-title::after {
             content: ''; display: block; width: 60px; height: 4px; 
             background: var(--brand-primary); margin: 15px auto 0; border-radius: 2px;
         }
 
-        /* --- PROFILE BOX (Optimized for Mobile) --- */
+        /* --- PROFILE BOX --- */
         .profile-box {
-            background: #fff;
-            padding: 50px;
-            border-radius: 16px;
-            border: var(--border-light);
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-            box-shadow: var(--shadow-soft);
+            background: #fff; padding: 50px; border-radius: 16px; border: var(--border-light);
+            text-align: center; max-width: 900px; margin: 0 auto; box-shadow: var(--shadow-soft);
         }
         .profile-text { font-size: 1.2rem; color: var(--brand-text); font-weight: 400; line-height: 1.8; }
 
@@ -176,6 +169,26 @@
         }
         .project-link-btn:hover { background: var(--brand-primary); color: #fff; }
 
+        /* --- CASE STUDY / FEATURE SECTION (NEW) --- */
+        .case-study-section { background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); }
+        .case-study-intro { text-align: center; max-width: 800px; margin: 0 auto 50px; }
+        .case-study-intro h3 { font-size: 1.8rem; margin-bottom: 15px; color: var(--brand-dark); }
+        .case-study-intro p { font-size: 1.1rem; color: #64748b; }
+        
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .feature-card { 
+            background: #fff; padding: 35px; border-radius: 12px; border: var(--border-light);
+            display: flex; flex-direction: column; align-items: flex-start; transition: 0.3s;
+        }
+        .feature-card:hover { border-color: var(--brand-primary); box-shadow: var(--shadow-hover); }
+        .feature-icon-box { 
+            width: 60px; height: 60px; background: #e0f7ff; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; margin-bottom: 25px;
+        }
+        .feature-icon-box i { font-size: 1.5rem; color: var(--brand-primary); }
+        .feature-card h4 { font-size: 1.25rem; margin-bottom: 15px; color: var(--brand-dark); }
+        .feature-card p { font-size: 0.95rem; color: var(--brand-text); line-height: 1.7; }
+
         /* --- EXPERIENCE --- */
         .timeline { max-width: 800px; margin: 0 auto; padding-left: 20px; border-left: 2px solid #e2e8f0; }
         .timeline-card { position: relative; padding-left: 40px; margin-bottom: 40px; }
@@ -186,7 +199,7 @@
         }
         .timeline-date { display: inline-block; padding: 4px 12px; background: #e0f7ff; border-radius: 20px; font-size: 0.8rem; margin-bottom: 10px; color: var(--brand-primary); font-weight: 700; }
 
-        /* --- NEW FAQ SECTION (ClearTax Style) --- */
+        /* --- FAQ SECTION --- */
         .faq-section { background: #fff; padding: 80px 0; }
         .faq-container { max-width: 800px; margin: 0 auto; }
         .faq-item {
@@ -230,7 +243,7 @@
             .hero-text p { margin: 0 auto 30px; }
             .hero-image-box { max-width: 500px; margin: 0 auto; }
             .btn { width: 100%; margin: 10px 0 0 0; }
-            .btn-outline { margin-left: 0; }
+            .feature-grid { grid-template-columns: 1fr; } /* Stack features on mobile */
         }
 
         @media (max-width: 768px) {
@@ -247,8 +260,6 @@
             
             .stats-grid { flex-direction: column; gap: 30px; }
             .project-grid { grid-template-columns: 1fr; }
-            
-            /* Profile Box Mobile Optimization */
             .profile-box { padding: 25px 20px; }
             .profile-text { font-size: 1rem; line-height: 1.6; }
         }
@@ -474,6 +485,49 @@
         </div>
     </section>
 
+    <section class="section-padding case-study-section">
+        <div class="container">
+            <div class="case-study-intro">
+                <h2 class="section-title" style="margin-bottom: 30px;">Case Study: Tele-Fundraising Module</h2>
+                <p>
+                    A deep dive into the QA validation of the <strong>iCHARMS Call Center Ecosystem</strong>. 
+                    I executed comprehensive functional and logic testing for this enterprise-grade tele-fundraising platform, ensuring high-volume campaign stability.
+                </p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Real-time Analytics Logic</h4>
+                    <p>
+                        Validated backend calculation logic for critical dashboard metrics including "Calls Made Today," "Pledges," and "Total Raised." Ensured 100% accuracy in data synchronization between agent actions and the admin view.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h4>Batch Workflow Validation</h4>
+                    <p>
+                        Tested the end-to-end "Create Batch" and "Assign to Agent" workflows. Verified that batches containing thousands of donors are correctly locked to specific agents to prevent data collision and duplication.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon-box">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h4>Donor Data Integrity</h4>
+                    <p>
+                        Audited the "Add Donors to Batch" process. Verified secure handling of sensitive fields (Mobile/Email) and tested search filters to ensure agents can instantly retrieve donor history without performance lag.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
     <section id="experience" class="section-padding">
         <div class="container">
             <h2 class="section-title">Career Trajectory</h2>
