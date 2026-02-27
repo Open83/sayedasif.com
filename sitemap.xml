@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Homepage – Highest priority and weekly updates -->
   <url>
     <loc>https://sayedasif.com/</loc>
     <lastmod>2026-01-18</lastmod>
@@ -9,7 +8,6 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- About page – Important profile info -->
   <url>
     <loc>https://sayedasif.com/about.html</loc>
     <lastmod>2026-01-18</lastmod>
@@ -17,39 +15,6 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Capabilities or Services page – SEO value for expertise -->
-  <url>
-    <loc>https://sayedasif.com/capabilities.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Portfolio – Shows examples of work -->
-  <url>
-    <loc>https://sayedasif.com/portfolio.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Contact page – Key conversion page -->
-  <url>
-    <loc>https://sayedasif.com/contact.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Add any blog or article sections below if you add them later -->
-  <!-- Example:
-  <url>
-    <loc>https://sayedasif.com/blog/your-first-post.html</loc>
-    <lastmod>2026-01-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  -->
   <url>
     <loc>https://sayedasif.com/blog/who-is-sayed-asif-qa-engineer.html</loc>
     <lastmod>2026-02-23</lastmod>
