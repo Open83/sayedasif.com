@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Systems Testing | Stripe, Worldpay, 3DS2 | Sayed Asif</title>
+    <meta name="description" content="Technical deep-dive into Sayed Asif's payment gateway testing expertise. Covering 3DS2 authentication, Stripe webhooks, Global Pay, and Worldpay integration testing.">
+    
+    <link rel="canonical" href="https://sayedasif.com/payments.html">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://sayedasif.com/payments.html">
+    <meta property="og:title" content="Zero-Defect Payment Systems Testing">
+    <meta property="og:description" content="How I secure the transaction lifecycle—from 3DS2 to multi-currency reconciliation.">
+    
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      "headline": "Payment Systems Testing Expertise",
+      "author": {
+        "@type": "Person",
+        "name": "Sayed Asif"
+      },
+      "about": ["Stripe Integration Testing", "3DS2 Authentication", "Worldpay Validation", "API Webhook Testing"]
+    }
+    </script>
+
+    <style>
+        :root { --bg-main: #ffffff; --bg-secondary: #f8fafc; --brand-primary: #00baf2; --brand-dark: #314259; --brand-text: #475569; --border-light: 1px solid #e2e8f0; --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--brand-text); line-height: 1.7; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        nav { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: var(--border-light); padding: 15px 0; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--brand-dark); text-decoration: none; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { color: var(--brand-dark); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--brand-primary); }
+        .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 1.5rem; }
+
+        .hero { padding: 140px 0 60px; background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%); text-align: center; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); color: var(--brand-dark); margin-bottom: 20px; line-height: 1.1; }
+        .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: #64748b; }
+
+        .section { padding: 80px 0; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .card { background: #fff; padding: 35px; border-radius: 16px; border: var(--border-light); transition: 0.3s; box-shadow: var(--shadow-soft); }
+        .card:hover { transform: translateY(-5px); border-color: var(--brand-primary); }
+        .card i { font-size: 2rem; color: var(--brand-primary); margin-bottom: 20px; }
+        .card h3 { color: var(--brand-dark); margin-bottom: 15px; font-size: 1.4rem; }
+        
+        .philosophy { background: var(--brand-dark); color: #fff; padding: 80px 0; border-radius: 24px; margin-top: 40px; }
+        .philosophy h2 { color: #fff; margin-bottom: 20px; }
+        .philosophy p { opacity: 0.9; font-size: 1.1rem; max-width: 800px; }
+
+        .scenarios { background: var(--bg-secondary); border-radius: 16px; padding: 40px; border: var(--border-light); }
+        .scenarios ul { list-style: none; }
+        .scenarios li { margin-bottom: 20px; padding-left: 30px; position: relative; }
+        .scenarios li::before { content: '→'; position: absolute; left: 0; color: var(--brand-primary); font-weight: bold; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; border-bottom: var(--border-light); }
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+            .hero { padding: 100px 0 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav aria-label="Main Navigation">
+        <div class="container nav-inner">
+            <a href="/" class="logo" aria-label="Sayed Asif Home">Sayed<span style="color: var(--brand-primary);">Asif</span></a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/about.html">About</a>
+                <a href="/payments.html" style="color: var(--brand-primary);" aria-current="page">Payments</a>
+                <a href="/#projects">Portfolio</a>
+                <a href="/#contact">Contact</a>
+            </div>
+            <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false"><i class="fas fa-bars" aria-hidden="true"></i></button>
+        </div>
+    </nav>
+
+    <main>
+        <header class="hero">
+            <div class="container">
+                <h1>Zero-Defect <span style="color: var(--brand-primary);">Payment Systems</span></h1>
+                <p>I don't just "test" checkouts. I secure the entire transaction lifecycle—from 3DS2 authentication to multi-currency reconciliation.</p>
+            </div>
+        </header>
+
+        <section class="container section" aria-labelledby="gateways-heading">
+            <h2 id="gateways-heading">Gateways I've Mastered</h2>
+            <div class="grid">
+                <article class="card">
+                    <i class="fab fa-stripe" aria-hidden="true"></i>
+                    <h3>Stripe & Global Pay</h3>
+                    <p>Handling complex recurring donation flows and idempotent API requests to ensure donors aren't double-charged during network drops.</p>
+                </article>
+                <article class="card">
+                    <i class="fas fa-university" aria-hidden="true"></i>
+                    <h3>Lloyds & Worldpay</h3>
+                    <p>Validating legacy redirect flows and ISO8583 response codes. I've mapped every outcome from 'Authorised' to 'Referral'.</p>
+                </article>
+                <article class="card">
+                    <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>
+                    <h3>HMRC Gift Aid</h3>
+                    <p>Unique expertise in validating tax-reclaim logic for charities. Ensuring declaration status perfectly syncs with payment timestamps.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="container section" aria-labelledby="scenarios-heading">
+            <div class="scenarios">
+                <h2 id="scenarios-heading" style="margin-bottom: 25px;">Critical Scenarios I Cover</h2>
+                <ul>
+                    <li><strong>3DS2 "Challenge" Paths:</strong> Verifying that the UI handles SMS and App authentication pop-ups without losing the session state.</li>
+                    <li><strong>Webhook Reliability:</strong> I test if the system correctly updates the database when a payment is successful but the user closes their browser before reaching the 'Thank You' page.</li>
+                    <li><strong>Declined Card Logic:</strong> Differentiating between 'Insufficient Funds' (soft decline) and 'Stolen Card' (hard decline) to trigger the right user messaging.</li>
+                    <li><strong>Negative Testing:</strong> Using "Magic Values" to force timeout errors and verifying the system gracefully rolls back the transaction.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="container" style="margin-bottom: 80px;" aria-labelledby="philosophy-heading">
+            <div class="philosophy">
+                <div class="container">
+                    <h2 id="philosophy-heading">Why I Obsess Over Payments</h2>
+                    <p>I've seen how a single bug in a payment gateway can halt a charity's entire fundraising campaign. It's not just about a "broken button"; it's about trust. I've spent hundreds of hours in Stripe sandboxes and Worldpay test environments because I know that if the money doesn't move correctly, the code doesn't matter. I don't stop testing until I've tried to break the system in ways the developers didn't even consider.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="padding: 40px 0; text-align: center; border-top: var(--border-light); background: var(--bg-secondary);">
+        <p>&copy; 2026 Sayed Asif. Engineered for Quality.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        hamburger.addEventListener('click', () => {
+            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.setAttribute('aria-expanded', !isExpanded);
+            navLinks.classList.toggle('active');
+            hamburger.querySelector('i').classList.toggle('fa-bars');
+            hamburger.querySelector('i').classList.toggle('fa-times');
+        });
+    </script>
+</body>
+</html>
