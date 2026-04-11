@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Systems Testing | Stripe, Worldpay, 3DS2 | Sayed Asif</title>
-    <meta name="description" content="Technical deep-dive into Sayed Asif's payment gateway testing expertise. Covering 3DS2 authentication, Stripe webhooks, Global Pay, and Worldpay integration testing.">
+    <meta name="description" content="Technical deep-dive into Sayed Asif's payment gateway testing expertise. Real-world scenarios covering 3DS2 session drops, webhook failures, and idempotency testing.">
     
     <link rel="canonical" href="https://sayedasif.com/payments.html">
     <meta name="robots" content="index, follow">
 
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://sayedasif.com/payments.html">
-    <meta property="og:title" content="Zero-Defect Payment Systems Testing">
-    <meta property="og:description" content="How I secure the transaction lifecycle—from 3DS2 to multi-currency reconciliation.">
+    <meta property="og:title" content="Payment Systems Testing | The Real Scenarios">
+    <meta property="og:description" content="How I secure the transaction lifecycle by testing the edge cases most developers ignore.">
+    <meta property="og:image" content="https://sayedasif.com/image/asif.png">
     
     <link rel="icon" type="image/png" href="/favicon.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -26,7 +27,7 @@
         "@type": "Person",
         "name": "Sayed Asif"
       },
-      "about": ["Stripe Integration Testing", "3DS2 Authentication", "Worldpay Validation", "API Webhook Testing"]
+      "about": ["Stripe Integration Testing", "3DS2 Authentication", "Worldpay Validation", "API Webhook Testing", "Idempotency Testing"]
     }
     </script>
 
@@ -40,35 +41,38 @@
         .nav-inner { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.5rem; font-weight: 800; color: var(--brand-dark); text-decoration: none; }
         .nav-links { display: flex; gap: 25px; }
-        .nav-links a { color: var(--brand-dark); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .nav-links a { color: var(--brand-dark); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--brand-primary); }
-        .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 1.5rem; }
+        .hamburger { display: none; background: none; border: none; cursor: pointer; font-size: 1.5rem; color: var(--brand-dark); }
 
         .hero { padding: 140px 0 60px; background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%); text-align: center; }
         .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); color: var(--brand-dark); margin-bottom: 20px; line-height: 1.1; }
         .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: #64748b; }
 
         .section { padding: 80px 0; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .card { background: #fff; padding: 35px; border-radius: 16px; border: var(--border-light); transition: 0.3s; box-shadow: var(--shadow-soft); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 40px; }
+        .card { background: #fff; padding: 40px; border-radius: 16px; border: var(--border-light); transition: 0.3s; box-shadow: var(--shadow-soft); }
         .card:hover { transform: translateY(-5px); border-color: var(--brand-primary); }
         .card i { font-size: 2rem; color: var(--brand-primary); margin-bottom: 20px; }
         .card h3 { color: var(--brand-dark); margin-bottom: 15px; font-size: 1.4rem; }
-        
-        .philosophy { background: var(--brand-dark); color: #fff; padding: 80px 0; border-radius: 24px; margin-top: 40px; }
-        .philosophy h2 { color: #fff; margin-bottom: 20px; }
-        .philosophy p { opacity: 0.9; font-size: 1.1rem; max-width: 800px; }
+        .card p { margin-bottom: 15px; }
 
-        .scenarios { background: var(--bg-secondary); border-radius: 16px; padding: 40px; border: var(--border-light); }
-        .scenarios ul { list-style: none; }
-        .scenarios li { margin-bottom: 20px; padding-left: 30px; position: relative; }
-        .scenarios li::before { content: '→'; position: absolute; left: 0; color: var(--brand-primary); font-weight: bold; }
+        .philosophy { background: var(--brand-dark); color: #fff; padding: 80px 0; border-radius: 24px; margin-top: 40px; }
+        .philosophy h2 { color: #fff; margin-bottom: 20px; font-size: 2rem; }
+        .philosophy p { opacity: 0.9; font-size: 1.1rem; max-width: 800px; margin-bottom: 20px; }
+
+        .scenarios { background: var(--bg-secondary); border-radius: 16px; padding: 50px; border: var(--border-light); }
+        .scenario-item { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid #e2e8f0; }
+        .scenario-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .scenario-item h4 { color: var(--brand-dark); font-size: 1.3rem; margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .scenario-item h4 i { color: var(--brand-primary); }
 
         @media (max-width: 768px) {
             .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #fff; flex-direction: column; padding: 20px; border-bottom: var(--border-light); }
             .nav-links.active { display: flex; }
             .hamburger { display: block; }
-            .hero { padding: 100px 0 40px; }
+            .hero { padding: 110px 0 40px; }
+            .scenarios { padding: 30px 20px; }
         }
     </style>
 </head>
@@ -92,48 +96,63 @@
         <header class="hero">
             <div class="container">
                 <h1>Zero-Defect <span style="color: var(--brand-primary);">Payment Systems</span></h1>
-                <p>I don't just "test" checkouts. I secure the entire transaction lifecycle—from 3DS2 authentication to multi-currency reconciliation.</p>
+                <p>I don't just "test" checkouts. I secure the transaction lifecycle by finding the edge cases that developers pray will never happen.</p>
             </div>
         </header>
 
         <section class="container section" aria-labelledby="gateways-heading">
-            <h2 id="gateways-heading">Gateways I've Mastered</h2>
+            <h2 id="gateways-heading" style="color: var(--brand-dark); text-align: center; font-size: 2.2rem; margin-bottom: 20px;">The Architectures I Test</h2>
             <div class="grid">
                 <article class="card">
                     <i class="fab fa-stripe" aria-hidden="true"></i>
-                    <h3>Stripe & Global Pay</h3>
-                    <p>Handling complex recurring donation flows and idempotent API requests to ensure donors aren't double-charged during network drops.</p>
+                    <h3>Modern APIs (Stripe & PayPal)</h3>
+                    <p>Testing modern gateways isn't about checking if a valid card goes through. It's about managing complex state. I validate webhook retry logic, subscription proration accuracy (what happens if a user upgrades mid-month?), and idempotent requests to guarantee a user is never double-charged during a network timeout.</p>
                 </article>
                 <article class="card">
                     <i class="fas fa-university" aria-hidden="true"></i>
-                    <h3>Lloyds & Worldpay</h3>
-                    <p>Validating legacy redirect flows and ISO8583 response codes. I've mapped every outcome from 'Authorised' to 'Referral'.</p>
-                </article>
-                <article class="card">
-                    <i class="fas fa-file-invoice-dollar" aria-hidden="true"></i>
-                    <h3>HMRC Gift Aid</h3>
-                    <p>Unique expertise in validating tax-reclaim logic for charities. Ensuring declaration status perfectly syncs with payment timestamps.</p>
+                    <h3>Legacy & Bank Flows (Worldpay & Lloyds)</h3>
+                    <p>Working with older banking integrations requires patience and precision. I deal with slow redirect flows, obscure ISO8583 decline codes, and XML/SOAP payloads. I test what happens when a user hits the "Back" button halfway through a bank authorization screen and tries to resubmit the form.</p>
                 </article>
             </div>
         </section>
 
         <section class="container section" aria-labelledby="scenarios-heading">
+            <h2 id="scenarios-heading" style="color: var(--brand-dark); text-align: center; font-size: 2.2rem; margin-bottom: 40px;">Real-World Scenarios I Break</h2>
             <div class="scenarios">
-                <h2 id="scenarios-heading" style="margin-bottom: 25px;">Critical Scenarios I Cover</h2>
-                <ul>
-                    <li><strong>3DS2 "Challenge" Paths:</strong> Verifying that the UI handles SMS and App authentication pop-ups without losing the session state.</li>
-                    <li><strong>Webhook Reliability:</strong> I test if the system correctly updates the database when a payment is successful but the user closes their browser before reaching the 'Thank You' page.</li>
-                    <li><strong>Declined Card Logic:</strong> Differentiating between 'Insufficient Funds' (soft decline) and 'Stolen Card' (hard decline) to trigger the right user messaging.</li>
-                    <li><strong>Negative Testing:</strong> Using "Magic Values" to force timeout errors and verifying the system gracefully rolls back the transaction.</li>
-                </ul>
+                
+                <div class="scenario-item">
+                    <h4><i class="fas fa-mouse-pointer"></i> The "Rage Click" Double Charge</h4>
+                    <p><strong>The Reality:</strong> If the UI freezes for even two seconds, users will mash the 'Submit Payment' button repeatedly. <br>
+                    <strong>How I test it:</strong> I use Chrome DevTools to throttle my network down to a slow 3G connection. I click submit five times in a row. I then check the database and the gateway dashboard to verify that the system generated a unique Idempotency Key, strictly enforcing that only one charge processed while the other four were safely ignored.</p>
+                </div>
+
+                <div class="scenario-item">
+                    <h4><i class="fas fa-mobile-alt"></i> The 3DS2 Session Killer</h4>
+                    <p><strong>The Reality:</strong> European banks require 3D Secure (3DS2) authentication. Users have to leave your website, open their banking app, approve the charge, and switch back. <br>
+                    <strong>How I test it:</strong> I explicitly test this on Mobile Safari and Chrome. Switching apps often causes mobile browsers to drop session cookies or aggressively cache the page. I verify that when the user returns to the success URL, the system accurately remembers who they are and updates their order status without forcing them to log in again.</p>
+                </div>
+
+                <div class="scenario-item">
+                    <h4><i class="fas fa-server"></i> The Silent Webhook Failure</h4>
+                    <p><strong>The Reality:</strong> Stripe takes the money successfully, but right as it fires the <code>payment_intent.succeeded</code> webhook, your server restarts or goes down for maintenance. <br>
+                    <strong>How I test it:</strong> I process a real test payment, but I intentionally kill our local receiving endpoint. The user is charged, but our database says "Pending." I then spin the server back up and verify that the system successfully processes Stripe's automated webhook retries, or that a scheduled cron job catches the discrepancy during nightly reconciliation.</p>
+                </div>
+
+                <div class="scenario-item">
+                    <h4><i class="fas fa-hand-holding-usd"></i> Partial Refunds & Proration</h4>
+                    <p><strong>The Reality:</strong> Refunding a $100 order is easy. Refunding one item from a $100 order that had a 15% discount code applied is a nightmare.<br>
+                    <strong>How I test it:</strong> I write scripts to calculate exact percentage breakdowns, ensuring that partial refunds correctly return the prorated tax amounts and don't accidentally refund non-refundable shipping fees.</p>
+                </div>
+
             </div>
         </section>
 
         <section class="container" style="margin-bottom: 80px;" aria-labelledby="philosophy-heading">
             <div class="philosophy">
                 <div class="container">
-                    <h2 id="philosophy-heading">Why I Obsess Over Payments</h2>
-                    <p>I've seen how a single bug in a payment gateway can halt a charity's entire fundraising campaign. It's not just about a "broken button"; it's about trust. I've spent hundreds of hours in Stripe sandboxes and Worldpay test environments because I know that if the money doesn't move correctly, the code doesn't matter. I don't stop testing until I've tried to break the system in ways the developers didn't even consider.</p>
+                    <h2 id="philosophy-heading">A Paranoia-Driven Approach</h2>
+                    <p>You can't test financial software with a happy-path mindset. If a UI element is misaligned, it's an annoyance. If a payment loop breaks, it's a disaster.</p>
+                    <p>I spend hours in testing sandboxes because I know that trust is the only currency that matters online. I don't stop testing when it works; I stop testing when I am absolutely certain it cannot be broken.</p>
                 </div>
             </div>
         </section>
@@ -150,8 +169,15 @@
             const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
             hamburger.setAttribute('aria-expanded', !isExpanded);
             navLinks.classList.toggle('active');
-            hamburger.querySelector('i').classList.toggle('fa-bars');
-            hamburger.querySelector('i').classList.toggle('fa-times');
+            
+            const icon = hamburger.querySelector('i');
+            if(navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
         });
     </script>
 </body>
