@@ -290,11 +290,14 @@
             .btn-group { justify-content: center; }
             
             .hero-image-box { 
-                height: 350px; /* Constrains height to prevent huge scrolling */
+                height: auto; /* Allows the container to wrap the image properly */
+                margin-top: 30px; /* Adds breathing room below the buttons */
                 padding-top: 0; 
             }
             .hero-img { 
-                max-width: 320px; /* Optimal for smaller mobile screens */
+                max-width: 320px; 
+                max-height: 420px; /* Prevents the image from becoming too tall on small screens */
+                width: auto;
             }
         }
 
@@ -507,22 +510,6 @@
                         <a href="https://edhiuk.org/" class="project-link-btn" target="_blank">Visit Live Site <i class="fas fa-external-link-alt"></i></a>
                     </div>
                 </div>
-
-                <!-- <div class="project-card">
-                    <div class="project-img-wrapper">
-                        <img src="/image/4.png" alt="CMS Testing" class="project-img">
-                    </div>
-                    <div class="project-content">
-                        <span class="project-category">Non-Profit organization</span>
-                        <h3 class="project-title">Muslim Rose Welfare</h3>
-                        <p class="project-desc">Tested a custom CMS with "Drag-and-Drop" builders. Verified content rendering, image optimization, and backend admin panel functionality.</p>
-                        <div class="tech-stack">
-                            <span class="tech-pill">CMS Validation</span>
-                            <span class="tech-pill">Usability</span>
-                        </div>
-                        <a href="https://muslimrosewelfare.org.uk/" class="project-link-btn" target="_blank">Visit Live Site <i class="fas fa-external-link-alt"></i></a>
-                    </div>
-                </div> -->
 
                 <div class="project-card">
                     <div class="project-img-wrapper">
