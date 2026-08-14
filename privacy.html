@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Privacy Notice | Sayed Asif</title>
+
+    <meta
+        name="description"
+        content="Privacy notice for the professional portfolio website of Sayed Asif, Software QA Engineer."
+    >
+
+    <meta name="robots" content="noindex, follow">
+
+    <link
+        rel="canonical"
+        href="https://sayedasif.com/privacy.html"
+    >
+
+    <meta name="theme-color" content="#00baf2">
+    <meta name="color-scheme" content="light">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    >
+
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-secondary: #f0f4f8;
+            --bg-highlight: #e0f7ff;
+
+            --brand-primary: #00baf2;
+            --brand-dark: #314259;
+            --brand-text: #314259;
+
+            --border-light: 1px solid #e2e8f0;
+
+            --shadow-soft:
+                0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg-main);
+            color: var(--brand-text);
+            font-family:
+                Inter,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--brand-primary);
+            outline-offset: 3px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            backdrop-filter: blur(10px);
+
+            border-bottom: var(--border-light);
+        }
+
+        .nav-inner {
+            min-height: 74px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .logo {
+            text-decoration: none;
+
+            font-size: 1.5rem;
+            font-weight: 800;
+
+            color: var(--brand-dark);
+        }
+
+        .back-link {
+            display: inline-flex;
+
+            align-items: center;
+            gap: 8px;
+
+            text-decoration: none;
+
+            color: var(--brand-text);
+
+            font-weight: 700;
+
+            transition: 0.25s ease;
+        }
+
+        .back-link:hover {
+            color: var(--brand-primary);
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            padding: 70px 0 90px;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero-card {
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(0, 186, 242, 0.12),
+                    transparent 38%
+                ),
+                var(--bg-secondary);
+
+            border: var(--border-light);
+
+            border-radius: 18px;
+
+            padding: 55px 50px;
+
+            margin-bottom: 28px;
+
+            box-shadow: var(--shadow-soft);
+        }
+
+        .hero-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(0, 186, 242, 0.12);
+
+            right: -100px;
+            bottom: -120px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: var(--brand-primary);
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.8px;
+
+            font-size: 0.78rem;
+
+            font-weight: 800;
+
+            margin-bottom: 12px;
+        }
+
+        .eyebrow::before {
+            content: "";
+
+            width: 28px;
+            height: 2px;
+
+            background: var(--brand-primary);
+        }
+
+        h1 {
+            color: var(--brand-dark);
+
+            font-size:
+                clamp(2.1rem, 5vw, 3.4rem);
+
+            line-height: 1.15;
+
+            letter-spacing: -1px;
+
+            margin-bottom: 15px;
+        }
+
+        .hero-card > p {
+            max-width: 760px;
+
+            color: #64748b;
+
+            font-size: 1.04rem;
+        }
+
+        .updated {
+            margin-top: 18px;
+
+            font-size: 0.88rem !important;
+
+            color: var(--brand-text) !important;
+        }
+
+        /* =========================
+           CONTENT LAYOUT
+        ========================= */
+
+        .layout {
+            display: grid;
+
+            grid-template-columns:
+                240px
+                minmax(0, 1fr);
+
+            gap: 28px;
+
+            align-items: start;
+        }
+
+        /* =========================
+           TABLE OF CONTENTS
+        ========================= */
+
+        .toc {
+            position: sticky;
+
+            top: 100px;
+
+            background: #ffffff;
+
+            border: var(--border-light);
+
+            border-radius: 14px;
+
+            padding: 20px;
+
+            box-shadow: var(--shadow-soft);
+        }
+
+        .toc-title {
+            font-weight: 800;
+
+            color: var(--brand-dark);
+
+            margin-bottom: 12px;
+        }
+
+        .toc a {
+            display: block;
+
+            text-decoration: none;
+
+            color: #64748b;
+
+            font-size: 0.9rem;
+
+            padding: 7px 0;
+
+            transition: 0.2s ease;
+        }
+
+        .toc a:hover {
+            color: var(--brand-primary);
+        }
+
+        /* =========================
+           CONTENT CARD
+        ========================= */
+
+        .content {
+            background: #ffffff;
+
+            border: var(--border-light);
+
+            border-radius: 16px;
+
+            padding: 40px 44px;
+
+            box-shadow: var(--shadow-soft);
+        }
+
+        .section {
+            padding-bottom: 28px;
+
+            margin-bottom: 28px;
+
+            border-bottom: var(--border-light);
+        }
+
+        .section:last-child {
+            border-bottom: 0;
+
+            margin-bottom: 0;
+
+            padding-bottom: 0;
+        }
+
+        h2 {
+            color: var(--brand-dark);
+
+            font-size: 1.35rem;
+
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 12px;
+        }
+
+        ul {
+            padding-left: 22px;
+
+            margin: 10px 0 14px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        /* =========================
+           NOTICE BOX
+        ========================= */
+
+        .callout {
+            margin-top: 30px;
+
+            padding: 18px 20px;
+
+            background: var(--bg-highlight);
+
+            border-left:
+                4px solid var(--brand-primary);
+
+            border-radius: 8px;
+        }
+
+        .callout strong {
+            color: var(--brand-dark);
+        }
+
+        .email {
+            color: var(--brand-primary);
+
+            font-weight: 700;
+
+            text-decoration: none;
+        }
+
+        .email:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: var(--bg-secondary);
+
+            border-top: var(--border-light);
+
+            padding: 30px 0;
+
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 20px;
+
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+
+            font-weight: 700;
+
+            color: var(--brand-text);
+
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-primary);
+        }
+
+        .copyright {
+            color: #64748b;
+
+            font-size: 0.85rem;
+        }
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            main {
+                padding: 45px 0 60px;
+            }
+
+            .hero-card {
+                padding: 38px 28px;
+            }
+
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: static;
+            }
+
+            .toc-links {
+                display: grid;
+
+                grid-template-columns:
+                    1fr 1fr;
+
+                column-gap: 20px;
+            }
+
+            .content {
+                padding: 30px 25px;
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 520px) {
+
+            .nav-inner {
+                min-height: 64px;
+            }
+
+            .logo {
+                font-size: 1.25rem;
+            }
+
+            .back-link {
+                font-size: 0.86rem;
+            }
+
+            main {
+                padding: 35px 0 50px;
+            }
+
+            .hero-card {
+                padding: 30px 20px;
+
+                border-radius: 14px;
+            }
+
+            .content {
+                padding: 25px 20px;
+
+                border-radius: 14px;
+            }
+
+            .toc-links {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.15rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            .hero-card > p {
+                font-size: 0.95rem;
+            }
+
+            .footer-links {
+                gap: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
+
+    <nav aria-label="Primary navigation">
+
+        <div class="container nav-inner">
+
+            <a
+                class="logo"
+                href="/"
+            >
+                Sayed Asif
+            </a>
+
+            <a
+                class="back-link"
+                href="/"
+            >
+                <i
+                    class="fas fa-arrow-left"
+                    aria-hidden="true"
+                ></i>
+
+                Back to Home
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main>
+
+        <div class="container">
+
+            <!-- HERO -->
+
+            <header class="hero-card">
+
+                <div class="eyebrow">
+                    Website Privacy
+                </div>
+
+                <h1>
+                    Privacy Notice
+                </h1>
+
+                <p>
+                    This page explains, in clear terms,
+                    how information may be handled when
+                    you visit this professional portfolio
+                    website or contact Sayed Asif.
+                </p>
+
+                <p class="updated">
+                    <strong>
+                        Last updated:
+                    </strong>
+
+                    August 14, 2026
+                </p>
+
+            </header>
+
+
+            <!-- CONTENT -->
+
+            <div class="layout">
+
+
+                <!-- TABLE OF CONTENTS -->
+
+                <aside
+                    class="toc"
+                    aria-label="Privacy notice contents"
+                >
+
+                    <div class="toc-title">
+                        On this page
+                    </div>
+
+                    <div class="toc-links">
+
+                        <a href="#scope">
+                            Scope
+                        </a>
+
+                        <a href="#information">
+                            Information provided
+                        </a>
+
+                        <a href="#technical">
+                            Technical information
+                        </a>
+
+                        <a href="#third-party">
+                            Third-party resources
+                        </a>
+
+                        <a href="#cookies">
+                            Cookies &amp; tracking
+                        </a>
+
+                        <a href="#use">
+                            Use of information
+                        </a>
+
+                        <a href="#confidentiality">
+                            Confidentiality
+                        </a>
+
+                        <a href="#security">
+                            Security
+                        </a>
+
+                        <a href="#changes">
+                            Changes
+                        </a>
+
+                        <a href="#contact">
+                            Contact
+                        </a>
+
+                    </div>
+
+                </aside>
+
+
+                <!-- PRIVACY CONTENT -->
+
+                <article class="content">
+
+
+                    <!-- 1 -->
+
+                    <section
+                        class="section"
+                        id="scope"
+                    >
+
+                        <h2>
+                            1. Scope
+                        </h2>
+
+                        <p>
+                            This is a professional portfolio
+                            website for Sayed Asif. It provides
+                            general information about professional
+                            experience, software quality assurance
+                            skills, and publicly shareable work.
+                        </p>
+
+                    </section>
+
+
+                    <!-- 2 -->
+
+                    <section
+                        class="section"
+                        id="information"
+                    >
+
+                        <h2>
+                            2. Information You Provide
+                        </h2>
+
+                        <p>
+                            This website does not provide an
+                            account-registration system or an
+                            on-site contact form.
+                        </p>
+
+                        <p>
+                            If you contact Sayed Asif by email,
+                            the information you voluntarily include
+                            in that message may be received and
+                            used to respond to your enquiry.
+                        </p>
+
+                        <p>
+                            Please do not send passwords,
+                            authentication tokens, confidential
+                            source code, payment-card information,
+                            or other sensitive information through
+                            this website.
+                        </p>
+
+                    </section>
+
+
+                    <!-- 3 -->
+
+                    <section
+                        class="section"
+                        id="technical"
+                    >
+
+                        <h2>
+                            3. Technical Information
+                        </h2>
+
+                        <p>
+                            Website hosting infrastructure may
+                            process standard technical information
+                            required to deliver, maintain, and
+                            secure the site.
+                        </p>
+
+                        <p>
+                            This can include information such as
+                            IP address, browser or device information,
+                            request timestamps, and server logs.
+                        </p>
+
+                        <p>
+                            Such processing may be controlled by
+                            the hosting or infrastructure provider
+                            and may be subject to that provider's
+                            own privacy and security policies.
+                        </p>
+
+                    </section>
+
+
+                    <!-- 4 -->
+
+                    <section
+                        class="section"
+                        id="third-party"
+                    >
+
+                        <h2>
+                            4. Third-Party Resources
+                        </h2>
+
+                        <p>
+                            The website may load third-party
+                            resources, including Font Awesome
+                            through the cdnjs content-delivery
+                            network, to provide interface icons.
+                        </p>
+
+                        <p>
+                            A browser request to a third-party
+                            resource may involve technical
+                            information being processed by
+                            that provider.
+                        </p>
+
+                    </section>
+
+
+                    <!-- 5 -->
+
+                    <section
+                        class="section"
+                        id="cookies"
+                    >
+
+                        <h2>
+                            5. Cookies and Tracking
+                        </h2>
+
+                        <p>
+                            This portfolio does not intentionally
+                            operate an advertising tracker, user
+                            account system, or analytics dashboard
+                            through the site itself.
+                        </p>
+
+                        <p>
+                            Third-party hosting, content-delivery,
+                            or infrastructure services may have
+                            their own technical mechanisms and
+                            policies.
+                        </p>
+
+                    </section>
+
+
+                    <!-- 6 -->
+
+                    <section
+                        class="section"
+                        id="use"
+                    >
+
+                        <h2>
+                            6. How Information Is Used
+                        </h2>
+
+                        <p>
+                            Information voluntarily provided
+                            by email may be used to communicate
+                            with you, respond to professional
+                            enquiries, and handle legitimate
+                            correspondence.
+                        </p>
+
+                        <p>
+                            Information is not intentionally
+                            collected through this portfolio
+                            for sale or advertising purposes.
+                        </p>
+
+                    </section>
+
+
+                    <!-- 7 -->
+
+                    <section
+                        class="section"
+                        id="confidentiality"
+                    >
+
+                        <h2>
+                            7. Client, Employer and Project
+                            Confidentiality
+                        </h2>
+
+                        <p>
+                            This portfolio is not intended to
+                            disclose confidential client or
+                            employer information.
+                        </p>
+
+                        <p>
+                            Project descriptions and examples
+                            are presented only at a general level
+                            where appropriate.
+                        </p>
+
+                        <p>
+                            Nothing on this website should be
+                            interpreted as permission to access,
+                            reproduce, publish, or disclose
+                            proprietary systems, source code,
+                            credentials, personal data, internal
+                            documentation, or other confidential
+                            material belonging to an employer,
+                            client, or third party.
+                        </p>
+
+                    </section>
+
+
+                    <!-- 8 -->
+
+                    <section
+                        class="section"
+                        id="security"
+                    >
+
+                        <h2>
+                            8. Security
+                        </h2>
+
+                        <p>
+                            Reasonable care is taken not to
+                            intentionally collect sensitive
+                            information through this public
+                            portfolio.
+                        </p>
+
+                        <p>
+                            However, no website or internet
+                            transmission can be guaranteed
+                            to be completely secure.
+                        </p>
+
+                    </section>
+
+
+                    <!-- 9 -->
+
+                    <section
+                        class="section"
+                        id="changes"
+                    >
+
+                        <h2>
+                            9. Changes to This Notice
+                        </h2>
+
+                        <p>
+                            This notice may be updated when
+                            the website's functionality or
+                            information practices change.
+                        </p>
+
+                        <p>
+                            The latest version will be published
+                            on this page with a revised date.
+                        </p>
+
+                    </section>
+
+
+                    <!-- 10 -->
+
+                    <section
+                        class="section"
+                        id="contact"
+                    >
+
+                        <h2>
+                            10. Contact
+                        </h2>
+
+                        <p>
+                            For questions specifically about
+                            the privacy practices of this website,
+                            you may contact:
+                        </p>
+
+                        <p>
+                            <a
+                                class="email"
+                                href="mailto:sayedasif83838@gmail.com"
+                            >
+                                sayedasif83838@gmail.com
+                            </a>
+                        </p>
+
+                    </section>
+
+
+                    <!-- LEGAL NOTICE -->
+
+                    <div class="callout">
+
+                        <strong>
+                            Important:
+                        </strong>
+
+                        This page is a general website
+                        privacy notice and is not legal advice.
+                        If an employer, client, platform, or
+                        applicable law requires a specific
+                        privacy or data-protection policy,
+                        the appropriate approved policy
+                        should take precedence.
+
+                    </div>
+
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/about.html">
+                    About
+                </a>
+
+                <a
+                    href="/privacy.html"
+                    aria-current="page"
+                >
+                    Privacy Notice
+                </a>
+
+            </div>
+
+            <div class="copyright">
+
+                &copy; 2026 Sayed Asif.
+                All rights reserved.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
