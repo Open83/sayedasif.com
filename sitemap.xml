@@ -8,21 +8,25 @@
     </url>
 
     <url>
-        <loc>https://sayedasif.com/about.html</loc>
+        <loc>https://sayedasif.com/about/</loc>
         <lastmod>2026-08-14</lastmod>
         
     </url>
 
     <url>
-        <loc>https://sayedasif.com/payments.html</loc>
+        <loc>https://sayedasif.com/payments/</loc>
         <lastmod>2026-08-14</lastmod>
         
     </url>
 
     <url>
-        <loc>https://sayedasif.com/blog/who-is-sayed-asif-qa-engineer.html</loc>
+        <loc>https://sayedasif.com/blog/who-is-sayed-asif-qa-engineer/</loc>
         <lastmod>2026-03-30</lastmod>
         
     </url>
+
+    <url>
+    <loc>https://sayedasif.com/projects/automation-exercise/</loc>
+</url>
 
 </urlset>
