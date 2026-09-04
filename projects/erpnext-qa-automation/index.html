@@ -791,20 +791,23 @@
                 </div>
 
                 <div class="content-section">
-                    <h3>Solution: Keyboard-Driven Interaction</h3>
+                    <h3>Solution: Synchronization Fix</h3>
                     <p>
-                        Instead of direct click/type interaction, the fix uses keyboard navigation:
+                        The fix addressed the underlying engineering principle: <strong>the test interacted with the
+                        autocomplete before the expected UI state was available.</strong>
+                    </p>
+                    <p style="margin-top: 12px;">
+                        The solution synchronized the test interaction with the dropdown's rendered state by:
                     </p>
                     <ul>
-                        <li>Focus the autocomplete field</li>
-                        <li>Type the search text</li>
-                        <li>Wait for the dropdown to render</li>
-                        <li>Navigate with arrow keys to the desired option</li>
-                        <li>Confirm with Enter key</li>
+                        <li>Detecting when the dropdown options are visible in the DOM</li>
+                        <li>Waiting for the asynchronous API response to complete</li>
+                        <li>Only then selecting from the populated dropdown</li>
                     </ul>
                     <p style="margin-top: 12px;">
-                        This approach is more resilient to async behavior because keyboard interaction naturally
-                        waits for the UI to respond.
+                        This approach treats synchronization as an engineering problem: align test execution with
+                        application behavior, not as a generic "best practice" but as a practical response to how
+                        ERPNext's Frappe framework handles autocomplete rendering.
                     </p>
                 </div>
 
@@ -827,15 +830,51 @@
             </div>
         </section>
 
-        <!-- Roadmap -->
+        <!-- Evidence & Verification -->
         <section class="section section-light">
             <div class="container">
                 <div class="content-section">
-                    <h2>Future Roadmap</h2>
+                    <h2>Evidence & Verification</h2>
                     <p>
-                        This project demonstrates current automation capabilities for core ERP workflows.
-                        All test results and implementation details are available on the GitHub repository.
+                        All project artifacts are publicly available for inspection and verification.
                     </p>
+                </div>
+
+                <div class="content-section">
+                    <h3>What You Can Inspect</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 25px;">
+
+                        <div style="padding: 20px; border: 1px solid var(--border); border-radius: 14px; background: var(--white);">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 8px;">Source Code</div>
+                            <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 15px;">
+                                Complete Playwright automation framework with Page Objects, fixtures, and test specifications.
+                            </p>
+                            <a href="https://github.com/Open83/ERPNext-QA-Automation" target="_blank" rel="noopener noreferrer" style="color: var(--primary-dark); font-weight: 700; text-decoration: none;">
+                                View Repository →
+                            </a>
+                        </div>
+
+                        <div style="padding: 20px; border: 1px solid var(--border); border-radius: 14px; background: var(--white);">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 8px;">CI/CD Execution</div>
+                            <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 15px;">
+                                GitHub Actions workflow showing automated test execution, results, and build history.
+                            </p>
+                            <a href="https://github.com/Open83/ERPNext-QA-Automation/actions" target="_blank" rel="noopener noreferrer" style="color: var(--primary-dark); font-weight: 700; text-decoration: none;">
+                                View CI/CD Logs →
+                            </a>
+                        </div>
+
+                        <div style="padding: 20px; border: 1px solid var(--border); border-radius: 14px; background: var(--white);">
+                            <div style="font-weight: 700; color: var(--dark); margin-bottom: 8px;">Architecture Documentation</div>
+                            <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 15px;">
+                                README with test structure, workflow descriptions, and setup instructions.
+                            </p>
+                            <a href="https://github.com/Open83/ERPNext-QA-Automation/blob/main/README.md" target="_blank" rel="noopener noreferrer" style="color: var(--primary-dark); font-weight: 700; text-decoration: none;">
+                                View Documentation →
+                            </a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </section>
