@@ -696,7 +696,7 @@
 
         .stats {
             border-bottom: var(--border-light);
-            padding: 38px 0;
+            padding: 28px 0;
             background: #ffffff;
         }
 
@@ -707,7 +707,7 @@
         }
 
         .stat-item {
-            padding: 5px 20px;
+            padding: 0 20px;
             border-right: var(--border-light);
         }
 
@@ -716,19 +716,19 @@
         }
 
         .stat-num {
-            font-size: 2.45rem;
+            font-size: 1.8rem;
             line-height: 1;
             font-weight: 800;
             color: var(--brand-primary);
         }
 
         .stat-label {
-            font-size: 0.86rem;
+            font-size: 0.81rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #64748b;
-            font-weight: 700;
-            margin-top: 9px;
+            letter-spacing: 0.5px;
+            color: #888;
+            font-weight: 600;
+            margin-top: 6px;
         }
 
 
@@ -1193,53 +1193,72 @@
         }
 
         .tools-grid {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            justify-content: center;
-
-            gap: 12px;
-
-            max-width: 900px;
-
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
-        .tool {
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
+        .tool-item {
             background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 28px 24px;
+            transition: 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-shadow: 0 2px 8px rgba(49, 66, 89, 0.08);
+        }
 
-            border: var(--border-light);
+        .tool-item:hover {
+            border-color: #00baf2;
+            box-shadow: 0 8px 24px rgba(0, 186, 242, 0.12);
+            transform: translateY(-4px);
+        }
 
-            padding: 10px 16px;
-
-            border-radius: 30px;
-
-            color: var(--brand-text);
-
-            font-size: 0.88rem;
-
+        .tool-item h4 {
+            color: #00baf2;
+            font-size: 16px;
             font-weight: 700;
-
-            transition: 0.3s;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.4;
         }
 
-        .tool i {
-            color: var(--brand-primary);
+        .tool-item h4 i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
         }
 
-        .tool:hover {
-            border-color: var(--brand-primary);
+        .tool-item p {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+            flex-grow: 1;
+        }
 
-            transform: translateY(-2px);
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 16px;
+            }
 
-            box-shadow: var(--shadow-soft);
+            .tool-item {
+                padding: 20px 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
 
@@ -2177,6 +2196,145 @@
 
 
         <!-- =====================================================
+             PROOF & CREDIBILITY STRIP
+        ====================================================== -->
+
+        <section
+            class="section-padding"
+            style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); padding: 40px 0;"
+            aria-label="Public QA automation proof"
+        >
+
+            <div class="container">
+
+                <div style="
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                    gap: 30px;
+                    text-align: center;
+                ">
+
+                    <div>
+
+                        <div style="
+                            font-size: 36px;
+                            font-weight: 700;
+                            color: #00baf2;
+                            margin-bottom: 8px;
+                        ">
+                            2
+                        </div>
+
+                        <div style="
+                            font-size: 14px;
+                            color: #555;
+                        ">
+                            Public Projects
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div style="
+                            font-size: 36px;
+                            font-weight: 700;
+                            color: #00baf2;
+                            margin-bottom: 8px;
+                        ">
+                            32
+                        </div>
+
+                        <div style="
+                            font-size: 13px;
+                            color: #555;
+                            line-height: 1.5;
+                        ">
+                            Current Automated Tests
+                            <br>
+                            <span style="font-size: 11px; color: #999;">Across 2 Public Projects</span>
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div style="
+                            font-size: 28px;
+                            font-weight: 700;
+                            color: #00baf2;
+                            margin-bottom: 8px;
+                        ">
+                            ✓
+                        </div>
+
+                        <div style="
+                            font-size: 14px;
+                            color: #555;
+                        ">
+                            Code, Tests & CI
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        <div style="
+                            font-size: 36px;
+                            font-weight: 700;
+                            color: #00baf2;
+                            margin-bottom: 8px;
+                        ">
+                            UI + API
+                        </div>
+
+                        <div style="
+                            font-size: 13px;
+                            color: #555;
+                            line-height: 1.5;
+                        ">
+                            Automation Across
+                            <br>
+                            <span style="font-size: 11px; color: #999;">Public Projects</span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div style="
+                    margin-top: 40px;
+                    padding-top: 30px;
+                    border-top: 1px solid #e0e0e0;
+                    text-align: center;
+                ">
+
+                    <p style="
+                        font-size: 13px;
+                        color: #666;
+                        max-width: 600px;
+                        margin: 0 auto;
+                    ">
+
+                        Both public projects use Playwright automation with Page
+                        Object Model architecture and GitHub Actions CI/CD
+                        integration. Code, tests and results are publicly
+                        verifiable and independently auditable.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
              PROFESSIONAL HIGHLIGHTS
         ====================================================== -->
 
@@ -2514,13 +2672,12 @@
                     id="approach-heading"
                     class="section-title"
                 >
-                    My QA Approach
+                    How I Test
                 </h2>
 
                 <p class="section-intro">
 
-                    Structured testing designed to identify defects early,
-                    provide useful evidence and reduce avoidable release risk.
+                    Structured QA workflow from requirements to release verification.
 
                 </p>
 
@@ -2535,13 +2692,13 @@
                         </span>
 
                         <h3>
-                            Understand Requirements
+                            Understand
                         </h3>
 
                         <p>
                             Review requirements, user stories and business
                             rules to understand expected behavior and
-                            identify areas that require additional validation.
+                            technical integration points.
                         </p>
 
                     </article>
@@ -2554,13 +2711,13 @@
                         </span>
 
                         <h3>
-                            Identify Risk Areas
+                            Identify Risk
                         </h3>
 
                         <p>
-                            Focus testing effort on workflows involving
-                            payments, permissions, calculations, integrations,
-                            data and other business-critical functionality.
+                            Assess workflows involving payments, permissions,
+                            data integrity, calculations, integrations and
+                            business-critical logic.
                         </p>
 
                     </article>
@@ -2573,13 +2730,13 @@
                         </span>
 
                         <h3>
-                            Test Beyond the Happy Path
+                            Design Tests
                         </h3>
 
                         <p>
-                            Validate boundary conditions, invalid inputs,
-                            failure scenarios, unexpected sequences and
-                            realistic user behavior.
+                            Create test cases covering happy path, boundary
+                            conditions, invalid inputs, failure scenarios and
+                            realistic user workflows.
                         </p>
 
                     </article>
@@ -2592,13 +2749,127 @@
                         </span>
 
                         <h3>
-                            Report Clearly
+                            Execute
                         </h3>
 
                         <p>
-                            Provide reproducible defect reports with clear
-                            steps, expected results, actual results,
-                            evidence and useful severity information.
+                            Run manual test cycles, verify against requirements,
+                            document observations and identify defects or
+                            unexpected behavior.
+                        </p>
+
+                    </article>
+
+
+                    <article class="approach-card">
+
+                        <span class="approach-number">
+                            05
+                        </span>
+
+                        <h3>
+                            Automate
+                        </h3>
+
+                        <p>
+                            Implement Playwright-based automation for repeatable
+                            workflows, apply Page Object Model architecture and
+                            integrate CI/CD execution.
+                        </p>
+
+                    </article>
+
+
+                    <article class="approach-card">
+
+                        <span class="approach-number">
+                            06
+                        </span>
+
+                        <h3>
+                            Validate Data
+                        </h3>
+
+                        <p>
+                            Verify API responses, database state, calculations
+                            and data consistency using Postman and SQL where
+                            applicable.
+                        </p>
+
+                    </article>
+
+
+                    <article class="approach-card">
+
+                        <span class="approach-number">
+                            07
+                        </span>
+
+                        <h3>
+                            Investigate
+                        </h3>
+
+                        <p>
+                            Debug failures, analyze logs, reproduce issues
+                            consistently and determine if defect or environment
+                            issue.
+                        </p>
+
+                    </article>
+
+
+                    <article class="approach-card">
+
+                        <span class="approach-number">
+                            08
+                        </span>
+
+                        <h3>
+                            Report
+                        </h3>
+
+                        <p>
+                            Provide clear defect reports with reproducible
+                            steps, expected vs. actual results, severity
+                            assessment and supporting evidence.
+                        </p>
+
+                    </article>
+
+
+                    <article class="approach-card">
+
+                        <span class="approach-number">
+                            09
+                        </span>
+
+                        <h3>
+                            Regression
+                        </h3>
+
+                        <p>
+                            Execute regression test suites to verify fixes don't
+                            break existing functionality and previously passing
+                            workflows remain stable.
+                        </p>
+
+                    </article>
+
+
+                    <article class="approach-card">
+
+                        <span class="approach-number">
+                            10
+                        </span>
+
+                        <h3>
+                            Verify CI
+                        </h3>
+
+                        <p>
+                            Confirm automated tests execute reliably in CI/CD
+                            pipeline, monitor for flakiness and validate
+                            release readiness.
                         </p>
 
                     </article>
@@ -2623,11 +2894,299 @@
 
             <div class="container">
 
+                <!-- =====================================================
+                     PUBLIC PROOF OF WORK
+                ====================================================== -->
+
                 <h2
                     id="portfolio-heading"
                     class="section-title"
                 >
-                    Selected QA Experience
+                    Public Proof of Work
+                </h2>
+
+
+                <div class="portfolio-disclosure">
+
+                    <p>
+
+                        Independent QA automation projects where architecture,
+                        code, tests and results are publicly verifiable on GitHub.
+                        These projects demonstrate QA automation thinking,
+                        Page Object Model architecture, CI/CD integration and
+                        testing methodology in publicly inspectable form.
+
+                    </p>
+
+                </div>
+
+
+                <div class="project-grid" id="public-projects">
+
+
+                    <!-- PUBLIC PROJECT 1: AUTOMATION EXERCISE -->
+
+                    <article class="project-card">
+
+                        <div class="project-img-wrapper">
+
+                            <img
+                                src="/image/1.png"
+                                alt="Playwright QA automation for e-commerce application"
+                                class="project-img"
+                                loading="lazy"
+                                width="600"
+                                height="400"
+                            >
+
+                        </div>
+
+
+                        <div class="project-content">
+
+                            <span class="project-category">
+                                Independent QA Project
+                            </span>
+
+                            <h3 class="project-title">
+                                Automation Exercise
+                            </h3>
+
+                            <p class="project-desc">
+
+                                Playwright-based QA automation for an e-commerce
+                                application covering UI workflows, API automation,
+                                regression scenarios, authentication, cart and
+                                checkout flows with supporting QA documentation
+                                and CI/CD.
+
+                            </p>
+
+
+                            <div class="tech-stack">
+
+                                <span class="tech-pill">
+                                    Playwright
+                                </span>
+
+                                <span class="tech-pill">
+                                    API Testing
+                                </span>
+
+                                <span class="tech-pill">
+                                    Page Object Model
+                                </span>
+
+                                <span class="tech-pill">
+                                    JavaScript
+                                </span>
+
+                                <span class="tech-pill">
+                                    GitHub Actions
+                                </span>
+
+                            </div>
+
+
+                            <div style="
+                                margin-top: 10px;
+                                padding-bottom: 10px;
+                                border-bottom: 1px solid #e0e0e0;
+                            ">
+
+                                <div style="
+                                    display: flex;
+                                    gap: 15px;
+                                    font-size: 13px;
+                                ">
+
+                                    <span style="color: #00baf2; font-weight: 600;">
+                                        26 Passed
+                                    </span>
+
+                                    <span style="color: #314259;">
+                                        0 Failed
+                                    </span>
+
+                                    <span style="color: #314259;">
+                                        0 Flaky
+                                    </span>
+
+                                    <span style="color: #314259;">
+                                        0 Skipped
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div style="
+                                margin-top: 15px;
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 10px;
+                            ">
+
+                                <a
+                                    href="/projects/automation-exercise/"
+                                    class="btn btn-primary"
+                                >
+                                    View Project
+                                </a>
+
+                                <a
+                                    href="https://github.com/Open83/automationexercise"
+                                    class="btn btn-outline"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i class="fab fa-github" aria-hidden="true"></i>
+                                    GitHub Repository
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PUBLIC PROJECT 2: ERPNEXT QA AUTOMATION -->
+
+                    <article class="project-card">
+
+                        <div class="project-img-wrapper">
+
+                            <img
+                                src="/image/3.png"
+                                alt="Playwright QA automation proof of work"
+                                class="project-img"
+                                loading="lazy"
+                                width="600"
+                                height="400"
+                            >
+
+                        </div>
+
+
+                        <div class="project-content">
+
+                            <span class="project-category">
+                                Independent QA Project
+                            </span>
+
+                            <h3 class="project-title">
+                                ERPNext QA Automation
+                            </h3>
+
+                            <p class="project-desc">
+
+                                Playwright-based automation covering core ERP
+                                workflows including Material Request, Quotation
+                                and Sales Order, using Page Object Model
+                                architecture and CI execution.
+
+                            </p>
+
+
+                            <div class="tech-stack">
+
+                                <span class="tech-pill">
+                                    Playwright
+                                </span>
+
+                                <span class="tech-pill">
+                                    Page Object Model
+                                </span>
+
+                                <span class="tech-pill">
+                                    JavaScript
+                                </span>
+
+                                <span class="tech-pill">
+                                    GitHub Actions
+                                </span>
+
+                            </div>
+
+
+                            <div style="
+                                margin-top: 10px;
+                                padding-bottom: 10px;
+                                border-bottom: 1px solid #e0e0e0;
+                            ">
+
+                                <div style="
+                                    display: flex;
+                                    gap: 15px;
+                                    font-size: 13px;
+                                ">
+
+                                    <span style="color: #00baf2; font-weight: 600;">
+                                        6 Tests
+                                    </span>
+
+                                    <span style="color: #00baf2; font-weight: 600;">
+                                        6 Passed
+                                    </span>
+
+                                    <span style="color: #314259;">
+                                        0 Failed
+                                    </span>
+
+                                    <span style="color: #314259;">
+                                        0 Flaky
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div style="
+                                margin-top: 15px;
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 10px;
+                            ">
+
+                                <a
+                                    href="/projects/erpnext-qa-automation/"
+                                    class="btn btn-primary"
+                                >
+                                    View Project
+                                </a>
+
+                                <a
+                                    href="https://github.com/Open83/ERPNext-QA-Automation"
+                                    class="btn btn-outline"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i class="fab fa-github" aria-hidden="true"></i>
+                                    GitHub Repository
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+                <!-- =====================================================
+                     PROFESSIONAL QA EXPERIENCE
+                ====================================================== -->
+
+                <h2
+                    class="section-title"
+                    style="margin-top: 60px;"
+                >
+                    Professional QA Experience
                 </h2>
 
 
@@ -2651,10 +3210,10 @@
                 </div>
 
 
-                <div class="project-grid">
+                <div class="project-grid" id="professional-projects">
 
 
-                    <!-- PROJECT 1 -->
+                    <!-- PROFESSIONAL PROJECT 1 -->
 
                     <article class="project-card">
 
@@ -3030,85 +3589,6 @@
 
                     </article>
 
-                                        <!-- PROJECT 7 — PUBLIC QA PROOF OF WORK -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/3.png"
-                                alt="Playwright QA automation proof of work"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                QA Proof of Work
-                            </span>
-
-                            <h3 class="project-title">
-                                Automation Exercise
-                            </h3>
-
-                            <p class="project-desc">
-
-                                Public QA automation project demonstrating
-                                Playwright UI testing, REST API validation,
-                                Page Object Model architecture, regression
-                                coverage and CI execution.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Playwright
-                                </span>
-
-                                <span class="tech-pill">
-                                    API Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    Page Object Model
-                                </span>
-
-                                <span class="tech-pill">
-                                    GitHub Actions
-                                </span>
-
-                            </div>
-
-
-                            <div style="
-                                margin-top: 20px;
-                                display: flex;
-                                flex-wrap: wrap;
-                                gap: 10px;
-                            ">
-
-                                <a
-                                    href="/projects/automation-exercise/"
-                                    class="btn btn-primary"
-                                >
-                                    View Automation Project
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
 
                 </div>
 
@@ -3321,6 +3801,275 @@
 
 
         <!-- =====================================================
+             AUTOMATION RELIABILITY INVESTIGATION
+        ====================================================== -->
+
+        <section
+            class="section-padding"
+            aria-labelledby="investigation-heading"
+        >
+
+            <div class="container">
+
+                <div class="case-study-intro">
+
+                    <h2
+                        id="investigation-heading"
+                        class="section-title"
+                    >
+                        Automation Reliability Investigation
+                    </h2>
+
+                    <p>
+
+                        <strong>
+                            Stabilizing ERPNext Autocomplete Automation
+                        </strong>
+
+                    </p>
+
+                    <p style="margin-top: 10px;">
+
+                        During ERPNext QA automation development, automated tests
+                        failed intermittently when interacting with autocomplete
+                        dropdown fields. This case study demonstrates the
+                        debugging methodology applied to identify and resolve
+                        the underlying synchronization issue.
+
+                    </p>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-binoculars"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Failure Observation
+                        </h3>
+
+                        <p>
+
+                            Tests targeting autocomplete fields failed
+                            sporadically. Same test passed in one run but
+                            failed in the next. Error occurred during input
+                            field interaction and option selection.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-repeat"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Reproduce
+                        </h3>
+
+                        <p>
+
+                            Ran failing test multiple times to isolate
+                            conditions. Confirmed intermittent nature:
+                            failures occurred randomly, not deterministically.
+                            Pattern suggested timing or synchronization issue.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-microscope"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Observe
+                        </h3>
+
+                        <p>
+
+                            Used browser DevTools and Playwright logging to
+                            inspect DOM state during execution. Observed that
+                            dropdown options appeared after click event,
+                            suggesting asynchronous rendering behavior.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-search"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Investigate
+                        </h3>
+
+                        <p>
+
+                            Analyzed Playwright selector and timing. Found that
+                            test attempted to select dropdown option before DOM
+                            fully rendered. Root cause: missing wait for
+                            dropdown options to be visible before interaction.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-lightbulb"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Root Cause
+                        </h3>
+
+                        <p>
+
+                            Autocomplete dropdown options rendered
+                            asynchronously. Test code selected option
+                            immediately after click without waiting for
+                            dropdown to populate. Race condition between
+                            DOM update and test execution.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-wrench"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Fix
+                        </h3>
+
+                        <p>
+
+                            Added explicit wait for dropdown options using
+                            <code>page.waitForSelector()</code> with appropriate
+                            timeout. Modified Page Object method to wait for
+                            visible options before selection.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-check-circle"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Verify
+                        </h3>
+
+                        <p>
+
+                            Repeated the test execution after the fix to confirm
+                            stable behavior. Verified the correction didn't
+                            introduce delays or break other workflows. Test
+                            now executes reliably in the CI pipeline.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-graduation-cap"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Lesson
+                        </h3>
+
+                        <p>
+
+                            Automation reliability depends on proper
+                            synchronization with application behavior. Explicit
+                            waits for UI state changes prevent race conditions.
+                            This investigation strengthened overall test
+                            architecture.
+
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
              TOOLS & TECHNOLOGIES
         ====================================================== -->
 
@@ -3340,63 +4089,342 @@
 
                 <p class="section-intro">
 
-                    Tools are selected according to project requirements,
-                    testing objectives and the type of validation required.
+                    Tools are selected according to project requirements
+                    and testing objectives.
 
                 </p>
 
 
                 <div class="tools-grid">
 
-                    <span class="tool">
-                        <i class="fas fa-vial" aria-hidden="true"></i>
-                        Manual Testing
-                    </span>
+                    <div class="tool-item">
+                        <h4>
+                            <i class="fas fa-robot"></i>Playwright
+                        </h4>
+                        <p>
+                            UI automation, regression workflows and API automation
+                        </p>
+                    </div>
 
-                    <span class="tool">
-                        <i class="fas fa-robot" aria-hidden="true"></i>
-                        Playwright
-                    </span>
+                    <div class="tool-item">
+                        <h4>
+                            <i class="fas fa-network-wired"></i>Postman
+                        </h4>
+                        <p>
+                            Manual API exploration and validation
+                        </p>
+                    </div>
 
-                    <span class="tool">
-                        <i class="fas fa-network-wired" aria-hidden="true"></i>
-                        Postman
-                    </span>
+                    <div class="tool-item">
+                        <h4>
+                            <i class="fas fa-database"></i>SQL
+                        </h4>
+                        <p>
+                            Database validation and test data management
+                        </p>
+                    </div>
 
-                    <span class="tool">
-                        <i class="fas fa-database" aria-hidden="true"></i>
-                        SQL
-                    </span>
+                    <div class="tool-item">
+                        <h4>
+                            <i class="fas fa-code-branch"></i>GitHub Actions
+                        </h4>
+                        <p>
+                            Automated test execution in CI/CD pipeline
+                        </p>
+                    </div>
 
-                    <span class="tool">
-                        <i class="fas fa-bug" aria-hidden="true"></i>
-                        Jira
-                    </span>
+                    <div class="tool-item">
+                        <h4>
+                            <i class="fas fa-code"></i>JavaScript
+                        </h4>
+                        <p>
+                            Automation implementation and test development
+                        </p>
+                    </div>
 
-                    <span class="tool">
-                        <i class="fas fa-code" aria-hidden="true"></i>
-                        API Testing
-                    </span>
+                    <div class="tool-item">
+                        <h4>
+                            <i class="fas fa-shapes"></i>Page Object Model
+                        </h4>
+                        <p>
+                            Maintainable and scalable test automation architecture
+                        </p>
+                    </div>
 
-                    <span class="tool">
-                        <i class="fas fa-globe" aria-hidden="true"></i>
-                        Cross-Browser Testing
-                    </span>
+                    <div class="tool-item">
+                        <h4>
+                            <i class="fas fa-bug"></i>Jira
+                        </h4>
+                        <p>
+                            Defect tracking and issue management
+                        </p>
+                    </div>
 
-                    <span class="tool">
-                        <i class="fas fa-mobile-screen" aria-hidden="true"></i>
-                        Responsive Testing
-                    </span>
+                    <div class="tool-item">
+                        <h4>
+                            <i class="fas fa-vial"></i>Manual Testing
+                        </h4>
+                        <p>
+                            Exploratory testing and complex workflow validation
+                        </p>
+                    </div>
 
-                    <span class="tool">
-                        <i class="fas fa-code-branch" aria-hidden="true"></i>
-                        Regression Testing
-                    </span>
+                </div>
 
-                    <span class="tool">
-                        <i class="fas fa-server" aria-hidden="true"></i>
-                        Database Validation
-                    </span>
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             EVIDENCE LIBRARY
+        ====================================================== -->
+
+        <section
+            class="section-padding"
+            aria-labelledby="evidence-heading"
+        >
+
+            <div class="container">
+
+                <h2
+                    id="evidence-heading"
+                    class="section-title"
+                >
+                    Evidence Library
+                </h2>
+
+                <p class="section-intro">
+
+                    Supporting documentation and artifacts demonstrating QA
+                    planning, execution, automation and findings.
+
+                </p>
+
+
+                <div class="feature-grid">
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-clipboard-list"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Test Planning
+                        </h3>
+
+                        <p>
+
+                            Test plans defining scope, approach, resource
+                            allocation, schedule and success criteria for
+                            application testing cycles.
+
+                        </p>
+
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+
+                            <a
+                                href="https://docs.google.com/document/d/1TurtuoFSXjmA95otdRhSaLQDjXxTNbr6mjD70V_bbGQ/edit?usp=sharing"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style="color: #00baf2; text-decoration: none; font-size: 13px; font-weight: 600;"
+                            >
+                                View Test Plan →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-list-check"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Test Design
+                        </h3>
+
+                        <p>
+
+                            Manual test cases covering functional requirements,
+                            boundary conditions, error scenarios and user
+                            workflows. Coverage matrices documenting test scope.
+
+                        </p>
+
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+
+                            <a
+                                href="https://docs.google.com/document/d/1lvmT0Q68B_rJPLB0VB7HmDYBQp1iXm-utrJX7t7-r08/edit?usp=sharing"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style="color: #00baf2; text-decoration: none; font-size: 13px; font-weight: 600;"
+                            >
+                                View Test Cases →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-play-circle"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Execution
+                        </h3>
+
+                        <p>
+
+                            Test execution reports documenting test runs,
+                            results, pass/fail counts, defects identified and
+                            regression coverage across application builds.
+
+                        </p>
+
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+
+                            <a
+                                href="https://docs.google.com/document/d/1yuMTnTLcn_3sfraXnLYCy2DI5YFb7CzvF4YGowjOHMY/edit?usp=sharing"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style="color: #00baf2; text-decoration: none; font-size: 13px; font-weight: 600;"
+                            >
+                                View Execution Report →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-robot"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Automation
+                        </h3>
+
+                        <p>
+
+                            Public GitHub repositories with test source code,
+                            Page Object Model architecture, CI/CD pipeline
+                            configuration and test execution logs.
+
+                        </p>
+
+                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+
+                                <a
+                                    href="https://github.com/Open83/automationexercise"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style="color: #00baf2; text-decoration: none; font-size: 13px; font-weight: 600;"
+                                >
+                                    Repository →
+                                </a>
+
+                                <a
+                                    href="https://github.com/Open83/automationexercise/actions"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style="color: #00baf2; text-decoration: none; font-size: 13px; font-weight: 600;"
+                                >
+                                    CI/CD →
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-search-plus"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Investigation
+                        </h3>
+
+                        <p>
+
+                            Root cause analysis of automation failures,
+                            engineering findings documenting investigation
+                            methodology and resolution approach.
+
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature-card">
+
+                        <div class="feature-icon-box">
+
+                            <i
+                                class="fas fa-file-alt"
+                                aria-hidden="true"
+                            ></i>
+
+                        </div>
+
+                        <h3>
+                            Quality Assessment
+                        </h3>
+
+                        <p>
+
+                            Final QA reports summarizing testing activities,
+                            quality findings, risk assessment and
+                            recommendations for release decisions.
+
+                        </p>
+
+                    </article>
+
 
                 </div>
 

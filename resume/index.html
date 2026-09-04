@@ -1006,6 +1006,16 @@
             .experience-date {
                 align-self: flex-start;
             }
+
+            .contact-item {
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .contact-item a {
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1015,6 +1025,199 @@
 
             .skill-badge {
                 font-size: 11px;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .resume-container {
+                padding: 16px 12px;
+                gap: 16px;
+            }
+
+            .profile-card {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .profile-image {
+                grid-column: 1;
+                grid-row: 1;
+                width: 90px;
+                height: 90px;
+                font-size: 36px;
+                margin: 0 auto 8px;
+            }
+
+            .profile-name {
+                grid-column: 1;
+                grid-row: 2;
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .profile-title {
+                grid-column: 1;
+                grid-row: 3;
+                text-align: center;
+                margin-bottom: 8px;
+            }
+
+            .divider {
+                grid-column: 1;
+                margin: 8px 0;
+            }
+
+            .contact-list {
+                grid-column: 1;
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin: 0;
+            }
+
+            .contact-item {
+                font-size: 12px;
+                gap: 8px;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .contact-item a {
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+
+            .stats-row {
+                grid-column: 1;
+                flex-direction: column;
+                gap: 0;
+                margin-top: 0;
+            }
+
+            .stat-item {
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+                padding: 10px 0;
+                flex: none;
+            }
+
+            .stat-item:last-child {
+                border-bottom: none;
+            }
+
+            .btn {
+                grid-column: 1;
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .btn-tooltip {
+                font-size: 10px;
+                margin-top: 4px;
+            }
+
+            .section-title {
+                font-size: 18px;
+                margin-bottom: 16px;
+            }
+
+            .content {
+                gap: 28px;
+            }
+
+            .summary-card {
+                padding: 16px;
+            }
+
+            .skill-card {
+                padding: 16px;
+            }
+
+            .proficiency-section {
+                padding: 20px;
+            }
+
+            .proficiency-item {
+                margin-bottom: 18px;
+            }
+
+            .proficiency-name {
+                font-size: 13px;
+            }
+
+            .proficiency-value {
+                font-size: 13px;
+            }
+
+            .experience-card {
+                padding: 16px;
+            }
+
+            .experience-role {
+                font-size: 15px;
+            }
+
+            .experience-company {
+                font-size: 13px;
+            }
+
+            .experience-bullets li {
+                font-size: 12px;
+                margin-bottom: 5px;
+            }
+
+            .education-card {
+                padding: 16px;
+            }
+
+            .education-degree {
+                font-size: 15px;
+            }
+
+            .education-school {
+                font-size: 13px;
+            }
+
+            .project-card {
+                padding: 16px;
+            }
+
+            .project-title {
+                font-size: 15px;
+            }
+
+            .project-description {
+                font-size: 12px;
+                margin-bottom: 10px;
+            }
+
+            .tools-grid {
+                gap: 10px;
+            }
+
+            .tool-item {
+                padding: 10px;
+            }
+
+            .tool-icon {
+                font-size: 24px;
+                margin-bottom: 4px;
+            }
+
+            .tool-name {
+                font-size: 11px;
+            }
+
+            footer {
+                padding: 24px 12px 20px;
+            }
+
+            .footer-links {
+                gap: 12px;
+                font-size: 0.85rem;
+            }
+
+            .copyright {
+                font-size: 0.8rem;
             }
         }
 
@@ -1341,16 +1544,16 @@
                         </div>
 
                         <div class="project-card">
-                            <span class="project-tag">QA Proof of Work</span>
-                            <h3 class="project-title">Playwright Automation Exercise</h3>
-                            <p class="project-description">Public automation project demonstrating UI testing, REST API validation, Page Object Model architecture, and CI execution with GitHub Actions.</p>
+                            <span class="project-tag">Independent QA Project</span>
+                            <h3 class="project-title">ERPNext QA Automation</h3>
+                            <p class="project-description">Independent QA automation project demonstrating Playwright-based UI testing of ERPNext workflows using Page Object Model architecture and GitHub Actions CI.</p>
                             <div class="project-skills">
                                 <span class="project-skill">Playwright</span>
                                 <span class="project-skill">Page Object Model</span>
                                 <span class="project-skill">GitHub Actions</span>
                             </div>
-                            <a href="/projects/automation-exercise/" class="project-link">
-                                View Project <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                            <a href="/projects/erpnext-qa-automation/" class="project-link">
+                                View Case Study <i class="fas fa-arrow-right" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
