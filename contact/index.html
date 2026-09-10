@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact | Sayed Asif – Software QA Engineer</title>
+
+    <meta
+        name="description"
+        content="Get in touch with Sayed Asif, Software QA Engineer based in Mumbai. Available for full-time roles, freelance QA projects and professional collaborations."
+    >
+
+    <meta name="author" content="Sayed Asif">
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://sayedasif.com/contact/">
+
+    <meta name="theme-color" content="#00baf2">
+    <meta name="color-scheme" content="light">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact Sayed Asif | Software QA Engineer">
+    <meta property="og:description" content="Get in touch with Sayed Asif for QA collaboration, job opportunities, or freelance projects.">
+    <meta property="og:url" content="https://sayedasif.com/contact/">
+    <meta property="og:image" content="https://sayedasif.com/image/asif.png">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* =====================================================
+           COLOR SYSTEM
+        ===================================================== */
+
+        :root {
+            --bg-main: #ffffff;
+            --bg-secondary: #f0f4f8;
+            --bg-highlight: #e0f7ff;
+
+            --brand-primary: #00baf2;
+            --brand-dark: #314259;
+            --brand-text: #314259;
+
+            --gradient-brand: linear-gradient(135deg, #00baf2 0%, #0088cc 100%);
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 10px 25px rgba(0, 186, 242, 0.15);
+            --border-light: 1px solid #e2e8f0;
+        }
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--brand-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+
+        h1, h2, h3, h4 { color: var(--brand-dark); font-weight: 700; }
+        p { color: var(--brand-text); }
+
+        ::selection { background: var(--brand-primary); color: #ffffff; }
+        :focus-visible { outline: 3px solid var(--brand-primary); outline-offset: 3px; }
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: var(--border-light);
+            padding: 15px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 42px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--brand-dark);
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: var(--brand-text);
+            font-size: 0.93rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brand-primary);
+        }
+
+        .hamburger {
+            display: none;
+            border: 0;
+            background: transparent;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--brand-dark);
+            padding: 8px;
+        }
+
+        /* =====================================================
+           MAIN CONTENT
+        ===================================================== */
+
+        main {
+            min-height: 100vh;
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+
+        .contact-hero {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 20px;
+        }
+
+        .contact-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .contact-hero p {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* =====================================================
+           CONTACT SECTION
+        ===================================================== */
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Form Styling */
+        .contact-form {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 12px;
+            border: var(--border-light);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--brand-dark);
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: var(--border-light);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--brand-text);
+            background: var(--bg-main);
+            transition: 0.2s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(0, 186, 242, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 13px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.95rem;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--brand-primary);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #0096d9;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .success-message {
+            display: none;
+            background: #dcfce7;
+            color: #166534;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #22c55e;
+        }
+
+        /* Contact Details Sidebar */
+        .contact-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-card {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            border: var(--border-light);
+        }
+
+        .contact-card h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--brand-primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .contact-detail {
+            margin-bottom: 16px;
+        }
+
+        .contact-detail:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-detail p {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .contact-detail a {
+            color: var(--brand-primary);
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .contact-detail a:hover {
+            color: #0096d9;
+        }
+
+        .availability-box {
+            background: rgba(0, 186, 242, 0.08);
+            border-left: 4px solid var(--brand-primary);
+            padding: 16px 20px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background: var(--bg-main);
+            border: var(--border-light);
+            border-radius: 8px;
+            color: var(--brand-primary);
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .social-icon:hover {
+            background: var(--brand-primary);
+            color: #ffffff;
+            border-color: var(--brand-primary);
+        }
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: var(--bg-secondary);
+            border-top: var(--border-light);
+            padding: 40px 0;
+            margin-top: 80px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 28px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--brand-text);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-primary);
+        }
+
+        footer p {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: #ffffff;
+                border-bottom: var(--border-light);
+                padding: 20px;
+                gap: 16px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-form {
+                padding: 30px 20px;
+            }
+
+            .contact-hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .contact-hero p {
+                font-size: 1rem;
+            }
+
+            .footer-links {
+                gap: 16px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding-top: 90px;
+                padding-bottom: 40px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .contact-form {
+                padding: 24px 16px;
+            }
+
+            .contact-card {
+                padding: 24px;
+            }
+
+            .contact-hero {
+                padding: 30px 16px;
+                margin-bottom: 40px;
+            }
+
+            .contact-hero h1 {
+                font-size: 1.5rem;
+                margin-bottom: 12px;
+            }
+
+            .contact-hero p {
+                font-size: 0.95rem;
+            }
+
+            label {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                padding: 11px 24px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav aria-label="Main navigation">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="/" class="logo">
+                    Sayed<span style="color: var(--brand-primary);">Asif</span>
+                </a>
+
+                <div class="nav-links" id="navLinks">
+                    <a href="/">Home</a>
+                    <a href="/about/">About</a>
+                    <a href="/capabilities/">Capabilities</a>
+                    <a href="/payments/">Payments</a>
+                    <a href="/proof-of-work/">Proof of Work</a>
+                    <a href="/resume/">Resume</a>
+                    <a href="/blog/who-is-sayed-asif-qa-engineer/">Blog</a>
+                    <a href="/contact/" class="active">Contact</a>
+                </div>
+
+                <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="contact-hero">
+                <h1>Let's Talk About Quality</h1>
+                <p>For professional opportunities, QA discussions or collaboration — reach out directly.</p>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="contact-wrapper">
+
+                <!-- Contact Form -->
+                <div>
+                    <div class="contact-form">
+                        <div class="success-message" id="successMessage">
+                            Thanks for reaching out. I'll get back to you shortly.
+                        </div>
+
+                        <form id="contactForm" method="POST" action="https://formspree.io/f/YOUR_FORM_ID">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    required
+                                    placeholder="Your name"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    required
+                                    placeholder="your@email.com"
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a subject...</option>
+                                    <option value="Job Opportunity">Job Opportunity</option>
+                                    <option value="Freelance Project">Freelance Project</option>
+                                    <option value="QA Collaboration">QA Collaboration</option>
+                                    <option value="General Enquiry">General Enquiry</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    required
+                                    placeholder="Tell me about your inquiry..."
+                                ></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Contact Details Sidebar -->
+                <aside class="contact-sidebar">
+
+                    <!-- Contact Info Card -->
+                    <div class="contact-card">
+                        <h3>Contact Info</h3>
+
+                        <div class="contact-detail">
+                            <p><i class="fas fa-map-marker-alt" style="color: var(--brand-primary); margin-right: 8px;"></i>Location</p>
+                            <a href="https://maps.google.com/?q=Andheri+Mumbai" target="_blank" rel="noopener noreferrer">
+                                Andheri (W), Mumbai
+                            </a>
+                        </div>
+
+                        <div class="contact-detail">
+                            <p><i class="fas fa-phone" style="color: var(--brand-primary); margin-right: 8px;"></i>Phone</p>
+                            <a href="tel:+919867574386">+91 9867574386</a>
+                        </div>
+
+                        <div class="contact-detail">
+                            <p><i class="fas fa-envelope" style="color: var(--brand-primary); margin-right: 8px;"></i>Email</p>
+                            <a href="mailto:sayedasif83838@gmail.com">sayedasif83838@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <!-- Social Links Card -->
+                    <div class="contact-card">
+                        <h3>Connect</h3>
+                        <div class="social-icons">
+                            <a
+                                href="https://www.linkedin.com/in/asifsayed83/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="social-icon"
+                                aria-label="LinkedIn"
+                                title="LinkedIn"
+                            >
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+
+                            <a
+                                href="https://github.com/Open83"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="social-icon"
+                                aria-label="GitHub"
+                                title="GitHub"
+                            >
+                                <i class="fab fa-github"></i>
+                            </a>
+
+                            <a
+                                href="https://wa.me/919867574386"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="social-icon"
+                                aria-label="WhatsApp"
+                                title="WhatsApp"
+                            >
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Availability Card -->
+                    <div class="contact-card">
+                        <h3>Availability</h3>
+                        <div class="availability-box">
+                            Currently open to full-time QA Engineer roles. Remote, hybrid and on-site opportunities considered.
+                        </div>
+                    </div>
+
+                </aside>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/capabilities/">Capabilities</a>
+                <a href="/proof-of-work/">Proof of Work</a>
+                <a href="/resume/">Resume</a>
+                <a href="/blog/who-is-sayed-asif-qa-engineer/">Blog</a>
+                <a href="/privacy/">Privacy</a>
+            </div>
+            <p>&copy; 2026 Sayed Asif. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile Navigation Script -->
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector("#navLinks");
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener("click", function () {
+                const isOpen = hamburger.getAttribute("aria-expanded") === "true";
+
+                hamburger.setAttribute("aria-expanded", String(!isOpen));
+                hamburger.setAttribute(
+                    "aria-label",
+                    isOpen ? "Open navigation menu" : "Close navigation menu"
+                );
+
+                navLinks.classList.toggle("active", !isOpen);
+            });
+
+            // Close menu when a link is clicked
+            navLinks.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", () => {
+                    hamburger.setAttribute("aria-expanded", "false");
+                    hamburger.setAttribute("aria-label", "Open navigation menu");
+                    navLinks.classList.remove("active");
+                });
+            });
+        }
+
+        // Form handling
+        const contactForm = document.getElementById("contactForm");
+        const successMessage = document.getElementById("successMessage");
+
+        if (contactForm) {
+            contactForm.addEventListener("submit", function (e) {
+                // Basic client-side validation
+                const name = document.getElementById("name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const subject = document.getElementById("subject").value;
+                const message = document.getElementById("message").value.trim();
+
+                if (!name || !email || !subject || !message) {
+                    e.preventDefault();
+                    alert("Please fill in all required fields.");
+                    return;
+                }
+
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    e.preventDefault();
+                    alert("Please enter a valid email address.");
+                    return;
+                }
+
+                // Success message handling (for Formspree redirect)
+                // After successful submission, Formspree will redirect or show its own message
+                // You can optionally show success message here if using AJAX
+            });
+        }
+    </script>
+
+</body>
+</html>
