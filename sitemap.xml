@@ -40,4 +40,19 @@
         <loc>https://sayedasif.com/projects/automation-exercise/</loc>
     </url>
 
+    <url>
+        <loc>https://sayedasif.com/capabilities/</loc>
+        <lastmod>2026-09-10</lastmod>
+    </url>
+
+    <url>
+        <loc>https://sayedasif.com/proof-of-work/</loc>
+        <lastmod>2026-09-10</lastmod>
+    </url>
+
+    <url>
+        <loc>https://sayedasif.com/projects/restful-booker-api-automation/</loc>
+        <lastmod>2026-09-10</lastmod>
+    </url>
+
 </urlset>

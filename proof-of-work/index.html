@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Essential responsive configuration -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary SEO -->
+    <title>Proof of Work | QA Automation Portfolio | Sayed Asif</title>
+
+    <meta
+        name="description"
+        content="Sayed Asif's public QA automation portfolio. Three independent projects demonstrating UI automation, API testing, Playwright, TypeScript, and CI/CD integration."
+    >
+
+    <meta
+        name="author"
+        content="Sayed Asif"
+    >
+
+    <meta
+        name="robots"
+        content="index, follow, max-image-preview:large"
+    >
+
+    <link
+        rel="canonical"
+        href="https://sayedasif.com/proof-of-work/"
+    >
+
+    <!-- Theme / Browser -->
+    <meta
+        name="theme-color"
+        content="#00baf2"
+    >
+
+    <meta
+        name="color-scheme"
+        content="light"
+    >
+
+    <!-- Open Graph / Social Sharing -->
+    <meta
+        property="og:type"
+        content="website"
+    >
+
+    <meta
+        property="og:title"
+        content="Proof of Work | QA Automation Portfolio | Sayed Asif"
+    >
+
+    <meta
+        property="og:description"
+        content="Public QA automation projects demonstrating Playwright, TypeScript, UI testing, API testing, and CI/CD integration."
+    >
+
+    <meta
+        property="og:url"
+        content="https://sayedasif.com/proof-of-work/"
+    >
+
+    <meta
+        property="og:image"
+        content="https://sayedasif.com/image/asif.png"
+    >
+
+    <!-- Favicon -->
+    <link
+        rel="icon"
+        type="image/png"
+        href="/favicon.png"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    >
+
+    <!-- Structured Data: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://sayedasif.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Proof of Work",
+                "item": "https://sayedasif.com/proof-of-work/"
+            }
+        ]
+    }
+    </script>
+
+    <style>
+
+        /* =========================================================
+           COLOR SYSTEM
+           Existing website colors intentionally preserved
+        ========================================================= */
+
+        :root {
+            --bg-main: #ffffff;
+            --bg-secondary: #f0f4f8;
+            --bg-highlight: #e0f7ff;
+
+            --brand-primary: #00baf2;
+            --brand-dark: #314259;
+            --brand-text: #314259;
+
+            --gradient-brand:
+                linear-gradient(
+                    135deg,
+                    #00baf2 0%,
+                    #0088cc 100%
+                );
+
+            --shadow-soft:
+                0 4px 20px rgba(0, 0, 0, 0.05);
+
+            --shadow-hover:
+                0 10px 25px rgba(0, 186, 242, 0.15);
+
+            --border-light:
+                1px solid #e2e8f0;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--brand-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family:
+                Inter,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--brand-dark);
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--brand-text);
+        }
+
+        ::selection {
+            background: var(--brand-primary);
+            color: #ffffff;
+        }
+
+
+        /* =========================================================
+           ACCESSIBILITY
+        ========================================================= */
+
+        .skip-link {
+            position: fixed;
+            left: 15px;
+            top: -100px;
+            z-index: 9999;
+            background: var(--brand-dark);
+            color: #ffffff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .skip-link:focus {
+            top: 15px;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--brand-primary);
+            outline-offset: 3px;
+        }
+
+
+        /* =========================================================
+           UTILITIES
+        ========================================================= */
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 90px 0;
+        }
+
+        .text-gradient {
+            background: var(--gradient-brand);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            line-height: 1.25;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--brand-dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--brand-primary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-intro {
+            max-width: 780px;
+            margin: -25px auto 45px;
+            text-align: center;
+            color: #64748b;
+            font-size: 1.05rem;
+        }
+
+
+        /* =========================================================
+           PORTFOLIO SNAPSHOT
+        ========================================================= */
+
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .snapshot-card {
+            text-align: center;
+            padding: 30px 25px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+        }
+
+        .snapshot-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 186, 242, 0.15);
+            border-color: #00baf2;
+        }
+
+        .snapshot-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #00baf2;
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .snapshot-label {
+            font-size: 0.95rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           WHAT THIS DEMONSTRATES
+        ========================================================= */
+
+        .demonstrates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+        }
+
+        .demonstrates-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 24px 16px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .demonstrates-item:hover {
+            transform: translateY(-3px);
+            border-color: #00baf2;
+            box-shadow: 0 10px 25px rgba(0, 186, 242, 0.15);
+        }
+
+        .demonstrates-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: #e0f7ff;
+            border-radius: 50%;
+            color: #00baf2;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .demonstrates-item span {
+            font-size: 0.93rem;
+            font-weight: 600;
+            color: #314259;
+        }
+
+
+        /* =========================================================
+           EVIDENCE & VERIFICATION
+        ========================================================= */
+
+        .evidence-section {
+            background: #f0f4f8;
+        }
+
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .evidence-card {
+            background: #ffffff;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .evidence-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 186, 242, 0.15);
+            border-color: #00baf2;
+        }
+
+        .evidence-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            background: #e0f7ff;
+            border-radius: 50%;
+            color: #00baf2;
+            font-size: 1.6rem;
+            margin-bottom: 16px;
+        }
+
+        .evidence-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            color: #314259;
+        }
+
+        .evidence-card p {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+
+            border-bottom: var(--border-light);
+            padding: 15px 0;
+
+            transition: 0.3s;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 42px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--brand-dark);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--brand-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: var(--brand-text);
+            text-decoration: none;
+            font-size: 0.93rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brand-primary);
+        }
+
+        .hamburger {
+            display: none;
+            border: 0;
+            background: transparent;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--brand-dark);
+            padding: 8px;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            position: relative;
+            min-height: 60vh;
+
+            display: flex;
+            align-items: center;
+
+            padding-top: 100px;
+            padding-bottom: 80px;
+
+            background:
+                radial-gradient(
+                    circle at 80% 50%,
+                    rgba(0, 186, 242, 0.08) 0%,
+                    #ffffff 60%
+                );
+
+            overflow: hidden;
+            border-bottom: var(--border-light);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 186, 242, 0.12);
+            right: -100px;
+            top: 100px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            color: var(--brand-primary);
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+            font-weight: 800;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--brand-primary);
+        }
+
+        .hero h1 {
+            font-size: 3.55rem;
+            line-height: 1.15;
+            margin-bottom: 25px;
+            letter-spacing: -1.5px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero h1 span {
+            color: var(--brand-primary);
+        }
+
+        .hero-description {
+            font-size: 1.12rem;
+            margin-bottom: 32px;
+            max-width: 750px;
+            color: #64748b;
+            line-height: 1.8;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-description strong {
+            color: var(--brand-dark);
+        }
+
+
+        /* =========================================================
+           PROJECT PORTFOLIO
+        ========================================================= */
+
+        .portfolio-section {
+            background: var(--bg-secondary);
+        }
+
+        .portfolio-disclosure {
+            max-width: 900px;
+
+            margin: 0 auto 45px;
+
+            padding: 20px 24px;
+
+            background: #ffffff;
+
+            border-left:
+                4px solid var(--brand-primary);
+
+            border-radius: 10px;
+
+            box-shadow: var(--shadow-soft);
+        }
+
+        .portfolio-disclosure strong {
+            color: var(--brand-dark);
+        }
+
+        .portfolio-disclosure p {
+            color: #64748b;
+            font-size: 0.93rem;
+        }
+
+        .project-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(300px, 1fr)
+                );
+
+            gap: 28px;
+        }
+
+        .project-card {
+            background: #ffffff;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            border: var(--border-light);
+
+            transition: 0.3s;
+
+            box-shadow: var(--shadow-soft);
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .project-img-wrapper {
+            height: 200px;
+
+            overflow: hidden;
+
+            position: relative;
+
+            background: #e0f7ff;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            transition:
+                transform 0.4s ease;
+        }
+
+        .project-card:hover .project-img {
+            transform: scale(1.04);
+        }
+
+        .project-content {
+            padding: 27px;
+
+            flex-grow: 1;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-category {
+            font-size: 0.74rem;
+
+            color: var(--brand-primary);
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.7px;
+
+            font-weight: 800;
+
+            margin-bottom: 9px;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+
+            margin-bottom: 11px;
+
+            color: var(--brand-dark);
+        }
+
+        .project-desc {
+            color: #64748b;
+
+            font-size: 0.94rem;
+
+            margin-bottom: 20px;
+
+            line-height: 1.7;
+
+            flex-grow: 1;
+        }
+
+        .project-desc strong {
+            color: var(--brand-dark);
+        }
+
+        .tech-stack {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-bottom: 20px;
+        }
+
+        .tech-pill {
+            font-size: 0.73rem;
+
+            background: var(--bg-secondary);
+
+            padding: 6px 11px;
+
+            border-radius: 20px;
+
+            color: #64748b;
+
+            font-weight: 700;
+        }
+
+        .project-metrics {
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+
+        .project-metrics strong {
+            color: var(--brand-primary);
+            font-weight: 600;
+        }
+
+        .project-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            padding: 13px 28px;
+
+            border-radius: 8px;
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition: 0.3s;
+
+            font-size: 0.96rem;
+            min-height: 48px;
+        }
+
+        .btn-primary {
+            background: var(--brand-primary);
+            color: #ffffff;
+            border: 2px solid var(--brand-primary);
+
+            box-shadow:
+                0 4px 15px rgba(0, 186, 242, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #0099cc;
+            border-color: #0099cc;
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 20px rgba(0, 186, 242, 0.4);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--brand-dark);
+            color: var(--brand-dark);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--brand-dark);
+            color: #ffffff;
+        }
+
+        .btn i {
+            font-size: 0.85rem;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            padding:
+                75px 0 30px;
+
+            text-align: center;
+
+            border-top:
+                var(--border-light);
+
+            background: var(--bg-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 18px;
+
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #64748b;
+
+            text-decoration: none;
+
+            font-size: 0.85rem;
+
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-primary);
+        }
+
+        .copyright {
+            margin-top: 15px;
+
+            opacity: 0.6;
+
+            font-size: 0.78rem;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1050px) {
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+        }
+
+
+        @media (max-width: 900px) {
+
+            .hero {
+                min-height: auto;
+
+                padding-top: 115px;
+                padding-bottom: 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-description {
+                font-size: 1.05rem;
+            }
+
+            .nav-links {
+                display: none;
+
+                position: absolute;
+
+                top: 100%;
+                left: 0;
+
+                width: 100%;
+
+                background: #ffffff;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                padding: 20px;
+
+                border-bottom:
+                    1px solid #eee;
+
+                gap: 5px;
+
+                box-shadow:
+                    0 10px 20px
+                    rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 10px;
+
+                border-radius: 6px;
+            }
+
+            .nav-links a:hover {
+                background: var(--bg-secondary);
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+
+            .container {
+                padding-left: 17px;
+                padding-right: 17px;
+            }
+
+            .section-padding {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 1.85rem;
+                margin-bottom: 40px;
+            }
+
+            .section-intro {
+                margin-top: -15px;
+                font-size: 0.96rem;
+            }
+
+            .hero {
+                padding-top: 105px;
+                padding-bottom: 45px;
+            }
+
+            .hero h1 {
+                font-size: 2.25rem;
+
+                letter-spacing: -0.7px;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+
+                line-height: 1.7;
+            }
+
+            .project-img-wrapper {
+                height: 190px;
+            }
+
+            .project-content {
+                padding: 23px 20px;
+            }
+
+            .portfolio-disclosure {
+                padding: 18px;
+            }
+
+            .snapshot-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .demonstrates-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .evidence-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                padding-top: 60px;
+            }
+        }
+
+
+        @media (max-width: 420px) {
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .eyebrow {
+                font-size: 0.72rem;
+
+                letter-spacing: 1.3px;
+            }
+
+            .section-title {
+                font-size: 1.65rem;
+            }
+
+            .snapshot-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+
+            .snapshot-card {
+                padding: 20px 16px;
+            }
+
+            .snapshot-number {
+                font-size: 2.2rem;
+            }
+
+            .demonstrates-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+
+            .demonstrates-item {
+                padding: 18px 12px;
+            }
+
+            .demonstrates-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 1.2rem;
+            }
+
+            .demonstrates-item span {
+                font-size: 0.85rem;
+            }
+        }
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- Accessibility -->
+    <a
+        href="#main-content"
+        class="skip-link"
+    >
+        Skip to content
+    </a>
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <nav aria-label="Main navigation">
+
+        <div class="container nav-inner">
+
+            <a
+                href="/"
+                class="logo"
+                aria-label="Sayed Asif home"
+            >
+                Sayed<span>Asif</span>
+            </a>
+
+            <div
+                class="nav-links"
+                id="navLinks"
+            >
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/about/">
+                    About
+                </a>
+
+                <a href="/capabilities/">
+                    Capabilities
+                </a>
+
+                <a
+                    href="/proof-of-work/"
+                    class="active"
+                >
+                    Proof of Work
+                </a>
+
+                <a href="/resume/">
+                    Resume
+                </a>
+
+                <a href="/blog/who-is-sayed-asif-qa-engineer/">
+                    Blog
+                </a>
+
+                <a href="/#contact">
+                    Contact
+                </a>
+
+            </div>
+
+            <button
+                class="hamburger"
+                id="menuButton"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="navLinks"
+            >
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <main id="main-content">
+
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <section
+            id="proof-of-work"
+            class="hero"
+            aria-labelledby="hero-heading"
+        >
+
+            <div class="container hero-content">
+
+                <p class="eyebrow">
+                    Public Portfolio
+                </p>
+
+                <h1 id="hero-heading">
+
+                    Proof of Work
+
+                </h1>
+
+                <p class="hero-description">
+
+                    Three independent QA automation projects where
+                    <strong>
+                        architecture, code, tests and results are publicly verifiable on GitHub.
+                    </strong>
+
+                    These projects demonstrate automation thinking, framework design,
+                    testing methodology and CI/CD integration.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PORTFOLIO SNAPSHOT
+        ====================================================== -->
+
+        <section
+            class="section-padding portfolio-snapshot"
+            aria-labelledby="snapshot-heading"
+        >
+
+            <div class="container">
+
+                <div class="snapshot-grid">
+
+                    <div class="snapshot-card">
+                        <div class="snapshot-number">3</div>
+                        <div class="snapshot-label">Public Projects</div>
+                    </div>
+
+                    <div class="snapshot-card">
+                        <div class="snapshot-number">79</div>
+                        <div class="snapshot-label">Automated Tests</div>
+                    </div>
+
+                    <div class="snapshot-card">
+                        <div class="snapshot-number">UI + API</div>
+                        <div class="snapshot-label">Testing Types</div>
+                    </div>
+
+                    <div class="snapshot-card">
+                        <div class="snapshot-number">100%</div>
+                        <div class="snapshot-label">Passing Tests</div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PORTFOLIO
+        ====================================================== -->
+
+        <section
+            class="section-padding portfolio-section"
+            aria-labelledby="portfolio-heading"
+        >
+
+            <div class="container">
+
+                <h2
+                    id="portfolio-heading"
+                    class="section-title"
+                >
+                    Projects
+                </h2>
+
+
+                <div class="project-grid">
+
+
+                    <!-- PROJECT 1: AUTOMATION EXERCISE -->
+
+                    <article class="project-card">
+
+                        <div class="project-img-wrapper">
+
+                            <img
+                                src="/image/automation.png"
+                                alt="Playwright QA automation for e-commerce application"
+                                class="project-img"
+                                loading="lazy"
+                                width="600"
+                                height="400"
+                            >
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <span class="project-category">
+                                UI & API Automation
+                            </span>
+
+                            <h3 class="project-title">
+                                Automation Exercise
+                            </h3>
+
+                            <p class="project-desc">
+
+                                End-to-end test automation across authentication, product catalog, shopping cart,
+                                checkout and REST API endpoints. Demonstrates UI and API validation with Page
+                                Object Model architecture and GitHub Actions CI.
+
+                            </p>
+
+                            <div class="tech-stack">
+
+                                <span class="tech-pill">
+                                    Playwright
+                                </span>
+
+                                <span class="tech-pill">
+                                    API Testing
+                                </span>
+
+                                <span class="tech-pill">
+                                    Page Object Model
+                                </span>
+
+                                <span class="tech-pill">
+                                    JavaScript
+                                </span>
+
+                                <span class="tech-pill">
+                                    GitHub Actions
+                                </span>
+
+                            </div>
+
+                            <div class="project-metrics">
+
+                                <strong style="color: #00baf2;">26 Tests</strong>
+                                &nbsp; | &nbsp;
+                                <strong style="color: #00baf2;">100% Passing</strong>
+
+                            </div>
+
+                            <div class="project-actions">
+
+                                <a
+                                    href="/projects/automation-exercise/"
+                                    class="btn btn-primary"
+                                >
+                                    View Project
+                                </a>
+
+                                <a
+                                    href="https://github.com/Open83/automationexercise"
+                                    class="btn btn-outline"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i class="fab fa-github" aria-hidden="true"></i>
+                                    GitHub
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PROJECT 2: ERPNEXT QA AUTOMATION -->
+
+                    <article class="project-card">
+
+                        <div class="project-img-wrapper">
+
+                            <img
+                                src="/image/Erp-next.png"
+                                alt="Playwright QA automation for ERP workflows"
+                                class="project-img"
+                                loading="lazy"
+                                width="600"
+                                height="400"
+                            >
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <span class="project-category">
+                                UI Automation
+                            </span>
+
+                            <h3 class="project-title">
+                                ERPNext QA Automation
+                            </h3>
+
+                            <p class="project-desc">
+
+                                Automated testing of ERPNext business workflows including Material Request,
+                                Quotation and Sales Order. Features Page Object Model architecture,
+                                Playwright UI automation, and GitHub Actions CI/CD integration.
+
+                            </p>
+
+                            <div class="tech-stack">
+
+                                <span class="tech-pill">
+                                    Playwright
+                                </span>
+
+                                <span class="tech-pill">
+                                    Page Object Model
+                                </span>
+
+                                <span class="tech-pill">
+                                    JavaScript
+                                </span>
+
+                                <span class="tech-pill">
+                                    GitHub Actions
+                                </span>
+
+                            </div>
+
+                            <div class="project-metrics">
+
+                                <strong style="color: #00baf2;">6 Tests</strong>
+                                &nbsp; | &nbsp;
+                                <strong style="color: #00baf2;">100% Passing</strong>
+
+                            </div>
+
+                            <div class="project-actions">
+
+                                <a
+                                    href="/projects/erpnext-qa-automation/"
+                                    class="btn btn-primary"
+                                >
+                                    View Project
+                                </a>
+
+                                <a
+                                    href="https://github.com/Open83/ERPNext-QA-Automation"
+                                    class="btn btn-outline"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i class="fab fa-github" aria-hidden="true"></i>
+                                    GitHub
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PROJECT 3: RESTFUL BOOKER API AUTOMATION -->
+
+                    <article class="project-card">
+
+                        <div class="project-img-wrapper">
+
+                            <img
+                                src="/image/automation.png"
+                                alt="REST API automation framework using Playwright and TypeScript"
+                                class="project-img"
+                                loading="lazy"
+                                width="600"
+                                height="400"
+                            >
+
+                        </div>
+
+                        <div class="project-content">
+
+                            <span class="project-category">
+                                API Automation
+                            </span>
+
+                            <h3 class="project-title">
+                                RESTful Booker API Automation
+                            </h3>
+
+                            <p class="project-desc">
+
+                                Professional REST API automation framework with comprehensive testing of
+                                authentication, CRUD operations, PUT/PATCH updates, negative testing and
+                                realistic API workflows. Built with Playwright Test and TypeScript.
+
+                            </p>
+
+                            <div class="tech-stack">
+
+                                <span class="tech-pill">
+                                    Playwright Test
+                                </span>
+
+                                <span class="tech-pill">
+                                    TypeScript
+                                </span>
+
+                                <span class="tech-pill">
+                                    REST API
+                                </span>
+
+                                <span class="tech-pill">
+                                    GitHub Actions
+                                </span>
+
+                            </div>
+
+                            <div class="project-metrics">
+
+                                <strong style="color: #00baf2;">47 Tests</strong>
+                                &nbsp; | &nbsp;
+                                <strong style="color: #00baf2;">100% Passing</strong>
+
+                            </div>
+
+                            <div class="project-actions">
+
+                                <a
+                                    href="/projects/restful-booker-api-automation/"
+                                    class="btn btn-primary"
+                                >
+                                    View Project
+                                </a>
+
+                                <a
+                                    href="https://github.com/Open83/restful-booker-api-automation"
+                                    class="btn btn-outline"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i class="fab fa-github" aria-hidden="true"></i>
+                                    GitHub
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             WHAT THIS DEMONSTRATES
+        ====================================================== -->
+
+        <section
+            class="section-padding demonstrates-section"
+            aria-labelledby="demonstrates-heading"
+        >
+
+            <div class="container">
+
+                <h2
+                    id="demonstrates-heading"
+                    class="section-title"
+                >
+                    What This Work Demonstrates
+                </h2>
+
+                <div class="demonstrates-grid">
+
+                    <div class="demonstrates-item">
+                        <div class="demonstrates-icon">
+                            <i class="fas fa-browser" aria-hidden="true"></i>
+                        </div>
+                        <span>UI Automation</span>
+                    </div>
+
+                    <div class="demonstrates-item">
+                        <div class="demonstrates-icon">
+                            <i class="fas fa-network-wired" aria-hidden="true"></i>
+                        </div>
+                        <span>API Testing</span>
+                    </div>
+
+                    <div class="demonstrates-item">
+                        <div class="demonstrates-icon">
+                            <i class="fas fa-cube" aria-hidden="true"></i>
+                        </div>
+                        <span>Test Architecture</span>
+                    </div>
+
+                    <div class="demonstrates-item">
+                        <div class="demonstrates-icon">
+                            <i class="fas fa-layer-group" aria-hidden="true"></i>
+                        </div>
+                        <span>Page Object Model</span>
+                    </div>
+
+                    <div class="demonstrates-item">
+                        <div class="demonstrates-icon">
+                            <i class="fab fa-js-square" aria-hidden="true"></i>
+                        </div>
+                        <span>TypeScript</span>
+                    </div>
+
+                    <div class="demonstrates-item">
+                        <div class="demonstrates-icon">
+                            <i class="fas fa-bug" aria-hidden="true"></i>
+                        </div>
+                        <span>Negative Testing</span>
+                    </div>
+
+                    <div class="demonstrates-item">
+                        <div class="demonstrates-icon">
+                            <i class="fas fa-code-branch" aria-hidden="true"></i>
+                        </div>
+                        <span>CI/CD Automation</span>
+                    </div>
+
+                    <div class="demonstrates-item">
+                        <div class="demonstrates-icon">
+                            <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                        </div>
+                        <span>Test Reporting</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             EVIDENCE & VERIFICATION
+        ====================================================== -->
+
+        <section
+            class="section-padding evidence-section"
+            aria-labelledby="evidence-heading"
+        >
+
+            <div class="container">
+
+                <h2
+                    id="evidence-heading"
+                    class="section-title"
+                >
+                    Publicly Verifiable
+                </h2>
+
+                <p class="section-intro">
+                    All projects are open source on GitHub. Inspect the code, test suites, and
+                    CI/CD execution to verify the work independently.
+                </p>
+
+                <div class="evidence-grid">
+
+                    <div class="evidence-card">
+                        <div class="evidence-icon">
+                            <i class="fab fa-github" aria-hidden="true"></i>
+                        </div>
+                        <h3>Source Code</h3>
+                        <p>Complete test frameworks, API clients, and automation architecture</p>
+                    </div>
+
+                    <div class="evidence-card">
+                        <div class="evidence-icon">
+                            <i class="fas fa-play-circle" aria-hidden="true"></i>
+                        </div>
+                        <h3>CI/CD Logs</h3>
+                        <p>GitHub Actions workflow execution history and test results</p>
+                    </div>
+
+                    <div class="evidence-card">
+                        <div class="evidence-icon">
+                            <i class="fas fa-file-alt" aria-hidden="true"></i>
+                        </div>
+                        <h3>Documentation</h3>
+                        <p>README files with project structure, test descriptions, and architecture</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/about/">
+                    About
+                </a>
+
+                <a href="/capabilities/">
+                    Capabilities
+                </a>
+
+                <a
+                    href="/proof-of-work/"
+                    aria-current="page"
+                >
+                    Proof of Work
+                </a>
+
+                <a href="/resume/">
+                    Resume
+                </a>
+
+                <a href="/blog/who-is-sayed-asif-qa-engineer/">
+                    Blog
+                </a>
+
+                <a href="/#contact">
+                    Contact
+                </a>
+
+                <a href="/privacy/">
+                    Privacy
+                </a>
+
+            </div>
+
+            <p class="copyright">
+                &copy; 2026 Sayed Asif. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         MOBILE NAVIGATION
+    ========================================================== -->
+
+    <script>
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector("#navLinks");
+
+        if (hamburger && navLinks) {
+
+            hamburger.addEventListener("click", function () {
+
+                const isOpen = hamburger.getAttribute("aria-expanded") === "true";
+
+                hamburger.setAttribute("aria-expanded", String(!isOpen));
+                hamburger.setAttribute(
+                    "aria-label",
+                    isOpen ? "Open navigation menu" : "Close navigation menu"
+                );
+
+                navLinks.classList.toggle("active", !isOpen);
+
+                const icon = hamburger.querySelector("i");
+                if (icon) {
+                    icon.classList.toggle("fa-bars", isOpen);
+                    icon.classList.toggle("fa-times", !isOpen);
+                }
+
+            });
+
+            navLinks.querySelectorAll("a").forEach(function (link) {
+                link.addEventListener("click", function () {
+                    if (window.innerWidth <= 900) {
+                        navLinks.classList.remove("active");
+                        hamburger.setAttribute("aria-expanded", "false");
+                        hamburger.setAttribute("aria-label", "Open navigation menu");
+
+                        const icon = hamburger.querySelector("i");
+                        if (icon) {
+                            icon.classList.remove("fa-times");
+                            icon.classList.add("fa-bars");
+                        }
+                    }
+                });
+            });
+
+            window.addEventListener("resize", function () {
+                if (window.innerWidth > 900) {
+                    navLinks.classList.remove("active");
+                    hamburger.setAttribute("aria-expanded", "false");
+                    hamburger.setAttribute("aria-label", "Open navigation menu");
+
+                    const icon = hamburger.querySelector("i");
+                    if (icon) {
+                        icon.classList.remove("fa-times");
+                        icon.classList.add("fa-bars");
+                    }
+                }
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        QA Capabilities | Testing Skills | Sayed Asif
+    </title>
+
+    <meta
+        name="description"
+        content="Sayed Asif's QA testing capabilities: functional testing, API validation, automation, regression testing, payment testing, database validation, defect management, and cross-platform testing."
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <link
+        rel="canonical"
+        href="https://sayedasif.com/capabilities/"
+    >
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="QA Capabilities | Testing Skills | Sayed Asif">
+    <meta property="og:description" content="A practical testing skill set covering the application lifecycle from requirements and functional validation through API, data, regression and automation testing.">
+    <meta property="og:url" content="https://sayedasif.com/capabilities/">
+    <meta property="og:image" content="https://sayedasif.com/image/asif.png">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://sayedasif.com/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Capabilities",
+                "item": "https://sayedasif.com/capabilities/"
+            }
+        ]
+    }
+    </script>
+
+    <style>
+
+        /* =========================================================
+           COLOR SYSTEM
+           Existing website colors intentionally preserved
+        ========================================================= */
+
+        :root {
+            --bg-main: #ffffff;
+            --bg-secondary: #f0f4f8;
+            --bg-highlight: #e0f7ff;
+
+            --brand-primary: #00baf2;
+            --brand-dark: #314259;
+            --brand-text: #314259;
+
+            --gradient-brand:
+                linear-gradient(
+                    135deg,
+                    #00baf2 0%,
+                    #0088cc 100%
+                );
+
+            --shadow-soft:
+                0 4px 20px rgba(0, 0, 0, 0.05);
+
+            --shadow-hover:
+                0 10px 25px rgba(0, 186, 242, 0.15);
+
+            --border-light:
+                1px solid #e2e8f0;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--brand-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family:
+                Inter,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--brand-dark);
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--brand-text);
+        }
+
+        ::selection {
+            background: var(--brand-primary);
+            color: #ffffff;
+        }
+
+
+        /* =========================================================
+           ACCESSIBILITY
+        ========================================================= */
+
+        .skip-link {
+            position: fixed;
+            left: 15px;
+            top: -100px;
+            z-index: 9999;
+            background: var(--brand-dark);
+            color: #ffffff;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .skip-link:focus {
+            top: 15px;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--brand-primary);
+            outline-offset: 3px;
+        }
+
+
+        /* =========================================================
+           UTILITIES
+        ========================================================= */
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 90px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            line-height: 1.25;
+            margin-bottom: 50px;
+            text-align: center;
+            color: var(--brand-dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--brand-primary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-intro {
+            max-width: 780px;
+            margin: -25px auto 45px;
+            text-align: center;
+            color: #64748b;
+            font-size: 1.05rem;
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+
+            border-bottom: var(--border-light);
+            padding: 15px 0;
+
+            transition: 0.3s;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 42px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--brand-dark);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--brand-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            color: var(--brand-text);
+            text-decoration: none;
+            font-size: 0.93rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brand-primary);
+        }
+
+        .hamburger {
+            display: none;
+            border: 0;
+            background: transparent;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--brand-dark);
+            padding: 8px;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        .hero {
+            position: relative;
+            min-height: 50vh;
+
+            display: flex;
+            align-items: center;
+
+            padding-top: 100px;
+            padding-bottom: 60px;
+
+            background:
+                radial-gradient(
+                    circle at 80% 50%,
+                    rgba(0, 186, 242, 0.08) 0%,
+                    #ffffff 60%
+                );
+
+            overflow: hidden;
+            border-bottom: var(--border-light);
+            text-align: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            color: var(--brand-primary);
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+
+            font-size: 0.82rem;
+            margin-bottom: 18px;
+            font-weight: 800;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 28px;
+            height: 2px;
+            background: var(--brand-primary);
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            line-height: 1.15;
+            margin-bottom: 25px;
+            letter-spacing: -1.5px;
+        }
+
+        .hero-description {
+            font-size: 1.08rem;
+            margin-bottom: 20px;
+            max-width: 700px;
+            color: #64748b;
+            line-height: 1.8;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        /* =========================================================
+           CAPABILITIES GRID
+        ========================================================= */
+
+        .skills-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(250px, 1fr)
+                );
+
+            gap: 24px;
+        }
+
+        .skill-item {
+            background: #ffffff;
+
+            padding: 30px;
+
+            border-radius: 14px;
+
+            text-align: center;
+
+            border: var(--border-light);
+
+            transition: 0.3s;
+
+            box-shadow: var(--shadow-soft);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+
+            box-shadow: var(--shadow-hover);
+
+            border-color: var(--brand-primary);
+        }
+
+        .skill-item i {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            width: 58px;
+            height: 58px;
+
+            font-size: 1.55rem;
+
+            margin-bottom: 20px;
+
+            color: var(--brand-primary);
+
+            background: #e0f7ff;
+
+            border-radius: 50%;
+        }
+
+        .skill-item h3 {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+
+        .skill-item p {
+            color: #64748b;
+            font-size: 0.94rem;
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            padding:
+                75px 0 30px;
+
+            text-align: center;
+
+            border-top:
+                var(--border-light);
+
+            background: var(--bg-secondary);
+        }
+
+        .footer-links {
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 18px;
+
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #64748b;
+
+            text-decoration: none;
+
+            font-size: 0.85rem;
+
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-primary);
+        }
+
+        .copyright {
+            margin-top: 15px;
+
+            opacity: 0.6;
+
+            font-size: 0.78rem;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1050px) {
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .nav-links {
+                gap: 20px;
+            }
+        }
+
+
+        @media (max-width: 900px) {
+
+            .hero {
+                min-height: auto;
+
+                padding-top: 115px;
+                padding-bottom: 60px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+
+                position: absolute;
+
+                top: 100%;
+                left: 0;
+
+                width: 100%;
+
+                background: #ffffff;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                padding: 20px;
+
+                border-bottom:
+                    1px solid #eee;
+
+                gap: 5px;
+
+                box-shadow:
+                    0 10px 20px
+                    rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 10px;
+
+                border-radius: 6px;
+            }
+
+            .nav-links a:hover {
+                background: var(--bg-secondary);
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+
+        @media (max-width: 768px) {
+
+            .container {
+                padding-left: 17px;
+                padding-right: 17px;
+            }
+
+            .section-padding {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 1.85rem;
+                margin-bottom: 40px;
+            }
+
+            .section-intro {
+                margin-top: -15px;
+                font-size: 0.96rem;
+            }
+
+            .hero {
+                padding-top: 105px;
+                padding-bottom: 45px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skill-item {
+                padding: 27px 22px;
+            }
+
+            footer {
+                padding-top: 60px;
+            }
+        }
+
+
+        @media (max-width: 420px) {
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .eyebrow {
+                font-size: 0.72rem;
+
+                letter-spacing: 1.3px;
+            }
+
+            .section-title {
+                font-size: 1.55rem;
+            }
+        }
+
+
+        /* =========================================================
+           REDUCED MOTION
+        ========================================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- Accessibility -->
+    <a
+        href="#main-content"
+        class="skip-link"
+    >
+        Skip to content
+    </a>
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <nav aria-label="Main navigation">
+
+        <div class="container nav-inner">
+
+            <a
+                href="/"
+                class="logo"
+                aria-label="Sayed Asif home"
+            >
+                Sayed<span>Asif</span>
+            </a>
+
+            <div
+                class="nav-links"
+                id="navLinks"
+            >
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/about/">
+                    About
+                </a>
+
+                <a
+                    href="/capabilities/"
+                    class="active"
+                >
+                    Capabilities
+                </a>
+
+                <a href="/proof-of-work/">
+                    Proof of Work
+                </a>
+
+                <a href="/resume/">
+                    Resume
+                </a>
+
+                <a href="/blog/who-is-sayed-asif-qa-engineer/">
+                    Blog
+                </a>
+
+                <a href="/#contact">
+                    Contact
+                </a>
+
+            </div>
+
+            <button
+                class="hamburger"
+                id="menuButton"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="navLinks"
+            >
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <main id="main-content">
+
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <section
+            id="capabilities-hero"
+            class="hero"
+            aria-labelledby="capabilities-heading"
+        >
+
+            <div class="container hero-content">
+
+                <p class="eyebrow">
+                    Testing Areas
+                </p>
+
+                <h1 id="capabilities-heading">
+                    QA Capabilities
+                </h1>
+
+                <p class="hero-description">
+
+                    A practical testing skill set covering the application
+                    lifecycle from requirements and functional validation
+                    through API, data, regression and automation testing.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CAPABILITIES
+        ====================================================== -->
+
+        <section
+            class="section-padding"
+            aria-labelledby="skills-heading"
+        >
+
+            <div class="container">
+
+                <div class="skills-grid">
+
+
+                    <article class="skill-item">
+
+                        <i
+                            class="fas fa-vial"
+                            aria-hidden="true"
+                        ></i>
+
+                        <h3>
+                            Functional Testing
+                        </h3>
+
+                        <p>
+                            Validate application features, user journeys,
+                            business rules and expected system behavior
+                            against documented requirements.
+                        </p>
+
+                    </article>
+
+
+                    <article class="skill-item">
+
+                        <i
+                            class="fas fa-credit-card"
+                            aria-hidden="true"
+                        ></i>
+
+                        <h3>
+                            Payment Testing
+                        </h3>
+
+                        <p>
+                            Test payment workflows, recurring transactions,
+                            refunds, failures, redirects and transaction
+                            related business logic.
+                        </p>
+
+                    </article>
+
+
+                    <article class="skill-item">
+
+                        <i
+                            class="fas fa-network-wired"
+                            aria-hidden="true"
+                        ></i>
+
+                        <h3>
+                            API Validation
+                        </h3>
+
+                        <p>
+                            Validate endpoints, payloads, response codes,
+                            authentication behavior, data integrity and
+                            integration workflows.
+                        </p>
+
+                    </article>
+
+
+                    <article class="skill-item">
+
+                        <i
+                            class="fas fa-rotate"
+                            aria-hidden="true"
+                        ></i>
+
+                        <h3>
+                            Regression Testing
+                        </h3>
+
+                        <p>
+                            Revalidate existing functionality after changes
+                            to help identify regressions before software
+                            reaches users.
+                        </p>
+
+                    </article>
+
+
+                    <article class="skill-item">
+
+                        <i
+                            class="fas fa-database"
+                            aria-hidden="true"
+                        ></i>
+
+                        <h3>
+                            Database Validation
+                        </h3>
+
+                        <p>
+                            Verify stored data, relationships, consistency,
+                            calculations and expected database behavior
+                            using SQL-based validation.
+                        </p>
+
+                    </article>
+
+
+                    <article class="skill-item">
+
+                        <i
+                            class="fas fa-bug"
+                            aria-hidden="true"
+                        ></i>
+
+                        <h3>
+                            Defect Management
+                        </h3>
+
+                        <p>
+                            Document reproducible defects, assess severity
+                            and priority, support triage and track issues
+                            through resolution.
+                        </p>
+
+                    </article>
+
+
+                    <article class="skill-item">
+
+                        <i
+                            class="fas fa-robot"
+                            aria-hidden="true"
+                        ></i>
+
+                        <h3>
+                            Test Automation
+                        </h3>
+
+                        <p>
+                            Build and maintain automated checks for
+                            repeatable workflows and regression coverage
+                            where automation provides practical value.
+                        </p>
+
+                    </article>
+
+
+                    <article class="skill-item">
+
+                        <i
+                            class="fas fa-mobile-screen-button"
+                            aria-hidden="true"
+                        ></i>
+
+                        <h3>
+                            Cross-Platform Testing
+                        </h3>
+
+                        <p>
+                            Validate responsive web interfaces across
+                            browsers, screen sizes and mobile devices for
+                            consistent user experiences.
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/about/">
+                    About
+                </a>
+
+                <a
+                    href="/capabilities/"
+                    aria-current="page"
+                >
+                    Capabilities
+                </a>
+
+                <a href="/proof-of-work/">
+                    Proof of Work
+                </a>
+
+                <a href="/resume/">
+                    Resume
+                </a>
+
+                <a href="/blog/who-is-sayed-asif-qa-engineer/">
+                    Blog
+                </a>
+
+                <a href="/#contact">
+                    Contact
+                </a>
+
+                <a href="/privacy/">
+                    Privacy
+                </a>
+
+            </div>
+
+            <p class="copyright">
+                &copy; 2026 Sayed Asif. All rights reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================================================
+         MOBILE NAVIGATION
+    ========================================================== -->
+
+    <script>
+
+        const hamburger = document.querySelector(".hamburger");
+        const navLinks = document.querySelector("#navLinks");
+
+        if (hamburger && navLinks) {
+
+            hamburger.addEventListener("click", function () {
+
+                const isOpen = hamburger.getAttribute("aria-expanded") === "true";
+
+                hamburger.setAttribute("aria-expanded", String(!isOpen));
+                hamburger.setAttribute(
+                    "aria-label",
+                    isOpen ? "Open navigation menu" : "Close navigation menu"
+                );
+
+                navLinks.classList.toggle("active", !isOpen);
+
+                const icon = hamburger.querySelector("i");
+                if (icon) {
+                    icon.classList.toggle("fa-bars", isOpen);
+                    icon.classList.toggle("fa-times", !isOpen);
+                }
+
+            });
+
+            navLinks.querySelectorAll("a").forEach(function (link) {
+                link.addEventListener("click", function () {
+                    if (window.innerWidth <= 900) {
+                        navLinks.classList.remove("active");
+                        hamburger.setAttribute("aria-expanded", "false");
+                        hamburger.setAttribute("aria-label", "Open navigation menu");
+
+                        const icon = hamburger.querySelector("i");
+                        if (icon) {
+                            icon.classList.remove("fa-times");
+                            icon.classList.add("fa-bars");
+                        }
+                    }
+                });
+            });
+
+            window.addEventListener("resize", function () {
+                if (window.innerWidth > 900) {
+                    navLinks.classList.remove("active");
+                    hamburger.setAttribute("aria-expanded", "false");
+                    hamburger.setAttribute("aria-label", "Open navigation menu");
+
+                    const icon = hamburger.querySelector("i");
+                    if (icon) {
+                        icon.classList.remove("fa-times");
+                        icon.classList.add("fa-bars");
+                    }
+                }
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>
