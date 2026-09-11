@@ -733,9 +733,20 @@
                     return;
                 }
 
-                // Success message handling (for Formspree redirect)
-                // After successful submission, Formspree will redirect or show its own message
-                // You can optionally show success message here if using AJAX
+                // Check for placeholder Formspree ID
+                const formAction = contactForm.getAttribute("action");
+                if (formAction.includes("YOUR_FORM_ID")) {
+                    e.preventDefault();
+
+                    // Fallback: Direct email contact
+                    const mailtoLink = `mailto:sayedasif83838@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`)}`;
+                    window.location.href = mailtoLink;
+
+                    return;
+                }
+
+                // If Formspree ID is configured, allow normal submission
+                // Formspree will handle the rest
             });
         }
     </script>
