@@ -29,6 +29,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+
     <style>
         /* =====================================================
            COLOR SYSTEM
@@ -73,7 +76,7 @@
         p { color: var(--brand-text); }
 
         ::selection { background: var(--brand-primary); color: #ffffff; }
-        :focus-visible { outline: 3px solid var(--brand-primary); outline-offset: 3px; }
+        /* :focus-visible now lives in /assets/css/global-nav.css */
 
         /* =====================================================
            CONTAINER
@@ -86,63 +89,8 @@
             padding: 0 20px;
         }
 
-        /* =====================================================
-           NAVIGATION
-        ===================================================== */
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(10px);
-            border-bottom: var(--border-light);
-            padding: 15px 0;
-        }
-
-        .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 42px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--brand-dark);
-            white-space: nowrap;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        .nav-links a {
-            color: var(--brand-text);
-            font-size: 0.93rem;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--brand-primary);
-        }
-
-        .hamburger {
-            display: none;
-            border: 0;
-            background: transparent;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--brand-dark);
-            padding: 8px;
-        }
+        /* Global nav (header/nav-inner/logo/nav-links/hamburger/dropdown)
+           now lives in /assets/css/global-nav.css. */
 
         /* =====================================================
            MAIN CONTENT
@@ -363,13 +311,13 @@
             line-height: 1.5;
         }
 
-        .social-icons {
+        .contact-social-icons {
             display: flex;
             gap: 16px;
             margin-top: 20px;
         }
 
-        .social-icon {
+        .contact-social-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -383,73 +331,29 @@
             transition: 0.2s;
         }
 
-        .social-icon:hover {
+        .contact-social-icon:hover {
             background: var(--brand-primary);
             color: #ffffff;
             border-color: var(--brand-primary);
         }
 
+        /* Old dead footer rules (bare footer/.footer-links/footer p) and the
+           site-footer implementation now live in /assets/css/global-nav.css. */
+
+
         /* =====================================================
-           FOOTER
-        ===================================================== */
+           TABLET
+        ====================================================== */
 
-        footer {
-            background: var(--bg-secondary);
-            border-top: var(--border-light);
-            padding: 40px 0;
-            margin-top: 80px;
-        }
+        /* Nav-dropdown + footer responsive rules (992px) now live in /assets/css/global-nav.css. */
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 28px;
-            margin-bottom: 20px;
-        }
-
-        .footer-links a {
-            color: var(--brand-text);
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-primary);
-        }
-
-        footer p {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #64748b;
-        }
 
         /* =====================================================
            MOBILE
         ===================================================== */
 
         @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                flex-direction: column;
-                background: #ffffff;
-                border-bottom: var(--border-light);
-                padding: 20px;
-                gap: 16px;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
+            /* .hamburger, .nav-links, .nav-links.active, .footer-* mobile rules: see global-nav.css */
 
             .contact-wrapper {
                 grid-template-columns: 1fr;
@@ -466,11 +370,6 @@
 
             .contact-hero p {
                 font-size: 1rem;
-            }
-
-            .footer-links {
-                gap: 16px;
-                font-size: 0.85rem;
             }
         }
 
@@ -515,20 +414,32 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* Duplicate nav-dropdown CSS removed — now lives in /assets/css/global-nav.css. */
+
+        /* Duplicate footer CSS removed — now lives in /assets/css/global-nav.css. */
+
+        /* Nav-dropdown + footer responsive rules (992px) now live in /assets/css/global-nav.css. */
+
+        /* Footer responsive rules (768px) now live in /assets/css/global-nav.css. */
+
     </style>
 </head>
 
 <body>
 
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
     <!-- Navigation -->
-    <nav aria-label="Main Navigation">
+    <header class="site-header">
+    <nav aria-label="Main navigation">
 
         <div class="container nav-inner">
 
             <a
                 href="/"
                 class="logo"
-                aria-label="Sayed Asif Home"
+                aria-label="Sayed Asif home"
             >
                 Sayed<span>Asif</span>
             </a>
@@ -593,6 +504,7 @@
 
             <button
                 class="hamburger"
+                id="menuButton"
                 type="button"
                 aria-label="Open navigation menu"
                 aria-expanded="false"
@@ -609,9 +521,10 @@
         </div>
 
     </nav>
+    </header>
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content">
         <div class="container">
 
             <!-- Page Header -->
@@ -721,12 +634,12 @@
                     <!-- Social Links Card -->
                     <div class="contact-card">
                         <h3>Connect</h3>
-                        <div class="social-icons">
+                        <div class="contact-social-icons">
                             <a
                                 href="https://www.linkedin.com/in/asifsayed83/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="social-icon"
+                                class="contact-social-icon"
                                 aria-label="LinkedIn"
                                 title="LinkedIn"
                             >
@@ -737,7 +650,7 @@
                                 href="https://github.com/Open83"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="social-icon"
+                                class="contact-social-icon"
                                 aria-label="GitHub"
                                 title="GitHub"
                             >
@@ -748,7 +661,7 @@
                                 href="https://wa.me/919867574386"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="social-icon"
+                                class="contact-social-icon"
                                 aria-label="WhatsApp"
                                 title="WhatsApp"
                             >
@@ -781,7 +694,7 @@
                 <div class="footer-column footer-brand">
 
                     <div class="brand-info">
-                        <p class="brand-name">Sayed Asif</p>
+                        <p class="brand-name">Sayed<span>Asif</span></p>
                         <p class="brand-title">QA Engineer</p>
                         <p class="brand-tagline">API Testing • Playwright Automation</p>
                     </div>
@@ -843,288 +756,14 @@
 
     </footer>
 
-    <!-- Navigation and Dropdown Script -->
+    <!-- Global header/footer navigation -->
+    <script src="/assets/js/global-nav.js" defer></script>
+
+    <!-- Contact form -->
     <script>
 
-        const hamburger =
-            document.querySelector(".hamburger");
-
-        const navLinks =
-            document.querySelector("#navLinks");
-
-
-        if (hamburger && navLinks) {
-
-            hamburger.addEventListener(
-                "click",
-                function () {
-
-                    const isOpen =
-                        hamburger.getAttribute(
-                            "aria-expanded"
-                        ) === "true";
-
-
-                    hamburger.setAttribute(
-                        "aria-expanded",
-                        String(!isOpen)
-                    );
-
-
-                    hamburger.setAttribute(
-                        "aria-label",
-                        isOpen
-                            ? "Open navigation menu"
-                            : "Close navigation menu"
-                    );
-
-
-                    navLinks.classList.toggle(
-                        "active",
-                        !isOpen
-                    );
-
-
-                    const icon =
-                        hamburger.querySelector("i");
-
-
-                    if (icon) {
-
-                        icon.classList.toggle(
-                            "fa-bars",
-                            isOpen
-                        );
-
-                        icon.classList.toggle(
-                            "fa-times",
-                            !isOpen
-                        );
-
-                    }
-
-                }
-            );
-
-
-            navLinks
-                .querySelectorAll("a")
-                .forEach(function (link) {
-
-                    link.addEventListener(
-                        "click",
-                        function () {
-
-                            if (
-                                window.innerWidth <= 992
-                            ) {
-
-                                navLinks.classList.remove(
-                                    "active"
-                                );
-
-
-                                hamburger.setAttribute(
-                                    "aria-expanded",
-                                    "false"
-                                );
-
-
-                                hamburger.setAttribute(
-                                    "aria-label",
-                                    "Open navigation menu"
-                                );
-
-
-                                const icon =
-                                    hamburger.querySelector(
-                                        "i"
-                                    );
-
-
-                                if (icon) {
-
-                                    icon.classList.remove(
-                                        "fa-times"
-                                    );
-
-                                    icon.classList.add(
-                                        "fa-bars"
-                                    );
-
-                                }
-
-                            }
-
-                        }
-                    );
-
-                });
-
-
-            window.addEventListener(
-                "resize",
-                function () {
-
-                    if (
-                        window.innerWidth > 992
-                    ) {
-
-                        navLinks.classList.remove(
-                            "active"
-                        );
-
-
-                        hamburger.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-
-                        hamburger.setAttribute(
-                            "aria-label",
-                            "Open navigation menu"
-                        );
-
-
-                        const icon =
-                            hamburger.querySelector(
-                                "i"
-                            );
-
-
-                        if (icon) {
-
-                            icon.classList.remove(
-                                "fa-times"
-                            );
-
-                            icon.classList.add(
-                                "fa-bars"
-                            );
-
-                        }
-
-                    }
-
-                }
-            );
-
-        }
-
-        const moreButton =
-            document.querySelector("#moreButton");
-
-        const moreMenu =
-            document.querySelector("#moreMenu");
-
-
-        if (moreButton && moreMenu) {
-
-            moreButton.addEventListener(
-                "click",
-                function (event) {
-
-                    event.stopPropagation();
-
-                    const isOpen =
-                        moreButton.getAttribute(
-                            "aria-expanded"
-                        ) === "true";
-
-
-                    moreButton.setAttribute(
-                        "aria-expanded",
-                        String(!isOpen)
-                    );
-
-
-                    moreMenu.classList.toggle(
-                        "active",
-                        !isOpen
-                    );
-
-                }
-            );
-
-
-            document.addEventListener(
-                "click",
-                function (event) {
-
-                    if (
-                        !moreButton.contains(
-                            event.target
-                        ) &&
-                        !moreMenu.contains(
-                            event.target
-                        )
-                    ) {
-
-                        moreButton.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                        moreMenu.classList.remove(
-                            "active"
-                        );
-
-                    }
-
-                }
-            );
-
-
-            document.addEventListener(
-                "keydown",
-                function (event) {
-
-                    if (
-                        event.key === "Escape" ||
-                        event.code === "Escape"
-                    ) {
-
-                        moreButton.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                        moreMenu.classList.remove(
-                            "active"
-                        );
-
-                        moreButton.focus();
-
-                    }
-
-                }
-            );
-
-
-            moreMenu
-                .querySelectorAll("a")
-                .forEach(function (link) {
-
-                    link.addEventListener(
-                        "click",
-                        function () {
-
-                            moreButton.setAttribute(
-                                "aria-expanded",
-                                "false"
-                            );
-
-                            moreMenu.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-                });
-
-        }
+        // Mobile nav toggle and "More" dropdown logic now live in
+        // /assets/js/global-nav.js
 
         // Initialize Formspree AJAX
         window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };

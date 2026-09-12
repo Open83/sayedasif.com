@@ -158,6 +158,9 @@
     </script>
 
 
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+
     <!-- =====================================================
          STYLES
     ====================================================== -->
@@ -286,15 +289,8 @@
         }
 
 
-        :focus-visible {
-
-            outline:
-                3px solid var(--brand-primary);
-
-            outline-offset:
-                3px;
-
-        }
+        /* .skip-link / :focus-visible now live in
+           /assets/css/global-nav.css */
 
 
         /* =====================================================
@@ -321,328 +317,8 @@
         }
 
 
-        /* =====================================================
-           NAVIGATION
-        ====================================================== */
-
-        nav {
-
-            position:
-                fixed;
-
-            top:
-                0;
-
-            left:
-                0;
-
-            width:
-                100%;
-
-            z-index:
-                1000;
-
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.96
-                );
-
-            backdrop-filter:
-                blur(10px);
-
-            -webkit-backdrop-filter:
-                blur(10px);
-
-            border-bottom:
-                var(--border-light);
-
-        }
-
-
-        .nav-inner {
-
-            min-height:
-                74px;
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                space-between;
-
-            gap:
-                20px;
-
-        }
-
-
-        .logo {
-
-            flex-shrink:
-                0;
-
-            font-size:
-                1.5rem;
-
-            font-weight:
-                800;
-
-            color:
-                var(--brand-dark);
-
-        }
-
-
-        .logo span {
-
-            color:
-                var(--brand-primary);
-
-        }
-
-
-        .nav-links {
-
-            display:
-                flex;
-
-            align-items:
-                center;
-
-            gap:
-                25px;
-
-        }
-
-
-        .nav-links a {
-
-            color:
-                var(--brand-text);
-
-            font-size:
-                0.9rem;
-
-            font-weight:
-                600;
-
-            transition:
-                color 0.25s ease;
-
-        }
-
-
-        .nav-links a:hover,
-
-        .nav-links a.active {
-
-            color:
-                var(--brand-primary);
-
-        }
-
-
-        .hamburger {
-
-            display:
-                none;
-
-            width:
-                44px;
-
-            height:
-                44px;
-
-            border:
-                none;
-
-            border-radius:
-                8px;
-
-            background:
-                transparent;
-
-            color:
-                var(--brand-dark);
-
-            cursor:
-                pointer;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-        }
-
-
-        .hamburger:hover {
-
-            background:
-                #f8fafc;
-
-        }
-
-
-        .hamburger i {
-
-            font-size:
-                1.35rem;
-
-        }
-
-
-        /* =====================================================
-           NAVIGATION DROPDOWN
-        ====================================================== */
-
-        .nav-dropdown {
-
-            position: relative;
-
-        }
-
-        .nav-dropdown-toggle {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 6px;
-
-            border: none;
-
-            background: transparent;
-
-            color: var(--brand-text);
-
-            font-size: 0.93rem;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            padding: 0;
-
-            transition: color 0.25s ease;
-
-        }
-
-        .nav-dropdown-toggle:hover {
-
-            color: var(--brand-primary);
-
-        }
-
-        .nav-dropdown-toggle:focus {
-
-            outline: 2px solid var(--brand-primary);
-
-            outline-offset: 2px;
-
-        }
-
-        .nav-dropdown-toggle i {
-
-            font-size: 0.75rem;
-
-            transition: transform 0.3s ease;
-
-        }
-
-        .nav-dropdown-toggle[aria-expanded="true"] i {
-
-            transform: rotate(180deg);
-
-        }
-
-        .nav-dropdown-menu {
-
-            display: none;
-
-            position: absolute;
-
-            top: 100%;
-
-            right: 0;
-
-            background: #ffffff;
-
-            border: 1px solid #e2e8f0;
-
-            border-radius: 8px;
-
-            min-width: 200px;
-
-            padding: 8px 0;
-
-            margin-top: 8px;
-
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-
-            z-index: 1001;
-
-        }
-
-        .nav-dropdown-menu.active {
-
-            display: flex;
-
-            flex-direction: column;
-
-        }
-
-        .nav-dropdown-menu a {
-
-            display: block;
-
-            padding: 12px 20px;
-
-            color: var(--brand-text);
-
-            text-decoration: none;
-
-            font-size: 0.93rem;
-
-            transition: background 0.2s ease;
-
-        }
-
-        .nav-dropdown-menu a:hover {
-
-            background: #f0f4f8;
-
-            color: var(--brand-primary);
-
-        }
-
-        .nav-dropdown-menu a:focus {
-
-            outline: 2px solid var(--brand-primary);
-
-            outline-offset: -2px;
-
-        }
-
-        .nav-dropdown-menu a:first-child {
-
-            border-radius: 8px 8px 0 0;
-
-        }
-
-        .nav-dropdown-menu a:last-child {
-
-            border-radius: 0 0 8px 8px;
-
-        }
-
+        /* Global nav (header/nav-inner/logo/nav-links/hamburger/dropdown)
+           now lives in /assets/css/global-nav.css. */
 
         /* =====================================================
            HERO
@@ -1363,276 +1039,7 @@
         }
 
 
-        /* =====================================================
-           FOOTER
-        ====================================================== */
-
-        /* =====================================================
-           FOOTER
-        ====================================================== */
-
-        .site-footer {
-
-            padding: 48px 0 0;
-
-            background: #ffffff;
-
-            border-top: var(--border-light);
-
-        }
-
-        .footer-grid {
-
-            display: grid;
-
-            grid-template-columns: 1.5fr 1fr 1fr;
-
-            gap: 48px;
-
-            margin-bottom: 48px;
-
-        }
-
-        .footer-column {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 12px;
-
-        }
-
-        .footer-brand {
-
-            gap: 20px;
-
-        }
-
-        .brand-info {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 6px;
-
-        }
-
-        .brand-name {
-
-            font-size: 1.25rem;
-
-            font-weight: 800;
-
-            color: var(--brand-dark);
-
-            margin: 0;
-
-            padding: 0;
-
-        }
-
-        .brand-title {
-
-            font-size: 0.95rem;
-
-            font-weight: 600;
-
-            color: var(--brand-text);
-
-            margin: 0;
-
-            padding: 0;
-
-        }
-
-        .brand-tagline {
-
-            font-size: 0.85rem;
-
-            color: #64748b;
-
-            margin: 0;
-
-            padding: 0;
-
-            line-height: 1.5;
-
-        }
-
-        .social-links {
-
-            display: flex;
-
-            gap: 12px;
-
-            align-items: center;
-
-            margin-top: 8px;
-
-        }
-
-        .social-icon {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            width: 40px;
-
-            height: 40px;
-
-            color: #64748b;
-
-            font-size: 1.1rem;
-
-            border: 1px solid #e2e8f0;
-
-            background: #ffffff;
-
-            border-radius: 50%;
-
-            text-decoration: none;
-
-            transition: 0.3s ease;
-
-        }
-
-        .social-icon:hover,
-        .social-icon:focus {
-
-            color: var(--brand-primary);
-
-            border-color: var(--brand-primary);
-
-            transform: translateY(-2px);
-
-        }
-
-        .social-icon:focus {
-
-            outline: 2px solid var(--brand-primary);
-
-            outline-offset: 2px;
-
-        }
-
-        .footer-heading {
-
-            font-size: 0.75rem;
-
-            font-weight: 700;
-
-            color: var(--brand-dark);
-
-            text-transform: uppercase;
-
-            letter-spacing: 1.5px;
-
-            margin: 0;
-
-            padding: 0;
-
-        }
-
-        .footer-nav {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 8px;
-
-        }
-
-        .footer-nav a {
-
-            color: #64748b;
-
-            text-decoration: none;
-
-            font-size: 0.9rem;
-
-            font-weight: 500;
-
-            transition: color 0.25s ease;
-
-        }
-
-        .footer-nav a:hover,
-        .footer-nav a:focus {
-
-            color: var(--brand-primary);
-
-        }
-
-        .footer-nav a:focus {
-
-            outline: 2px solid var(--brand-primary);
-
-            outline-offset: 2px;
-
-        }
-
-        .footer-bottom {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            padding: 20px 32px;
-
-            border-top: var(--border-light);
-
-            gap: 16px;
-
-        }
-
-        .copyright {
-
-            font-size: 0.8rem;
-
-            color: #64748b;
-
-            margin: 0;
-
-            padding: 0;
-
-        }
-
-        .privacy-link {
-
-            font-size: 0.8rem;
-
-            color: #64748b;
-
-            text-decoration: none;
-
-            transition: color 0.25s ease;
-
-            white-space: nowrap;
-
-        }
-
-        .privacy-link:hover,
-        .privacy-link:focus {
-
-            color: var(--brand-primary);
-
-        }
-
-        .privacy-link:focus {
-
-            outline: 2px solid var(--brand-primary);
-
-            outline-offset: 2px;
-
-        }
+        /* Footer CSS now lives in /assets/css/global-nav.css. */
 
 
         /* =====================================================
@@ -1641,142 +1048,7 @@
 
         @media (max-width: 992px) {
 
-            .nav-links {
-
-                display:
-                    none;
-
-                position:
-                    absolute;
-
-                top:
-                    100%;
-
-                left:
-                    0;
-
-                width:
-                    100%;
-
-                padding:
-                    15px 20px 20px;
-
-                background:
-                    #ffffff;
-
-                flex-direction:
-                    column;
-
-                align-items:
-                    stretch;
-
-                gap:
-                    0;
-
-                border-bottom:
-                    var(--border-light);
-
-                box-shadow:
-                    0 10px 20px
-                    rgba(
-                        0,
-                        0,
-                        0,
-                        0.05
-                    );
-
-            }
-
-
-            .nav-links.active {
-
-                display:
-                    flex;
-
-            }
-
-
-            .nav-links a {
-
-                padding:
-                    12px 8px;
-
-                border-radius:
-                    7px;
-
-            }
-
-
-            .nav-links a:hover {
-
-                background:
-                    #f8fafc;
-
-            }
-
-
-            .hamburger {
-
-                display:
-                    flex;
-
-            }
-
-            .nav-dropdown-menu {
-
-                position: static;
-
-                display: none;
-
-                width: 100%;
-
-                border: none;
-
-                border-top: var(--border-light);
-
-                border-radius: 0;
-
-                padding: 0;
-
-                margin-top: 5px;
-
-                box-shadow: none;
-
-                background: #f8fafc;
-
-            }
-
-            .nav-dropdown-menu.active {
-
-                display: flex;
-
-            }
-
-            .nav-dropdown-menu a {
-
-                padding: 12px 10px;
-
-                border-radius: 0;
-
-            }
-
-            .nav-dropdown-toggle {
-
-                width: 100%;
-
-                justify-content: space-between;
-
-                padding: 12px 10px;
-
-            }
-
-            .footer-grid {
-
-                grid-template-columns: 1fr 1fr;
-
-                gap: 40px;
-
-            }
+            /* .nav-links, .hamburger, .nav-dropdown-*, .footer-grid mobile rules: see global-nav.css */
 
             .expertise-grid {
 
@@ -1811,12 +1083,6 @@
             }
 
 
-            .nav-inner {
-
-                min-height:
-                    68px;
-
-            }
 
 
             .about-hero {
@@ -1912,69 +1178,9 @@
 
             }
 
-            .footer-grid {
-
-                grid-template-columns: 1fr;
-
-                gap: 32px;
-
-                margin-bottom: 32px;
-
-            }
-
-            .footer-heading {
-
-                margin-top: 12px;
-
-            }
-
-            .brand-info {
-
-                gap: 8px;
-
-            }
-
-            .brand-name {
-
-                font-size: 1.1rem;
-
-            }
-
-            .brand-tagline {
-
-                font-size: 0.8rem;
-
-            }
-
-            .social-links {
-
-                margin-top: 12px;
-
-            }
-
-            .footer-bottom {
-
-                flex-direction: column;
-
-                align-items: flex-start;
-
-                padding: 16px 20px;
-
-                gap: 12px;
-
-            }
-
-            .copyright {
-
-                font-size: 0.75rem;
-
-            }
-
-            .privacy-link {
-
-                font-size: 0.75rem;
-
-            }
+            /* .footer-grid, .footer-heading, .brand-*, .social-links,
+               .footer-bottom, .copyright, .privacy-link mobile rules:
+               see /assets/css/global-nav.css. */
 
         }
 
@@ -1996,12 +1202,6 @@
             }
 
 
-            .logo {
-
-                font-size:
-                    1.3rem;
-
-            }
 
 
             .about-hero {
@@ -2113,12 +1313,6 @@
             }
 
 
-            .footer-links {
-
-                gap:
-                    14px;
-
-            }
 
         }
 
@@ -2193,12 +1387,14 @@
 
 <body>
 
+    <a href="#main-content" class="skip-link">Skip to content</a>
 
     <!-- =====================================================
          NAVIGATION
     ====================================================== -->
 
-    <nav aria-label="Main Navigation">
+    <header class="site-header">
+    <nav aria-label="Main navigation">
 
         <div class="container nav-inner">
 
@@ -2206,7 +1402,7 @@
             <a
                 href="/"
                 class="logo"
-                aria-label="Sayed Asif Home"
+                aria-label="Sayed Asif home"
             >
                 Sayed<span>Asif</span>
             </a>
@@ -2277,6 +1473,7 @@
 
             <button
                 class="hamburger"
+                id="menuButton"
                 type="button"
                 aria-label="Open navigation menu"
                 aria-expanded="false"
@@ -2293,14 +1490,14 @@
         </div>
 
     </nav>
-
+    </header>
 
 
     <!-- =====================================================
          MAIN
     ====================================================== -->
 
-    <main>
+    <main id="main-content">
 
 
         <!-- =================================================
@@ -2835,7 +2032,7 @@
                 <div class="footer-column footer-brand">
 
                     <div class="brand-info">
-                        <p class="brand-name">Sayed Asif</p>
+                        <p class="brand-name">Sayed<span>Asif</span></p>
                         <p class="brand-title">QA Engineer</p>
                         <p class="brand-tagline">API Testing • Playwright Automation</p>
                     </div>
@@ -2902,316 +2099,7 @@
     <!-- =====================================================
          MOBILE NAVIGATION
     ====================================================== -->
-
-    <script>
-
-        const hamburger =
-            document.querySelector(".hamburger");
-
-        const navLinks =
-            document.querySelector("#navLinks");
-
-
-        if (hamburger && navLinks) {
-
-            hamburger.addEventListener(
-                "click",
-                function () {
-
-                    const isOpen =
-                        hamburger.getAttribute(
-                            "aria-expanded"
-                        ) === "true";
-
-
-                    hamburger.setAttribute(
-                        "aria-expanded",
-                        String(!isOpen)
-                    );
-
-
-                    hamburger.setAttribute(
-                        "aria-label",
-                        isOpen
-                            ? "Open navigation menu"
-                            : "Close navigation menu"
-                    );
-
-
-                    navLinks.classList.toggle(
-                        "active",
-                        !isOpen
-                    );
-
-
-                    const icon =
-                        hamburger.querySelector("i");
-
-
-                    if (icon) {
-
-                        icon.classList.toggle(
-                            "fa-bars",
-                            isOpen
-                        );
-
-                        icon.classList.toggle(
-                            "fa-times",
-                            !isOpen
-                        );
-
-                    }
-
-                }
-            );
-
-
-            /*
-             * Close the mobile menu after
-             * selecting a navigation link.
-             */
-
-            navLinks
-                .querySelectorAll("a")
-                .forEach(function (link) {
-
-                    link.addEventListener(
-                        "click",
-                        function () {
-
-                            if (
-                                window.innerWidth <= 992
-                            ) {
-
-                                navLinks.classList.remove(
-                                    "active"
-                                );
-
-
-                                hamburger.setAttribute(
-                                    "aria-expanded",
-                                    "false"
-                                );
-
-
-                                hamburger.setAttribute(
-                                    "aria-label",
-                                    "Open navigation menu"
-                                );
-
-
-                                const icon =
-                                    hamburger.querySelector(
-                                        "i"
-                                    );
-
-
-                                if (icon) {
-
-                                    icon.classList.remove(
-                                        "fa-times"
-                                    );
-
-                                    icon.classList.add(
-                                        "fa-bars"
-                                    );
-
-                                }
-
-                            }
-
-                        }
-                    );
-
-                });
-
-
-            /*
-             * Reset mobile navigation when
-             * returning to desktop width.
-             */
-
-            window.addEventListener(
-                "resize",
-                function () {
-
-                    if (
-                        window.innerWidth > 992
-                    ) {
-
-                        navLinks.classList.remove(
-                            "active"
-                        );
-
-
-                        hamburger.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-
-                        hamburger.setAttribute(
-                            "aria-label",
-                            "Open navigation menu"
-                        );
-
-
-                        const icon =
-                            hamburger.querySelector(
-                                "i"
-                            );
-
-
-                        if (icon) {
-
-                            icon.classList.remove(
-                                "fa-times"
-                            );
-
-                            icon.classList.add(
-                                "fa-bars"
-                            );
-
-                        }
-
-                    }
-
-                }
-            );
-
-        }
-
-        /* =====================================================
-           MORE DROPDOWN
-        ====================================================== */
-
-        const moreButton =
-            document.querySelector("#moreButton");
-
-        const moreMenu =
-            document.querySelector("#moreMenu");
-
-
-        if (moreButton && moreMenu) {
-
-            moreButton.addEventListener(
-                "click",
-                function (event) {
-
-                    event.stopPropagation();
-
-                    const isOpen =
-                        moreButton.getAttribute(
-                            "aria-expanded"
-                        ) === "true";
-
-
-                    moreButton.setAttribute(
-                        "aria-expanded",
-                        String(!isOpen)
-                    );
-
-
-                    moreMenu.classList.toggle(
-                        "active",
-                        !isOpen
-                    );
-
-                }
-            );
-
-
-            /*
-             * Close the dropdown when clicking outside
-             */
-
-            document.addEventListener(
-                "click",
-                function (event) {
-
-                    if (
-                        !moreButton.contains(
-                            event.target
-                        ) &&
-                        !moreMenu.contains(
-                            event.target
-                        )
-                    ) {
-
-                        moreButton.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                        moreMenu.classList.remove(
-                            "active"
-                        );
-
-                    }
-
-                }
-            );
-
-
-            /*
-             * Close the dropdown with Escape key
-             */
-
-            document.addEventListener(
-                "keydown",
-                function (event) {
-
-                    if (
-                        event.key === "Escape" ||
-                        event.code === "Escape"
-                    ) {
-
-                        moreButton.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                        moreMenu.classList.remove(
-                            "active"
-                        );
-
-                        moreButton.focus();
-
-                    }
-
-                }
-            );
-
-
-            /*
-             * Close the dropdown when a link is clicked
-             */
-
-            moreMenu
-                .querySelectorAll("a")
-                .forEach(function (link) {
-
-                    link.addEventListener(
-                        "click",
-                        function () {
-
-                            moreButton.setAttribute(
-                                "aria-expanded",
-                                "false"
-                            );
-
-                            moreMenu.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-                });
-
-        }
-
-    </script>
+    <script src="/assets/js/global-nav.js" defer></script>
 
 
 </body>

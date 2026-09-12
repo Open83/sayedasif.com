@@ -57,6 +57,8 @@
     }
     </script>
 
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
     <style>
 
         /* =========================================================
@@ -158,27 +160,7 @@
            ACCESSIBILITY
         ========================================================= */
 
-        .skip-link {
-            position: fixed;
-            left: 15px;
-            top: -100px;
-            z-index: 9999;
-            background: var(--brand-dark);
-            color: #ffffff;
-            padding: 10px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        .skip-link:focus {
-            top: 15px;
-        }
-
-        :focus-visible {
-            outline: 3px solid var(--brand-primary);
-            outline-offset: 3px;
-        }
+        /* .skip-link and :focus-visible now live in /assets/css/global-nav.css */
 
 
         /* =========================================================
@@ -224,74 +206,8 @@
         }
 
 
-        /* =========================================================
-           NAVIGATION
-        ========================================================= */
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(10px);
-
-            border-bottom: var(--border-light);
-            padding: 15px 0;
-
-            transition: 0.3s;
-        }
-
-        .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 42px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--brand-dark);
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .logo span {
-            color: var(--brand-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        .nav-links a {
-            color: var(--brand-text);
-            text-decoration: none;
-            font-size: 0.93rem;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--brand-primary);
-        }
-
-        .hamburger {
-            display: none;
-            border: 0;
-            background: transparent;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--brand-dark);
-            padding: 8px;
-        }
-
+        /* Global nav (header/nav-inner/logo/nav-links/hamburger/dropdown)
+           now lives in /assets/css/global-nav.css. */
 
         /* =========================================================
            HERO
@@ -435,55 +351,8 @@
         }
 
 
-        /* =========================================================
-           FOOTER
-        ========================================================= */
-
-        footer {
-            padding:
-                75px 0 30px;
-
-            text-align: center;
-
-            border-top:
-                var(--border-light);
-
-            background: var(--bg-secondary);
-        }
-
-        .footer-links {
-            display: flex;
-
-            justify-content: center;
-
-            flex-wrap: wrap;
-
-            gap: 18px;
-
-            margin-bottom: 20px;
-        }
-
-        .footer-links a {
-            color: #64748b;
-
-            text-decoration: none;
-
-            font-size: 0.85rem;
-
-            font-weight: 600;
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-primary);
-        }
-
-        .copyright {
-            margin-top: 15px;
-
-            opacity: 0.6;
-
-            font-size: 0.78rem;
-        }
+        /* Old dead footer rules (bare footer/.footer-links/.copyright) and the
+           site-footer implementation now live in /assets/css/global-nav.css. */
 
 
         /* =========================================================
@@ -496,9 +365,7 @@
                 font-size: 2.8rem;
             }
 
-            .nav-links {
-                gap: 20px;
-            }
+            /* .nav-links gap: see global-nav.css */
         }
 
 
@@ -519,51 +386,7 @@
                 font-size: 1rem;
             }
 
-            .nav-links {
-                display: none;
-
-                position: absolute;
-
-                top: 100%;
-                left: 0;
-
-                width: 100%;
-
-                background: #ffffff;
-
-                flex-direction: column;
-
-                align-items: stretch;
-
-                padding: 20px;
-
-                border-bottom:
-                    1px solid #eee;
-
-                gap: 5px;
-
-                box-shadow:
-                    0 10px 20px
-                    rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links a {
-                padding: 12px 10px;
-
-                border-radius: 6px;
-            }
-
-            .nav-links a:hover {
-                background: var(--bg-secondary);
-            }
-
-            .hamburger {
-                display: block;
-            }
+            /* .nav-links, .nav-links.active, .nav-links a, .hamburger mobile rules: see global-nav.css */
         }
 
 
@@ -609,17 +432,14 @@
                 padding: 27px 22px;
             }
 
-            footer {
-                padding-top: 60px;
-            }
+            /* footer{padding-top}, .footer-grid, .footer-heading, .brand-*, .social-links,
+               .footer-bottom, .copyright, .privacy-link mobile rules: see global-nav.css */
         }
 
 
         @media (max-width: 420px) {
 
-            .logo {
-                font-size: 1.3rem;
-            }
+            /* .logo font-size: see global-nav.css */
 
             .hero h1 {
                 font-size: 1.8rem;
@@ -656,6 +476,12 @@
             }
         }
 
+        /* Duplicate nav-dropdown and footer CSS removed — now lives in /assets/css/global-nav.css. */
+
+        /* Duplicate nav-dropdown + footer responsive rules (992px) removed — now live in /assets/css/global-nav.css. */
+
+        /* Duplicate footer responsive rules (768px) removed — now live in /assets/css/global-nav.css. */
+
     </style>
 </head>
 
@@ -675,6 +501,7 @@
          NAVIGATION
     ========================================================== -->
 
+    <header class="site-header">
     <nav aria-label="Main navigation">
 
         <div class="container nav-inner">
@@ -733,7 +560,7 @@
                         <a href="/payments/" role="menuitem">
                             Payment Testing
                         </a>
-                        <a href="/capabilities/" role="menuitem">
+                        <a href="/capabilities/" role="menuitem" class="active" aria-current="page">
                             Capabilities
                         </a>
                         <a href="/blog/" role="menuitem">
@@ -747,6 +574,7 @@
 
             <button
                 class="hamburger"
+                id="menuButton"
                 type="button"
                 aria-label="Open navigation menu"
                 aria-expanded="false"
@@ -758,6 +586,7 @@
         </div>
 
     </nav>
+    </header>
 
 
     <main id="main-content">
@@ -993,7 +822,7 @@
                 <div class="footer-column footer-brand">
 
                     <div class="brand-info">
-                        <p class="brand-name">Sayed Asif</p>
+                        <p class="brand-name">Sayed<span>Asif</span></p>
                         <p class="brand-title">QA Engineer</p>
                         <p class="brand-tagline">API Testing • Playwright Automation</p>
                     </div>
@@ -1057,95 +886,10 @@
 
 
     <!-- =========================================================
-         MOBILE NAVIGATION
+         GLOBAL NAVIGATION (mobile menu + "More" dropdown)
     ========================================================== -->
 
-    <script>
-
-        const hamburger = document.querySelector(".hamburger");
-        const navLinks = document.querySelector("#navLinks");
-
-        if (hamburger && navLinks) {
-
-            hamburger.addEventListener("click", function () {
-                const isOpen = hamburger.getAttribute("aria-expanded") === "true";
-                hamburger.setAttribute("aria-expanded", String(!isOpen));
-                hamburger.setAttribute("aria-label", isOpen ? "Open navigation menu" : "Close navigation menu");
-                navLinks.classList.toggle("active", !isOpen);
-
-                const icon = hamburger.querySelector("i");
-                if (icon) {
-                    icon.classList.toggle("fa-bars", isOpen);
-                    icon.classList.toggle("fa-times", !isOpen);
-                }
-            });
-
-            navLinks.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    if (window.innerWidth <= 992) {
-                        navLinks.classList.remove("active");
-                        hamburger.setAttribute("aria-expanded", "false");
-                        hamburger.setAttribute("aria-label", "Open navigation menu");
-
-                        const icon = hamburger.querySelector("i");
-                        if (icon) {
-                            icon.classList.remove("fa-times");
-                            icon.classList.add("fa-bars");
-                        }
-                    }
-                });
-            });
-
-            window.addEventListener("resize", function () {
-                if (window.innerWidth > 992) {
-                    navLinks.classList.remove("active");
-                    hamburger.setAttribute("aria-expanded", "false");
-                    hamburger.setAttribute("aria-label", "Open navigation menu");
-
-                    const icon = hamburger.querySelector("i");
-                    if (icon) {
-                        icon.classList.remove("fa-times");
-                        icon.classList.add("fa-bars");
-                    }
-                }
-            });
-        }
-
-        const moreButton = document.querySelector("#moreButton");
-        const moreMenu = document.querySelector("#moreMenu");
-
-        if (moreButton && moreMenu) {
-            moreButton.addEventListener("click", function (event) {
-                event.stopPropagation();
-                const isOpen = moreButton.getAttribute("aria-expanded") === "true";
-                moreButton.setAttribute("aria-expanded", String(!isOpen));
-                moreMenu.classList.toggle("active", !isOpen);
-            });
-
-            document.addEventListener("click", function (event) {
-                if (!moreButton.contains(event.target) && !moreMenu.contains(event.target)) {
-                    moreButton.setAttribute("aria-expanded", "false");
-                    moreMenu.classList.remove("active");
-                }
-            });
-
-            document.addEventListener("keydown", function (event) {
-                if (event.key === "Escape" || event.code === "Escape") {
-                    moreButton.setAttribute("aria-expanded", "false");
-                    moreMenu.classList.remove("active");
-                    moreButton.focus();
-                }
-            });
-
-            moreMenu.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    moreButton.setAttribute("aria-expanded", "false");
-                    moreMenu.classList.remove("active");
-                });
-            });
-        }
-
-    </script>
+    <script src="/assets/js/global-nav.js" defer></script>
 
 </body>
 

@@ -121,6 +121,9 @@
     }
     </script>
 
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+
     <style>
 
         :root {
@@ -213,50 +216,8 @@
             background: var(--primary);
         }
 
-        /* Navigation */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            padding: 15px 0;
-        }
-
-        .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 24px;
-            min-height: 50px;
-        }
-
-        .nav-brand {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--dark);
-        }
-
-        .nav-brand span {
-            color: var(--primary);
-        }
-
-        .nav-link {
-            color: var(--text);
-            font-size: 0.95rem;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: all 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-            background: rgba(0, 186, 242, 0.1);
-        }
+        /* Global nav (header/nav-inner/logo/nav-links/hamburger/dropdown)
+           now lives in /assets/css/global-nav.css. */
 
         /* Hero */
         .hero {
@@ -463,35 +424,8 @@
         }
 
         /* Footer */
-        footer {
-            background: var(--light);
-            border-top: 1px solid var(--border);
-            padding: 40px 24px;
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 16px;
-        }
-
-        .footer-links a {
-            color: var(--text);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        .copyright {
-            font-size: 0.85rem;
-            color: var(--muted);
-        }
+        /* Legacy pre-global-footer rules removed: bare footer{}, .footer-links,
+           .copyright — all dead/overridden. Live footer is in global-nav.css. */
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -527,19 +461,6 @@
         }
 
         @media (max-width: 640px) {
-            .nav-inner {
-                padding: 0 16px;
-            }
-
-            .nav-brand {
-                font-size: 1.1rem;
-            }
-
-            .nav-link {
-                padding: 6px 12px;
-                font-size: 0.85rem;
-            }
-
             .hero {
                 padding: 60px 0 40px;
             }
@@ -566,85 +487,78 @@
             }
         }
 
-        .nav-dropdown { position: relative; }
-        .nav-dropdown-toggle { display: flex; align-items: center; gap: 6px; border: none; background: transparent; color: var(--brand-text); font-size: 0.93rem; font-weight: 600; cursor: pointer; padding: 0; transition: color 0.25s ease; }
-        .nav-dropdown-toggle:hover { color: var(--brand-primary); }
-        .nav-dropdown-toggle:focus { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
-        .nav-dropdown-toggle i { font-size: 0.75rem; transition: transform 0.3s ease; }
-        .nav-dropdown-toggle[aria-expanded="true"] i { transform: rotate(180deg); }
-        .nav-dropdown-menu { display: none; position: absolute; top: 100%; right: 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; min-width: 200px; padding: 8px 0; margin-top: 8px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); z-index: 1001; }
-        .nav-dropdown-menu.active { display: flex; flex-direction: column; }
-        .nav-dropdown-menu a { display: block; padding: 12px 20px; color: var(--brand-text); text-decoration: none; font-size: 0.93rem; transition: background 0.2s ease; }
-        .nav-dropdown-menu a:hover { background: #f0f4f8; color: var(--brand-primary); }
-        .nav-dropdown-menu a:focus { outline: 2px solid var(--brand-primary); outline-offset: -2px; }
-        .nav-dropdown-menu a:first-child { border-radius: 8px 8px 0 0; }
-        .nav-dropdown-menu a:last-child { border-radius: 0 0 8px 8px; }
-
-        .site-footer { padding: 48px 0 0; background: #ffffff; border-top: 1px solid #e2e8f0; }
-        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
-        .footer-column { display: flex; flex-direction: column; gap: 12px; }
-        .footer-brand { gap: 20px; }
-        .brand-info { display: flex; flex-direction: column; gap: 6px; }
-        .brand-name { font-size: 1.25rem; font-weight: 800; color: #314259; margin: 0; padding: 0; }
-        .brand-title { font-size: 0.95rem; font-weight: 600; color: #334155; margin: 0; padding: 0; }
-        .brand-tagline { font-size: 0.85rem; color: #64748b; margin: 0; padding: 0; line-height: 1.5; }
-        .social-links { display: flex; gap: 12px; align-items: center; margin-top: 8px; }
-        .social-icon { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: #64748b; font-size: 1.1rem; border: 1px solid #e2e8f0; background: #ffffff; border-radius: 50%; text-decoration: none; transition: 0.3s ease; }
-        .social-icon:hover, .social-icon:focus { color: var(--brand-primary); border-color: var(--brand-primary); transform: translateY(-2px); }
-        .social-icon:focus { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
-        .footer-heading { font-size: 0.75rem; font-weight: 700; color: #314259; text-transform: uppercase; letter-spacing: 1.5px; margin: 0; padding: 0; }
-        .footer-nav { display: flex; flex-direction: column; gap: 8px; }
-        .footer-nav a { color: #64748b; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.25s ease; }
-        .footer-nav a:hover, .footer-nav a:focus { color: var(--brand-primary); }
-        .footer-nav a:focus { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 20px 32px; border-top: 1px solid #e2e8f0; gap: 16px; }
-        .copyright { font-size: 0.8rem; color: #64748b; margin: 0; padding: 0; }
-        .privacy-link { font-size: 0.8rem; color: #64748b; text-decoration: none; transition: color 0.25s ease; white-space: nowrap; }
-        .privacy-link:hover, .privacy-link:focus { color: var(--brand-primary); }
-        .privacy-link:focus { outline: 2px solid var(--brand-primary); outline-offset: 2px; }
-
-        @media (max-width: 992px) {
-            .nav-dropdown-menu { position: static; display: none; width: 100%; border: none; border-top: 1px solid #e2e8f0; border-radius: 0; padding: 0; margin-top: 5px; box-shadow: none; background: #f8fafc; }
-            .nav-dropdown-menu.active { display: flex; }
-            .nav-dropdown-menu a { padding: 12px 10px; border-radius: 0; }
-            .nav-dropdown-toggle { width: 100%; justify-content: space-between; padding: 12px 10px; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
-        }
-
-        @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: 1fr; gap: 32px; margin-bottom: 32px; }
-            .footer-heading { margin-top: 12px; }
-            .brand-info { gap: 8px; }
-            .brand-name { font-size: 1.1rem; }
-            .brand-tagline { font-size: 0.8rem; }
-            .social-links { margin-top: 12px; }
-            .footer-bottom { flex-direction: column; align-items: flex-start; padding: 16px 20px; gap: 12px; }
-            .copyright { font-size: 0.75rem; }
-            .privacy-link { font-size: 0.75rem; }
-        }
-
+        /* Nav-dropdown + footer CSS + responsive rules now live in
+           /assets/css/global-nav.css (single source of truth). */
     </style>
 
 </head>
 
 <body>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-inner">
-            <a href="/" class="nav-brand">
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <header class="site-header">
+    <nav aria-label="Main navigation">
+
+        <div class="container nav-inner">
+
+            <a href="/" class="logo" aria-label="Sayed Asif home">
                 Sayed<span>Asif</span>
             </a>
-            <div style="display: flex; gap: 24px;">
-                <a href="/" class="nav-link">Home</a>
-                <a href="/proof-of-work/" class="nav-link">Proof of Work</a>
-                <a href="/resume/" class="nav-link">Resume</a>
+
+            <div class="nav-links" id="navLinks">
+
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/proof-of-work/" class="active">Proof of Work</a>
+                <a href="/resume/">Resume</a>
+                <a href="/contact/">Contact</a>
+
+                <div class="nav-dropdown">
+
+                    <button
+                        class="nav-dropdown-toggle"
+                        id="moreButton"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        aria-label="More options menu"
+                    >
+                        More
+                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="nav-dropdown-menu" id="moreMenu" role="menu">
+                        <a href="/payments/" role="menuitem">Payment Testing</a>
+                        <a href="/capabilities/" role="menuitem">Capabilities</a>
+                        <a href="/blog/" role="menuitem">Blog</a>
+                    </div>
+
+                </div>
+
             </div>
+
+            <button
+                class="hamburger"
+                id="menuButton"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="navLinks"
+            >
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+
         </div>
+
     </nav>
+    </header>
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content">
 
         <!-- Hero -->
         <section class="hero">
@@ -964,7 +878,7 @@
             <div class="footer-grid">
                 <div class="footer-column footer-brand">
                     <div class="brand-info">
-                        <p class="brand-name">Sayed Asif</p>
+                        <p class="brand-name">Sayed<span>Asif</span></p>
                         <p class="brand-title">QA Engineer</p>
                         <p class="brand-tagline">API Testing • Playwright Automation</p>
                     </div>
@@ -1000,37 +914,7 @@
         </div>
     </footer>
 
-    <script>
-        const moreButton = document.querySelector("#moreButton");
-        const moreMenu = document.querySelector("#moreMenu");
-        if (moreButton && moreMenu) {
-            moreButton.addEventListener("click", function (event) {
-                event.stopPropagation();
-                const isOpen = moreButton.getAttribute("aria-expanded") === "true";
-                moreButton.setAttribute("aria-expanded", String(!isOpen));
-                moreMenu.classList.toggle("active", !isOpen);
-            });
-            document.addEventListener("click", function (event) {
-                if (!moreButton.contains(event.target) && !moreMenu.contains(event.target)) {
-                    moreButton.setAttribute("aria-expanded", "false");
-                    moreMenu.classList.remove("active");
-                }
-            });
-            document.addEventListener("keydown", function (event) {
-                if (event.key === "Escape" || event.code === "Escape") {
-                    moreButton.setAttribute("aria-expanded", "false");
-                    moreMenu.classList.remove("active");
-                    moreButton.focus();
-                }
-            });
-            moreMenu.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    moreButton.setAttribute("aria-expanded", "false");
-                    moreMenu.classList.remove("active");
-                });
-            });
-        }
-    </script>
+    <script src="/assets/js/global-nav.js" defer></script>
 
 </body>
 

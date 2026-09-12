@@ -20,6 +20,9 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+
     <style>
         :root {
             --bg-main: #ffffff;
@@ -69,73 +72,17 @@
             line-height: 1.2;
         }
 
-        :focus-visible {
-            outline: 3px solid var(--brand-primary);
-            outline-offset: 3px;
-        }
+        /* .skip-link / :focus-visible now live in
+           /assets/css/global-nav.css */
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-light);
-            padding: 15px 0;
-        }
-
+        /* Base nav rules (nav/logo/nav-links/hamburger) and the
+           "More" dropdown now live in /assets/css/global-nav.css.
+           This page keeps its own nav-inner max-width/padding since
+           it doesn't use a shared .container wrapper. */
         .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 24px;
-            min-height: 50px;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--brand-dark);
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .logo span {
-            color: var(--brand-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-
-        .nav-links a {
-            color: var(--brand-text);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--brand-primary);
-        }
-
-        .hamburger {
-            display: none;
-            border: 0;
-            background: transparent;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--brand-dark);
-            padding: 8px;
         }
 
         /* Main Resume Layout */
@@ -758,36 +705,9 @@
             color: var(--brand-dark);
         }
 
-        /* Footer */
-        footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-light);
-            padding: 40px 24px 30px;
-            text-align: center;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 18px;
-            margin-bottom: 16px;
-        }
-
-        .footer-links a {
-            color: var(--brand-text);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-primary);
-        }
-
-        .copyright {
-            font-size: 0.85rem;
-            color: var(--brand-muted);
-        }
+        /* Dead pre-redesign footer rules (footer/.footer-links/.copyright)
+           removed — live footer implementation is in
+           /assets/css/global-nav.css. */
 
         /* Responsive */
         @media (max-width: 1200px) {
@@ -907,45 +827,11 @@
         }
 
         @media (max-width: 640px) {
-            nav {
-                padding: 12px 0;
-            }
+
+            /* .logo, .nav-links, .hamburger mobile rules: see global-nav.css */
 
             .nav-inner {
                 padding: 0 16px;
-            }
-
-            .logo {
-                font-size: 1.2rem;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: #ffffff;
-                flex-direction: column;
-                align-items: stretch;
-                padding: 12px 0;
-                gap: 0;
-                border-bottom: 1px solid var(--border-light);
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                z-index: 999;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links a {
-                padding: 12px 16px;
-                border-radius: 0;
-            }
-
-            .hamburger {
-                display: block;
             }
 
             main {
@@ -1207,18 +1093,8 @@
                 font-size: 11px;
             }
 
-            footer {
-                padding: 24px 12px 20px;
-            }
-
-            .footer-links {
-                gap: 12px;
-                font-size: 0.85rem;
-            }
-
-            .copyright {
-                font-size: 0.8rem;
-            }
+            /* footer/.footer-links/.copyright mobile rules removed:
+               dead pre-redesign selectors — see global-nav.css */
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1234,11 +1110,22 @@
                 transform: none;
             }
         }
+
+        /* Duplicate nav-dropdown block and full footer implementation
+           (.site-footer, .footer-grid, .footer-column, .brand-*,
+           .social-links/.social-icon, .footer-heading, .footer-nav,
+           .footer-bottom, .copyright, .privacy-link, and their
+           responsive overrides at 992px/768px) removed — all now
+           live in /assets/css/global-nav.css. */
+
     </style>
 </head>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
     <!-- Navigation -->
+    <header class="site-header">
     <nav aria-label="Main navigation">
         <div class="nav-inner">
             <a href="/" class="logo" aria-label="Sayed Asif home">
@@ -1270,9 +1157,10 @@
             </button>
         </div>
     </nav>
+    </header>
 
     <!-- Main Content -->
-    <main>
+    <main id="main-content">
         <div class="resume-container">
             <!-- Sidebar -->
             <aside class="sidebar">
@@ -1572,7 +1460,7 @@
                 <div class="footer-column footer-brand">
 
                     <div class="brand-info">
-                        <p class="brand-name">Sayed Asif</p>
+                        <p class="brand-name">Sayed<span>Asif</span></p>
                         <p class="brand-title">QA Engineer</p>
                         <p class="brand-tagline">API Testing • Playwright Automation</p>
                     </div>
@@ -1634,73 +1522,13 @@
 
     </footer>
 
+    <!-- Mobile nav + "More" dropdown behavior (shared) -->
+    <script src="/assets/js/global-nav.js" defer></script>
+
     <!-- Scroll Animations & Interactions -->
     <script>
-        // Mobile Navigation
-        const menuButton = document.getElementById("menuButton");
-        const navLinks = document.getElementById("navLinks");
-
-        if (menuButton && navLinks) {
-            menuButton.addEventListener("click", function () {
-                const isOpen = navLinks.classList.toggle("active");
-                menuButton.setAttribute("aria-expanded", String(isOpen));
-                menuButton.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
-
-                const icon = menuButton.querySelector("i");
-                if (icon) {
-                    icon.classList.toggle("fa-bars", !isOpen);
-                    icon.classList.toggle("fa-times", isOpen);
-                }
-            });
-
-            navLinks.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    navLinks.classList.remove("active");
-                    menuButton.setAttribute("aria-expanded", "false");
-                    menuButton.setAttribute("aria-label", "Open navigation menu");
-                    const icon = menuButton.querySelector("i");
-                    if (icon) {
-                        icon.classList.remove("fa-times");
-                        icon.classList.add("fa-bars");
-                    }
-                });
-            });
-        }
-
-        // More Dropdown Menu
-        const moreButton = document.querySelector("#moreButton");
-        const moreMenu = document.querySelector("#moreMenu");
-
-        if (moreButton && moreMenu) {
-            moreButton.addEventListener("click", function (event) {
-                event.stopPropagation();
-                const isOpen = moreButton.getAttribute("aria-expanded") === "true";
-                moreButton.setAttribute("aria-expanded", String(!isOpen));
-                moreMenu.classList.toggle("active", !isOpen);
-            });
-
-            document.addEventListener("click", function (event) {
-                if (!moreButton.contains(event.target) && !moreMenu.contains(event.target)) {
-                    moreButton.setAttribute("aria-expanded", "false");
-                    moreMenu.classList.remove("active");
-                }
-            });
-
-            document.addEventListener("keydown", function (event) {
-                if (event.key === "Escape" || event.code === "Escape") {
-                    moreButton.setAttribute("aria-expanded", "false");
-                    moreMenu.classList.remove("active");
-                    moreButton.focus();
-                }
-            });
-
-            moreMenu.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    moreButton.setAttribute("aria-expanded", "false");
-                    moreMenu.classList.remove("active");
-                });
-            });
-        }
+        // Mobile Navigation and More Dropdown Menu logic now live in
+        // /assets/js/global-nav.js (single source of truth).
 
         // Scroll Animations with IntersectionObserver
         const observerOptions = {

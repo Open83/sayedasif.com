@@ -1,0 +1,522 @@
+/* =============================================================
+   GLOBAL HEADER + FOOTER — SINGLE SOURCE OF TRUTH
+   Shared across every page of sayedasif.com.
+   Do not duplicate these rules inline in individual pages.
+   ============================================================= */
+
+/* Fallback brand tokens — pages define their own :root with the
+   same values; these ensure the header/footer render correctly
+   even on a page that has no (or an incomplete) :root block. */
+:root {
+    --brand-primary: #00baf2;
+    --brand-dark: #314259;
+    --brand-text: #314259;
+    --bg-secondary: #f0f4f8;
+    --border-light: 1px solid #e2e8f0;
+}
+
+html {
+    scroll-padding-top: 90px;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.skip-link {
+    position: fixed;
+    left: 15px;
+    top: -100px;
+    z-index: 9999;
+    background: var(--brand-dark);
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.skip-link:focus {
+    top: 15px;
+}
+
+:focus-visible {
+    outline: 3px solid var(--brand-primary);
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+header.site-header {
+    display: block;
+}
+
+header.site-header nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-bottom: var(--border-light);
+}
+
+.nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 74px;
+    gap: 20px;
+}
+
+/* Header width is standardized here (not left to each page's own
+   .container rule) so the header renders at an identical width on
+   every page regardless of that page's own content container. */
+header.site-header .nav-inner {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--brand-dark);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: var(--brand-primary);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--brand-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.25s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--brand-primary);
+}
+
+.hamburger {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--brand-dark);
+    cursor: pointer;
+}
+
+.hamburger:hover {
+    background: #f8fafc;
+}
+
+.hamburger i {
+    font-size: 1.35rem;
+}
+
+/* More dropdown */
+
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    background: transparent;
+    color: var(--brand-text);
+    font-size: 0.93rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.25s ease;
+}
+
+.nav-dropdown-toggle:hover {
+    color: var(--brand-primary);
+}
+
+.nav-dropdown-toggle:focus {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
+}
+
+.nav-dropdown-toggle i {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-dropdown-toggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+.nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    min-width: 200px;
+    padding: 8px 0;
+    margin-top: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+}
+
+.nav-dropdown-menu.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--brand-text);
+    text-decoration: none;
+    font-size: 0.93rem;
+    transition: background 0.2s ease;
+}
+
+.nav-dropdown-menu a:hover,
+.nav-dropdown-menu a.active {
+    background: #f0f4f8;
+    color: var(--brand-primary);
+}
+
+.nav-dropdown-menu a:focus {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: -2px;
+}
+
+.nav-dropdown-menu a:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.nav-dropdown-menu a:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+@media (max-width: 992px) {
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 15px 20px 20px;
+        background: #ffffff;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        border-bottom: var(--border-light);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 12px 8px;
+        border-radius: 7px;
+    }
+
+    .nav-links a:hover {
+        background: #f8fafc;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-dropdown-menu {
+        position: static;
+        display: none;
+        width: 100%;
+        border: none;
+        border-top: var(--border-light);
+        border-radius: 0;
+        padding: 0;
+        margin-top: 5px;
+        box-shadow: none;
+        background: #f8fafc;
+    }
+
+    .nav-dropdown-menu.active {
+        display: flex;
+    }
+
+    .nav-dropdown-menu a {
+        padding: 12px 10px;
+        border-radius: 0;
+    }
+
+    .nav-dropdown-toggle {
+        width: 100%;
+        justify-content: space-between;
+        padding: 12px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .logo {
+        font-size: 1.3rem;
+    }
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.site-footer {
+    padding: 44px 0 0;
+    background: #ffffff;
+    border-top: var(--border-light);
+}
+
+/* Footer width is standardized here (not left to each page's own
+   .container rule) so the footer renders at an identical width on
+   every page regardless of that page's own content container. */
+footer.site-footer .container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 32px;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-brand {
+    gap: 18px;
+}
+
+.brand-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.brand-name {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--brand-dark);
+    margin: 0;
+    padding: 0;
+}
+
+.brand-name span {
+    color: var(--brand-primary);
+}
+
+.brand-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--brand-text);
+    margin: 0;
+    padding: 0;
+}
+
+.brand-tagline {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+
+.social-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #64748b;
+    font-size: 1.1rem;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.social-icon:hover,
+.social-icon:focus {
+    color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    transform: translateY(-2px);
+}
+
+.social-icon:focus {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
+}
+
+.footer-heading {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--brand-dark);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-nav a {
+    display: inline-block;
+    padding: 2px 0;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus {
+    color: var(--brand-primary);
+}
+
+.footer-nav a:focus {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-top: var(--border-light);
+    gap: 16px;
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: #64748b;
+    margin: 0;
+    padding: 0;
+}
+
+.privacy-link {
+    font-size: 0.8rem;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.25s ease;
+    white-space: nowrap;
+}
+
+.privacy-link:hover,
+.privacy-link:focus {
+    color: var(--brand-primary);
+}
+
+.privacy-link:focus {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
+}
+
+@media (max-width: 992px) {
+
+    .footer-grid {
+        gap: 32px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .nav-inner {
+        min-height: 68px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        margin-bottom: 24px;
+    }
+
+    .footer-brand {
+        gap: 16px;
+    }
+
+    .brand-info {
+        gap: 8px;
+    }
+
+    .brand-name {
+        font-size: 1.1rem;
+    }
+
+    .brand-tagline {
+        font-size: 0.8rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 0;
+        gap: 10px;
+    }
+
+    .copyright {
+        font-size: 0.75rem;
+    }
+
+    .privacy-link {
+        font-size: 0.75rem;
+    }
+}

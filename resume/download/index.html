@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sayed Asif – Software QA Engineer</title>
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- Font Awesome (icons used by the global header) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+
     <style>
         @page {
             size: A4 portrait;
@@ -12,10 +21,32 @@
             widows: 3;
         }
 
+        main#main-content {
+            display: block;
+            padding-top: 90px;
+        }
+
+        @media print {
+            main#main-content {
+                padding-top: 0;
+            }
+
+            .site-header,
+            .site-footer,
+            .skip-link {
+                display: none !important;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        /* Print-style black/transparent reset applies only to the resume
+           document itself, not the global site header/footer. */
+        body *:not(.site-header):not(.site-header *):not(.site-footer):not(.site-footer *) {
             color: #000000 !important;
             background: transparent !important;
             border-color: #000000 !important;
@@ -29,7 +60,7 @@
             background: #ffffff;
         }
 
-        a {
+        body a:not(.site-header a):not(.site-footer a) {
             color: #000000 !important;
             text-decoration: none;
         }
@@ -40,8 +71,12 @@
         }
 
         h1, h2, h3, h4, h5, h6 {
-            color: #000000 !important;
             page-break-after: avoid;
+        }
+
+        h1:not(.site-footer *), h2:not(.site-footer *), h3:not(.site-footer *),
+        h4:not(.site-footer *), h5:not(.site-footer *), h6:not(.site-footer *) {
+            color: #000000 !important;
         }
 
         /* Header */
@@ -326,9 +361,77 @@
                 display: block;
             }
         }
+
+        /* Global nav-dropdown + footer CSS (added but never wired to markup by a
+           previous broken edit) now lives in /assets/css/global-nav.css. */
     </style>
 </head>
 <body>
+
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <header class="site-header">
+    <nav aria-label="Main navigation">
+
+        <div class="container nav-inner">
+
+            <a href="/" class="logo" aria-label="Sayed Asif home">
+                Sayed<span>Asif</span>
+            </a>
+
+            <div class="nav-links" id="navLinks">
+
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/proof-of-work/">Proof of Work</a>
+                <a href="/resume/" class="active">Resume</a>
+                <a href="/contact/">Contact</a>
+
+                <div class="nav-dropdown">
+
+                    <button
+                        class="nav-dropdown-toggle"
+                        id="moreButton"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        aria-label="More options menu"
+                    >
+                        More
+                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+
+                    <div class="nav-dropdown-menu" id="moreMenu" role="menu">
+                        <a href="/payments/" role="menuitem">Payment Testing</a>
+                        <a href="/capabilities/" role="menuitem">Capabilities</a>
+                        <a href="/blog/" role="menuitem">Blog</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                class="hamburger"
+                id="menuButton"
+                type="button"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="navLinks"
+            >
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+
+        </div>
+
+    </nav>
+    </header>
+
+    <main id="main-content">
+
     <!-- Header -->
     <div class="header">
         <div class="name">SAYED ASIF</div>
@@ -541,5 +644,50 @@
             Playwright · Postman · SQL · Jira · GitHub Actions · Chrome DevTools · Manual Testing · API Testing · Page Object Model · Git · Cross-Browser Testing · Responsive Testing · Bug Tracking
         </div>
     </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column footer-brand">
+                    <div class="brand-info">
+                        <p class="brand-name">Sayed<span>Asif</span></p>
+                        <p class="brand-title">QA Engineer</p>
+                        <p class="brand-tagline">API Testing • Playwright Automation</p>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/sayedasif83838" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://linkedin.com/in/sayed-asif-99/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://wa.me/+918080825696" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Navigation</h4>
+                    <nav class="footer-nav">
+                        <a href="/">Home</a>
+                        <a href="/about/">About</a>
+                        <a href="/proof-of-work/">Proof of Work</a>
+                        <a href="/resume/">Resume</a>
+                        <a href="/contact/">Contact</a>
+                    </nav>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Resources</h4>
+                    <nav class="footer-nav">
+                        <a href="/payments/">Payment Testing</a>
+                        <a href="/capabilities/">Capabilities</a>
+                        <a href="/blog/">Blog</a>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
+                <a href="/privacy/" class="privacy-link">Privacy Notice</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/global-nav.js" defer></script>
 </body>
 </html>

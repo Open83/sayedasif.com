@@ -101,6 +101,9 @@
     }
     </script>
 
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+
     <style>
 
         /* =========================================================
@@ -198,31 +201,8 @@
         }
 
 
-        /* =========================================================
-           ACCESSIBILITY
-        ========================================================= */
-
-        .skip-link {
-            position: fixed;
-            left: 15px;
-            top: -100px;
-            z-index: 9999;
-            background: var(--brand-dark);
-            color: #ffffff;
-            padding: 10px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        .skip-link:focus {
-            top: 15px;
-        }
-
-        :focus-visible {
-            outline: 3px solid var(--brand-primary);
-            outline-offset: 3px;
-        }
+        /* .skip-link / :focus-visible now live in
+           /assets/css/global-nav.css */
 
 
         /* =========================================================
@@ -422,74 +402,8 @@
         }
 
 
-        /* =========================================================
-           NAVIGATION
-        ========================================================= */
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(10px);
-
-            border-bottom: var(--border-light);
-            padding: 15px 0;
-
-            transition: 0.3s;
-        }
-
-        .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            min-height: 42px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--brand-dark);
-            text-decoration: none;
-            white-space: nowrap;
-        }
-
-        .logo span {
-            color: var(--brand-primary);
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 28px;
-        }
-
-        .nav-links a {
-            color: var(--brand-text);
-            text-decoration: none;
-            font-size: 0.93rem;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--brand-primary);
-        }
-
-        .hamburger {
-            display: none;
-            border: 0;
-            background: transparent;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--brand-dark);
-            padding: 8px;
-        }
-
+        /* Global nav (header/nav-inner/logo/nav-links/hamburger/dropdown)
+           now lives in /assets/css/global-nav.css. */
 
         /* =========================================================
            HERO
@@ -817,55 +731,11 @@
         }
 
 
-        /* =========================================================
-           FOOTER
-        ========================================================= */
-
-        footer {
-            padding:
-                75px 0 30px;
-
-            text-align: center;
-
-            border-top:
-                var(--border-light);
-
-            background: var(--bg-secondary);
-        }
-
-        .footer-links {
-            display: flex;
-
-            justify-content: center;
-
-            flex-wrap: wrap;
-
-            gap: 18px;
-
-            margin-bottom: 20px;
-        }
-
-        .footer-links a {
-            color: #64748b;
-
-            text-decoration: none;
-
-            font-size: 0.85rem;
-
-            font-weight: 600;
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-primary);
-        }
-
-        .copyright {
-            margin-top: 15px;
-
-            opacity: 0.6;
-
-            font-size: 0.78rem;
-        }
+        /* Legacy footer rules (bare `footer` element selector,
+           `.footer-links`, and an opacity-based `.copyright`)
+           removed — dead code from an older footer design,
+           superseded by the canonical footer rules that now
+           live in /assets/css/global-nav.css. */
 
 
         /* =========================================================
@@ -878,9 +748,7 @@
                 font-size: 3rem;
             }
 
-            .nav-links {
-                gap: 20px;
-            }
+            /* .nav-links gap now lives in global-nav.css */
         }
 
 
@@ -901,51 +769,8 @@
                 font-size: 1.05rem;
             }
 
-            .nav-links {
-                display: none;
-
-                position: absolute;
-
-                top: 100%;
-                left: 0;
-
-                width: 100%;
-
-                background: #ffffff;
-
-                flex-direction: column;
-
-                align-items: stretch;
-
-                padding: 20px;
-
-                border-bottom:
-                    1px solid #eee;
-
-                gap: 5px;
-
-                box-shadow:
-                    0 10px 20px
-                    rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links a {
-                padding: 12px 10px;
-
-                border-radius: 6px;
-            }
-
-            .nav-links a:hover {
-                background: var(--bg-secondary);
-            }
-
-            .hamburger {
-                display: block;
-            }
+            /* .nav-links(.active)/a and .hamburger mobile rules
+               now live in /assets/css/global-nav.css */
         }
 
 
@@ -1011,17 +836,16 @@
                 grid-template-columns: 1fr;
             }
 
-            footer {
-                padding-top: 60px;
-            }
+            /* footer/.footer-grid/.footer-heading/.brand-info/.brand-name/
+               .brand-tagline/.social-links/.footer-bottom/.copyright/
+               .privacy-link mobile rules now live in global-nav.css */
+
         }
 
 
         @media (max-width: 420px) {
 
-            .logo {
-                font-size: 1.3rem;
-            }
+            /* .logo mobile sizing now lives in global-nav.css */
 
             .hero h1 {
                 font-size: 2rem;
@@ -1090,6 +914,14 @@
             }
         }
 
+        /* Duplicate .nav-dropdown / .nav-dropdown-toggle / .nav-dropdown-menu,
+           .site-footer / .footer-grid / .footer-column / .footer-brand /
+           .brand-info / .brand-name / .brand-title / .brand-tagline /
+           .social-links / .social-icon / .footer-heading / .footer-nav /
+           .footer-bottom / .copyright / .privacy-link rules (plus their
+           @media 992px and 768px overrides) were dead duplicate CSS
+           left over in this file — removed; see /assets/css/global-nav.css. */
+
     </style>
 </head>
 
@@ -1109,6 +941,7 @@
          NAVIGATION
     ========================================================== -->
 
+    <header class="site-header">
     <nav aria-label="Main navigation">
 
         <div class="container nav-inner">
@@ -1196,6 +1029,7 @@
         </div>
 
     </nav>
+    </header>
 
 
     <main id="main-content">
@@ -1741,7 +1575,7 @@
                 <div class="footer-column footer-brand">
 
                     <div class="brand-info">
-                        <p class="brand-name">Sayed Asif</p>
+                        <p class="brand-name">Sayed<span>Asif</span></p>
                         <p class="brand-title">QA Engineer</p>
                         <p class="brand-tagline">API Testing • Playwright Automation</p>
                     </div>
@@ -1807,67 +1641,7 @@
     <!-- =========================================================
          MOBILE NAVIGATION
     ========================================================== -->
-
-    <script>
-
-        const hamburger = document.querySelector(".hamburger");
-        const navLinks = document.querySelector("#navLinks");
-
-        if (hamburger && navLinks) {
-
-            hamburger.addEventListener("click", function () {
-
-                const isOpen = hamburger.getAttribute("aria-expanded") === "true";
-
-                hamburger.setAttribute("aria-expanded", String(!isOpen));
-                hamburger.setAttribute(
-                    "aria-label",
-                    isOpen ? "Open navigation menu" : "Close navigation menu"
-                );
-
-                navLinks.classList.toggle("active", !isOpen);
-
-                const icon = hamburger.querySelector("i");
-                if (icon) {
-                    icon.classList.toggle("fa-bars", isOpen);
-                    icon.classList.toggle("fa-times", !isOpen);
-                }
-
-            });
-
-            navLinks.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    if (window.innerWidth <= 900) {
-                        navLinks.classList.remove("active");
-                        hamburger.setAttribute("aria-expanded", "false");
-                        hamburger.setAttribute("aria-label", "Open navigation menu");
-
-                        const icon = hamburger.querySelector("i");
-                        if (icon) {
-                            icon.classList.remove("fa-times");
-                            icon.classList.add("fa-bars");
-                        }
-                    }
-                });
-            });
-
-            window.addEventListener("resize", function () {
-                if (window.innerWidth > 900) {
-                    navLinks.classList.remove("active");
-                    hamburger.setAttribute("aria-expanded", "false");
-                    hamburger.setAttribute("aria-label", "Open navigation menu");
-
-                    const icon = hamburger.querySelector("i");
-                    if (icon) {
-                        icon.classList.remove("fa-times");
-                        icon.classList.add("fa-bars");
-                    }
-                }
-            });
-
-        }
-
-    </script>
+    <script src="/assets/js/global-nav.js" defer></script>
 
 </body>
 
