@@ -61,10 +61,13 @@
         content="https://sayedasif.com/proof-of-work/"
     >
 
-    <meta
-        property="og:image"
-        content="https://sayedasif.com/image/asif.png"
-    >
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
+    <meta property="og:site_name" content="Sayed Asif">
+    <meta name="twitter:card" content="summary_large_image">
 
     <!-- Favicon -->
     <link
@@ -76,8 +79,7 @@
     <!-- Font Awesome -->
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    >
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Structured Data: BreadcrumbList -->
     <script type="application/ld+json">
@@ -196,7 +198,7 @@
         }
 
         ::selection {
-            background: var(--brand-primary);
+            background: var(--brand-accent-text);
             color: #ffffff;
         }
 
@@ -221,7 +223,7 @@
         }
 
         .text-gradient {
-            background: var(--gradient-brand);
+            background: linear-gradient(135deg, var(--brand-accent-display) 0%, var(--brand-accent-text) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -250,7 +252,7 @@
             max-width: 780px;
             margin: -25px auto 45px;
             text-align: center;
-            color: #64748b;
+            color: #5f6b79;
             font-size: 1.05rem;
         }
 
@@ -285,7 +287,7 @@
         .snapshot-number {
             font-size: 2.8rem;
             font-weight: 800;
-            color: #00baf2;
+            color: var(--brand-accent-text);
             line-height: 1;
             margin-bottom: 8px;
             letter-spacing: -0.02em;
@@ -293,7 +295,7 @@
 
         .snapshot-label {
             font-size: 0.95rem;
-            color: #64748b;
+            color: #5f6b79;
             font-weight: 600;
         }
 
@@ -334,7 +336,7 @@
             height: 48px;
             background: #e0f7ff;
             border-radius: 50%;
-            color: #00baf2;
+            color: var(--brand-accent-text);
             font-size: 1.4rem;
             margin-bottom: 12px;
         }
@@ -384,7 +386,7 @@
             height: 56px;
             background: #e0f7ff;
             border-radius: 50%;
-            color: #00baf2;
+            color: var(--brand-accent-text);
             font-size: 1.6rem;
             margin-bottom: 16px;
         }
@@ -397,7 +399,7 @@
 
         .evidence-card p {
             font-size: 0.95rem;
-            color: #64748b;
+            color: #5f6b79;
             line-height: 1.6;
         }
 
@@ -453,7 +455,7 @@
             align-items: center;
             gap: 9px;
 
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             letter-spacing: 1.8px;
             text-transform: uppercase;
 
@@ -480,14 +482,14 @@
         }
 
         .hero h1 span {
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
         }
 
         .hero-description {
             font-size: 1.12rem;
             margin-bottom: 32px;
             max-width: 750px;
-            color: #64748b;
+            color: #5f6b79;
             line-height: 1.8;
             margin-left: auto;
             margin-right: auto;
@@ -528,7 +530,7 @@
         }
 
         .portfolio-disclosure p {
-            color: #64748b;
+            color: #5f6b79;
             font-size: 0.93rem;
         }
 
@@ -538,10 +540,17 @@
             grid-template-columns:
                 repeat(
                     auto-fit,
-                    minmax(300px, 1fr)
+                    minmax(min(100%, 300px), 1fr)
                 );
 
             gap: 28px;
+        }
+
+        /* Four project cards: 2 x 2 above tablet width (avoids a lone fourth card) */
+        @media (min-width: 769px) {
+            .project-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
         }
 
         .project-card {
@@ -602,7 +611,7 @@
         .project-category {
             font-size: 0.74rem;
 
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
 
             text-transform: uppercase;
 
@@ -622,7 +631,7 @@
         }
 
         .project-desc {
-            color: #64748b;
+            color: #5f6b79;
 
             font-size: 0.94rem;
 
@@ -656,7 +665,7 @@
 
             border-radius: 20px;
 
-            color: #64748b;
+            color: #5f6b79;
 
             font-weight: 700;
         }
@@ -668,7 +677,7 @@
         }
 
         .project-metrics strong {
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             font-weight: 600;
         }
 
@@ -698,17 +707,17 @@
         }
 
         .btn-primary {
-            background: var(--brand-primary);
+            background: var(--brand-accent-text);
             color: #ffffff;
-            border: 2px solid var(--brand-primary);
+            border: 2px solid var(--brand-accent-text);
 
             box-shadow:
                 0 4px 15px rgba(0, 186, 242, 0.3);
         }
 
         .btn-primary:hover {
-            background: #0099cc;
-            border-color: #0099cc;
+            background: var(--brand-accent-text-strong);
+            border-color: var(--brand-accent-text-strong);
             transform: translateY(-2px);
 
             box-shadow:
@@ -1059,13 +1068,13 @@
 
                 <p class="hero-description">
 
-                    <strong>116 automated tests</strong> across four independent, publicly auditable projects.
+                    <strong>116 automated tests</strong> (unique test definitions) across four independent projects with public source code.
 
                     <strong>
                         Every line of code, test, and CI/CD configuration is open on GitHub.
                     </strong>
 
-                    These projects demonstrate Playwright automation architecture, Page Object Model design,
+                    These projects demonstrate Playwright automation architecture (page objects in the UI projects, an API client layer in the API project),
                     testing methodology, negative testing strategy, and CI/CD integration.
 
                 </p>
@@ -1095,7 +1104,7 @@
 
                     <div class="snapshot-card">
                         <div class="snapshot-number">116</div>
-                        <div class="snapshot-label">Automated Tests</div>
+                        <div class="snapshot-label">Test Definitions in 4 Public Projects</div>
                     </div>
 
                     <div class="snapshot-card">
@@ -1104,11 +1113,15 @@
                     </div>
 
                     <div class="snapshot-card">
-                        <div class="snapshot-number">Latest</div>
-                        <div class="snapshot-label">Test Run: Passed</div>
+                        <div class="snapshot-number">4 of 4</div>
+                        <div class="snapshot-label">Last Recorded CI Runs Passed (Aug to Sep 2026)</div>
                     </div>
 
                 </div>
+
+                <p style="max-width: 760px; margin: 24px auto 0; font-size: 0.85rem; line-height: 1.7; color: #5f6b79; text-align: center;">
+                    116 counts unique test definitions, listed with each repository’s <code>npm test -- --list</code> on 12 October 2026: Automation Exercise 26, ERPNext 6, RESTful Booker 47, Razorpay 37. It is not a coverage measure and not a count of executions. ERPNext’s 6 includes 1 authentication setup test, and 3 of Razorpay’s 37 are live-mode tests run separately (34 run in CI). CI results are historical: the last runs were 29 August (Automation Exercise), 4 September (ERPNext, whose hosted test environment is now offline), 10 September (RESTful Booker) and 14 September 2026 (Razorpay), checked on 12 October 2026. CI is configured with retries.
+                </p>
 
             </div>
 
@@ -1134,7 +1147,7 @@
                         Public QA Projects
                     </h2>
                     <p class="portfolio-intro-text">
-                        Four independent GitHub projects showcasing 116 automated tests. These public projects demonstrate my testing approach, automation architecture, and technical decision-making across UI automation, API testing, payment gateway QA, and test infrastructure.
+                        Four independent GitHub projects showcasing 116 unique automated test definitions. These public projects demonstrate my testing approach, automation architecture, and technical decision-making across UI automation, API testing, payment gateway QA, and test infrastructure.
                     </p>
                 </div>
 
@@ -1203,9 +1216,9 @@
 
                             <div class="project-metrics">
 
-                                <strong style="color: #00baf2;">26 Tests</strong>
+                                <strong style="color: var(--brand-accent-text);">26 Tests</strong>
                                 &nbsp; | &nbsp;
-                                <strong style="color: #00baf2;">Latest Test Run: Passed</strong>
+                                <strong style="color: var(--brand-accent-text);">Last CI Run: Passed (29 Aug 2026)</strong>
 
                             </div>
 
@@ -1292,9 +1305,9 @@
 
                             <div class="project-metrics">
 
-                                <strong style="color: #00baf2;">6 Tests</strong>
+                                <strong style="color: var(--brand-accent-text);">6 Tests</strong>
                                 &nbsp; | &nbsp;
-                                <strong style="color: #00baf2;">Latest Test Run: Passed</strong>
+                                <strong style="color: var(--brand-accent-text);">Last CI Run: Passed (4 Sep 2026); environment now offline</strong>
 
                             </div>
 
@@ -1381,9 +1394,9 @@
 
                             <div class="project-metrics">
 
-                                <strong style="color: #00baf2;">47 Tests</strong>
+                                <strong style="color: var(--brand-accent-text);">47 Tests</strong>
                                 &nbsp; | &nbsp;
-                                <strong style="color: #00baf2;">Latest Test Run: Passed</strong>
+                                <strong style="color: var(--brand-accent-text);">Last CI Run: Passed (10 Sep 2026)</strong>
 
                             </div>
 
@@ -1474,9 +1487,9 @@
 
                             <div class="project-metrics">
 
-                                <strong style="color: #00baf2;">37 Tests</strong>
+                                <strong style="color: var(--brand-accent-text);">37 Tests</strong>
                                 &nbsp; | &nbsp;
-                                <strong style="color: #00baf2;">Latest Test Run: Passed</strong>
+                                <strong style="color: var(--brand-accent-text);">Last CI Run: 34 CI-safe tests passed (14 Sep 2026)</strong>
 
                             </div>
 
@@ -1535,7 +1548,7 @@
 
                     <div class="demonstrates-item">
                         <div class="demonstrates-icon">
-                            <i class="fas fa-browser" aria-hidden="true"></i>
+                            <i class="fas fa-window-maximize" aria-hidden="true"></i>
                         </div>
                         <span>UI Automation</span>
                     </div>
@@ -1558,7 +1571,7 @@
                         <div class="demonstrates-icon">
                             <i class="fas fa-layer-group" aria-hidden="true"></i>
                         </div>
-                        <span>Page Object Model</span>
+                        <span>Page Objects &amp; API Clients</span>
                     </div>
 
                     <div class="demonstrates-item">
@@ -1611,12 +1624,12 @@
                     id="evidence-heading"
                     class="section-title"
                 >
-                    Publicly Verifiable
+                    What You Can Inspect
                 </h2>
 
                 <p class="section-intro">
-                    All projects are open source on GitHub. Inspect the code, test suites, and
-                    CI/CD execution to verify the work independently.
+                    All projects are open source on GitHub. Inspect the code, test suites and CI
+                    workflows. CI run logs require a GitHub sign-in.
                 </p>
 
                 <div class="evidence-grid">
@@ -1633,8 +1646,8 @@
                         <div class="evidence-icon">
                             <i class="fas fa-play-circle" aria-hidden="true"></i>
                         </div>
-                        <h3>CI/CD Logs</h3>
-                        <p>GitHub Actions workflow execution history and test results</p>
+                        <h3>CI Run History</h3>
+                        <p>GitHub Actions run history for the public projects (job logs require a GitHub sign-in)</p>
                     </div>
 
                     <div class="evidence-card">
@@ -1690,9 +1703,9 @@
                 <!-- NAVIGATION COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Navigation</h4>
+                    <h2 class="footer-heading">Navigation</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer navigation">
                         <a href="/">Home</a>
                         <a href="/about/">About</a>
                         <a href="/proof-of-work/">Proof of Work</a>
@@ -1705,9 +1718,9 @@
                 <!-- RESOURCES COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Resources</h4>
+                    <h2 class="footer-heading">Resources</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer resources">
                         <a href="/payments/">Payment Testing</a>
                         <a href="/capabilities/">Capabilities</a>
                         <a href="/blog/">Blog</a>

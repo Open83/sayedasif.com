@@ -59,6 +59,12 @@
         content="https://sayedasif.com/projects/erpnext-qa-automation/"
     >
 
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
+
     <meta
         property="og:site_name"
         content="Sayed Asif"
@@ -87,8 +93,7 @@
 
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    >
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <script type="application/ld+json">
     {
@@ -128,10 +133,10 @@
 
         :root {
             --primary: #00baf2;
-            --primary-dark: #009dcc;
+            --primary-dark: #007ca1;
             --dark: #314259;
             --text: #314259;
-            --muted: #6f7d8c;
+            --muted: #5f6b79;
             --light: #f5f9fc;
             --white: #ffffff;
             --border: #e3ebf2;
@@ -172,7 +177,7 @@
         }
 
         ::selection {
-            background: var(--primary);
+            background: var(--brand-accent-text);
             color: var(--white);
         }
 
@@ -299,7 +304,7 @@
             content: "▸";
             position: absolute;
             left: 8px;
-            color: var(--primary);
+            color: var(--brand-accent-text);
             font-weight: 700;
         }
 
@@ -344,7 +349,7 @@
 
         .tech-pill {
             background: rgba(0, 186, 242, 0.1);
-            color: var(--primary-dark);
+            color: var(--brand-accent-on-tint);
             padding: 8px 14px;
             border-radius: 20px;
             font-size: 0.9rem;
@@ -401,7 +406,7 @@
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: var(--brand-accent-text);
             color: var(--white);
             box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3);
         }
@@ -489,6 +494,21 @@
 
         /* Nav-dropdown + footer CSS + responsive rules now live in
            /assets/css/global-nav.css (single source of truth). */
+
+        /* Respect reduced-motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
     </style>
 
 </head>
@@ -582,8 +602,8 @@
                         <div class="meta-value">3</div>
                     </div>
                     <div class="meta-item">
-                        <div class="meta-label">Latest Status</div>
-                        <div class="meta-value">6/6 Passed</div>
+                        <div class="meta-label">Last CI Run</div>
+                        <div class="meta-value">Passed, 4 Sep 2026</div>
                     </div>
                     <div class="meta-item">
                         <div class="meta-label">Technology</div>
@@ -661,17 +681,20 @@
                     <div class="box-highlight">
                         <strong>Current Scope:</strong>
                         <ul style="margin-top: 12px;">
-                            <li>6 active automated test scenarios</li>
+                            <li>6 Playwright tests: 5 UI workflow tests plus 1 authentication setup test</li>
                             <li>3 application workflows tested</li>
                             <li>Playwright UI automation framework</li>
                             <li>Page Object Model architecture</li>
-                            <li>GitHub Actions CI/CD execution</li>
-                            <li>Latest verified suite: 6 passed / 0 failed / 0 flaky</li>
+                            <li>GitHub Actions workflow (runs on pushes and pull requests to main)</li>
+                            <li>Last successful GitHub Actions run: 4 September 2026 (commit 8990014), in which all 6 tests, including the setup test, passed. No later runs exist.</li>
+                            <li>Environment status (checked 12 October 2026): the hosted ERPNext instance that run used is no longer available, so the suite cannot currently be run. A new CI run would be expected to fail at the authentication setup step.</li>
                         </ul>
                     </div>
                     <p style="margin-top: 16px; color: var(--muted); font-size: 0.95rem;">
-                        <strong>Important:</strong> This result refers to the current automation suite only.
+                        <strong>Important:</strong> This recorded result refers to this automation suite only, as of 4 September 2026.
                         It does not represent full ERPNext coverage, production validation, or zero-defect status.
+                        A flaky-test count is not published here: CI is configured with retries, so a passing run
+                        does not by itself show that no test needed one.
                     </p>
                 </div>
 
@@ -716,13 +739,15 @@
                 <div class="content-section">
                     <h3>CI/CD Integration</h3>
                     <p>
-                        Tests execute automatically through GitHub Actions on every repository update.
-                        This ensures:
+                        The GitHub Actions workflow is configured to run the tests on every push and pull request to
+                        the main branch. Its last successful run was on 4 September 2026. The hosted ERPNext
+                        environment the tests ran against is no longer available, so the workflow cannot currently
+                        pass until an environment is restored. The design provides:
                     </p>
                     <ul>
-                        <li><strong>Consistency:</strong> Tests run in a standardized environment</li>
-                        <li><strong>Visibility:</strong> Build status is visible to all team members</li>
-                        <li><strong>Early Detection:</strong> Test failures are caught immediately</li>
+                        <li><strong>Consistency:</strong> The workflow ran tests in a fixed CI environment while the hosted test instance existed</li>
+                        <li><strong>Visibility:</strong> Run history is listed in the repository’s Actions tab</li>
+                        <li><strong>Early Detection:</strong> Failures would surface on each push while an environment is available</li>
                     </ul>
                 </div>
             </div>
@@ -734,59 +759,58 @@
                 <div class="content-section">
                     <h2>Automation Reliability Investigation</h2>
                     <p>
-                        During test development, autocomplete field interactions showed intermittent failures.
-                        This investigation demonstrates QA engineering thinking: identifying root cause and improving
-                        test reliability through evidence-based problem solving.
+                        While building the suite, selecting an item from the Frappe autocomplete caused timeouts and
+                        unreliable results in the Material Request, Quotation and Sales Order workflows. The
+                        repository's root-cause analysis documents the investigation; this section summarizes it.
                     </p>
                 </div>
 
                 <div class="content-section">
-                    <h3>The Problem: Intermittent Test Failures</h3>
+                    <h3>The Problem: Timeouts and Masked Failures</h3>
                     <p>
-                        Tests would fail randomly when automating autocomplete field interactions (e.g., selecting
-                        a customer from a dropdown). The same test would pass on one run and fail on the next, with
-                        no obvious reason.
+                        The item-selection step waited for the autocomplete options to become visible and timed out.
+                        Playwright reported the option elements as present in the DOM but hidden, even though the
+                        correct text had been entered. A silent fallback also pressed Enter whenever that wait failed,
+                        so some runs carried on without proving that the intended item had been selected.
                     </p>
                 </div>
 
                 <div class="content-section">
                     <h3>Investigation Process</h3>
                     <ul>
-                        <li><strong>Step 1 — Reproduce:</strong> Capture the failure in a controlled test scenario</li>
-                        <li><strong>Step 2 — Observe:</strong> Run the test multiple times to identify patterns</li>
-                        <li><strong>Step 3 — Analyze:</strong> Compare successful vs failed attempts; identify timing differences</li>
-                        <li><strong>Step 4 — Hypothesis:</strong> ERPNext/Frappe autocomplete has asynchronous behavior (API call + render delay)</li>
-                        <li><strong>Step 5 — Evidence:</strong> Browser DevTools showed autocomplete dropdown rendering after interaction was already attempted</li>
-                        <li><strong>Step 6 — Root Cause:</strong> Playwright's default interaction timing didn't account for ERPNext's autocomplete async behavior</li>
+                        <li><strong>Step 1 — Read the failure:</strong> The timeout output showed the option element resolving repeatedly as hidden</li>
+                        <li><strong>Step 2 — Inspect the page:</strong> The options were in the DOM with <code>aria-selected</code> set, but hidden by CSS</li>
+                        <li><strong>Step 3 — Compare interaction methods:</strong> <code>fill()</code> sets the value without firing key events; <code>type()</code> and key presses do</li>
+                        <li><strong>Step 4 — Check the framework behavior:</strong> Frappe's autocomplete (Awesomplete) reveals its dropdown in response to keyboard input events</li>
+                        <li><strong>Step 5 — Review the test code:</strong> A try/catch fallback pressed Enter when the visibility wait failed, hiding the failure</li>
+                        <li><strong>Step 6 — Root cause:</strong> The test's interaction did not match how the autocomplete works, and error suppression hid the consequences</li>
                     </ul>
                 </div>
 
                 <div class="content-section">
-                    <h3>Solution: Synchronization Fix</h3>
+                    <h3>Solution: Targeted Fix in the Item-Selection Step</h3>
                     <p>
-                        The fix addressed the underlying engineering principle: <strong>the test interacted with the
-                        autocomplete before the expected UI state was available.</strong>
-                    </p>
-                    <p style="margin-top: 12px;">
-                        The solution synchronized the test interaction with the dropdown's rendered state by:
+                        The fix changed how the test interacts with the autocomplete when selecting an item:
                     </p>
                     <ul>
-                        <li>Detecting when the dropdown options are visible in the DOM</li>
-                        <li>Waiting for the asynchronous API response to complete</li>
-                        <li>Only then selecting from the populated dropdown</li>
+                        <li>Type the search text with <code>type()</code> and a delay, so the autocomplete receives real key events</li>
+                        <li>Wait for the listbox to be attached to the DOM rather than visible, because the options can be hidden by CSS</li>
+                        <li>Select the option with ArrowDown and Enter, as a user would</li>
+                        <li>Remove the silent fallback, so a failed selection surfaces as a failure</li>
                     </ul>
-                    <p style="margin-top: 12px;">
-                        This approach treats synchronization as an engineering problem: align test execution with
-                        application behavior, not as a generic "best practice" but as a practical response to how
-                        ERPNext's Frappe framework handles autocomplete rendering.
-                    </p>
                 </div>
 
                 <div class="content-section">
-                    <h3>Outcome: Improved Reliability</h3>
+                    <h3>Outcome and Limits</h3>
                     <p>
-                        After implementing the keyboard-driven approach, test failures disappeared. The automation
-                        suite became reliable and repeatable.
+                        After the change, the suite passed in GitHub Actions (five successful runs on 4 September 2026),
+                        and the repository's execution report records repeated passing local and CI runs.
+                    </p>
+                    <p style="margin-top: 12px; color: var(--muted); font-size: 0.95rem;">
+                        <strong>Limits:</strong> This fix covers the item-selection step. Customer-field selection in
+                        the Quotation and Sales Order page objects uses a different pattern and was not part of this
+                        investigation. GitHub Actions logs are not viewable without a GitHub sign-in, and CI is
+                        configured with retries, so a passing run does not by itself show that no test needed one.
                     </p>
                     <div class="box-highlight">
                         <strong>Key Takeaway:</strong>
@@ -807,7 +831,7 @@
                 <div class="content-section">
                     <h2>Evidence & Verification</h2>
                     <p>
-                        All project artifacts are publicly available for inspection and verification.
+                        Source code, tests and the CI workflow are public on GitHub. CI run logs require a GitHub sign-in, and the report artifacts (30-day retention) have expired.
                     </p>
                 </div>
 
@@ -828,10 +852,10 @@
                         <div style="padding: 20px; border: 1px solid var(--border); border-radius: 14px; background: var(--white);">
                             <div style="font-weight: 700; color: var(--dark); margin-bottom: 8px;">CI/CD Execution</div>
                             <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 15px;">
-                                GitHub Actions workflow showing automated test execution, results, and build history.
+                                GitHub Actions run history (last successful run 4 Sep 2026). Job logs require a GitHub sign-in.
                             </p>
                             <a href="https://github.com/Open83/ERPNext-QA-Automation/actions" target="_blank" rel="noopener noreferrer" style="color: var(--primary-dark); font-weight: 700; text-decoration: none;">
-                                View CI/CD Logs →
+                                View CI Run History →
                             </a>
                         </div>
 
@@ -889,8 +913,8 @@
                     </div>
                 </div>
                 <div class="footer-column">
-                    <h4 class="footer-heading">Navigation</h4>
-                    <nav class="footer-nav">
+                    <h2 class="footer-heading">Navigation</h2>
+                    <nav class="footer-nav" aria-label="Footer navigation">
                         <a href="/">Home</a>
                         <a href="/about/">About</a>
                         <a href="/proof-of-work/">Proof of Work</a>
@@ -899,8 +923,8 @@
                     </nav>
                 </div>
                 <div class="footer-column">
-                    <h4 class="footer-heading">Resources</h4>
-                    <nav class="footer-nav">
+                    <h2 class="footer-heading">Resources</h2>
+                    <nav class="footer-nav" aria-label="Footer resources">
                         <a href="/payments/">Payment Testing</a>
                         <a href="/capabilities/">Capabilities</a>
                         <a href="/blog/">Blog</a>

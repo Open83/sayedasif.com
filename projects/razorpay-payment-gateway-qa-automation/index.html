@@ -23,7 +23,11 @@
     <meta property="og:title" content="Razorpay Payment Gateway QA & Automation | Sayed Asif">
     <meta property="og:description" content="A payment integration tested for what actually breaks — tampered signatures, replayed requests, and webhooks that arrive twice. Two real defects, full regression coverage, and two limitations stated honestly.">
     <meta property="og:url" content="https://sayedasif.com/projects/razorpay-payment-gateway-qa-automation/">
-    <meta property="og:image" content="https://sayedasif.com/image/asif.png">
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
     <meta property="og:site_name" content="Sayed Asif">
 
     <meta name="twitter:card" content="summary_large_image">
@@ -31,7 +35,7 @@
     <meta name="twitter:description" content="Independent QA project testing a Razorpay Test Mode payment integration — verification, security, webhooks, and two real defects found and fixed.">
 
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <script type="application/ld+json">
     {
@@ -52,10 +56,10 @@
     <style>
         :root {
             --primary: #00baf2;
-            --primary-dark: #009dcc;
+            --primary-dark: #007ca1;
             --dark: #314259;
             --text: #314259;
-            --muted: #6f7d8c;
+            --muted: #5f6b79;
             --light: #f5f9fc;
             --white: #ffffff;
             --border: #e3ebf2;
@@ -77,7 +81,7 @@
         a { color: inherit; text-decoration: none; }
         img { max-width: 100%; display: block; }
         button, a { -webkit-tap-highlight-color: transparent; }
-        ::selection { background: var(--primary); color: var(--white); }
+        ::selection { background: var(--brand-accent-text); color: var(--white); }
         /* :focus-visible now lives in /assets/css/global-nav.css */
 
         .container { width: min(calc(100% - 40px), var(--container)); margin-inline: auto; }
@@ -127,7 +131,7 @@
             border: 1px solid rgba(0, 186, 242, 0.25);
             border-radius: 999px;
             background: rgba(0, 186, 242, 0.07);
-            color: var(--primary-dark);
+            color: var(--brand-accent-on-tint);
             font-size: 0.78rem;
             font-weight: 800;
             letter-spacing: 0.06em;
@@ -145,7 +149,7 @@
             overflow-wrap: break-word;
         }
 
-        .hero h1 span { color: var(--primary); display: block; }
+        .hero h1 span { color: var(--brand-accent-text); display: block; }
 
         .hero-subtitle {
             max-width: 720px;
@@ -182,7 +186,7 @@
         .button:hover { transform: translateY(-2px); }
 
         .button-primary {
-            background: var(--primary);
+            background: var(--brand-accent-text);
             color: var(--white);
             box-shadow: 0 10px 25px rgba(0, 186, 242, 0.22);
         }
@@ -233,7 +237,7 @@
         .snapshot-number {
             font-size: 2.3rem;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--brand-accent-text);
             line-height: 1;
             margin-bottom: 8px;
             letter-spacing: -0.02em;
@@ -288,7 +292,7 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
-        .flow-arrow { color: var(--primary); font-size: 0.95rem; flex-shrink: 0; }
+        .flow-arrow { color: var(--brand-accent-text); font-size: 0.95rem; flex-shrink: 0; }
 
         .flow-converge {
             display: flex;
@@ -297,7 +301,7 @@
             margin-top: 28px;
         }
 
-        .flow-converge-arrow { color: var(--primary); font-size: 1.3rem; margin-bottom: 12px; }
+        .flow-converge-arrow { color: var(--brand-accent-text); font-size: 1.3rem; margin-bottom: 12px; }
 
         .flow-node-final {
             background: var(--white);
@@ -412,7 +416,7 @@
         }
 
         .state-node-terminal { border-color: var(--primary); color: var(--primary-dark); }
-        .state-arrow { color: var(--primary); font-size: 1rem; }
+        .state-arrow { color: var(--brand-accent-text); font-size: 1rem; }
 
         .state-branch {
             display: flex;
@@ -445,7 +449,7 @@
         }
 
         .coverage-card:hover { border-color: var(--primary); box-shadow: 0 8px 20px rgba(0, 186, 242, 0.12); transform: translateY(-2px); }
-        .coverage-count { font-size: 1.9rem; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 6px; }
+        .coverage-count { font-size: 1.9rem; font-weight: 800; color: var(--brand-accent-text); line-height: 1; margin-bottom: 6px; }
         .coverage-suite { font-size: 0.82rem; font-weight: 600; color: var(--dark); }
 
         /* Honest Limitations */
@@ -486,7 +490,7 @@
             height: 44px;
             background: var(--light);
             border-radius: 8px;
-            color: var(--primary);
+            color: var(--brand-accent-text);
             font-size: 1.2rem;
             margin-bottom: 10px;
         }
@@ -505,7 +509,7 @@
         }
 
         .demonstrates-item { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: var(--light); border-radius: 6px; }
-        .demonstrates-check { color: var(--primary); font-weight: 800; font-size: 1rem; }
+        .demonstrates-check { color: var(--brand-accent-text); font-weight: 800; font-size: 1rem; }
         .demonstrates-label { font-size: 0.85rem; font-weight: 600; color: var(--dark); }
 
         /* CTA Section */
@@ -1004,7 +1008,7 @@
                     </div>
                     <div class="defect-block">
                         <span class="defect-block-label">Result</span>
-                        <p>Signature validation now works correctly and deterministically, on every run.</p>
+                        <p>The four signature scenarios passed in the last recorded CI run (14 Sep 2026, commit da9e7a2). That is a historical result, not a guarantee for future runs.</p>
                     </div>
 
                     <div class="defect-note">
@@ -1103,8 +1107,9 @@
                         Regression confidence, not a deployment feature. The CI-safe suite runs automatically
                         through the "Playwright CI" GitHub Actions workflow — Node 24, Chromium,
                         <code>npm ci</code>, placeholder Razorpay configuration so no real secrets sit in CI.
-                        Every run produces an HTML report; a failing test captures its trace and screenshot
-                        automatically.
+                        The workflow is configured to upload the HTML report (14-day retention) and, when a run fails, the
+                        test-results folder. Traces are captured on the first retry; screenshots are not configured. No
+                        artifacts are currently available (checked 12 October 2026).
                     </p>
                     <p>
                         Keeping this suite separate from live gateway dependencies is what makes it trustworthy
@@ -1210,7 +1215,7 @@
             <div class="container">
                 <div class="content-section">
                     <h2>Evidence &amp; Verification</h2>
-                    <p>All project artifacts are publicly available on GitHub for independent inspection and verification.</p>
+                    <p>Source code, tests and the CI workflow are public on GitHub. CI run logs require a GitHub sign-in, and the report artifacts (14-day retention) have expired.</p>
                     <div class="evidence-grid">
                         <div class="evidence-card">
                             <div class="evidence-icon"><i class="fa-brands fa-github"></i></div>
@@ -1223,9 +1228,9 @@
                         <div class="evidence-card">
                             <div class="evidence-icon"><i class="fa-solid fa-play-circle"></i></div>
                             <h3>CI Execution</h3>
-                            <p>GitHub Actions "Playwright CI" workflow — run history, HTML reports, and failure artifacts.</p>
+                            <p>GitHub Actions "Playwright CI" workflow — run history (last recorded run 14 Sep 2026). Job logs require a GitHub sign-in; report artifacts have expired.</p>
                             <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/actions" target="_blank" rel="noopener noreferrer" class="evidence-link">
-                                View CI/CD Logs →
+                                View CI Run History →
                             </a>
                         </div>
                         <div class="evidence-card">
@@ -1289,8 +1294,8 @@
                     </div>
                 </div>
                 <div class="footer-column">
-                    <h4 class="footer-heading">Navigation</h4>
-                    <nav class="footer-nav">
+                    <h2 class="footer-heading">Navigation</h2>
+                    <nav class="footer-nav" aria-label="Footer navigation">
                         <a href="/">Home</a>
                         <a href="/about/">About</a>
                         <a href="/proof-of-work/">Proof of Work</a>
@@ -1299,8 +1304,8 @@
                     </nav>
                 </div>
                 <div class="footer-column">
-                    <h4 class="footer-heading">Resources</h4>
-                    <nav class="footer-nav">
+                    <h2 class="footer-heading">Resources</h2>
+                    <nav class="footer-nav" aria-label="Footer resources">
                         <a href="/payments/">Payment Testing</a>
                         <a href="/capabilities/">Capabilities</a>
                         <a href="/blog/">Blog</a>

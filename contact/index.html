@@ -23,11 +23,17 @@
     <meta property="og:title" content="Contact Sayed Asif | Software QA Engineer">
     <meta property="og:description" content="Get in touch with Sayed Asif for QA collaboration, job opportunities, or freelance projects.">
     <meta property="og:url" content="https://sayedasif.com/contact/">
-    <meta property="og:image" content="https://sayedasif.com/image/asif.png">
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
+    <meta property="og:site_name" content="Sayed Asif">
+    <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/png" href="/favicon.png">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Global header/footer styles (single source of truth) -->
     <link rel="stylesheet" href="/assets/css/global-nav.css">
@@ -75,7 +81,7 @@
         h1, h2, h3, h4 { color: var(--brand-dark); font-weight: 700; }
         p { color: var(--brand-text); }
 
-        ::selection { background: var(--brand-primary); color: #ffffff; }
+        ::selection { background: var(--brand-accent-text); color: #ffffff; }
         /* :focus-visible now lives in /assets/css/global-nav.css */
 
         /* =====================================================
@@ -116,7 +122,7 @@
 
         .contact-hero p {
             font-size: 1.1rem;
-            color: #64748b;
+            color: #5f6b79;
             max-width: 600px;
             margin: 0 auto;
         }
@@ -176,8 +182,8 @@
         select:focus,
         textarea:focus {
             outline: none;
-            border-color: var(--brand-primary);
-            box-shadow: 0 0 0 3px rgba(0, 186, 242, 0.1);
+            border-color: var(--brand-accent-text);
+            box-shadow: 0 0 0 3px rgba(0, 120, 156, 0.25);
         }
 
         textarea {
@@ -201,7 +207,7 @@
         }
 
         .btn-primary {
-            background: var(--brand-primary);
+            background: var(--brand-accent-text);
             color: #ffffff;
             box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3);
         }
@@ -269,11 +275,11 @@
             border: var(--border-light);
         }
 
-        .contact-card h3 {
+        .contact-card h2 {
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1.2px;
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             margin-bottom: 20px;
             font-weight: 700;
         }
@@ -288,12 +294,12 @@
 
         .contact-detail p {
             font-size: 0.9rem;
-            color: #64748b;
+            color: #5f6b79;
             margin-bottom: 4px;
         }
 
         .contact-detail a {
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             font-weight: 600;
             transition: 0.2s;
         }
@@ -326,15 +332,15 @@
             background: var(--bg-main);
             border: var(--border-light);
             border-radius: 8px;
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             font-size: 1.2rem;
             transition: 0.2s;
         }
 
         .contact-social-icon:hover {
-            background: var(--brand-primary);
+            background: var(--brand-accent-text);
             color: #ffffff;
-            border-color: var(--brand-primary);
+            border-color: var(--brand-accent-text);
         }
 
         /* Old dead footer rules (bare footer/.footer-links/footer p) and the
@@ -423,6 +429,20 @@
 
         /* Footer responsive rules (768px) now live in /assets/css/global-nav.css. */
 
+        /* Respect reduced-motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
     </style>
 </head>
 
@@ -539,11 +559,11 @@
                 <!-- Contact Form -->
                 <div>
                     <div class="contact-form">
-                        <div class="success-message" id="successMessage" data-fs-success hidden>
+                        <div class="success-message" id="successMessage" data-fs-success role="status" hidden>
                             ✓ Thanks for reaching out! I'll get back to you shortly.
                         </div>
 
-                        <div class="error-message" id="errorMessage" data-fs-error hidden>
+                        <div class="error-message" id="errorMessage" data-fs-error role="alert" hidden>
                             Something went wrong. Please try again or email me directly at sayedasif83838@gmail.com.
                         </div>
 
@@ -553,12 +573,12 @@
                                 <input
                                     type="text"
                                     id="name"
-                                    name="name"
+                                    name="name" autocomplete="name"
                                     required
                                     placeholder="Your name"
-                                    data-fs-field
+                                    aria-describedby="name-error" data-fs-field
                                 >
-                                <span class="field-error" data-fs-error="name"></span>
+                                <span class="field-error" id="name-error" data-fs-error="name" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
@@ -566,24 +586,24 @@
                                 <input
                                     type="email"
                                     id="email"
-                                    name="email"
+                                    name="email" autocomplete="email"
                                     required
                                     placeholder="your@email.com"
-                                    data-fs-field
+                                    aria-describedby="email-error" data-fs-field
                                 >
-                                <span class="field-error" data-fs-error="email"></span>
+                                <span class="field-error" id="email-error" data-fs-error="email" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="subject">Subject *</label>
-                                <select id="subject" name="subject" required data-fs-field>
+                                <select id="subject" name="subject" required aria-describedby="subject-error" data-fs-field>
                                     <option value="">Select a subject...</option>
                                     <option value="Job Opportunity">Job Opportunity</option>
                                     <option value="Freelance Project">Freelance Project</option>
                                     <option value="QA Collaboration">QA Collaboration</option>
                                     <option value="General Enquiry">General Enquiry</option>
                                 </select>
-                                <span class="field-error" data-fs-error="subject"></span>
+                                <span class="field-error" id="subject-error" data-fs-error="subject" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
@@ -593,9 +613,9 @@
                                     name="message"
                                     required
                                     placeholder="Tell me about your inquiry..."
-                                    data-fs-field
+                                    aria-describedby="message-error" data-fs-field
                                 ></textarea>
-                                <span class="field-error" data-fs-error="message"></span>
+                                <span class="field-error" id="message-error" data-fs-error="message" aria-live="polite"></span>
                             </div>
 
                             <button type="submit" class="btn btn-primary" data-fs-submit-btn>
@@ -611,7 +631,7 @@
 
                     <!-- Contact Info Card -->
                     <div class="contact-card">
-                        <h3>Contact Info</h3>
+                        <h2>Contact Info</h2>
 
                         <div class="contact-detail">
                             <p><i class="fas fa-phone" style="color: var(--brand-primary); margin-right: 8px;"></i>Phone</p>
@@ -626,7 +646,7 @@
 
                     <!-- Social Links Card -->
                     <div class="contact-card">
-                        <h3>Connect</h3>
+                        <h2>Connect</h2>
                         <div class="contact-social-icons">
                             <a
                                 href="https://www.linkedin.com/in/asifsayed83/"
@@ -665,7 +685,7 @@
 
                     <!-- Availability Card -->
                     <div class="contact-card">
-                        <h3>Availability</h3>
+                        <h2>Availability</h2>
                         <div class="availability-box">
                             Currently open to full-time QA Engineer roles. Remote, hybrid and on-site opportunities considered.
                         </div>
@@ -709,9 +729,9 @@
                 <!-- NAVIGATION COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Navigation</h4>
+                    <h2 class="footer-heading">Navigation</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer navigation">
                         <a href="/">Home</a>
                         <a href="/about/">About</a>
                         <a href="/proof-of-work/">Proof of Work</a>
@@ -724,9 +744,9 @@
                 <!-- RESOURCES COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Resources</h4>
+                    <h2 class="footer-heading">Resources</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer resources">
                         <a href="/payments/">Payment Testing</a>
                         <a href="/capabilities/">Capabilities</a>
                         <a href="/blog/">Blog</a>
@@ -764,7 +784,7 @@
     </script>
 
     <!-- Formspree AJAX Library -->
-    <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+    <script src="https://unpkg.com/@formspree/ajax@1.1.5/dist/global.js" integrity="sha384-9fQrvHz7unHjhv7e+pJqhvNxPV4tYHHsSn3PxBIEyPTGY8Q/PAKM1sfhL+zTYmhc" crossorigin="anonymous" defer></script>
 
 </body>
 </html>

@@ -19,16 +19,20 @@
     <meta property="og:title" content="Blog | QA Testing & Software Quality Articles">
     <meta property="og:description" content="Professional articles on QA testing, automation, API testing, and software quality assurance.">
     <meta property="og:url" content="https://sayedasif.com/blog/">
-    <meta property="og:image" content="https://sayedasif.com/image/asif.png">
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
     <meta property="og:site_name" content="Sayed Asif">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Blog | QA Testing & Software Quality Articles">
     <meta name="twitter:description" content="Professional articles on QA testing, automation, and software quality.">
-    <meta name="twitter:image" content="https://sayedasif.com/image/asif.png">
+    <meta name="twitter:image" content="https://sayedasif.com/image/og-share.jpg">
 
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Global header/footer styles (single source of truth) -->
     <link rel="stylesheet" href="/assets/css/global-nav.css">
@@ -112,7 +116,7 @@
         p { color: var(--brand-text); }
 
         ::selection {
-            background: var(--brand-primary);
+            background: var(--brand-accent-text);
             color: #ffffff;
         }
 
@@ -160,7 +164,7 @@
         .hero-description {
             font-size: 1.12rem;
             margin-bottom: 32px;
-            color: #64748b;
+            color: #5f6b79;
             line-height: 1.8;
         }
 
@@ -196,7 +200,7 @@
 
         .blog-category {
             font-size: 0.74rem;
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             text-transform: uppercase;
             letter-spacing: 0.7px;
             font-weight: 800;
@@ -211,7 +215,7 @@
         }
 
         .blog-excerpt {
-            color: #64748b;
+            color: #5f6b79;
             font-size: 0.94rem;
             margin-bottom: 20px;
             line-height: 1.7;
@@ -228,12 +232,12 @@
 
         .blog-date {
             font-size: 0.85rem;
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             font-weight: 600;
         }
 
         .blog-read-more {
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             font-size: 0.9rem;
             font-weight: 700;
             text-decoration: none;
@@ -458,9 +462,9 @@
                 <!-- NAVIGATION COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Navigation</h4>
+                    <h2 class="footer-heading">Navigation</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer navigation">
                         <a href="/">Home</a>
                         <a href="/about/">About</a>
                         <a href="/proof-of-work/">Proof of Work</a>
@@ -473,9 +477,9 @@
                 <!-- RESOURCES COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Resources</h4>
+                    <h2 class="footer-heading">Resources</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer resources">
                         <a href="/payments/">Payment Testing</a>
                         <a href="/capabilities/">Capabilities</a>
                         <a href="/blog/">Blog</a>

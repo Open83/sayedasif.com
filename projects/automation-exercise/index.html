@@ -59,6 +59,12 @@
         content="https://sayedasif.com/projects/automation-exercise/"
     >
 
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
+
     <meta
         property="og:site_name"
         content="Sayed Asif"
@@ -110,8 +116,7 @@
     -->
     <link
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Global header/footer styles (single source of truth) -->
     <link rel="stylesheet" href="/assets/css/global-nav.css">
@@ -124,15 +129,15 @@
 
         :root {
             --primary: #00baf2;
-            --primary-dark: #009dcc;
+            --primary-dark: #007ca1;
             --dark: #314259;
             --dark-deep: #26364b;
             --text: #314259;
-            --muted: #6f7d8c;
+            --muted: #5f6b79;
             --light: #f5f9fc;
             --white: #ffffff;
             --border: #e3ebf2;
-            --success: #178a52;
+            --success: #12714a;
             --warning: #b87800;
             --shadow:
                 0 18px 55px rgba(49, 66, 89, 0.10);
@@ -192,7 +197,7 @@
 
 
         ::selection {
-            background: var(--primary);
+            background: var(--brand-accent-text);
             color: var(--white);
         }
 
@@ -353,7 +358,7 @@
             background:
                 rgba(0, 186, 242, 0.07);
 
-            color: var(--primary-dark);
+            color: var(--brand-accent-on-tint);
 
             font-size: 0.78rem;
             font-weight: 800;
@@ -383,7 +388,7 @@
 
 
         .hero h1 span {
-            color: var(--primary);
+            color: var(--brand-accent-text);
         }
 
 
@@ -445,7 +450,7 @@
 
 
         .button-primary {
-            background: var(--primary);
+            background: var(--brand-accent-text);
             color: var(--white);
 
             box-shadow:
@@ -769,7 +774,7 @@
         .journey-number {
             display: block;
 
-            color: var(--primary);
+            color: var(--brand-accent-text);
 
             font-size: 0.78rem;
             font-weight: 900;
@@ -778,7 +783,7 @@
         }
 
 
-        .journey-step h4 {
+        .journey-step h3 {
             color: var(--dark);
             font-size: 1rem;
 
@@ -801,7 +806,7 @@
             display: grid;
 
             grid-template-columns:
-                repeat(5, 1fr);
+                repeat(5, minmax(0, 1fr));
 
             gap: 18px;
 
@@ -810,6 +815,9 @@
 
 
         .coverage-card {
+            min-width: 0;
+            overflow-wrap: anywhere;
+
             padding: 27px;
 
             border:
@@ -1237,7 +1245,7 @@
         .debug-step strong {
             display: block;
 
-            color: var(--primary);
+            color: #5ad0f5;
 
             font-size: 0.78rem;
 
@@ -1523,7 +1531,7 @@
 
 
         .takeaway-number {
-            color: var(--primary);
+            color: var(--brand-accent-text);
 
             font-size: 0.78rem;
             font-weight: 900;
@@ -1859,6 +1867,28 @@
         /* Nav-dropdown + footer CSS + responsive rules now live in
            /assets/css/global-nav.css (single source of truth). */
 
+
+        /* focus ring on dark panels */
+        .cta-box :focus-visible,
+        .architecture-diagram :focus-visible,
+        .challenge-question :focus-visible {
+            outline-color: #5ad0f5;
+        }
+
+        /* Respect reduced-motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
     </style>
 </head>
 
@@ -2011,7 +2041,7 @@
                     <div class="proof-header">
 
                         <span class="proof-title">
-                            Latest Regression Result
+                            Last Recorded CI Result (29 Aug 2026)
                         </span>
 
                         <span class="passed-badge">
@@ -2029,7 +2059,9 @@
 
 
                     <p class="result-label">
-                        Automated tests executed successfully
+                        26 test definitions (16 API, 10 UI) passed in the GitHub Actions run of 29 August 2026
+                        (commit 789d413), with CI retries enabled. This is a historical result, not a current
+                        execution status.
                     </p>
 
 
@@ -2042,8 +2074,8 @@
 
 
                         <div class="proof-stat">
-                            <strong>0</strong>
-                            <span>Flaky</span>
+                            <strong>Chromium</strong>
+                            <span>Browser project</span>
                         </div>
 
 
@@ -2172,7 +2204,7 @@
 
                     <div class="journey-step">
                         <span class="journey-number">01</span>
-                        <h4>Plan</h4>
+                        <h3>Plan</h3>
                         <p>
                             Define scope, risks and test scenarios.
                         </p>
@@ -2181,7 +2213,7 @@
 
                     <div class="journey-step">
                         <span class="journey-number">02</span>
-                        <h4>Validate</h4>
+                        <h3>Validate</h3>
                         <p>
                             Perform manual and exploratory testing.
                         </p>
@@ -2190,7 +2222,7 @@
 
                     <div class="journey-step">
                         <span class="journey-number">03</span>
-                        <h4>API</h4>
+                        <h3>API</h3>
                         <p>
                             Validate REST endpoints and negative cases.
                         </p>
@@ -2199,7 +2231,7 @@
 
                     <div class="journey-step">
                         <span class="journey-number">04</span>
-                        <h4>Automate</h4>
+                        <h3>Automate</h3>
                         <p>
                             Build Playwright UI regression coverage.
                         </p>
@@ -2208,7 +2240,7 @@
 
                     <div class="journey-step">
                         <span class="journey-number">05</span>
-                        <h4>Integrate</h4>
+                        <h3>Integrate</h3>
                         <p>
                             Execute automated tests through GitHub Actions.
                         </p>
@@ -2217,7 +2249,7 @@
 
                     <div class="journey-step">
                         <span class="journey-number">06</span>
-                        <h4>Assess</h4>
+                        <h3>Assess</h3>
                         <p>
                             Review execution results and quality findings.
                         </p>
@@ -2583,8 +2615,9 @@
 
                 <p class="section-intro">
                     The project uses GitHub Actions to execute API and UI
-                    test suites in CI and preserve Playwright reports as
-                    workflow artifacts.
+                    test suites in CI. The workflow is configured to upload
+                    Playwright reports as artifacts (14-day retention; none
+                    are currently available, checked 12 October 2026).
                 </p>
 
 
@@ -2682,7 +2715,7 @@
 
                             <li>
                                 <i class="fa-solid fa-circle-check"></i>
-                                Test reports uploaded as artifacts
+                                Playwright reports configured as workflow artifacts (14-day retention, now expired)
                             </li>
 
                             <li>
@@ -2792,8 +2825,12 @@
                         <div class="debug-step">
                             <strong>05 · VERIFY</strong>
                             <span>
-                                Suite re-run until the current regression
-                                result was stable.
+                                Suite re-run to confirm the regression result. A local
+                                no-retry full UI run on 12 October 2026 had 2 failures
+                                out of 10 (a checkout assertion and a 60-second login
+                                timeout); a repeat of those two tests three times and a
+                                second full run passed. Treat the UI suite as one that
+                                can fail transiently.
                             </span>
                         </div>
 
@@ -2835,7 +2872,7 @@
                         <strong>100%</strong>
 
                         <span>
-                            Latest automated execution pass rate
+                            Pass rate of the last recorded CI run (29 Aug 2026); a historical result, not a current status
                         </span>
 
                     </div>
@@ -2849,7 +2886,7 @@
                     <div class="result-card">
                         <strong>26</strong>
                         <span>
-                            Automated tests executed
+                            Automated tests executed in the last recorded CI run (29 Aug 2026)
                         </span>
                     </div>
 
@@ -3056,8 +3093,8 @@
                         </h3>
 
                         <p>
-                            Verify the GitHub Actions execution history
-                            and workflow results.
+                            Review the GitHub Actions run history. Job logs
+                            require a GitHub sign-in.
                         </p>
 
                         <span class="evidence-link">
@@ -3069,27 +3106,30 @@
 
 
                     <a
-                        href="https://github.com/Open83/automationexercise/tree/main/test-results"
+                        href="https://github.com/Open83/automationexercise/actions/runs/33252150193"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="evidence-card"
                     >
 
                         <div class="evidence-icon">
-                            <i class="fa-solid fa-file-circle-check"></i>
+                            <i class="fa-solid fa-clipboard-check"></i>
                         </div>
 
                         <h3>
-                            Test Evidence
+                            Latest Passing Run
                         </h3>
 
                         <p>
-                            Explore repository evidence and generated
-                            testing artifacts where available.
+                            Open the GitHub Actions run of 29 August 2026
+                            (commit 789d413), where the API and UI jobs both
+                            passed. Job logs require a GitHub sign-in, and
+                            Playwright reports are not committed to the
+                            repository.
                         </p>
 
                         <span class="evidence-link">
-                            Explore Evidence
+                            View Passing Run
                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </span>
 
@@ -3402,9 +3442,9 @@
                 <!-- NAVIGATION COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Navigation</h4>
+                    <h2 class="footer-heading">Navigation</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer navigation">
                         <a href="/">Home</a>
                         <a href="/about/">About</a>
                         <a href="/proof-of-work/">Proof of Work</a>
@@ -3417,9 +3457,9 @@
                 <!-- RESOURCES COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Resources</h4>
+                    <h2 class="footer-heading">Resources</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer resources">
                         <a href="/payments/">Payment Testing</a>
                         <a href="/capabilities/">Capabilities</a>
                         <a href="/blog/">Blog</a>

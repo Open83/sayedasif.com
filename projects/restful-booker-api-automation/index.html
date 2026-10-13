@@ -10,7 +10,7 @@
 
     <meta
         name="description"
-        content="Professional REST API automation framework using Playwright Test and TypeScript. 47 meaningful API tests covering authentication, CRUD, PUT/PATCH, negative testing, API workflows, and GitHub Actions CI/CD."
+        content="Professional REST API automation framework using Playwright Test and TypeScript. 47 API tests covering authentication, CRUD, PUT/PATCH, negative testing, API workflows, and GitHub Actions CI/CD."
     >
 
     <meta name="author" content="Sayed Asif">
@@ -23,14 +23,19 @@
     <meta property="og:title" content="RESTful Booker API Automation | REST API Testing | Sayed Asif">
     <meta property="og:description" content="Professional REST API automation framework demonstrating Playwright Test, TypeScript, CRUD testing, authentication, negative testing, and CI/CD.">
     <meta property="og:url" content="https://sayedasif.com/projects/restful-booker-api-automation/">
-    <meta property="og:image" content="https://sayedasif.com/image/asif.png">
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
+    <meta property="og:site_name" content="Sayed Asif">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="RESTful Booker API Automation | Sayed Asif">
     <meta name="twitter:description" content="REST API automation framework with 47 tests covering authentication, CRUD, PUT/PATCH, negative testing and CI/CD.">
 
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <script type="application/ld+json">
     {
@@ -50,10 +55,10 @@
     <style>
         :root {
             --primary: #00baf2;
-            --primary-dark: #009dcc;
+            --primary-dark: #007ca1;
             --dark: #314259;
             --text: #314259;
-            --muted: #6f7d8c;
+            --muted: #5f6b79;
             --light: #f5f9fc;
             --white: #ffffff;
             --border: #e3ebf2;
@@ -74,7 +79,7 @@
         a { color: inherit; text-decoration: none; }
         img { max-width: 100%; display: block; }
         button, a { -webkit-tap-highlight-color: transparent; }
-        ::selection { background: var(--primary); color: var(--white); }
+        ::selection { background: var(--brand-accent-text); color: var(--white); }
         /* :focus-visible now lives in /assets/css/global-nav.css */
 
         .container { width: min(calc(100% - 40px), var(--container)); margin-inline: auto; }
@@ -124,7 +129,7 @@
             border: 1px solid rgba(0, 186, 242, 0.25);
             border-radius: 999px;
             background: rgba(0, 186, 242, 0.07);
-            color: var(--primary-dark);
+            color: var(--brand-accent-on-tint);
             font-size: 0.78rem;
             font-weight: 800;
             letter-spacing: 0.06em;
@@ -142,7 +147,7 @@
             overflow-wrap: break-word;
         }
 
-        .hero h1 span { color: var(--primary); }
+        .hero h1 span { color: var(--brand-accent-text); }
 
         .hero-subtitle {
             max-width: 720px;
@@ -178,7 +183,7 @@
         .button:hover { transform: translateY(-2px); }
 
         .button-primary {
-            background: var(--primary);
+            background: var(--brand-accent-text);
             color: var(--white);
             box-shadow: 0 10px 25px rgba(0, 186, 242, 0.22);
         }
@@ -237,7 +242,7 @@
             padding: 6px 10px;
             border-radius: 999px;
             background: rgba(23, 138, 82, 0.09);
-            color: #178a52;
+            color: #12714a;
             font-size: 0.75rem;
             font-weight: 800;
         }
@@ -302,7 +307,7 @@
             justify-content: center;
             width: 48px;
             height: 48px;
-            background: var(--primary);
+            background: var(--brand-accent-text);
             color: var(--white);
             border-radius: 50%;
             font-weight: 800;
@@ -319,7 +324,7 @@
 
         .workflow-arrow {
             flex-shrink: 0;
-            color: var(--primary);
+            color: var(--brand-accent-text);
             font-size: 1.4rem;
             margin: 0 -8px;
         }
@@ -357,7 +362,7 @@
         .coverage-count {
             font-size: 1.65rem;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--brand-accent-text);
             line-height: 1;
         }
 
@@ -386,7 +391,7 @@
             background: var(--light);
             border-radius: 6px;
             font-weight: 800;
-            color: var(--primary);
+            color: var(--brand-accent-text);
             font-size: 0.85rem;
             margin: 0 auto 10px;
         }
@@ -498,7 +503,7 @@
             height: 44px;
             background: var(--light);
             border-radius: 8px;
-            color: var(--primary);
+            color: var(--brand-accent-text);
             font-size: 1.2rem;
             margin-bottom: 10px;
         }
@@ -547,7 +552,7 @@
         }
 
         .demonstrates-check {
-            color: var(--primary);
+            color: var(--brand-accent-text);
             font-weight: 800;
             font-size: 1rem;
         }
@@ -751,7 +756,7 @@
                     </a>
                     <a href="https://github.com/Open83/restful-booker-api-automation/actions" target="_blank" rel="noopener noreferrer" class="button button-secondary">
                         <i class="fa-solid fa-play"></i>
-                        CI/CD Logs
+                        CI Run History
                     </a>
                 </div>
             </div>
@@ -765,14 +770,14 @@
                         <span class="proof-title">Test Results</span>
                         <span class="passed-badge">
                             <i class="fas fa-check-circle"></i>
-                            ALL PASSING
+                            PASSED IN CI, 10 SEP 2026
                         </span>
                     </div>
                     <div class="big-result">
                         <strong>47</strong>
                         <span>Automated Tests</span>
                     </div>
-                    <div class="result-label">Latest Run: 100% Passing | 0 Failed | 0 Flaky</div>
+                    <div class="result-label">Last CI run: <a href="https://github.com/Open83/restful-booker-api-automation/actions/runs/34451015772" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">10 Sep 2026, commit a385240</a>, passed with 0 failed. CI allows 1 retry. This is a historical result, not a current execution status.</div>
                     <div class="proof-grid">
                         <div class="proof-stat">
                             <strong>Playwright</strong>
@@ -1062,7 +1067,7 @@
             <div class="container">
                 <div class="content-section">
                     <h2>Evidence & Verification</h2>
-                    <p>All project artifacts are publicly available on GitHub for independent inspection and verification.</p>
+                    <p>Source code, tests and the CI workflow are public on GitHub. CI run logs require a GitHub sign-in, and the report artifacts (30-day retention) have expired.</p>
                     <div class="evidence-grid">
                         <div class="evidence-card">
                             <div class="evidence-icon">
@@ -1079,9 +1084,9 @@
                                 <i class="fas fa-play-circle"></i>
                             </div>
                             <h3>CI/CD Execution</h3>
-                            <p>GitHub Actions workflow showing automated test execution on every commit, complete run history, and results.</p>
+                            <p>GitHub Actions workflow that runs the tests on every push and pull request to main. Its run history has 2 runs, both on 10 September 2026. Job logs require a GitHub sign-in.</p>
                             <a href="https://github.com/Open83/restful-booker-api-automation/actions" target="_blank" rel="noopener noreferrer" class="evidence-link">
-                                View CI/CD Logs →
+                                View CI Run History →
                             </a>
                         </div>
                         <div class="evidence-card">
@@ -1169,8 +1174,8 @@
                     </div>
                 </div>
                 <div class="footer-column">
-                    <h4 class="footer-heading">Navigation</h4>
-                    <nav class="footer-nav">
+                    <h2 class="footer-heading">Navigation</h2>
+                    <nav class="footer-nav" aria-label="Footer navigation">
                         <a href="/">Home</a>
                         <a href="/about/">About</a>
                         <a href="/proof-of-work/">Proof of Work</a>
@@ -1179,8 +1184,8 @@
                     </nav>
                 </div>
                 <div class="footer-column">
-                    <h4 class="footer-heading">Resources</h4>
-                    <nav class="footer-nav">
+                    <h2 class="footer-heading">Resources</h2>
+                    <nav class="footer-nav" aria-label="Footer resources">
                         <a href="/payments/">Payment Testing</a>
                         <a href="/capabilities/">Capabilities</a>
                         <a href="/blog/">Blog</a>

@@ -21,7 +21,11 @@
     <meta property="og:title" content="API Testing Best Practices for QA Engineers">
     <meta property="og:description" content="Practical strategies for effective API testing, validation, and quality assurance.">
     <meta property="og:url" content="https://sayedasif.com/blog/api-testing-best-practices/">
-    <meta property="og:image" content="https://sayedasif.com/image/1.png">
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
     <meta property="og:site_name" content="Sayed Asif">
     <meta property="article:published_time" content="2026-09-11">
     <meta property="article:modified_time" content="2026-09-11">
@@ -31,10 +35,10 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="API Testing Best Practices for QA Engineers">
     <meta name="twitter:description" content="Practical strategies for effective API testing and validation.">
-    <meta name="twitter:image" content="https://sayedasif.com/image/1.png">
+    <meta name="twitter:image" content="https://sayedasif.com/image/og-share.jpg">
 
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <script type="application/ld+json">
     {
@@ -46,7 +50,7 @@
         },
         "headline": "API Testing Best Practices for QA Engineers",
         "description": "Practical strategies for effective API testing, including endpoint validation, request/response verification, authentication testing, and common pitfalls.",
-        "image": "https://sayedasif.com/image/1.png",
+        "image": "https://sayedasif.com/image/og-share.jpg",
         "author": {
             "@type": "Person",
             "name": "Sayed Asif",
@@ -81,7 +85,7 @@
             --brand-primary: #00baf2;
             --brand-dark: #314259;
             --brand-text: #334155;
-            --brand-muted: #64748b;
+            --brand-muted: #5f6b79;
             --border-light: 1px solid #e2e8f0;
             --gradient-brand: linear-gradient(135deg, #00baf2 0%, #0088cc 100%);
             --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -101,7 +105,7 @@
         a { color: inherit; }
         button, a { -webkit-tap-highlight-color: transparent; }
         h1, h2, h3, h4 { color: var(--brand-dark); font-weight: 700; }
-        ::selection { background: var(--brand-primary); color: #ffffff; }
+        ::selection { background: var(--brand-accent-text); color: #ffffff; }
 
         /* .skip-link / :focus-visible now live in /assets/css/global-nav.css */
 
@@ -128,7 +132,7 @@
         .article-category {
             display: inline-block;
             font-size: 0.74rem;
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             text-transform: uppercase;
             letter-spacing: 0.7px;
             font-weight: 800;
@@ -161,7 +165,7 @@
         }
 
         .article-meta-item i {
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
         }
 
         .article-content {
@@ -226,7 +230,7 @@
         }
 
         .back-to-blog a {
-            color: var(--brand-primary);
+            color: var(--brand-accent-text);
             text-decoration: none;
             font-weight: 600;
             display: inline-flex;
@@ -638,9 +642,9 @@
                 <!-- NAVIGATION COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Navigation</h4>
+                    <h2 class="footer-heading">Navigation</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer navigation">
                         <a href="/">Home</a>
                         <a href="/about/">About</a>
                         <a href="/proof-of-work/">Proof of Work</a>
@@ -653,9 +657,9 @@
                 <!-- RESOURCES COLUMN -->
                 <div class="footer-column">
 
-                    <h4 class="footer-heading">Resources</h4>
+                    <h2 class="footer-heading">Resources</h2>
 
-                    <nav class="footer-nav">
+                    <nav class="footer-nav" aria-label="Footer resources">
                         <a href="/payments/">Payment Testing</a>
                         <a href="/capabilities/">Capabilities</a>
                         <a href="/blog/">Blog</a>
