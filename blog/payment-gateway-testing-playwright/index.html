@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>How to Test a Payment Gateway with Playwright | Sayed Asif</title>
+
+    <meta
+        name="description"
+        content="Testing a payment gateway integration with Playwright: signatures, webhooks, idempotency, refunds and failure scenarios, using a Razorpay Test Mode project."
+    >
+
+    <meta name="author" content="Sayed Asif">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <link rel="canonical" href="https://sayedasif.com/blog/payment-gateway-testing-playwright/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to Test a Payment Gateway with Playwright: API, Webhooks, Refunds, and Failure Scenarios">
+    <meta property="og:description" content="Signatures, webhooks, idempotency, refunds and failure scenarios, with real test code from a Razorpay Test Mode project and a plain account of what it does not prove.">
+    <meta property="og:url" content="https://sayedasif.com/blog/payment-gateway-testing-playwright/">
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
+    <meta property="og:site_name" content="Sayed Asif">
+    <meta property="article:published_time" content="2026-10-14">
+    <meta property="article:modified_time" content="2026-10-14">
+    <meta property="article:author" content="Sayed Asif">
+    <meta property="article:section" content="Payment Testing">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Test a Payment Gateway with Playwright">
+    <meta name="twitter:description" content="API, webhooks, refunds and failure scenarios, with real test code and an honest account of the limits.">
+    <meta name="twitter:image" content="https://sayedasif.com/image/og-share.jpg">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BlogPosting",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://sayedasif.com/blog/payment-gateway-testing-playwright/"
+                },
+                "headline": "How to Test a Payment Gateway with Playwright: API, Webhooks, Refunds, and Failure Scenarios",
+                "description": "How to test a payment gateway integration with Playwright, using a Razorpay Test Mode project: signatures, webhooks, idempotency, refunds, failures and honest limits.",
+                "image": "https://sayedasif.com/image/og-share.jpg",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sayed Asif",
+                    "url": "https://sayedasif.com/about/"
+                },
+                "publisher": {
+                    "@type": "Person",
+                    "name": "Sayed Asif",
+                    "url": "https://sayedasif.com/"
+                },
+                "datePublished": "2026-10-14",
+                "dateModified": "2026-10-14",
+                "articleSection": "Payment Testing",
+                "keywords": [
+                    "payment gateway testing",
+                    "Playwright",
+                    "webhook testing",
+                    "idempotency",
+                    "Razorpay Test Mode",
+                    "API testing"
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://sayedasif.com/" },
+                    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://sayedasif.com/blog/" },
+                    { "@type": "ListItem", "position": 3, "name": "Payment Gateway Testing with Playwright", "item": "https://sayedasif.com/blog/payment-gateway-testing-playwright/" }
+                ]
+            }
+        ]
+    }
+    </script>
+
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+    <style>
+        :root {
+            --bg-main: #ffffff;
+            --bg-secondary: #f0f4f8;
+            --brand-primary: #00baf2;
+            --brand-dark: #314259;
+            --brand-text: #334155;
+            --brand-muted: #5f6b79;
+            --border-light: 1px solid #e2e8f0;
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg-main);
+            color: var(--brand-text);
+            font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        h1, h2, h3, h4 { color: var(--brand-dark); font-weight: 700; }
+        ::selection { background: var(--brand-accent-text); color: #ffffff; }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        main { padding-top: 80px; }
+
+        .breadcrumb {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 24px 0 0;
+            font-size: 0.88rem;
+            color: var(--brand-muted);
+        }
+
+        .breadcrumb a { color: var(--brand-accent-text); text-decoration: none; font-weight: 600; }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        .article-header {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 24px 0 10px;
+        }
+
+        .article-category {
+            display: inline-block;
+            font-size: 0.74rem;
+            color: var(--brand-accent-on-tint);
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: #ddf3fb;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .article-title {
+            font-size: 2.4rem;
+            line-height: 1.25;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 8px 22px;
+            font-size: 0.9rem;
+            color: var(--brand-muted);
+            flex-wrap: wrap;
+        }
+
+        .article-meta a { color: var(--brand-accent-text); font-weight: 600; text-decoration: none; }
+        .article-meta a:hover { text-decoration: underline; }
+        .article-meta i { color: var(--brand-accent-text); margin-right: 6px; }
+
+        .article-content {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 20px 0 40px;
+        }
+
+        .article-content h2 {
+            font-size: 1.7rem;
+            line-height: 1.3;
+            margin-top: 52px;
+            margin-bottom: 18px;
+        }
+
+        .article-content h3 {
+            font-size: 1.25rem;
+            margin-top: 30px;
+            margin-bottom: 12px;
+        }
+
+        .article-content p {
+            margin-bottom: 18px;
+            line-height: 1.85;
+            font-size: 1.04rem;
+        }
+
+        .article-content ul,
+        .article-content ol {
+            margin: 18px 0 22px 26px;
+            line-height: 1.8;
+        }
+
+        .article-content li { margin-bottom: 9px; font-size: 1.02rem; }
+        .article-content strong { color: var(--brand-dark); }
+
+        .article-content a:not(.btn) {
+            color: var(--brand-accent-text);
+            font-weight: 600;
+        }
+
+        .article-content code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+            font-size: 0.88em;
+            background: #eef2f7;
+            color: #1e293b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            overflow-wrap: anywhere;
+        }
+
+        .article-content pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin: 20px 0 8px;
+            overflow-x: auto;
+            font-size: 0.86rem;
+            line-height: 1.65;
+            tab-size: 2;
+        }
+
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            font-size: inherit;
+            overflow-wrap: normal;
+        }
+
+        .code-caption {
+            font-size: 0.85rem;
+            color: var(--brand-muted);
+            margin-bottom: 22px;
+        }
+
+        .article-content .code-caption { font-size: 0.85rem; line-height: 1.5; }
+
+        .callout {
+            border-left: 4px solid var(--brand-primary);
+            background: #e0f7ff;
+            border-radius: 8px;
+            padding: 18px 22px;
+            margin: 26px 0;
+        }
+
+        .callout.warn { border-left-color: #d9a400; background: #fff8e6; }
+        .callout p { margin: 0 0 10px; color: var(--brand-dark); font-size: 0.99rem; }
+        .callout p:last-child { margin-bottom: 0; }
+        .callout.warn p { color: #4a3a00; }
+
+        .toc {
+            border: var(--border-light);
+            border-radius: 10px;
+            background: var(--bg-secondary);
+            padding: 18px 24px;
+            margin: 26px 0 10px;
+        }
+
+        .toc h2 {
+            font-size: 0.82rem !important;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin: 0 0 10px !important;
+            color: var(--brand-accent-text);
+        }
+
+        .toc ol { margin: 0 0 0 20px; }
+        .toc li { margin-bottom: 4px; font-size: 0.97rem; }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 22px 0;
+            border: var(--border-light);
+            border-radius: 10px;
+        }
+
+        .table-wrap table {
+            width: 100%;
+            min-width: 640px;
+            border-collapse: collapse;
+            font-size: 0.93rem;
+        }
+
+        .table-wrap th,
+        .table-wrap td {
+            text-align: left;
+            vertical-align: top;
+            padding: 11px 14px;
+            border-bottom: var(--border-light);
+            line-height: 1.5;
+        }
+
+        .table-wrap th {
+            background: var(--bg-secondary);
+            color: var(--brand-dark);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .table-wrap tr:last-child td { border-bottom: 0; }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.74rem;
+            font-weight: 800;
+            padding: 2px 9px;
+            border-radius: 12px;
+            white-space: nowrap;
+        }
+
+        .tag.yes { background: #dcfce7; color: #14532d; }
+        .tag.part { background: #fff1c2; color: #5a4500; }
+        .tag.no { background: #fee2e2; color: #7f1d1d; }
+
+        .related {
+            max-width: 820px;
+            margin: 20px auto 0;
+            padding-top: 34px;
+            border-top: var(--border-light);
+        }
+
+        .related h2 { font-size: 1.3rem; margin-bottom: 16px; }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .related-card {
+            display: block;
+            border: var(--border-light);
+            border-radius: 12px;
+            padding: 18px 20px;
+            text-decoration: none;
+            background: #ffffff;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .related-card:hover { border-color: var(--brand-primary); }
+
+        .related-card span {
+            display: block;
+            font-size: 0.74rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: var(--brand-accent-text);
+            margin-bottom: 6px;
+        }
+
+        .related-card strong { color: var(--brand-dark); font-size: 1rem; line-height: 1.4; }
+
+        .article-cta {
+            max-width: 820px;
+            margin: 34px auto 0;
+            background: var(--bg-secondary);
+            border: var(--border-light);
+            border-radius: 12px;
+            padding: 26px 28px;
+        }
+
+        .article-cta h2 { font-size: 1.3rem; margin-bottom: 8px; }
+        .article-cta p { margin-bottom: 16px; color: var(--brand-text); }
+
+        .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 0.95rem;
+            min-height: 46px;
+        }
+
+        .btn-primary {
+            background: var(--brand-accent-text);
+            color: #ffffff;
+            border: 2px solid var(--brand-accent-text);
+        }
+
+        .btn-primary:hover { background: var(--brand-accent-text-strong); border-color: var(--brand-accent-text-strong); }
+
+        .btn-outline {
+            border: 2px solid var(--brand-dark);
+            color: var(--brand-dark);
+            background: transparent;
+        }
+
+        .btn-outline:hover { background: var(--brand-dark); color: #ffffff; }
+
+        .back-to-blog {
+            max-width: 820px;
+            margin: 40px auto 0;
+            padding-top: 24px;
+            border-top: var(--border-light);
+        }
+
+        .back-to-blog a {
+            color: var(--brand-accent-text);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding-left: 17px; padding-right: 17px; }
+            .article-title { font-size: 1.85rem; }
+            .article-content h2 { font-size: 1.45rem; margin-top: 42px; }
+            .article-content p { font-size: 1rem; }
+            .related-grid { grid-template-columns: 1fr; }
+            .article-cta { padding: 22px 18px; }
+            .article-content pre { padding: 14px 14px; font-size: 0.8rem; }
+        }
+
+        @media (max-width: 420px) {
+            .article-title { font-size: 1.6rem; }
+            .btn-group .btn { width: 100%; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <header class="site-header">
+    <nav aria-label="Main navigation">
+
+        <div class="container nav-inner">
+
+            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
+
+            <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
+            <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/proof-of-work/">Projects</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/" class="active">Blog</a>
+                <a href="/resume/">Resume</a>
+                <a href="/contact/">Contact</a>
+            </div>
+
+        </div>
+
+    </nav>
+    </header>
+
+    <main id="main-content">
+
+        <div class="container">
+
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Home</a> / <a href="/blog/">Blog</a> / Payment gateway testing
+            </nav>
+
+            <header class="article-header">
+                <span class="article-category">Payment Testing</span>
+                <h1 class="article-title">How to Test a Payment Gateway with Playwright: API, Webhooks, Refunds, and Failure Scenarios</h1>
+
+                <div class="article-meta">
+                    <span><i class="fas fa-calendar" aria-hidden="true"></i><time datetime="2026-10-14">October 14, 2026</time></span>
+                    <span><i class="fas fa-user" aria-hidden="true"></i>By <a href="/about/">Sayed Asif</a></span>
+                    <span><i class="fas fa-clock" aria-hidden="true"></i>15 min read</span>
+                </div>
+            </header>
+
+            <article class="article-content">
+
+                <p>
+                    A checkout that works once proves very little. The questions that matter in a
+                    payment integration are the ones a happy-path run never asks: what happens if the
+                    same event arrives twice, if the signature is wrong, if a failure notice arrives
+                    after a success notice, or if the gateway rejects a refund in a shape your error
+                    handler did not expect.
+                </p>
+
+                <p>
+                    This article walks through how I approached those questions in
+                    <a href="/projects/razorpay-payment-gateway-qa-automation/">an independent
+                    Razorpay Test Mode project</a>, using Playwright Test for API-level checks.
+                    The code comes from the
+                    <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation" target="_blank" rel="noopener noreferrer">public repository<span class="sr-only"> (opens in a new tab)</span></a>.
+                    Where the repository does not cover something, I say so.
+                </p>
+
+                <div class="callout warn">
+                    <p><strong>Read this first.</strong> The project uses Razorpay <strong>Test Mode</strong>, a sandbox. A passing suite here does not show that a production payment integration is correct. Live keys, real banks and card networks, settlement, dashboard webhook configuration and real-world traffic all behave differently, and none of that was tested. Section 9 covers this in more detail.</p>
+                    <p>Anything labelled <strong>recommended extension</strong> is not in the repository. Where I ran an extension myself, I say exactly what I ran and where.</p>
+                </div>
+
+                <nav class="toc" aria-labelledby="toc-heading">
+                    <h2 id="toc-heading">In this article</h2>
+                    <ol>
+                        <li><a href="#why-hard">Why payment gateway testing is hard</a></li>
+                        <li><a href="#scope">Scope: scenarios worth testing, and what the project covers</a></li>
+                        <li><a href="#architecture">Test architecture and environment</a></li>
+                        <li><a href="#signatures">Signatures and amount integrity</a></li>
+                        <li><a href="#webhooks">Webhooks: raw bodies, tampering and idempotency</a></li>
+                        <li><a href="#refunds">Refunds and gateway errors</a></li>
+                        <li><a href="#failures">Failure, cancellation and duplicate scenarios (recommended extension)</a></li>
+                        <li><a href="#ci">CI execution and debugging</a></li>
+                        <li><a href="#limits">Evidence and limitations</a></li>
+                        <li><a href="#lessons">Lessons learned</a></li>
+                    </ol>
+                </nav>
+
+
+                <h2 id="why-hard">1. Why payment gateway testing is hard</h2>
+
+                <p>
+                    A payment is not one request. It crosses the checkout UI, your application, the
+                    gateway and an asynchronous webhook, and it ends up as a record of state in your
+                    own database. Each of those can disagree with the others.
+                </p>
+
+                <ul>
+                    <li><strong>The truth arrives twice.</strong> The browser reports success, and later the gateway reports it again by webhook. Both write to the same order. Either one can repeat, arrive late or arrive out of order.</li>
+                    <li><strong>Duplicates are expected, not exceptional.</strong> Razorpay's webhook documentation says an endpoint might receive the same event multiple times and provides a per-event <code>X-Razorpay-Event-Id</code> header for deduplication. It also warns that events may not arrive in order.</li>
+                    <li><strong>The cryptography is unforgiving.</strong> A webhook signature is an HMAC over the exact raw bytes that were sent. Anything that parses and re-serializes the body first breaks verification, often silently.</li>
+                    <li><strong>You do not control the other side.</strong> The sandbox has its own limits, account restrictions and data retention. Tests that depend on one real historical payment cannot run in a clean environment.</li>
+                    <li><strong>Mistakes cost money.</strong> A double-applied event or an accepted forged webhook is a financial and trust problem, not a cosmetic bug.</li>
+                </ul>
+
+                <p>
+                    So the useful framing is state testing more than checkout testing. Most of the
+                    interesting failures live between the systems, not inside any single request.
+                </p>
+
+
+                <h2 id="scope">2. Scope: scenarios worth testing, and what the project covers</h2>
+
+                <p>
+                    Here is the scenario list I work from, mapped to what the repository actually
+                    implements. The statuses are deliberately blunt.
+                </p>
+
+                <div class="table-wrap" role="region" aria-label="Scenario coverage table" tabindex="0">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Status in the repository</th>
+                                <th scope="col">Evidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Successful payment, end to end</td>
+                                <td><span class="tag part">Run once, not repeatable</span></td>
+                                <td>Driven through real Razorpay Checkout in a Playwright browser session and verified server-side (Phase 3.3 report). Not committed as a test.</td>
+                            </tr>
+                            <tr>
+                                <td>Payment signature: invalid, tampered, missing fields</td>
+                                <td><span class="tag yes">Automated</span></td>
+                                <td><code>SIG-002</code> to <code>SIG-006</code></td>
+                            </tr>
+                            <tr>
+                                <td>Signature accepted for a real captured payment</td>
+                                <td><span class="tag part">Automated, live only</span></td>
+                                <td><code>SIG-001</code>, <code>REPLAY-001</code>: need the original Test Mode account, excluded from CI</td>
+                            </tr>
+                            <tr>
+                                <td>Amount integrity (client cannot set the amount)</td>
+                                <td><span class="tag part">Weak in CI</span></td>
+                                <td><code>ORDER-003</code> only asserts when order creation succeeds (see section 10)</td>
+                            </tr>
+                            <tr>
+                                <td>Webhook signature: valid, invalid, missing, tampered</td>
+                                <td><span class="tag yes">Automated</span></td>
+                                <td><code>WEB-001</code> to <code>WEB-004</code>, <code>WEB-007</code>, <code>WEB-FIX-001</code> to <code>003</code></td>
+                            </tr>
+                            <tr>
+                                <td>Duplicate webhook event (idempotency)</td>
+                                <td><span class="tag yes">Automated</span></td>
+                                <td><code>WEB-005</code>, <code>WEB-006</code>, <code>WEB-FIX-004</code></td>
+                            </tr>
+                            <tr>
+                                <td>Failed payment (<code>payment.failed</code>)</td>
+                                <td><span class="tag no">Implemented, not tested</span></td>
+                                <td>The code maps the event to <code>failed</code>; no repository test sends it. A real decline was seen once in Checkout. See section 7: the mapping itself looks wrong.</td>
+                            </tr>
+                            <tr>
+                                <td>Out-of-order or contradictory events</td>
+                                <td><span class="tag no">Implemented, not tested</span></td>
+                                <td>The state machine guards against it; no repository test exercises an illegal transition. See section 7.</td>
+                            </tr>
+                            <tr>
+                                <td>Cancellation (user closes Checkout)</td>
+                                <td><span class="tag part">Run once, not repeatable</span></td>
+                                <td>Close-and-retry was run in a real Checkout session (Phase 3.3 report). No committed test, and the page has no dismiss handler.</td>
+                            </tr>
+                            <tr>
+                                <td>Double-click or repeated Pay submission in the UI</td>
+                                <td><span class="tag no">Not covered</span></td>
+                                <td>Recommended extension</td>
+                            </tr>
+                            <tr>
+                                <td>Refund request validation and gateway error handling</td>
+                                <td><span class="tag yes">Automated</span></td>
+                                <td><code>REF-001</code>, <code>REF-ERR-001</code>, <code>REF-ERR-002</code></td>
+                            </tr>
+                            <tr>
+                                <td>Successful refund against the gateway</td>
+                                <td><span class="tag no">Not demonstrated</span></td>
+                                <td>Blocked by an account restriction on the Test Mode account. The route and state change exist.</td>
+                            </tr>
+                            <tr>
+                                <td>Webhook actually delivered by Razorpay</td>
+                                <td><span class="tag no">Not demonstrated</span></td>
+                                <td>Never observed arriving. All webhook tests send self-signed requests.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+                    That table is the most useful artifact in the project. Writing it forced a
+                    distinction I now apply to every payment suite: <strong>implemented</strong>,
+                    <strong>automated</strong> and <strong>observed working end to end</strong>
+                    are three different claims.
+                </p>
+
+
+                <h2 id="architecture">3. Test architecture and environment</h2>
+
+                <p>
+                    The system under test is deliberately small: an Express app that creates a
+                    Razorpay order, verifies the payment server-side, receives webhooks, supports
+                    refunds and tracks every order through an explicit state machine
+                    (<code>created</code>, <code>authorized</code>, <code>paid</code>,
+                    <code>failed</code>, <code>refunded</code>), persisted in SQLite. Small enough to
+                    own completely, real enough to behave like an integration.
+                </p>
+
+                <p>
+                    Most tests use Playwright's <code>request</code> fixture to call the HTTP API
+                    directly. There is no browser involved, which makes them fast and deterministic.
+                    The committed UI tests use a real page in Chromium, but only for checks such as the
+                    Checkout script source and the absence of secrets in the HTML. Driving the hosted
+                    Checkout itself was done once, in a separate documented session.
+                </p>
+
+                <pre tabindex="0"><code>// playwright.config.js (excerpt)
+export default defineConfig({
+  testDir: './tests',
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+  use: {
+    baseURL: process.env.APP_URL || 'http://localhost:3000',
+    trace: 'on-first-retry',
+  },
+  webServer: {
+    command: 'node src/app.js',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
+});</code></pre>
+                <p class="code-caption">Excerpt from the repository. Playwright starts the app itself, and CI uses one worker because tests share a single SQLite file.</p>
+
+                <h3>Splitting CI-safe tests from live-gateway tests</h3>
+
+                <p>
+                    The most important design decision was classifying tests by what they depend on.
+                    Of 37 tests, 34 are <strong>CI-safe</strong>: they need no real gateway account.
+                    The other 3 are tagged <code>@razorpay-live</code> and are excluded from CI:
+                </p>
+
+                <pre tabindex="0"><code>"test:ci": "playwright test --project=chromium --grep-invert @razorpay-live",
+"test:razorpay": "playwright test --project=chromium --grep @razorpay-live"</code></pre>
+                <p class="code-caption">From package.json. Two of the live tests depend on one specific real payment; the third needs valid Test Mode credentials.</p>
+
+                <p>
+                    Mixing the live tests into CI would mean either committing real credentials or
+                    making the pipeline flaky against a service it does not control. Keeping them
+                    separate is what makes the 34 trustworthy as a regression signal.
+                </p>
+
+                <p>
+                    One detail is easy to miss. The repository's CI documentation records that running
+                    the suite with <em>no</em> Razorpay environment variables at all produced 16
+                    failures, because routes return <code>503 Razorpay not configured</code> before
+                    reaching the logic under test. The workflow therefore sets three obviously fake
+                    placeholder values so the validation paths actually run:
+                </p>
+
+                <pre tabindex="0"><code>env:
+  NODE_ENV: test
+  RAZORPAY_KEY_ID: rzp_test_ci_placeholder_not_real
+  RAZORPAY_KEY_SECRET: ci_placeholder_secret_not_real
+  RAZORPAY_WEBHOOK_SECRET: ci_placeholder_webhook_secret_not_real</code></pre>
+                <p class="code-caption">From .github/workflows/playwright.yml. These are not secrets, and no call made with them can succeed against Razorpay.</p>
+
+
+                <h2 id="signatures">4. Signatures and amount integrity</h2>
+
+                <p>
+                    After Checkout, the browser hands the server an order ID, a payment ID and a
+                    signature. The server must recompute the HMAC and compare it, then confirm the
+                    payment with the gateway and check the amount against its own record. The client
+                    is never trusted for the amount.
+                </p>
+
+                <pre tabindex="0"><code>// src/routes/payments.js (excerpt)
+function verifyPaymentSignature(orderId, paymentId, signature) {
+  const expectedSignature = crypto
+    .createHmac('sha256', config.razorpay.keySecret)
+    .update(`${orderId}|${paymentId}`)
+    .digest('hex');
+
+  return expectedSignature === signature;
+}</code></pre>
+
+                <p>
+                    The tests attack the two inputs that matter: a signature that is simply wrong,
+                    and a signature that is valid for a <em>different</em> order ID, which is what a
+                    tampering attempt looks like.
+                </p>
+
+                <pre tabindex="0"><code>const generateSignature = (orderId, paymentId, secret) =&gt;
+  crypto.createHmac('sha256', secret).update(`${orderId}|${paymentId}`).digest('hex');
+
+test('SIG-003: tampered orderId rejects payment', async ({ request }) =&gt; {
+  const correctSignature = generateSignature(testOrderId, testPaymentId, APP_KEY_SECRET);
+
+  const response = await request.post('/api/payments/verify', {
+    data: {
+      orderId: testOrderId + '_tampered',
+      paymentId: testPaymentId,
+      signature: correctSignature, // valid for the ORIGINAL orderId only
+    },
+  });
+
+  expect(response.status()).toBe(401);
+  expect((await response.json()).error).toBe('Unauthorized');
+});</code></pre>
+                <p class="code-caption">SIG-003, lightly condensed from tests/security/signature-verification.spec.js.</p>
+
+                <p>
+                    The test computes a genuinely valid signature and then changes the input it
+                    covers. That is a stronger check than sending random text, because it proves the
+                    server verifies the binding between the signature and the order.
+                </p>
+
+
+                <h2 id="webhooks">5. Webhooks: raw bodies, tampering and idempotency</h2>
+
+                <p>
+                    The webhook route is where this project found its most instructive defect.
+                    <strong>DEF-002</strong>: no correctly signed webhook could ever be accepted.
+                    The HMAC logic was right. The input was wrong. A global <code>express.json()</code>
+                    parser was mounted before the webhook route, so the body had already been parsed
+                    by the time the route's own <code>express.raw()</code> ran, and the signature was
+                    computed over the wrong bytes.
+                </p>
+
+                <pre tabindex="0"><code>// src/app.js (excerpt)
+// The webhook route needs the exact raw request body to verify the HMAC.
+// It must be mounted BEFORE the global express.json() parser.
+app.use('/api/webhooks', webhooksRouter);
+
+app.use(express.json());</code></pre>
+
+                <p>
+                    I found it by building valid signatures by hand with the right secret and
+                    watching them fail too. That ruled out the comparison logic and pointed at what
+                    the route actually received. Middleware order, in this case, is a security
+                    decision.
+                </p>
+
+                <p>
+                    The regression tests sign a payload, deliver it, and then check the
+                    <em>effect</em> on the order, not just the HTTP status:
+                </p>
+
+                <pre tabindex="0"><code>const sign = (body) =&gt;
+  crypto.createHmac('sha256', WEBHOOK_SECRET).update(body).digest('hex');
+
+test('WEB-FIX-002: a modified payload with the original signature is rejected', async ({ request }) =&gt; {
+  const orderId = 'order_webfix_' + Date.now();
+  seedOrder(orderId);                                        // fresh order, status 'created'
+
+  const payload = shapedPayload(orderId, paymentId);
+  const signature = sign(payload);                           // signed over the ORIGINAL amount
+  const modified = shapedPayload(orderId, paymentId, { amount: 1 });
+
+  const response = await request.post('/api/webhooks/razorpay', {
+    data: modified,
+    headers: {
+      'X-Razorpay-Signature': signature,
+      'X-Razorpay-Event-Id': 'evt_webfix_tampered_' + Date.now(),
+      'Content-Type': 'application/json',
+    },
+  });
+
+  expect(response.status()).toBe(401);
+
+  // The rejected webhook must not have touched the order.
+  const order = await (await request.get(`/api/payments/orders/${orderId}`)).json();
+  expect(order.status).toBe('created');
+});</code></pre>
+                <p class="code-caption">WEB-FIX-002, condensed from tests/security/webhook-validation.spec.js.</p>
+
+                <p>Two design choices in these tests are worth copying:</p>
+
+                <ul>
+                    <li><strong>Each test seeds its own order</strong> directly through the app's persistence layer. That keeps tests deterministic and portable to a clean CI checkout, instead of depending on a historical real transaction.</li>
+                    <li><strong>Event IDs include <code>Date.now()</code>.</strong> Idempotency is stored durably in SQLite, so a hard-coded ID would pass the "first delivery" case only once, then report "already processed" on every later run.</li>
+                </ul>
+
+                <h3>Idempotency</h3>
+
+                <p>
+                    The same event delivered twice must apply once. <code>WEB-FIX-004</code> sends an
+                    identical signed event twice, expects the second response to say
+                    <em>already processed</em>, and then asserts the order is still <code>paid</code>
+                    with the same payment ID. That last assertion is the one that matters: the replay
+                    must not re-apply or duplicate the transition.
+                </p>
+
+
+                <h2 id="refunds">6. Refunds and gateway errors</h2>
+
+                <p>
+                    The refund route is a good place to test a different class of failure: the
+                    gateway says no. <strong>DEF-001</strong> was a server crash. When Razorpay
+                    rejected a refund, the catch block called <code>error.message.includes(...)</code>,
+                    but the Razorpay SDK's error objects do not always set <code>.message</code>.
+                    Calling <code>.includes()</code> on <code>undefined</code> threw a second exception
+                    inside the error handler, and that took the process down.
+                </p>
+
+                <pre tabindex="0"><code>test('REF-ERR-002: the server remains available immediately after a refund error', async ({ request }) =&gt; {
+  // Trigger a Razorpay-rejected refund (an unknown payment ID).
+  await request.post('/api/refunds/create', {
+    data: { paymentId: 'pay_another_nonexistent_id_67890' },
+  });
+
+  // The defect crashed the whole process, so the real regression check is
+  // that completely unrelated requests still work.
+  const health = await request.get('/health');
+  expect(health.status()).toBe(200);
+});</code></pre>
+                <p class="code-caption">REF-ERR-002, condensed. The liveness check is the regression assertion; the exact error status is secondary.</p>
+
+                <p>
+                    Notice what is being asserted: not the error message, but that the system
+                    survives. When a failure mode is "the process dies", the best regression test
+                    checks that something unrelated still responds.
+                </p>
+
+                <div class="callout warn">
+                    <p><strong>What this does not show.</strong> A successful refund against Razorpay was never completed. The Test Mode account had an account-level restriction, confirmed independently of the application with raw HTTPS calls. The refund route, its validation, its error handling and the <code>paid</code> to <code>refunded</code> state change are implemented and tested. A live successful refund response is the one thing that is not.</p>
+                </div>
+
+
+                <h2 id="failures">7. Failure, cancellation and duplicate scenarios (recommended extension)</h2>
+
+                <p>
+                    This is where the repository has gaps, and a payment suite without these is
+                    incomplete. The application already contains logic for them. For example,
+                    <code>payment.failed</code> maps to <code>failed</code>, and the state machine
+                    treats <code>failed</code> and <code>refunded</code> as terminal. But no committed
+                    test sends a failure event or attempts an illegal transition.
+                </p>
+
+                <p>
+                    So I wrote extra checks against a scratch copy of the app (commit
+                    <code>da9e7a2</code>), using the same placeholder configuration CI uses.
+                    <strong>None of them are committed to the repository, and I have not changed it.</strong>
+                    I ran eight checks on 14 October 2026. Four confirmed intended behavior. Four
+                    exposed problems.
+                </p>
+
+                <h3>Confirmed intended behavior</h3>
+
+                <ul>
+                    <li><code>payment.failed</code> moves a created order to <code>failed</code>.</li>
+                    <li><code>payment.authorized</code> arriving after <code>payment.captured</code> does not regress a paid order.</li>
+                    <li>A full-amount <code>refund.created</code> webhook moves a paid order to <code>refunded</code>.</li>
+                    <li>Upper-case and truncated signatures are rejected.</li>
+                </ul>
+
+                <h3>Problems the checks exposed</h3>
+
+                <p>
+                    The first one matters most. I wrote the test for the behavior I would expect,
+                    and it fails:
+                </p>
+
+                <pre tabindex="0"><code>test('a successful retry after a failed attempt ends paid', async ({ request }) =&gt; {
+  const orderId = seedOrder('order_retry');
+  const paymentId = 'pay_retry_' + Date.now();
+
+  await deliver(request, paymentEvent('payment.failed', orderId, paymentId, 'failed'),
+    'evt_retry_a_' + Date.now());
+  await deliver(request, paymentEvent('payment.captured', orderId, paymentId, 'captured'),
+    'evt_retry_b_' + Date.now());
+
+  expect(await orderStatus(request, orderId)).toBe('paid');
+  // Observed against the current app: Received: "failed"
+});</code></pre>
+                <p class="code-caption">Scratch test, not in the repository. It fails against the repository as tested. <code>deliver</code> signs the body and posts it with the signature and event-ID headers; <code>seedOrder</code> and <code>orderStatus</code> are small helpers like those in the existing webhook tests.</p>
+
+                <ol>
+                    <li>
+                        <strong>A successful retry is ignored.</strong> The app answers <code>200</code>
+                        to the late <code>payment.captured</code> but leaves the order <code>failed</code>, so
+                        money is captured while the order says it failed. Razorpay's
+                        <a href="https://razorpay.com/docs/payments/orders/" target="_blank" rel="noopener noreferrer">orders documentation<span class="sr-only"> (opens in a new tab)</span></a>
+                        has no order-level <code>failed</code> status: an order stays <code>attempted</code>
+                        until a payment is captured, and its
+                        <a href="https://razorpay.com/docs/webhooks/payments/" target="_blank" rel="noopener noreferrer">payment webhooks page<span class="sr-only"> (opens in a new tab)</span></a>
+                        calls a <code>payment.failed</code> followed by <code>payment.captured</code> in the UPI retry case "expected behaviour". The state
+                        machine treats <code>failed</code> as terminal, which contradicts that. The
+                        client-side <code>/verify</code> route has a related weakness, which I read in the
+                        source but did not execute: when the state change is refused it logs a warning and
+                        still returns <code>verified: true</code>.
+                    </li>
+                    <li>
+                        <strong>Partial refunds never add up.</strong> Two <code>refund.created</code>
+                        events of 25000 each on a 50000 order leave the order <code>paid</code>, because
+                        the code only moves to <code>refunded</code> when a single refund equals the order amount.
+                    </li>
+                    <li>
+                        <strong>The idempotency ledger can be wiped without credentials.</strong>
+                        <code>DELETE /api/webhooks/events</code> clears every processed event ID, and
+                        <code>GET</code> on the same path lists them. After a wipe, a replayed event is processed
+                        again (<em>Webhook received and validated</em> instead of <em>already processed</em>).
+                        The repository's architecture notes list these as "debug only", but nothing stops them
+                        running outside debugging.
+                    </li>
+                    <li>
+                        <strong>A replayed event ID with a bad signature gets <code>200</code>.</strong>
+                        The handler looks up the event ID <em>before</em> verifying the signature, so
+                        a caller who knows an event ID can confirm it exists. No state changes, so it is
+                        low severity, but a signature check should come first.
+                    </li>
+                </ol>
+
+                <p>
+                    I prototyped fixes for all four in the scratch copy, with regression tests. The
+                    tests fail without the fixes and pass with them, and the repository's own CI-safe
+                    suite still passes. I have not applied anything to the public repository.
+                </p>
+
+                <p>These scenarios are still missing as committed tests, and I would add them next:</p>
+
+                <ul>
+                    <li><strong>Cancellation.</strong> Dismiss the Checkout modal and assert the order stays <code>created</code>, no payment is recorded and the user can retry cleanly. The Phase 3.3 report documents a manual run of this; a repeatable Playwright test against the hosted Checkout iframe is the extension.</li>
+                    <li><strong>Duplicate submission.</strong> Double-click Pay and assert only one order is created. <code>create-order</code> currently builds a new order on every call, so this probably surfaces a real question for the application.</li>
+                    <li><strong>Real webhook delivery.</strong> This needs a public URL, a configured dashboard webhook and test transactions. Razorpay's documentation notes that localhost cannot receive webhooks directly.</li>
+                </ul>
+
+
+                <h2 id="ci">8. CI execution and debugging</h2>
+
+                <p>
+                    The GitHub Actions workflow runs on push and pull request to <code>main</code>:
+                    Node 24, <code>npm ci</code>, Chromium only, then <code>npm run test:ci</code>. It
+                    uploads the Playwright HTML report on every run, and the <code>test-results/</code> folder (traces are captured on the first retry) only when the job fails.
+                </p>
+
+                <p>On 14 October 2026 I ran the same command on a clean copy of the repository, with the placeholder environment above, retries off:</p>
+
+                <pre tabindex="0"><code>npm run test:ci
+...
+  34 passed (42.1s)</code></pre>
+                <p class="code-caption">My local run, not a CI log. The repository's last recorded CI run is documented on the <a href="/projects/razorpay-payment-gateway-qa-automation/">project page</a>; GitHub job logs require a sign-in, and report artifacts expire after 14 days.</p>
+
+                <h3>Debugging habits that paid off</h3>
+
+                <ul>
+                    <li><strong>Confirm the test count first.</strong> <code>npx playwright test --list</code>, with and without the <code>--grep</code> variants, shows exactly what a given command runs. That is how the 37 / 34 / 3 split was confirmed rather than assumed.</li>
+                    <li><strong>Read the server log next to the test output.</strong> Playwright prints the app's console output. A failing webhook test is usually explained by a line such as <code>Webhook rejected: Invalid signature</code>.</li>
+                    <li><strong>Vary one input at a time.</strong> DEF-002 was found by proving the HMAC logic was correct (a hand-built valid signature still failed), which moved suspicion to the request body.</li>
+                    <li><strong>Treat CI retries with care.</strong> This config sets <code>retries: 2</code> in CI. Retries tolerate a transient failure, but they can also hide a flaky test, so a green CI run is weaker evidence than a green run with retries off.</li>
+                </ul>
+
+
+                <h2 id="limits">9. Evidence and limitations</h2>
+
+                <p>Here is what the project does and does not prove.</p>
+
+                <ul>
+                    <li><strong>Demonstrated:</strong> signature verification and tamper rejection on payments and webhooks; webhook idempotency (processed event IDs are stored durably in SQLite); error sanitization; crash regression for refund errors; one real Test Mode payment completed manually and verified server-side. The CI-safe suite passes 34 of 34 locally.</li>
+                    <li><strong>Not demonstrated:</strong> a webhook delivered by Razorpay itself; a successful refund; Checkout driven by a committed Playwright test (it was driven once, in a documented session); failure and cancellation flows in the repository's own tests.</li>
+                    <li><strong>Sandbox, not production.</strong> Razorpay Test Mode is a controlled environment. It does not exercise real issuing banks, card networks, risk and fraud rules, live webhook configuration, settlement and reconciliation, rate limits or genuine traffic patterns. Validating a production payment integration is a separate piece of work, and it needs its own environment, access and agreed scope.</li>
+                    <li><strong>Scale of the project.</strong> It is a single-product demo. Test counts show how much is checked, not how much of a real system is covered.</li>
+                </ul>
+
+
+                <h2 id="lessons">10. Lessons learned</h2>
+
+                <ol>
+                    <li>
+                        <strong>Payment testing is state testing.</strong> The valuable assertions were
+                        about what the order looked like after an event, not about HTTP status codes.
+                    </li>
+                    <li>
+                        <strong>Model the gateway's lifecycle, not your own guess.</strong> Marking an order
+                        <code>failed</code> on a failed attempt looks reasonable, and it contradicts how
+                        the gateway treats retries. A green suite cannot catch a wrong model; reading the
+                        gateway's documentation against the state machine can.
+                    </li>
+                    <li>
+                        <strong>Middleware order is a security decision.</strong> The webhook defect
+                        was not in the cryptography. It was in what ran before it.
+                    </li>
+                    <li>
+                        <strong>Do not assume SDK error shapes.</strong> The documented
+                        <code>.message</code> was not always there. Check what is actually thrown.
+                    </li>
+                    <li>
+                        <strong>Conditional assertions can pass without checking anything.</strong>
+                        <code>ORDER-003</code> asserts the amount only
+                        <code>if (response.status() === 200)</code>. In CI the placeholder credentials
+                        make order creation fail (the server log shows <code>Authentication failed</code>),
+                        so that branch is not exercised. To check, I deliberately changed my scratch
+                        copy of the app to trust the client-supplied amount. The CI-safe suite still
+                        reported 34 of 34 passed. With real credentials the test does run (the Phase 3.3
+                        report records it passing), but CI would not catch the regression. Marking the
+                        test as skipped when order creation fails makes CI report that honestly.
+                    </li>
+                    <li>
+                        <strong>Order of checks matters.</strong> Verify the signature first, then
+                        deduplicate. Doing it the other way round, as the handler does today, leaks a
+                        small amount of information for no benefit.
+                    </li>
+                    <li>
+                        <strong>A hardening idea, not a defect proven by a test.</strong> Both HMAC checks
+                        compare with <code>===</code>. Node's <code>crypto.timingSafeEqual</code> is the
+                        usual choice for comparing secrets. I did not measure any timing difference, and
+                        a network timing attack on this app is unproven, but the change is small.
+                    </li>
+                </ol>
+
+            </article>
+
+            <section class="related" aria-labelledby="related-heading">
+                <h2 id="related-heading">Related</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="/projects/razorpay-payment-gateway-qa-automation/">
+                        <span>Project</span>
+                        <strong>Razorpay Payment Gateway QA &amp; Automation: the full case study</strong>
+                    </a>
+                    <a class="related-card" href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation" target="_blank" rel="noopener noreferrer">
+                        <span>Source code</span>
+                        <strong>Public GitHub repository, with docs, defect log and CI workflow<span class="sr-only"> (opens in a new tab)</span></strong>
+                    </a>
+                    <a class="related-card" href="/blog/api-testing-best-practices/">
+                        <span>Article</span>
+                        <strong>API Testing Best Practices for QA Engineers</strong>
+                    </a>
+                    <a class="related-card" href="/payments/">
+                        <span>Approach</span>
+                        <strong>Testing Payment Systems Beyond the Happy Path</strong>
+                    </a>
+                </div>
+            </section>
+
+            <aside class="article-cta" aria-labelledby="cta-heading">
+                <h2 id="cta-heading">Need payment or API flows tested?</h2>
+                <p>
+                    I offer scoped freelance testing for web applications, APIs and payment
+                    workflows in sandbox or test environments. Scope and deliverables are agreed
+                    before any work begins.
+                </p>
+                <div class="btn-group">
+                    <a href="/services/" class="btn btn-primary"><i class="fas fa-clipboard-check" aria-hidden="true"></i> Explore QA Services</a>
+                    <a href="/proof-of-work/" class="btn btn-outline">View Projects</a>
+                </div>
+            </aside>
+
+            <div class="back-to-blog">
+                <a href="/blog/"><i class="fas fa-arrow-left" aria-hidden="true"></i> Back to Blog</a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+                    <p class="brand-name">Sayed<span>Asif</span></p>
+                    <p class="brand-title">Software QA Engineer</p>
+                    <p class="brand-tagline">API Testing &bull; Playwright Automation</p>
+                </div>
+
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/services/">Services</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/about/">About</a>
+                    <a href="/capabilities/">Capabilities</a>
+                    <a href="/payments/">Payment Testing</a>
+                </nav>
+
+                <div class="footer-contact">
+                    <a href="/contact/" class="footer-contact-link">Contact</a>
+                    <div class="social-links">
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
+                <a href="/privacy/" class="privacy-link">Privacy Notice</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="/assets/js/global-nav.js" defer></script>
+
+</body>
+</html>

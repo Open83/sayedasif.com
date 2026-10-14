@@ -11,7 +11,7 @@
 
     <meta
         name="description"
-        content="Software QA Engineer with 4 public GitHub test-automation projects (116 unique test definitions) built with Playwright. Expertise in manual testing, API validation, automation, payment workflows, and business-critical systems."
+        content="Software QA Engineer: manual testing, API validation and Playwright automation, with 4 public GitHub projects. View my resume or explore freelance QA services."
     >
 
     <meta
@@ -155,48 +155,6 @@
     }
     </script>
 
-    <!-- Structured Data: FAQ -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Are you available for full-time roles or freelance projects?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "I'm open to full-time QA Engineer roles. I'm based in Mumbai and open to remote, hybrid, or on-site opportunities. Feel free to reach out directly to discuss."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Can you work with an existing QA process or team?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Yes. I'm comfortable joining an existing QA workflow, adapting to team tools and processes, and contributing to both manual and automated testing efforts from day one."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "How do you handle confidential client work in your portfolio?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "All professional project examples are intentionally generalized. Client names, proprietary implementation details and internal documentation are omitted unless explicitly authorized for disclosure."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What is your notice period / when can you start?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Available to discuss — please reach out via the contact page or email me directly and I'll respond promptly."
-                }
-            }
-        ]
-    }
-    </script>
-
     <!-- Global header/footer styles (single source of truth) -->
     <link rel="stylesheet" href="/assets/css/global-nav.css">
 
@@ -215,22 +173,10 @@
             --brand-primary: #00baf2;
             --brand-dark: #314259;
             --brand-text: #314259;
+            --brand-muted: #5f6b79;
 
-            --gradient-brand:
-                linear-gradient(
-                    135deg,
-                    #00baf2 0%,
-                    #0088cc 100%
-                );
-
-            --shadow-soft:
-                0 4px 20px rgba(0, 0, 0, 0.05);
-
-            --shadow-hover:
-                0 10px 25px rgba(0, 186, 242, 0.15);
-
-            --border-light:
-                1px solid #e2e8f0;
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --border-light: 1px solid #e2e8f0;
         }
 
 
@@ -248,7 +194,6 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 90px;
         }
 
         body {
@@ -256,48 +201,26 @@
             color: var(--brand-text);
             line-height: 1.6;
             overflow-x: hidden;
-            font-family:
-                Inter,
-                "Segoe UI",
-                Roboto,
-                Helvetica,
-                Arial,
-                sans-serif;
+            font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        img {
-            max-width: 100%;
-            display: block;
-        }
+        img { max-width: 100%; display: block; }
+        a { color: inherit; }
+        button, a { -webkit-tap-highlight-color: transparent; }
 
-        a {
-            color: inherit;
-        }
-
-        button,
-        a {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
+        h1, h2, h3, h4 {
             color: var(--brand-dark);
             font-weight: 700;
         }
 
-        p {
-            color: var(--brand-text);
-        }
+        p { color: var(--brand-text); }
 
         ::selection {
             background: var(--brand-accent-text);
             color: #ffffff;
         }
 
-
-        /* Skip-link, :focus-visible, and nav/footer styles now live in
+        /* Skip-link, :focus-visible, and nav/footer styles live in
            /assets/css/global-nav.css (single source of truth). */
 
 
@@ -312,9 +235,7 @@
             padding: 0 20px;
         }
 
-        .section-padding {
-            padding: 90px 0;
-        }
+        .section-padding { padding: 90px 0; }
 
         .text-gradient {
             background: linear-gradient(135deg, var(--brand-accent-display) 0%, var(--brand-accent-text) 100%);
@@ -346,13 +267,53 @@
             max-width: 780px;
             margin: -25px auto 45px;
             text-align: center;
-            color: #5f6b79;
+            color: var(--brand-muted);
             font-size: 1.05rem;
         }
 
 
-        /* Global nav (header/nav-inner/logo/nav-links/hamburger/dropdown)
-           now lives in /assets/css/global-nav.css. */
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.96rem;
+            min-height: 48px;
+        }
+
+        .btn-primary {
+            background: var(--brand-accent-text);
+            color: #ffffff;
+            border: 2px solid var(--brand-accent-text);
+            box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-accent-text-strong);
+            border-color: var(--brand-accent-text-strong);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 186, 242, 0.4);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--brand-dark);
+            color: var(--brand-dark);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--brand-dark);
+            color: #ffffff;
+        }
 
 
         /* =========================================================
@@ -362,19 +323,10 @@
         .hero {
             position: relative;
             min-height: 100vh;
-
             display: flex;
             align-items: center;
-
             padding-top: 100px;
-
-            background:
-                radial-gradient(
-                    circle at 80% 50%,
-                    rgba(0, 186, 242, 0.08) 0%,
-                    #ffffff 60%
-                );
-
+            background: radial-gradient(circle at 80% 50%, rgba(0, 186, 242, 0.08) 0%, #ffffff 60%);
             overflow: hidden;
             border-bottom: var(--border-light);
         }
@@ -408,11 +360,9 @@
             display: inline-flex;
             align-items: center;
             gap: 9px;
-
             color: var(--brand-accent-text);
             letter-spacing: 1.8px;
             text-transform: uppercase;
-
             font-size: 0.82rem;
             margin-bottom: 18px;
             font-weight: 800;
@@ -432,190 +382,119 @@
             letter-spacing: -1.5px;
         }
 
+        .hero-tagline {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--brand-dark);
+            margin-bottom: 16px;
+        }
+
         .hero-text .hero-description {
             font-size: 1.12rem;
-            margin-bottom: 32px;
+            margin-bottom: 30px;
             max-width: 610px;
-            color: #5f6b79;
+            color: var(--brand-muted);
             line-height: 1.8;
         }
 
-        .hero-points {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 35px;
+        /* Two pathways: hiring and freelance testing */
+        .hero-paths {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            max-width: 610px;
         }
 
-        .hero-point {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-
+        .hero-path {
+            display: flex;
+            flex-direction: column;
             background: #ffffff;
             border: var(--border-light);
-            border-radius: 30px;
-
-            padding: 8px 13px;
-
-            font-size: 0.82rem;
-            font-weight: 700;
-            color: var(--brand-text);
-
+            border-top: 4px solid var(--brand-primary);
+            border-radius: 12px;
+            padding: 18px 18px 16px;
             box-shadow: var(--shadow-soft);
         }
 
-        .hero-point i {
-            color: var(--brand-accent-text);
+        .hero-path + .hero-path { border-top-color: var(--brand-dark); }
+
+        .hero-path h2 {
+            font-size: 1.08rem;
+            line-height: 1.3;
+            margin-bottom: 6px;
         }
 
-        .btn-group {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
+        .hero-path p {
+            font-size: 0.9rem;
+            line-height: 1.55;
+            color: var(--brand-muted);
+            margin-bottom: 14px;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-
-            padding: 13px 28px;
-
-            border-radius: 8px;
-            font-weight: 700;
-
-            text-decoration: none;
-
-            transition: 0.3s;
-
-            font-size: 0.96rem;
-            min-height: 48px;
+        .hero-path .btn {
+            margin-top: auto;
+            width: 100%;
+            padding: 11px 16px;
         }
 
-        .btn-primary {
-            background: var(--brand-accent-text);
-            color: #ffffff;
-            border: 2px solid var(--brand-accent-text);
-
-            box-shadow:
-                0 4px 15px rgba(0, 186, 242, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: var(--brand-accent-text-strong);
-            border-color: var(--brand-accent-text-strong);
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 6px 20px rgba(0, 186, 242, 0.4);
-        }
-
-        .btn-outline {
-            border: 2px solid var(--brand-dark);
-            color: var(--brand-dark);
-            background: transparent;
-        }
-
-        .btn-outline:hover {
-            background: var(--brand-dark);
-            color: #ffffff;
-        }
+        .hero-path .btn-primary { box-shadow: none; }
 
         .hero-image-box {
             position: relative;
-
             display: flex;
             justify-content: center;
             align-items: flex-end;
-
             min-height: 580px;
         }
 
         .hero-image-box::before {
             content: "";
-
             position: absolute;
-
             bottom: 7%;
             left: 50%;
-
             transform: translateX(-50%);
-
             width: 90%;
             max-width: 460px;
-
             aspect-ratio: 1 / 1;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #e0f7ff 0%,
-                    #f0f9ff 100%
-                );
-
+            background: linear-gradient(135deg, #e0f7ff 0%, #f0f9ff 100%);
             border-radius: 50%;
-
             z-index: 1;
         }
 
         .hero-image-box::after {
             content: "";
-
             position: absolute;
-
             width: 90px;
             height: 90px;
-
             border-radius: 18px;
-
             background: #ffffff;
-
             right: 2%;
             top: 20%;
-
             box-shadow: var(--shadow-soft);
-
             transform: rotate(12deg);
-
             z-index: 1;
         }
 
         .hero-img {
             position: relative;
-
             width: 100%;
             max-width: 480px;
-
             height: auto;
-
             object-fit: contain;
             object-position: bottom;
-
-            filter:
-                drop-shadow(
-                    0 15px 25px rgba(49, 66, 89, 0.15)
-                );
-
+            filter: drop-shadow(0 15px 25px rgba(49, 66, 89, 0.15));
             z-index: 2;
-
-            transition:
-                transform 0.4s ease;
-        }
-
-        .hero-img:hover {
-            transform: translateY(-8px);
         }
 
 
         /* =========================================================
-           STATS
+           PROOF AT A GLANCE
         ========================================================= */
 
         .stats {
             border-bottom: var(--border-light);
-            padding: 28px 0;
+            padding: 30px 0 22px;
             background: #ffffff;
         }
 
@@ -630,9 +509,7 @@
             border-right: var(--border-light);
         }
 
-        .stat-item:last-child {
-            border-right: 0;
-        }
+        .stat-item:last-child { border-right: 0; }
 
         .stat-num {
             font-size: 1.8rem;
@@ -645,839 +522,249 @@
             font-size: 0.81rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #5f6b79;
+            color: var(--brand-muted);
             font-weight: 600;
             margin-top: 6px;
         }
 
-
-        /* =========================================================
-           PROFILE
-        ========================================================= */
-
-        .profile-section {
-            background: var(--bg-secondary);
-        }
-
-        .profile-box {
-            background: #ffffff;
-
-            padding: 50px;
-
-            border-radius: 16px;
-
-            border: var(--border-light);
-
+        .stats-note {
+            max-width: 820px;
+            margin: 20px auto 0;
             text-align: center;
-
-            max-width: 950px;
-
-            margin: 0 auto;
-
-            box-shadow: var(--shadow-soft);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--brand-muted);
         }
 
-        .profile-icon {
-            font-size: 2rem;
-            color: var(--brand-accent-text);
-            margin-bottom: 20px;
-        }
-
-        .profile-text {
-            font-size: 1.16rem;
-            color: var(--brand-text);
-            line-height: 1.85;
-        }
-
-        .profile-text strong {
-            color: var(--brand-dark);
-        }
+        .stats-note a { color: var(--brand-accent-text); font-weight: 700; }
 
 
         /* =========================================================
-           CAPABILITIES
+           FEATURED INDEPENDENT PROJECTS
         ========================================================= */
 
-        .skills-grid {
+        .projects-section { background: var(--bg-secondary); }
+
+        .featured-grid {
             display: grid;
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(250px, 1fr)
-                );
-
-            gap: 24px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 26px;
         }
 
-        .skill-item {
-            background: #ffffff;
-
-            padding: 30px;
-
-            border-radius: 14px;
-
-            text-align: center;
-
-            border: var(--border-light);
-
-            transition: 0.3s;
-
-            box-shadow: var(--shadow-soft);
-        }
-
-        .skill-item:hover {
-            transform: translateY(-5px);
-
-            box-shadow: var(--shadow-hover);
-
-            border-color: var(--brand-primary);
-        }
-
-        .skill-item i {
-            display: inline-flex;
-
-            align-items: center;
-            justify-content: center;
-
-            width: 58px;
-            height: 58px;
-
-            font-size: 1.55rem;
-
-            margin-bottom: 20px;
-
-            color: var(--brand-accent-text);
-
-            background: #e0f7ff;
-
-            border-radius: 50%;
-        }
-
-        .skill-item h3 {
-            font-size: 1.15rem;
-            margin-bottom: 12px;
-        }
-
-        .skill-item p {
-            color: #5f6b79;
-            font-size: 0.94rem;
-            line-height: 1.7;
-        }
-
-
-        /* =========================================================
-           TESTING APPROACH
-        ========================================================= */
-
-        .approach-section {
-            background:
-                linear-gradient(
-                    180deg,
-                    #f8fafc 0%,
-                    #ffffff 100%
-                );
-        }
-
-        .approach-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(260px, 1fr)
-                );
-
-            gap: 25px;
-        }
-        /* Five steps: balanced 3 + 2 (centred second row) on wide screens */
-        @media (min-width: 1051px) {
-            .approach-grid {
-                grid-template-columns: repeat(6, minmax(0, 1fr));
-            }
-            .approach-grid > .approach-card {
-                grid-column: span 2;
-            }
-            .approach-grid > .approach-card:nth-child(4) {
-                grid-column: 2 / span 2;
-            }
-            .approach-grid > .approach-card:nth-child(5) {
-                grid-column: 4 / span 2;
-            }
-        }
-
-        .approach-card {
-            background: #ffffff;
-
-            padding: 32px;
-
-            border-radius: 14px;
-
-            border: var(--border-light);
-
-            transition: 0.3s;
-        }
-
-        .approach-card:hover {
-            border-color: var(--brand-primary);
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-4px);
-        }
-
-        .approach-number {
-            display: inline-flex;
-
-            width: 42px;
-            height: 42px;
-
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: #e0f7ff;
-
-            color: var(--brand-accent-text);
-
-            font-weight: 800;
-
-            margin-bottom: 20px;
-        }
-
-        .approach-card h3 {
-            margin-bottom: 12px;
-            font-size: 1.2rem;
-        }
-
-        .approach-card p {
-            color: #5f6b79;
-            font-size: 0.95rem;
-            line-height: 1.75;
-        }
-
-
-        /* =========================================================
-           PROJECT PORTFOLIO
-        ========================================================= */
-
-        .portfolio-section {
-            background: var(--bg-secondary);
-        }
-
-        .portfolio-disclosure {
-            max-width: 900px;
-
-            margin: 0 auto 45px;
-
-            padding: 20px 24px;
-
-            background: #ffffff;
-
-            border-left:
-                4px solid var(--brand-primary);
-
-            border-radius: 10px;
-
-            box-shadow: var(--shadow-soft);
-        }
-
-        .portfolio-disclosure strong {
-            color: var(--brand-dark);
-        }
-
-        .portfolio-disclosure p {
-            color: #5f6b79;
-            font-size: 0.93rem;
-        }
-
-        .project-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(300px, 1fr)
-                );
-
-            gap: 28px;
-        }
-        /* Four project cards: 2 x 2 above tablet width (avoids a lone fourth card) */
-        @media (min-width: 769px) {
-            .project-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        .project-card {
-            background: #ffffff;
-
-            border-radius: 16px;
-
-            overflow: hidden;
-
-            border: var(--border-light);
-
-            transition: 0.3s;
-
-            box-shadow: var(--shadow-soft);
-
+        .featured-card {
             display: flex;
             flex-direction: column;
+            background: #ffffff;
+            border: var(--border-light);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow-soft);
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .project-img-wrapper {
-            height: 200px;
-
-            overflow: hidden;
-
-            position: relative;
-
-            background: #e0f7ff;
-        }
-
-        .project-img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            transition:
-                transform 0.4s ease;
-        }
-
-        .project-card:hover .project-img {
-            transform: scale(1.04);
-        }
-
-        .project-content {
-            padding: 27px;
-
-            flex-grow: 1;
-
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-category {
+        .featured-cat {
             font-size: 0.74rem;
-
-            color: var(--brand-accent-text);
-
-            text-transform: uppercase;
-
-            letter-spacing: 0.7px;
-
             font-weight: 800;
-
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: var(--brand-accent-text);
             margin-bottom: 9px;
         }
 
-        .project-title {
-            font-size: 1.3rem;
-
-            margin-bottom: 11px;
-
-            color: var(--brand-dark);
+        .featured-card h3 {
+            font-size: 1.25rem;
+            line-height: 1.35;
+            margin-bottom: 12px;
         }
 
-        .project-desc {
-            color: #5f6b79;
-
-            font-size: 0.94rem;
-
-            margin-bottom: 20px;
-
+        .featured-card > p {
+            color: var(--brand-muted);
+            font-size: 0.95rem;
             line-height: 1.7;
-
-            flex-grow: 1;
+            margin-bottom: 14px;
         }
 
-        .project-desc strong {
+        .featured-card .featured-note {
+            font-size: 0.85rem;
+            line-height: 1.55;
+            margin-bottom: 18px;
+        }
+
+        .featured-meta {
+            font-size: 0.85rem;
+            font-weight: 700;
             color: var(--brand-dark);
+            margin-bottom: 14px;
         }
 
         .tech-stack {
             display: flex;
-
             flex-wrap: wrap;
-
             gap: 8px;
+            margin-bottom: 20px;
         }
 
         .tech-pill {
             font-size: 0.73rem;
-
             background: var(--bg-secondary);
-
             padding: 6px 11px;
-
             border-radius: 20px;
-
-            color: #5f6b79;
-
+            color: var(--brand-muted);
             font-weight: 700;
         }
 
-
-        /* =========================================================
-           CASE STUDY
-        ========================================================= */
-
-        .case-study-section {
-            background:
-                linear-gradient(
-                    180deg,
-                    #f8fafc 0%,
-                    #ffffff 100%
-                );
-        }
-
-        .case-study-intro {
-            text-align: center;
-
-            max-width: 820px;
-
-            margin:
-                0 auto 50px;
-        }
-
-        .case-study-intro p {
-            font-size: 1.05rem;
-
-            color: #5f6b79;
-
-            line-height: 1.8;
-        }
-
-        .feature-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(280px, 1fr)
-                );
-
-            gap: 25px;
-        }
-
-        .feature-card {
-            background: #ffffff;
-
-            padding: 32px;
-
-            border-radius: 14px;
-
-            border: var(--border-light);
-
+        .featured-links {
+            margin-top: auto;
             display: flex;
-
-            flex-direction: column;
-
-            align-items: flex-start;
-
-            transition: 0.3s;
-        }
-
-        .feature-card:hover {
-            border-color: var(--brand-primary);
-
-            box-shadow: var(--shadow-hover);
-        }
-
-        .feature-icon-box {
-            width: 58px;
-            height: 58px;
-
-            background: #e0f7ff;
-
-            border-radius: 12px;
-
-            display: flex;
-
-            align-items: center;
-            justify-content: center;
-
-            margin-bottom: 22px;
-        }
-
-        .feature-icon-box i {
-            font-size: 1.45rem;
-            color: var(--brand-accent-text);
-        }
-
-        .feature-card h3 {
-            font-size: 1.18rem;
-            margin-bottom: 12px;
-        }
-
-        .feature-card p {
-            font-size: 0.94rem;
-
-            color: #5f6b79;
-
-            line-height: 1.75;
-        }
-
-
-        /* =========================================================
-           TOOLS
-        ========================================================= */
-
-        .tools-section {
-            background: var(--bg-secondary);
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .tool-item {
-            background: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 12px;
-            padding: 28px 24px;
-            transition: 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            box-shadow: 0 2px 8px rgba(49, 66, 89, 0.08);
-        }
-
-        .tool-item:hover {
-            border-color: #00baf2;
-            box-shadow: 0 8px 24px rgba(0, 186, 242, 0.12);
-            transform: translateY(-4px);
-        }
-
-        .tool-item h3 {
-            color: var(--brand-accent-text);
-            font-size: 16px;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+            font-size: 0.93rem;
             font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            line-height: 1.4;
         }
 
-        .tool-item h3 i {
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .tool-item p {
-            font-size: 14px;
-            color: #555;
-            line-height: 1.6;
-            margin: 0;
-            flex-grow: 1;
-        }
-
-        @media (max-width: 768px) {
-            .tools-grid {
-                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-                gap: 16px;
-            }
-
-            .tool-item {
-                padding: 20px 18px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .tools-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-
-        /* =========================================================
-           EXPERIENCE
-        ========================================================= */
-
-        .timeline {
-            max-width: 850px;
-
-            margin: 0 auto;
-
-            padding-left: 22px;
-
-            border-left:
-                2px solid #e2e8f0;
-        }
-
-        .timeline-card {
-            position: relative;
-
-            padding-left: 38px;
-
-            margin-bottom: 45px;
-        }
-
-        .timeline-card:last-child {
-            margin-bottom: 0;
-        }
-
-        .timeline-card::before {
-            content: "";
-
-            position: absolute;
-
-            left: -10px;
-
-            top: 4px;
-
-            width: 16px;
-            height: 16px;
-
-            background: #ffffff;
-
-            border:
-                4px solid var(--brand-primary);
-
-            border-radius: 50%;
-        }
-
-        .timeline-date {
-            display: inline-block;
-
-            padding: 5px 12px;
-
-            background: #e0f7ff;
-
-            border-radius: 20px;
-
-            font-size: 0.78rem;
-
-            margin-bottom: 10px;
-
+        .featured-links a {
             color: var(--brand-accent-text);
-
-            font-weight: 800;
-        }
-
-        .timeline-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 4px;
-        }
-
-        .timeline-card h4 {
-            color: var(--brand-accent-text);
-            font-size: 0.98rem;
-        }
-
-        .timeline-card p {
-            margin-top: 13px;
-            color: #5f6b79;
-            line-height: 1.75;
-        }
-
-
-        /* =========================================================
-           FAQ
-        ========================================================= */
-
-        .faq-section {
-            background: #ffffff;
-        }
-
-        .faq-container {
-            max-width: 850px;
-
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: #ffffff;
-
-            border:
-                1px solid #e2e8f0;
-
-            border-radius: 10px;
-
-            margin-bottom: 14px;
-
-            overflow: hidden;
-
-            transition: 0.3s;
-        }
-
-        .faq-item:hover {
-            border-color: var(--brand-primary);
-        }
-
-        .faq-question {
-            width: 100%;
-
-            padding: 20px;
-
-            font-family: inherit;
-
-            font-size: 1rem;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 20px;
-
-            text-align: left;
-
-            color: var(--brand-dark);
-
-            background: #ffffff;
-
-            border: 0;
-        }
-
-        .faq-question i {
-            color: var(--brand-accent-text);
-
-            transition:
-                transform 0.3s ease;
-
-            flex-shrink: 0;
-        }
-
-        .faq-answer {
-            display: grid;
-
-            grid-template-rows: 0fr;
-
-            transition:
-                grid-template-rows 0.3s ease;
-        }
-
-        .faq-answer-inner {
-            overflow: hidden;
-        }
-
-        .faq-answer p {
-            padding:
-                0 20px 20px;
-
-            color: #5f6b79;
-
-            line-height: 1.7;
-        }
-
-        .faq-item.active .faq-answer {
-            grid-template-rows: 1fr;
-        }
-
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-
-
-        /* =========================================================
-           CONTACT
-        ========================================================= */
-
-        /* Footer CSS now lives in /assets/css/global-nav.css. */
-
-        .contact-intro {
-            max-width: 700px;
-
-            margin:
-                0 auto;
-        }
-
-        .contact-intro h2 {
-            font-size: 2rem;
-
-            margin-bottom: 15px;
-
-            font-weight: 800;
-        }
-
-        .contact-intro p {
-            color: #5f6b79;
-
-            max-width: 600px;
-
-            margin: 0 auto;
-        }
-
-        .contact-box {
-            background: #ffffff;
-
-            padding: 28px;
-
-            border-radius: 12px;
-
-            margin:
-                30px auto 0;
-
-            border:
-                var(--border-light);
-
-            width: 100%;
-
-            max-width: 540px;
-
-            box-shadow:
-                var(--shadow-soft);
-        }
-
-        .contact-row {
-            display: flex;
-
-            align-items: center;
-
-            gap: 15px;
-
-            margin: 15px 0;
-
-            color: var(--brand-text);
-
-            font-size: 0.98rem;
-
-            text-align: left;
-        }
-
-        .contact-row i {
-            color: var(--brand-accent-text);
-
-            width: 20px;
-
-            text-align: center;
-
-            flex-shrink: 0;
-        }
-
-        .contact-row a {
-            color: var(--brand-text);
-
             text-decoration: none;
-
-            word-break: break-word;
+            padding: 5px 0;
         }
 
-        .contact-row a:hover {
+        .featured-links a:hover { text-decoration: underline; }
+
+        .projects-footer {
+            text-align: center;
+            margin-top: 38px;
+        }
+
+        .projects-footer p {
+            max-width: 760px;
+            margin: 0 auto 18px;
+            font-size: 0.93rem;
+            color: var(--brand-muted);
+        }
+
+
+        /* =========================================================
+           EXPERIENCE SUMMARY
+        ========================================================= */
+
+        .exp-card {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: var(--border-light);
+            border-left: 5px solid var(--brand-primary);
+            border-radius: 14px;
+            padding: 30px 32px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .exp-date {
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--brand-accent-text);
+            margin-bottom: 6px;
+        }
+
+        .exp-card h3 { font-size: 1.35rem; margin-bottom: 4px; }
+        .exp-card h4 { font-size: 1rem; color: var(--brand-muted); font-weight: 600; margin-bottom: 14px; }
+        .exp-card p { color: var(--brand-muted); line-height: 1.75; margin-bottom: 12px; }
+
+        .exp-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 22px;
+            margin-top: 18px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .exp-links a { color: var(--brand-accent-text); text-decoration: none; padding: 5px 0; }
+        .exp-links a:hover { text-decoration: underline; }
+
+
+        /* =========================================================
+           TECHNICAL ARTICLES
+        ========================================================= */
+
+        .articles-section { background: var(--bg-secondary); }
+
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 28px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .article-card {
+            display: flex;
+            flex-direction: column;
+            background: #ffffff;
+            border: var(--border-light);
+            border-radius: 14px;
+            padding: 28px;
+            text-decoration: none;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .article-card:hover { border-color: var(--brand-primary); }
+
+        .article-cat {
+            font-size: 0.74rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            color: var(--brand-accent-text);
+            margin-bottom: 9px;
+        }
+
+        .article-card h3 { font-size: 1.15rem; line-height: 1.4; margin-bottom: 10px; }
+        .article-card p { color: var(--brand-muted); font-size: 0.94rem; line-height: 1.7; margin-bottom: 16px; }
+
+        .article-more {
+            margin-top: auto;
+            font-weight: 700;
+            font-size: 0.9rem;
             color: var(--brand-accent-text);
         }
 
-        /* Old pre-global-footer rules removed: .social-links, .social-icon,
-           .footer-links, .copyright were dead/overridden — the live
-           footer implementation is in /assets/css/global-nav.css. */
+        .articles-all { text-align: center; margin-top: 28px; font-weight: 700; }
+        .articles-all a { color: var(--brand-accent-text); }
+
+
+        /* =========================================================
+           FINAL CONTACT CTA
+        ========================================================= */
+
+        .cta-final {
+            text-align: center;
+            border-top: var(--border-light);
+        }
+
+        .cta-final .container { max-width: 760px; }
+
+        .cta-final p.cta-text {
+            font-size: 1.08rem;
+            line-height: 1.75;
+            color: var(--brand-muted);
+            margin: -20px auto 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .cta-alt {
+            margin-top: 22px;
+            font-size: 0.93rem;
+            color: var(--brand-muted);
+        }
+
+        .cta-alt a { color: var(--brand-accent-text); font-weight: 700; }
 
 
         /* =========================================================
@@ -1485,325 +772,95 @@
         ========================================================= */
 
         @media (max-width: 1050px) {
-
-            .hero-grid {
-                gap: 35px;
-            }
-
-            .hero-text h1 {
-                font-size: 3rem;
-            }
-
-            .hero-image-box {
-                min-height: 520px;
-            }
-
-            .nav-links {
-                gap: 20px;
-            }
+            .hero-grid { gap: 35px; }
+            .hero-text h1 { font-size: 3rem; }
+            .hero-image-box { min-height: 520px; }
+            .featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
-
         @media (max-width: 900px) {
-
             .hero {
                 min-height: auto;
-
                 padding-top: 115px;
                 padding-bottom: 60px;
             }
 
             .hero-grid {
                 grid-template-columns: 1fr;
-
                 text-align: center;
-
                 gap: 20px;
             }
 
-            .hero-text {
-                order: 1;
-            }
+            .hero-text { order: 1; }
 
             .hero-image-box {
                 order: 2;
-
                 min-height: auto;
-
                 margin-top: 20px;
             }
 
-            .hero-text h1 {
-                font-size: 2.8rem;
-            }
+            .hero-text h1 { font-size: 2.8rem; }
 
-            .hero-text .hero-description {
+            .hero-text .hero-description,
+            .hero-paths {
                 margin-left: auto;
                 margin-right: auto;
             }
 
-            .hero-points {
-                justify-content: center;
-            }
-
-            .btn-group {
-                justify-content: center;
-            }
-
-            .hero-img {
-                max-width: 350px;
-            }
-
-            .hero-image-box::before {
-                width: 350px;
-                max-width: 85%;
-            }
-
-            .hero-image-box::after {
-                right: 10%;
-            }
-
-            /* .nav-links / .hamburger mobile rules: see global-nav.css */
+            .hero-path { text-align: left; }
+            .hero-img { max-width: 350px; }
+            .hero-image-box::before { width: 350px; max-width: 85%; }
+            .hero-image-box::after { right: 10%; }
         }
-
 
         @media (max-width: 768px) {
+            .container { padding-left: 17px; padding-right: 17px; }
+            .section-padding { padding: 60px 0; }
+            .section-title { font-size: 1.85rem; margin-bottom: 40px; }
+            .section-intro { margin-top: -15px; font-size: 0.96rem; }
 
-            .container {
-                padding-left: 17px;
-                padding-right: 17px;
-            }
+            .hero { padding-top: 105px; padding-bottom: 45px; }
+            .hero-text h1 { font-size: 2.25rem; letter-spacing: -0.7px; }
+            .hero-tagline { font-size: 1.1rem; margin-bottom: 12px; }
+            .hero-text .hero-description { font-size: 1rem; line-height: 1.7; margin-bottom: 22px; }
 
-            .section-padding {
-                padding: 60px 0;
-            }
+            .hero-image-box { margin-top: 15px; }
+            .hero-img { max-width: 290px; }
+            .hero-image-box::before { width: 290px; }
+            .hero-image-box::after { width: 55px; height: 55px; right: 6%; }
 
-            .section-title {
-                font-size: 1.85rem;
-                margin-bottom: 40px;
-            }
+            .stats { padding: 26px 0 20px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: 18px; }
+            .stat-item { padding: 0 10px; }
+            .stat-item:nth-child(2) { border-right: 0; }
+            .stat-num { font-size: 1.9rem; }
 
-            .section-intro {
-                margin-top: -15px;
-                font-size: 0.96rem;
-            }
-
-            .hero {
-                padding-top: 105px;
-                padding-bottom: 45px;
-            }
-
-            .hero-text h1 {
-                font-size: 2.25rem;
-
-                letter-spacing: -0.7px;
-            }
-
-            .hero-text .hero-description {
-                font-size: 1rem;
-
-                line-height: 1.7;
-            }
-
-            .hero-points {
-                gap: 8px;
-                margin-bottom: 22px;
-            }
-            /* On phones show the calls to action before the skills chips */
-            .hero-text {
-                display: flex;
-                flex-direction: column;
-            }
-            .hero-text .hero-description {
-                margin-bottom: 22px;
-            }
-            .hero-text .btn-group {
-                order: 1;
-                margin-bottom: 22px;
-            }
-            .hero-text .hero-points {
-                order: 2;
-            }
-
-            .hero-point {
-                font-size: 0.76rem;
-                padding: 7px 10px;
-            }
-
-            .btn-group {
-                flex-direction: column;
-
-                width: 100%;
-
-                max-width: 320px;
-
-                margin:
-                    0 auto;
-            }
-
-            .btn {
-                width: 100%;
-            }
-
-            .hero-image-box {
-                margin-top: 15px;
-            }
-
-            .hero-img {
-                max-width: 290px;
-            }
-
-            .hero-image-box::before {
-                width: 290px;
-            }
-
-            .hero-image-box::after {
-                width: 55px;
-                height: 55px;
-                right: 6%;
-            }
-
-            .stats {
-                padding: 30px 0;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-
-                gap: 0;
-            }
-
-            .stat-item {
-                padding:
-                    18px 10px;
-
-                border-right: 0;
-
-                border-bottom:
-                    var(--border-light);
-            }
-
-            .stat-item:last-child {
-                border-bottom: 0;
-            }
-
-            .stat-num {
-                font-size: 2.15rem;
-            }
-
-            .profile-box {
-                padding: 30px 20px;
-            }
-
-            .profile-text {
-                font-size: 1rem;
-                line-height: 1.7;
-            }
-
-            .skills-grid,
-            .project-grid,
-            .feature-grid,
-            .approach-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .skill-item,
-            .feature-card,
-            .approach-card {
-                padding: 27px 22px;
-            }
-
-            .project-img-wrapper {
-                height: 190px;
-            }
-
-            .project-content {
-                padding: 23px 20px;
-            }
-
-            .portfolio-disclosure {
-                padding: 18px;
-            }
-
-            .timeline {
-                padding-left: 17px;
-            }
-
-            .timeline-card {
-                padding-left: 27px;
-            }
-
-            .timeline-card::before {
-                left: -9px;
-            }
-
-            .contact-box {
-                padding: 22px 18px;
-            }
-
-            .contact-row {
-                font-size: 0.9rem;
-            }
+            .featured-grid,
+            .article-grid { grid-template-columns: 1fr; }
+            .featured-card { padding: 24px 20px; }
+            .exp-card { padding: 24px 20px; }
         }
 
+        @media (max-width: 560px) {
+            .hero-paths { grid-template-columns: 1fr; gap: 10px; }
+            /* Headings and buttons are self-explanatory; keep both pathways on the first phone screen */
+            .hero-path { padding: 14px 16px 14px; }
+            .hero-path h2 { margin-bottom: 10px; font-size: 1.02rem; }
+            .hero-path p { display: none; }
+            .cta-buttons .btn { width: 100%; }
+        }
 
         @media (max-width: 420px) {
-
-            .logo {
-                font-size: 1.3rem;
-            }
-
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-
-            .eyebrow {
-                font-size: 0.72rem;
-
-                letter-spacing: 1.3px;
-            }
-
-            /* Two compact chips per row so the calls to action stay near the first screen */
-            .hero-point {
-                flex: 1 1 calc(50% - 8px);
-                justify-content: center;
-                font-size: 0.72rem;
-                padding: 6px 8px;
-            }
-
-            .hero-img {
-                max-width: 255px;
-            }
-
-            .hero-image-box::before {
-                width: 255px;
-            }
-
-            .section-title {
-                font-size: 1.65rem;
-            }
-
-            .faq-question {
-                font-size: 0.93rem;
-                padding: 17px;
-            }
-
-            .faq-answer p {
-                padding:
-                    0 17px 18px;
-            }
+            .hero-text h1 { font-size: 2rem; }
+            .eyebrow { font-size: 0.72rem; letter-spacing: 1.3px; }
+            .hero-img { max-width: 255px; }
+            .hero-image-box::before { width: 255px; }
+            .section-title { font-size: 1.65rem; }
+            .stat-label { font-size: 0.74rem; }
         }
 
-
-        /* =========================================================
-           REDUCED MOTION
-        ========================================================= */
-
         @media (prefers-reduced-motion: reduce) {
-
-            html {
-                scroll-behavior: auto;
-            }
+            html { scroll-behavior: auto; }
 
             *,
             *::before,
@@ -1814,15 +871,9 @@
             }
         }
 
-        /* Nav-dropdown + footer CSS + their responsive rules now live
-           in /assets/css/global-nav.css (single source of truth). */
-
     </style>
 </head>
-
-
 <body>
-
     <!-- Accessibility -->
     <a
         href="#main-content"
@@ -1832,94 +883,28 @@
     </a>
 
 
-    <!-- =========================================================
-         NAVIGATION
-    ========================================================== -->
-
     <header class="site-header">
     <nav aria-label="Main navigation">
 
         <div class="container nav-inner">
 
-            <a
-                href="/"
-                class="logo"
-                aria-label="Sayed Asif home"
-            >
-                Sayed<span>Asif</span>
-            </a>
+            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
 
-            <div
-                class="nav-links"
-                id="navLinks"
-            >
-
-                <a
-                    href="/"
-                    class="active"
-                >
-                    Home
-                </a>
-
-                <a href="/about/">
-                    About
-                </a>
-
-                <a href="/proof-of-work/">
-                    Proof of Work
-                </a>
-
-                <a href="/resume/">
-                    Resume
-                </a>
-
-                <a href="/contact/">
-                    Contact
-                </a>
-
-                <div class="nav-dropdown">
-
-                    <button
-                        class="nav-dropdown-toggle"
-                        id="moreButton"
-                        aria-expanded="false"
-                        aria-haspopup="true"
-                        aria-label="More options menu"
-                    >
-                        More
-                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                    </button>
-
-                    <div
-                        class="nav-dropdown-menu"
-                        id="moreMenu"
-                        role="menu"
-                    >
-                        <a href="/payments/" role="menuitem">
-                            Payment Testing
-                        </a>
-                        <a href="/capabilities/" role="menuitem">
-                            Capabilities
-                        </a>
-                        <a href="/blog/" role="menuitem">
-                            Blog
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <button
-                class="hamburger"
-                id="menuButton"
-                type="button"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-                aria-controls="navLinks"
-            >
-                <i class="fas fa-bars" aria-hidden="true"></i>
+            <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
+            <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
             </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/" class="active" aria-current="page">Home</a>
+                <a href="/about/">About</a>
+                <a href="/proof-of-work/">Projects</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/">Blog</a>
+                <a href="/resume/">Resume</a>
+                <a href="/contact/">Contact</a>
+            </div>
 
         </div>
 
@@ -1931,7 +916,7 @@
 
 
         <!-- =====================================================
-             HERO
+             1. HERO: identity + two pathways
         ====================================================== -->
 
         <section
@@ -1960,6 +945,10 @@
 
                     </h1>
 
+                    <p class="hero-tagline">
+                        I test software. I find what breaks. I verify the fix.
+                    </p>
+
                     <p class="hero-description">
 
                         Software QA Engineer with <strong>1+ years of professional QA experience</strong> testing
@@ -1970,50 +959,19 @@
 
                     </p>
 
+                    <div class="hero-paths">
 
-                    <div class="hero-points">
+                        <div class="hero-path">
+                            <h2>Hiring a QA Engineer?</h2>
+                            <p>See my resume and professional experience.</p>
+                            <a href="/resume/" class="btn btn-primary">View Resume</a>
+                        </div>
 
-                        <span class="hero-point">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            Functional Testing
-                        </span>
-
-                        <span class="hero-point">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            API Testing
-                        </span>
-
-                        <span class="hero-point">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            Automation
-                        </span>
-
-                        <span class="hero-point">
-                            <i class="fas fa-check-circle" aria-hidden="true"></i>
-                            Payment Testing
-                        </span>
-
-                    </div>
-
-
-                    <div class="btn-group">
-
-                        <a
-                            href="/proof-of-work/"
-                            class="btn btn-primary"
-                        >
-                            <i class="fas fa-code-branch" aria-hidden="true"></i>
-                            View Proof of Work
-                        </a>
-
-                        <a
-                            href="/resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf"
-                            class="btn btn-outline"
-                            download
-                        >
-                            <i class="fas fa-download" aria-hidden="true"></i>
-                            Download Resume
-                        </a>
+                        <div class="hero-path">
+                            <h2>Need testing support?</h2>
+                            <p>Scoped web, API and automation testing.</p>
+                            <a href="/services/" class="btn btn-outline">Explore QA Services</a>
+                        </div>
 
                     </div>
 
@@ -2042,2028 +1000,147 @@
 
 
         <!-- =====================================================
-             PROFESSIONAL HIGHLIGHTS
+             2. PROOF AT A GLANCE
         ====================================================== -->
 
         <section
             class="stats"
-            aria-label="Professional highlights"
-        >
-
-            <div class="container stats-grid">
-
-                <div class="stat-item">
-
-                    <div class="stat-num">
-                        1+
-                    </div>
-
-                    <div class="stat-label">
-                        Years of QA Experience
-                    </div>
-
-                </div>
-
-
-                <div class="stat-item">
-
-                    <div class="stat-num">
-                        6
-                    </div>
-
-                    <div class="stat-label">
-                        Employer QA Projects (Confidential)
-                    </div>
-
-                </div>
-
-
-                <div class="stat-item">
-
-                    <div class="stat-num">
-                        4
-                    </div>
-
-                    <div class="stat-label">
-                        Public QA Projects
-                    </div>
-
-                </div>
-
-
-                <div class="stat-item">
-
-                    <div class="stat-num">
-                        116
-                    </div>
-
-                    <div class="stat-label">
-                        Test Definitions in 4 Public Projects
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             PROFESSIONAL PROFILE
-        ====================================================== -->
-
-        <section
-            id="about"
-            class="section-padding profile-section"
-            aria-labelledby="profile-heading"
+            aria-label="Proof at a glance"
         >
 
             <div class="container">
 
-                <h2
-                    id="profile-heading"
-                    class="section-title"
-                >
-                    Professional Profile
-                </h2>
+                <div class="stats-grid">
 
-
-                <div class="profile-box">
-
-                    <div class="profile-icon">
-                        <i
-                            class="fas fa-quote-left"
-                            aria-hidden="true"
-                        ></i>
+                    <div class="stat-item">
+                        <div class="stat-num">1+</div>
+                        <div class="stat-label">Years of QA Experience</div>
                     </div>
 
+                    <div class="stat-item">
+                        <div class="stat-num">6</div>
+                        <div class="stat-label">Employer QA Projects (Confidential)</div>
+                    </div>
 
-                    <p class="profile-text">
+                    <div class="stat-item">
+                        <div class="stat-num">4</div>
+                        <div class="stat-label">Public QA Projects</div>
+                    </div>
 
-                        Software QA Engineer specializing in manual testing, API validation, and Playwright automation. I have validated critical workflows across
-
-                        <strong>
-                            web applications, payment processing, business management systems,
-                            CRM platforms, donation management systems and logistics operations.
-                        </strong>
-
-                        I focus on validating business workflows, documenting reproducible defects with clear evidence, and building Playwright automation whose code and CI workflows can be inspected on GitHub.
-
-                        Client names, confidential implementation details
-                        and proprietary information are intentionally
-                        omitted where required.
-
-                    </p>
-
-
-                    <a
-                        href="/about/"
-                        class="btn btn-outline"
-                        style="margin-top: 25px;"
-                    >
-                        Read Full Profile
-                        <i
-                            class="fas fa-arrow-right"
-                            aria-hidden="true"
-                        ></i>
-                    </a>
+                    <div class="stat-item">
+                        <div class="stat-num">116</div>
+                        <div class="stat-label">Test Definitions in 4 Public Projects</div>
+                    </div>
 
                 </div>
 
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             CAPABILITIES
-        ====================================================== -->
-
-        <section
-            id="capabilities"
-            class="section-padding"
-            aria-labelledby="capabilities-heading"
-        >
-
-            <div class="container">
-
-                <h2
-                    id="capabilities-heading"
-                    class="section-title"
-                >
-                    QA Capabilities
-                </h2>
-
-                <p class="section-intro">
-
-                    A practical testing skill set covering the application
-                    lifecycle from requirements and functional validation
-                    through API, data, regression and automation testing.
-
+                <p class="stats-note">
+                    116 counts unique test definitions listed by each public repository's test list as of
+                    14 October 2026. It is not a coverage measure or a count of executions.
+                    <a href="/proof-of-work/">How it is counted</a>.
                 </p>
 
-
-                <div class="skills-grid">
-
-
-                    <article class="skill-item">
-
-                        <i
-                            class="fas fa-vial"
-                            aria-hidden="true"
-                        ></i>
-
-                        <h3>
-                            Functional Testing
-                        </h3>
-
-                        <p>
-                            Validate application features, user journeys,
-                            business rules and expected system behavior
-                            against documented requirements.
-                        </p>
-
-                    </article>
-
-
-                    <article class="skill-item">
-
-                        <i
-                            class="fas fa-credit-card"
-                            aria-hidden="true"
-                        ></i>
-
-                        <h3>
-                            Payment Testing
-                        </h3>
-
-                        <p>
-                            Test payment workflows, recurring transactions,
-                            refunds, failures, redirects and transaction
-                            related business logic.
-                        </p>
-
-                    </article>
-
-
-                    <article class="skill-item">
-
-                        <i
-                            class="fas fa-network-wired"
-                            aria-hidden="true"
-                        ></i>
-
-                        <h3>
-                            API Validation
-                        </h3>
-
-                        <p>
-                            Validate endpoints, payloads, response codes,
-                            authentication behavior, data integrity and
-                            integration workflows.
-                        </p>
-
-                    </article>
-
-
-                    <article class="skill-item">
-
-                        <i
-                            class="fas fa-rotate"
-                            aria-hidden="true"
-                        ></i>
-
-                        <h3>
-                            Regression Testing
-                        </h3>
-
-                        <p>
-                            Revalidate existing functionality after changes
-                            to help identify regressions before software
-                            reaches users.
-                        </p>
-
-                    </article>
-
-
-                    <article class="skill-item">
-
-                        <i
-                            class="fas fa-database"
-                            aria-hidden="true"
-                        ></i>
-
-                        <h3>
-                            Data Checks (SQL Basics)
-                        </h3>
-
-                        <p>
-                            Foundational SQL for test-data setup and basic
-                            data checks, learned in QA training.
-                        </p>
-
-                    </article>
-
-
-                    <article class="skill-item">
-
-                        <i
-                            class="fas fa-bug"
-                            aria-hidden="true"
-                        ></i>
-
-                        <h3>
-                            Defect Management
-                        </h3>
-
-                        <p>
-                            Document reproducible defects, assess severity
-                            and priority, support triage and track issues
-                            through resolution.
-                        </p>
-
-                    </article>
-
-
-                    <article class="skill-item">
-
-                        <i
-                            class="fas fa-robot"
-                            aria-hidden="true"
-                        ></i>
-
-                        <h3>
-                            Test Automation
-                        </h3>
-
-                        <p>
-                            Build and maintain automated checks for
-                            repeatable workflows and regression coverage
-                            where automation provides practical value.
-                        </p>
-
-                    </article>
-
-
-                    <article class="skill-item">
-
-                        <i
-                            class="fas fa-mobile-screen-button"
-                            aria-hidden="true"
-                        ></i>
-
-                        <h3>
-                            Cross-Platform Testing
-                        </h3>
-
-                        <p>
-                            Validate responsive web interfaces across
-                            browsers, screen sizes and mobile devices for
-                            consistent user experiences.
-                        </p>
-
-                    </article>
-
-
-                </div>
-
             </div>
 
         </section>
 
 
         <!-- =====================================================
-             TESTING APPROACH
-        ====================================================== -->
-
-        <section
-            class="section-padding approach-section"
-            aria-labelledby="approach-heading"
-        >
-
-            <div class="container">
-
-                <h2
-                    id="approach-heading"
-                    class="section-title"
-                >
-                    How I Test
-                </h2>
-
-                <p class="section-intro">
-
-                    Structured QA workflow from requirements to release verification.
-
-                </p>
-
-
-                <div class="approach-grid">
-
-
-                    <article class="approach-card">
-
-                        <span class="approach-number">
-                            01
-                        </span>
-
-                        <h3>
-                            Understand
-                        </h3>
-
-                        <p>
-                            Review requirements, user stories and business rules to understand expected behavior and integration points.
-                        </p>
-
-                    </article>
-
-
-                    <article class="approach-card">
-
-                        <span class="approach-number">
-                            02
-                        </span>
-
-                        <h3>
-                            Design Tests
-                        </h3>
-
-                        <p>
-                            Create test cases covering happy path, edge cases, boundary conditions, failure scenarios and realistic user workflows.
-                        </p>
-
-                    </article>
-
-
-                    <article class="approach-card">
-
-                        <span class="approach-number">
-                            03
-                        </span>
-
-                        <h3>
-                            Execute & Document
-                        </h3>
-
-                        <p>
-                            Run manual test cycles, identify defects, and document findings with clear reproduction steps, expected vs actual results and supporting evidence.
-                        </p>
-
-                    </article>
-
-
-                    <article class="approach-card">
-
-                        <span class="approach-number">
-                            04
-                        </span>
-
-                        <h3>
-                            Automate
-                        </h3>
-
-                        <p>
-                            Implement Playwright automation for repeatable workflows: page objects in the UI projects, an API client layer in the API project, and GitHub Actions CI.
-                        </p>
-
-                    </article>
-
-
-                    <article class="approach-card">
-
-                        <span class="approach-number">
-                            05
-                        </span>
-
-                        <h3>
-                            Verify & Report
-                        </h3>
-
-                        <p>
-                            Validate fixes, run regression suites, confirm CI pipeline stability and report release readiness with clear quality findings.
-                        </p>
-
-                    </article>
-
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             PORTFOLIO
+             3. FEATURED INDEPENDENT PROJECTS
         ====================================================== -->
 
         <section
             id="projects"
-            class="section-padding portfolio-section"
-            aria-labelledby="portfolio-heading"
-        >
-
-            <div class="container">
-
-                <!-- =====================================================
-                     PUBLIC PROOF OF WORK
-                ====================================================== -->
-
-                <h2
-                    id="portfolio-heading"
-                    class="section-title"
-                >
-                    Public Proof of Work
-                </h2>
-
-
-                <div class="portfolio-disclosure">
-
-                    <p>
-
-                        Independent QA automation projects where architecture,
-                        code, tests and CI workflows are public on GitHub.
-                        These projects demonstrate QA automation thinking,
-                        UI page objects, an API client layer, CI/CD integration
-                        and testing methodology in publicly inspectable form.
-
-                    </p>
-
-                </div>
-
-
-                <div class="project-grid" id="public-projects">
-
-
-                    <!-- PUBLIC PROJECT 1 (FEATURED): RAZORPAY PAYMENT GATEWAY QA & AUTOMATION -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/automation.png"
-                                alt="Playwright QA automation for Razorpay payment gateway integration"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                Featured · Independent QA Project
-                            </span>
-
-                            <h3 class="project-title">
-                                Razorpay Payment Gateway — QA & Automation
-                            </h3>
-
-                            <p class="project-desc">
-
-                                37 automated tests against a payment flow integrated with Razorpay Test Mode:
-                                signature verification, tampered amounts, replayed requests, duplicate webhook
-                                events and refund handling. Two high-severity defects were found, reproduced and
-                                fixed: a refund API error that crashed the server (DEF-001) and a webhook
-                                signature check that could never succeed (DEF-002).
-                            </p>
-                            <p class="project-desc" style="margin-top: 10px;">
-                                <strong>Evidence:</strong> the repository’s
-                                <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/main/docs/DEFECTS.md" target="_blank" rel="noopener noreferrer">defect log</a>
-                                records reproduction steps, root cause and resolution. <strong>Limits:</strong>
-                                no genuine Razorpay-originated webhook and no successful live refund were observed.
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Playwright Test
-                                </span>
-
-                                <span class="tech-pill">
-                                    Node.js / Express
-                                </span>
-
-                                <span class="tech-pill">
-                                    Razorpay Test Mode
-                                </span>
-
-                                <span class="tech-pill">
-                                    SQLite
-                                </span>
-
-                                <span class="tech-pill">
-                                    GitHub Actions
-                                </span>
-
-                            </div>
-
-
-                            <div style="
-                                margin-top: 10px;
-                                padding-bottom: 10px;
-                                border-bottom: 1px solid #e0e0e0;
-                            ">
-
-                                <div style="
-                                    display: flex;
-                                    gap: 15px;
-                                    font-size: 13px;
-                                ">
-
-                                    <span style="color: var(--brand-accent-text); font-weight: 600;">
-                                        37 Tests
-                                    </span>
-
-                                    <span style="color: var(--brand-accent-text); font-weight: 600;">
-                                        34 CI-Safe
-                                    </span>
-
-                                    <span style="color: #314259;">
-                                        3 Razorpay-Live
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-                            <div style="
-                                margin-top: 15px;
-                                display: flex;
-                                flex-wrap: wrap;
-                                gap: 10px;
-                            ">
-
-                                <a
-                                    href="/projects/razorpay-payment-gateway-qa-automation/"
-                                    class="btn btn-primary"
-                                >
-                                    View Project
-                                </a>
-
-                                <a
-                                    href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation"
-                                    class="btn btn-outline"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i class="fab fa-github" aria-hidden="true"></i>
-                                    GitHub Repository
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PUBLIC PROJECT 2: ERPNEXT QA AUTOMATION -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/Erp-next.png"
-                                alt="Playwright QA automation proof of work"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                Independent QA Project
-                            </span>
-
-                            <h3 class="project-title">
-                                ERPNext QA Automation
-                            </h3>
-
-                            <p class="project-desc">
-
-                                5 UI automation tests plus 1 authentication setup test, covering Material Request,
-                                Quotation, and Sales Order workflows. Page Object Model architecture with Playwright and GitHub Actions CI.
-                                Includes autocomplete synchronization investigation. Last run 4 September 2026; the hosted test instance is currently offline.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Playwright
-                                </span>
-
-                                <span class="tech-pill">
-                                    Page Object Model
-                                </span>
-
-                                <span class="tech-pill">
-                                    JavaScript
-                                </span>
-
-                                <span class="tech-pill">
-                                    GitHub Actions
-                                </span>
-
-                            </div>
-
-
-                            <div style="
-                                margin-top: 10px;
-                                padding-bottom: 10px;
-                                border-bottom: 1px solid #e0e0e0;
-                            ">
-
-                                <div style="
-                                    display: flex;
-                                    gap: 15px;
-                                    font-size: 13px;
-                                ">
-
-                                    <span style="color: var(--brand-accent-text); font-weight: 600;">
-                                        6 Tests
-                                    </span>
-
-                                    <span style="color: var(--brand-accent-text); font-weight: 600;">
-                                        6 Passed
-                                    </span>
-
-                                    <span style="color: #314259;">
-                                        0 Failed
-                                    </span>
-
-                                </div>
-
-                                <div style="font-size: 12px; color: #5f6b79; margin-top: 8px;">
-                                    Last CI run: 4 Sep 2026 (historical result); the hosted test environment is now offline
-                                </div>
-
-                            </div>
-
-
-                            <div style="
-                                margin-top: 15px;
-                                display: flex;
-                                flex-wrap: wrap;
-                                gap: 10px;
-                            ">
-
-                                <a
-                                    href="/projects/erpnext-qa-automation/"
-                                    class="btn btn-primary"
-                                >
-                                    View Project
-                                </a>
-
-                                <a
-                                    href="https://github.com/Open83/ERPNext-QA-Automation"
-                                    class="btn btn-outline"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i class="fab fa-github" aria-hidden="true"></i>
-                                    GitHub Repository
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PUBLIC PROJECT 3: RESTFUL BOOKER API AUTOMATION -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/automation.png"
-                                alt="REST API automation framework using Playwright and TypeScript"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                Independent QA Project
-                            </span>
-
-                            <h3 class="project-title">
-                                RESTful Booker API Automation
-                            </h3>
-
-                            <p class="project-desc">
-
-                                47 automated tests across authentication, CRUD operations, PUT/PATCH updates,
-                                negative testing and realistic API workflows. Built with Playwright Test and
-                                TypeScript.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Playwright Test
-                                </span>
-
-                                <span class="tech-pill">
-                                    TypeScript
-                                </span>
-
-                                <span class="tech-pill">
-                                    REST API
-                                </span>
-
-                                <span class="tech-pill">
-                                    GitHub Actions
-                                </span>
-
-                            </div>
-
-
-                            <div style="
-                                margin-top: 10px;
-                                padding-bottom: 10px;
-                                border-bottom: 1px solid #e0e0e0;
-                            ">
-
-                                <div style="
-                                    display: flex;
-                                    gap: 15px;
-                                    font-size: 13px;
-                                ">
-
-                                    <span style="color: var(--brand-accent-text); font-weight: 600;">
-                                        47 Tests
-                                    </span>
-
-                                    <span style="color: #314259;">
-                                        47 Passed
-                                    </span>
-
-                                </div>
-
-                                <div style="font-size: 12px; color: #5f6b79; margin-top: 8px;">
-                                    Last CI run: 10 Sep 2026 (historical result)
-                                </div>
-
-                            </div>
-
-
-                            <div style="
-                                margin-top: 15px;
-                                display: flex;
-                                flex-wrap: wrap;
-                                gap: 10px;
-                            ">
-
-                                <a
-                                    href="/projects/restful-booker-api-automation/"
-                                    class="btn btn-primary"
-                                >
-                                    View Project
-                                </a>
-
-                                <a
-                                    href="https://github.com/Open83/restful-booker-api-automation"
-                                    class="btn btn-outline"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i class="fab fa-github" aria-hidden="true"></i>
-                                    GitHub Repository
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PUBLIC PROJECT 4: AUTOMATION EXERCISE -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/automation.png"
-                                alt="Playwright QA automation for e-commerce application"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                Independent QA Project
-                            </span>
-
-                            <h3 class="project-title">
-                                Automation Exercise
-                            </h3>
-
-                            <p class="project-desc">
-
-                                26 automated tests across authentication, product catalog, shopping cart,
-                                checkout and REST API endpoints. UI and API validation with Page
-                                Object Model architecture and GitHub Actions CI.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Playwright
-                                </span>
-
-                                <span class="tech-pill">
-                                    API Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    Page Object Model
-                                </span>
-
-                                <span class="tech-pill">
-                                    JavaScript
-                                </span>
-
-                                <span class="tech-pill">
-                                    GitHub Actions
-                                </span>
-
-                            </div>
-
-
-                            <div style="
-                                margin-top: 10px;
-                                padding-bottom: 10px;
-                                border-bottom: 1px solid #e0e0e0;
-                            ">
-
-                                <div style="
-                                    display: flex;
-                                    gap: 15px;
-                                    font-size: 13px;
-                                ">
-
-                                    <span style="color: var(--brand-accent-text); font-weight: 600;">
-                                        26 Passed
-                                    </span>
-
-                                    <span style="color: #314259;">
-                                        0 Failed
-                                    </span>
-
-                                    <span style="color: #314259;">
-                                        0 Skipped
-                                    </span>
-
-                                </div>
-
-                                <div style="font-size: 12px; color: #5f6b79; margin-top: 8px;">
-                                    Last CI run: 29 Aug 2026 (historical result)
-                                </div>
-
-                            </div>
-
-
-                            <div style="
-                                margin-top: 15px;
-                                display: flex;
-                                flex-wrap: wrap;
-                                gap: 10px;
-                            ">
-
-                                <a
-                                    href="/projects/automation-exercise/"
-                                    class="btn btn-primary"
-                                >
-                                    View Project
-                                </a>
-
-                                <a
-                                    href="https://github.com/Open83/automationexercise"
-                                    class="btn btn-outline"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i class="fab fa-github" aria-hidden="true"></i>
-                                    GitHub Repository
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                </div>
-
-
-                <!-- =====================================================
-                     PROFESSIONAL QA EXPERIENCE
-                ====================================================== -->
-
-                <h2
-                    class="section-title"
-                    style="margin-top: 60px;"
-                >
-                    Professional QA Experience
-                </h2>
-
-
-                <div class="portfolio-disclosure">
-
-                    <p>
-
-                        <strong>
-                            Portfolio disclosure:
-                        </strong>
-
-                        The examples below represent selected areas of
-                        professional QA experience. Project names, client
-                        identities, proprietary implementation details,
-                        credentials, test data and other restricted
-                        information are intentionally omitted unless
-                        authorized for public disclosure.
-
-                    </p>
-
-                </div>
-
-
-                <div class="project-grid" id="professional-projects">
-
-
-                    <!-- PROFESSIONAL PROJECT 1 -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/Donation Management.png"
-                                alt="Payment workflow testing project"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                Non-Profit Platform
-                            </span>
-
-                            <h3 class="project-title">
-                                Donation Management Platform
-                            </h3>
-
-                            <p class="project-desc">
-
-                                Tested donation and payment workflows,
-                                including recurring transactions,
-                                failure scenarios and business-rule
-                                validation.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Payment Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    Regression
-                                </span>
-
-                                <span class="tech-pill">
-                                    API Validation
-                                </span>
-
-                                <span class="tech-pill">
-                                    CMS Testing
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PROJECT 2 -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/Donation.png"
-                                alt="Charity management software testing project"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                Business Management Platform
-                            </span>
-
-                            <h3 class="project-title">
-                                Management & CRM Platform
-                            </h3>
-
-                            <p class="project-desc">
-
-                                Performed end-to-end QA across CRM,
-                                financial workflows, reporting,
-                                user permissions and business-critical
-                                application modules.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    E2E Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    CRM Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    Data Validation
-                                </span>
-
-                                <span class="tech-pill">
-                                    RBAC
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PROJECT 3 -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/Logistics.png"
-                                alt="Logistics management platform testing"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                Logistics & Supply Chain
-                            </span>
-
-                            <h3 class="project-title">
-                                Logistics Management Platform
-                            </h3>
-
-                            <p class="project-desc">
-
-                                Tested shipment and logistics workflows,
-                                status updates, business rules, data
-                                consistency and regression scenarios.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Functional Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    Real-Time Data
-                                </span>
-
-                                <span class="tech-pill">
-                                    Regression
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PROJECT 4 -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/Management.png"
-                                alt="Donation platform quality assurance project"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                Non-Profit Platform
-                            </span>
-
-                            <h3 class="project-title">
-                                Donation & Volunteer Platform
-                            </h3>
-
-                            <p class="project-desc">
-
-                                Validated donor-facing workflows,
-                                role-based functionality, data handling
-                                and application behavior across multiple
-                                user journeys.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Functional Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    Security Checks
-                                </span>
-
-                                <span class="tech-pill">
-                                    RBAC
-                                </span>
-
-                                <span class="tech-pill">
-                                    Regression
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PROJECT 5 -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/Multi.png"
-                                alt="International donation workflow testing"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                International Platform
-                            </span>
-
-                            <h3 class="project-title">
-                                Multi-Currency Donation Platform
-                            </h3>
-
-                            <p class="project-desc">
-
-                                Tested donation workflows involving
-                                multi-currency scenarios, transaction
-                                behavior, validation rules and regression
-                                coverage.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Multi-Currency
-                                </span>
-
-                                <span class="tech-pill">
-                                    Payment Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    API Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    Regression
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- PROJECT 6 -->
-
-                    <article class="project-card">
-
-                        <div class="project-img-wrapper">
-
-                            <img
-                                src="/image/Data Management.png"
-                                alt="Data management software testing project"
-                                class="project-img"
-                                loading="lazy"
-                                width="600"
-                                height="400"
-                            >
-
-                        </div>
-
-
-                        <div class="project-content">
-
-                            <span class="project-category">
-                                Data & Business Platform
-                            </span>
-
-                            <h3 class="project-title">
-                                Data Management Application
-                            </h3>
-
-                            <p class="project-desc">
-
-                                Validated data-driven workflows,
-                                reporting behavior, data consistency,
-                                business rules and user-facing
-                                application functionality.
-
-                            </p>
-
-
-                            <div class="tech-stack">
-
-                                <span class="tech-pill">
-                                    Data Integrity
-                                </span>
-
-                                <span class="tech-pill">
-                                    SQL
-                                </span>
-
-                                <span class="tech-pill">
-                                    Functional Testing
-                                </span>
-
-                                <span class="tech-pill">
-                                    Reporting
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             CASE STUDY
-        ====================================================== -->
-
-        <section
-            id="case-study"
-            class="section-padding case-study-section"
-            aria-labelledby="case-study-heading"
-        >
-
-            <div class="container">
-
-                <div class="case-study-intro">
-
-                    <h2
-                        id="case-study-heading"
-                        class="section-title"
-                    >
-                        Representative QA Case Study
-                    </h2>
-
-                    <p>
-
-                        A generalized example of QA activities performed
-                        on a business management application. Client
-                        identity and proprietary implementation details
-                        have been intentionally omitted.
-
-                    </p>
-
-                </div>
-
-
-                <div class="feature-grid">
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-calculator"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Financial Workflows
-                        </h3>
-
-                        <p>
-
-                            Validated financial and donation-related
-                            calculations, eligibility rules, transaction
-                            scenarios and reporting behavior against
-                            documented requirements.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-users"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            CRM & Data Management
-                        </h3>
-
-                        <p>
-
-                            Tested user profiles, data entry, record
-                            updates, interaction history, search,
-                            filtering and data consistency across
-                            application workflows.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-user-shield"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Access Control
-                        </h3>
-
-                        <p>
-
-                            Validated role-based access behavior and
-                            checked that users could access only the
-                            functionality and information appropriate
-                            to their assigned permissions.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-credit-card"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Payment Workflows
-                        </h3>
-
-                        <p>
-
-                            Tested successful and unsuccessful payment
-                            scenarios, recurring transactions, refunds,
-                            redirects and related application behavior.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-chart-line"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Reporting & Validation
-                        </h3>
-
-                        <p>
-
-                            Verified application reports, calculated
-                            values, filtering, data consistency and
-                            expected results across representative
-                            scenarios.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-mobile-screen-button"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Responsive Testing
-                        </h3>
-
-                        <p>
-
-                            Tested user-facing workflows across different
-                            browsers, viewport sizes and mobile devices
-                            to identify layout and usability issues.
-
-                        </p>
-
-                    </article>
-
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             AUTOMATION RELIABILITY INVESTIGATION
-        ====================================================== -->
-
-        <section
-            class="section-padding"
-            aria-labelledby="investigation-heading"
-        >
-
-            <div class="container">
-
-                <div class="case-study-intro">
-
-                    <h2
-                        id="investigation-heading"
-                        class="section-title"
-                    >
-                        Automation Reliability Investigation
-                    </h2>
-
-                    <p>
-
-                        <strong>
-                            Stabilizing ERPNext Autocomplete Automation
-                        </strong>
-
-                    </p>
-
-                    <p style="margin-top: 10px;">
-
-                        During ERPNext QA automation development, tests that
-                        selected an item from the Frappe autocomplete became
-                        unreliable under CI load. This case study documents the
-                        investigation, as recorded in the project's root-cause
-                        analysis.
-
-                    </p>
-
-                </div>
-
-
-                <div class="feature-grid">
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-binoculars"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Failure Observation
-                        </h3>
-
-                        <p>
-
-                            Tests that selected an item from the autocomplete
-                            timed out waiting for the dropdown options to
-                            become visible, especially under CI load. Playwright
-                            reported the option elements as present in the DOM
-                            but hidden.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-repeat"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Reproduce
-                        </h3>
-
-                        <p>
-
-                            Read the Playwright failure output. The option
-                            element was found repeatedly but resolved as
-                            hidden, even though the correct text had been
-                            entered in the field.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-microscope"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Observe
-                        </h3>
-
-                        <p>
-
-                            Inspected the page state. The option elements were
-                            in the DOM and aria-selected was set correctly, but
-                            they stayed hidden by CSS. Frappe's autocomplete
-                            (Awesomplete) reveals its dropdown in response to
-                            keyboard input events.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-search"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Investigate
-                        </h3>
-
-                        <p>
-
-                            Compared interaction methods. <code>fill()</code>
-                            sets the value directly and does not fire the key
-                            events the autocomplete listens for. Separately, a
-                            silent <code>.catch()</code> fallback pressed Enter
-                            whenever the visibility wait failed, so some tests
-                            passed without proving the intended selection
-                            happened.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-lightbulb"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Root Cause
-                        </h3>
-
-                        <p>
-
-                            The test's interaction did not match how the Frappe
-                            autocomplete works. <code>fill()</code> bypassed its
-                            keyboard handling, and the silent error suppression
-                            hid the resulting failures behind false passes.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-wrench"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Fix
-                        </h3>
-
-                        <p>
-
-                            In the item-selection step, typed the search text
-                            with <code>type()</code> and a delay, waited for the
-                            listbox to be attached to the DOM rather than
-                            visible, selected the option with ArrowDown and
-                            Enter, and removed the silent error suppression.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-check-circle"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Verify
-                        </h3>
-
-                        <p>
-
-                            Re-ran the suite locally and in GitHub Actions after
-                            the change. The repository's execution report
-                            records the passing local and CI runs.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-graduation-cap"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Lesson
-                        </h3>
-
-                        <p>
-
-                            A passing test only counts if it exercises the
-                            intended path. Interact with the application the way
-                            users do, wait for the state the application
-                            actually exposes, and never let error handling turn
-                            a failure into a pass.
-
-                        </p>
-
-                    </article>
-
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             SELECTED ACHIEVEMENTS
-        ====================================================== -->
-
-        <section
-            class="section-padding"
-            style="background: var(--bg-secondary);"
-            aria-labelledby="achievements-heading"
+            class="section-padding projects-section"
+            aria-labelledby="projects-heading"
         >
 
             <div class="container">
 
                 <h2
-                    id="achievements-heading"
+                    id="projects-heading"
                     class="section-title"
                 >
-                    Results from Public Projects
+                    Featured Independent Projects
                 </h2>
 
                 <p class="section-intro">
-                    Dated results from the four public GitHub repositories. The 116 count in the strip above is explained below.
+                    Public source code, tests and CI workflows on GitHub. These are independent
+                    projects, separate from my confidential employer work.
                 </p>
 
-                <div style="
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-                    gap: 28px;
-                    max-width: 1000px;
-                    margin: 0 auto;
-                ">
+                <div class="featured-grid">
 
-                    <div style="
-                        background: #ffffff;
-                        padding: 28px;
-                        border-radius: 10px;
-                        border: 1px solid #e2e8f0;
-                        text-align: center;
-                    ">
-                        <div style="
-                            font-size: 32px;
-                            font-weight: 800;
-                            color: var(--brand-accent-text);
-                            margin-bottom: 8px;
-                        ">4 of 4</div>
-                        <div style="
-                            font-size: 13px;
-                            color: #555;
-                            font-weight: 600;
-                        ">Last Recorded CI Runs Passed</div>
-                        <div style="
-                            font-size: 11px;
-                            color: #5f6b79;
-                            margin-top: 6px;
-                        ">Historical: runs of 29 Aug to 14 Sep 2026 (checked 12 Oct 2026); CI allows retries; ERPNext environment now offline</div>
-                    </div>
+                    <article class="featured-card">
+                        <span class="featured-cat">Payment Workflow Testing</span>
+                        <h3>Razorpay Payment Gateway QA &amp; Automation</h3>
+                        <p>
+                            Playwright API tests for a Razorpay Test Mode checkout app: payment and webhook
+                            signature checks, duplicate webhook events, refund errors and order state. Two
+                            high-severity defects were found, fixed and regression-tested.
+                        </p>
+                        <p class="featured-note">
+                            Sandbox only. No webhook sent by Razorpay itself and no successful live refund were observed.
+                        </p>
+                        <p class="featured-meta">37 test definitions · 34 run in CI</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Playwright Test</span>
+                            <span class="tech-pill">Webhooks</span>
+                            <span class="tech-pill">Node.js</span>
+                        </div>
+                        <div class="featured-links">
+                            <a href="/projects/razorpay-payment-gateway-qa-automation/">Razorpay project details</a>
+                            <a href="/blog/payment-gateway-testing-playwright/">Payment testing article</a>
+                        </div>
+                    </article>
 
-                    <div style="
-                        background: #ffffff;
-                        padding: 28px;
-                        border-radius: 10px;
-                        border: 1px solid #e2e8f0;
-                        text-align: center;
-                    ">
-                        <div style="
-                            font-size: 32px;
-                            font-weight: 800;
-                            color: var(--brand-accent-text);
-                            margin-bottom: 8px;
-                        ">Public</div>
-                        <div style="
-                            font-size: 13px;
-                            color: #555;
-                            font-weight: 600;
-                        ">Source Code on GitHub</div>
-                        <div style="
-                            font-size: 11px;
-                            color: #5f6b79;
-                            margin-top: 6px;
-                        ">Tests, page objects and CI workflows are readable</div>
-                    </div>
+                    <article class="featured-card">
+                        <span class="featured-cat">API Automation</span>
+                        <h3>RESTful Booker API Automation</h3>
+                        <p>
+                            Playwright and TypeScript tests for a public booking API: authentication, create,
+                            retrieve, full and partial update, delete, negative cases and multi-step workflows,
+                            built on reusable API client classes.
+                        </p>
+                        <p class="featured-meta">47 test definitions</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Playwright Test</span>
+                            <span class="tech-pill">TypeScript</span>
+                            <span class="tech-pill">REST API</span>
+                        </div>
+                        <div class="featured-links">
+                            <a href="/projects/restful-booker-api-automation/">RESTful Booker project details</a>
+                            <a href="https://github.com/Open83/restful-booker-api-automation" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </article>
+
+                    <article class="featured-card">
+                        <span class="featured-cat">UI Test Automation</span>
+                        <h3>Automation Exercise</h3>
+                        <p>
+                            Playwright UI and API tests for an e-commerce demo, structured with the Page Object
+                            Model and run in GitHub Actions. Backed by a test plan and a manual test case log.
+                        </p>
+                        <p class="featured-meta">26 test definitions · 16 API, 10 UI</p>
+                        <div class="tech-stack">
+                            <span class="tech-pill">Playwright</span>
+                            <span class="tech-pill">Page Object Model</span>
+                            <span class="tech-pill">GitHub Actions</span>
+                        </div>
+                        <div class="featured-links">
+                            <a href="/projects/automation-exercise/">Automation Exercise project details</a>
+                            <a href="https://github.com/Open83/automationexercise" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </article>
 
                 </div>
 
-                <p style="
-                    max-width: 760px;
-                    margin: 24px auto 0;
-                    font-size: 0.85rem;
-                    line-height: 1.7;
-                    color: #5f6b79;
-                    text-align: center;
-                ">
-                    116 counts unique test definitions, listed with each repository’s <code>npm test -- --list</code> on 12 October 2026: Automation Exercise 26, ERPNext 6, RESTful Booker 47, Razorpay 37. It is not a coverage measure and not a count of executions. ERPNext’s 6 includes 1 authentication setup test, and 3 of Razorpay’s 37 are live-mode tests run separately (34 run in CI).
-                </p>
-
-                <div style="
-                    margin-top: 45px;
-                    padding-top: 35px;
-                    border-top: 1px solid #e0e0e0;
-                    text-align: center;
-                ">
-
-                    <h3 style="
-                        font-size: 1.3rem;
-                        margin-bottom: 15px;
-                        color: var(--brand-dark);
-                    ">
-                        Why Hire a QA Engineer?
-                    </h3>
-
-                    <p style="
-                        max-width: 700px;
-                        margin: 0 auto;
-                        font-size: 0.95rem;
-                        line-height: 1.8;
-                        color: #5f6b79;
-                    ">
-                        <strong>Quality is not an afterthought.</strong>
-                        I approach software testing as a critical thinking exercise: understanding how products fail,
-                        validating that systems behave correctly under real conditions, and providing clear evidence to
-                        inform release decisions.
-                        <br><br>
-                        <strong>Every test is intentional.</strong>
-                        I write automation that catches real bugs, validates business logic, and scales with your system.
-                        No cargo-cult testing. No false confidence from high test counts.
+                <div class="projects-footer">
+                    <p>
+                        The fourth public project, ERPNext QA Automation, is on the Proof of Work page.
+                        Its hosted test instance is currently offline, so that suite cannot run today.
                     </p>
-
-                    <a href="/proof-of-work/" style="
-                        display: inline-block;
-                        margin-top: 20px;
-                        padding: 10px 24px;
-                        background: var(--brand-accent-text);
-                        color: #ffffff;
-                        border-radius: 6px;
-                        text-decoration: none;
-                        font-weight: 600;
-                        font-size: 0.9rem;
-                        transition: 0.3s;
-                    " onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-                        View Public Portfolio
-                    </a>
-
+                    <a href="/proof-of-work/" class="btn btn-outline">See All Projects</a>
                 </div>
 
             </div>
@@ -4072,357 +1149,7 @@
 
 
         <!-- =====================================================
-             TOOLS & TECHNOLOGIES
-        ====================================================== -->
-
-        <section
-            class="section-padding tools-section"
-            aria-labelledby="tools-heading"
-        >
-
-            <div class="container">
-
-                <h2
-                    id="tools-heading"
-                    class="section-title"
-                >
-                    Tools & Technologies
-                </h2>
-
-                <p class="section-intro">
-
-                    Tools are selected according to project requirements
-                    and testing objectives.
-
-                </p>
-
-
-                <div class="tools-grid">
-
-                    <div class="tool-item">
-                        <h3>
-                            <i class="fas fa-robot"></i>Playwright
-                        </h3>
-                        <p>
-                            UI automation, regression workflows and API automation
-                        </p>
-                    </div>
-
-                    <div class="tool-item">
-                        <h3>
-                            <i class="fas fa-network-wired"></i>Postman
-                        </h3>
-                        <p>
-                            Manual API exploration and validation
-                        </p>
-                    </div>
-
-                    <div class="tool-item">
-                        <h3>
-                            <i class="fas fa-database"></i>SQL
-                        </h3>
-                        <p>
-                            Test-data setup and basic data checks (learned in QA training)
-                        </p>
-                    </div>
-
-                    <div class="tool-item">
-                        <h3>
-                            <i class="fas fa-code-branch"></i>GitHub Actions
-                        </h3>
-                        <p>
-                            Automated test execution in CI/CD pipeline
-                        </p>
-                    </div>
-
-                    <div class="tool-item">
-                        <h3>
-                            <i class="fas fa-code"></i>JavaScript
-                        </h3>
-                        <p>
-                            Automation implementation and test development
-                        </p>
-                    </div>
-
-                    <div class="tool-item">
-                        <h3>
-                            <i class="fas fa-shapes"></i>Page Object Model
-                        </h3>
-                        <p>
-                            Used in the two UI projects (Automation Exercise and ERPNext)
-                        </p>
-                    </div>
-
-                    <div class="tool-item">
-                        <h3>
-                            <i class="fas fa-bug"></i>Jira
-                        </h3>
-                        <p>
-                            Defect tracking and issue management
-                        </p>
-                    </div>
-
-                    <div class="tool-item">
-                        <h3>
-                            <i class="fas fa-vial"></i>Manual Testing
-                        </h3>
-                        <p>
-                            Exploratory testing and complex workflow validation
-                        </p>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             EVIDENCE LIBRARY
-        ====================================================== -->
-
-        <section
-            class="section-padding"
-            aria-labelledby="evidence-heading"
-        >
-
-            <div class="container">
-
-                <h2
-                    id="evidence-heading"
-                    class="section-title"
-                >
-                    Evidence Library
-                </h2>
-
-                <p class="section-intro">
-
-                    Supporting documentation and artifacts demonstrating QA
-                    planning, execution, automation and findings.
-
-                </p>
-
-
-                <div class="feature-grid">
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-clipboard-list"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Test Planning
-                        </h3>
-
-                        <p>
-
-                            Test plans defining scope, approach, resource
-                            allocation, schedule and success criteria for
-                            application testing cycles.
-
-                        </p>
-
-                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
-
-                            <a
-                                href="https://docs.google.com/document/d/1TurtuoFSXjmA95otdRhSaLQDjXxTNbr6mjD70V_bbGQ/edit?usp=sharing"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style="color: var(--brand-accent-text); text-decoration: none; font-size: 13px; font-weight: 600;"
-                            >
-                                View Test Plan →
-                            </a>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-list-check"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Test Design
-                        </h3>
-
-                        <p>
-
-                            Manual test cases covering functional requirements,
-                            boundary conditions, error scenarios and user
-                            workflows. Coverage matrices documenting test scope.
-
-                        </p>
-
-                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
-
-                            <a
-                                href="https://docs.google.com/document/d/1lvmT0Q68B_rJPLB0VB7HmDYBQp1iXm-utrJX7t7-r08/edit?usp=sharing"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style="color: var(--brand-accent-text); text-decoration: none; font-size: 13px; font-weight: 600;"
-                            >
-                                View Test Cases →
-                            </a>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-play-circle"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Execution
-                        </h3>
-
-                        <p>
-
-                            Test execution reports documenting test runs,
-                            results, pass/fail counts, defects identified and
-                            regression coverage across application builds.
-
-                        </p>
-
-                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
-
-                            <a
-                                href="https://docs.google.com/document/d/1yuMTnTLcn_3sfraXnLYCy2DI5YFb7CzvF4YGowjOHMY/edit?usp=sharing"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style="color: var(--brand-accent-text); text-decoration: none; font-size: 13px; font-weight: 600;"
-                            >
-                                View Execution Report →
-                            </a>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-robot"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Automation
-                        </h3>
-
-                        <p>
-
-                            Public GitHub repositories with test source code,
-                            page objects (UI projects) and API clients, CI/CD pipeline
-                            workflow configuration and CI run history (job logs
-                            require a GitHub sign-in).
-
-                        </p>
-
-                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
-
-                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-
-                                <a
-                                    href="https://github.com/Open83/automationexercise"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style="color: var(--brand-accent-text); text-decoration: none; font-size: 13px; font-weight: 600;"
-                                >
-                                    Repository →
-                                </a>
-
-                                <a
-                                    href="https://github.com/Open83/automationexercise/actions"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style="color: var(--brand-accent-text); text-decoration: none; font-size: 13px; font-weight: 600;"
-                                >
-                                    CI/CD →
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-
-                    <article class="feature-card">
-
-                        <div class="feature-icon-box">
-
-                            <i
-                                class="fas fa-search-plus"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-                        <h3>
-                            Investigation
-                        </h3>
-
-                        <p>
-
-                            Root cause analysis of automation failures,
-                            engineering findings documenting investigation
-                            methodology and resolution approach.
-
-                        </p>
-
-                        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
-
-                            <a
-                                href="/projects/erpnext-qa-automation/"
-                                style="color: var(--brand-accent-text); text-decoration: none; font-size: 13px; font-weight: 600;"
-                            >
-                                View Case Study →
-                            </a>
-
-                        </div>
-
-                    </article>
-
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =====================================================
-             EXPERIENCE
+             4. PROFESSIONAL EXPERIENCE (summary)
         ====================================================== -->
 
         <section
@@ -4440,87 +1167,28 @@
                     Professional Experience
                 </h2>
 
+                <div class="exp-card">
 
-                <div class="timeline">
+                    <p class="exp-date">Dec 2024 &ndash; Present</p>
 
+                    <h3>Software QA Engineer / QA Lead</h3>
 
-                    <article class="timeline-card">
+                    <h4>Techno Serve Software Solutions Pvt. Ltd.</h4>
 
-                        <span class="timeline-date">
-                            Dec 2024 - Present
-                        </span>
+                    <p>
+                        Contributing to QA activities across multiple client projects, including functional
+                        testing, regression testing, API validation, payment workflow testing, defect
+                        management and automation.
+                    </p>
 
-                        <h3>
-                            Software QA Engineer / QA Lead
-                        </h3>
+                    <p>
+                        Employer project work is confidential and shown only as generalized summaries.
+                    </p>
 
-                        <h4>
-                            Techno Serve Software Solutions Pvt. Ltd.
-                        </h4>
-
-                        <p>
-
-                            Contributing to QA activities across multiple
-                            client projects, including functional testing,
-                            regression testing, API validation, payment
-                            workflow testing, defect management and
-                            automation.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="timeline-card">
-
-                        <span class="timeline-date">
-                            2023
-                        </span>
-
-                        <h3>
-                            QA Training & Certification
-                        </h3>
-
-                        <h4>
-                            SQUAD Infotech Pvt. Ltd.
-                        </h4>
-
-                        <p>
-
-                            Completed training covering manual testing,
-                            automation fundamentals and SQL database
-                            management.
-
-                        </p>
-
-                    </article>
-
-
-                    <article class="timeline-card">
-
-                        <span class="timeline-date">
-                            2020 - 2022
-                        </span>
-
-                        <h3>
-                            Bachelor of Commerce
-                        </h3>
-
-                        <h4>
-                            MVM College
-                        </h4>
-
-                        <p>
-
-                            Developed a foundation in accounting,
-                            business processes and financial concepts
-                            that supports testing of business-oriented
-                            software applications.
-
-                        </p>
-
-                    </article>
-
+                    <div class="exp-links">
+                        <a href="/about/#professional-experience">Project summaries and approach</a>
+                        <a href="/resume/">Full resume</a>
+                    </div>
 
                 </div>
 
@@ -4530,436 +1198,137 @@
 
 
         <!-- =====================================================
-             FAQ
+             5. TECHNICAL ARTICLES
         ====================================================== -->
 
         <section
-            id="faq"
-            class="section-padding faq-section"
-            aria-labelledby="faq-heading"
+            class="section-padding articles-section"
+            aria-labelledby="articles-heading"
         >
 
             <div class="container">
 
                 <h2
-                    id="faq-heading"
+                    id="articles-heading"
                     class="section-title"
                 >
-                    Frequently Asked Questions
+                    Technical Articles
                 </h2>
 
+                <div class="article-grid">
 
-                <div class="faq-container">
+                    <a href="/blog/payment-gateway-testing-playwright/" class="article-card">
+                        <span class="article-cat">Payment Testing</span>
+                        <h3>How to Test a Payment Gateway with Playwright: API, Webhooks, Refunds, and Failure Scenarios</h3>
+                        <p>Signatures, webhook tampering and idempotency, refund errors and failure scenarios, with test code from a Razorpay Test Mode project and an honest account of its limits.</p>
+                        <span class="article-more">Read article <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
 
-
-                    <div class="faq-item">
-
-                        <button
-                            class="faq-question"
-                            type="button"
-                            aria-expanded="false"
-                            aria-controls="faq-answer-1"
-                        >
-
-                            <span>
-                                Are you available for full-time roles or freelance projects?
-                            </span>
-
-                            <i
-                                class="fas fa-chevron-down"
-                                aria-hidden="true"
-                            ></i>
-
-                        </button>
-
-
-                        <div class="faq-answer" id="faq-answer-1">
-
-                            <div class="faq-answer-inner">
-
-                                <p>
-
-                                    I'm open to full-time QA Engineer roles. I'm based in Mumbai and open to remote, hybrid, or on-site opportunities. Feel free to reach out directly to discuss.
-
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="faq-item">
-
-                        <button
-                            class="faq-question"
-                            type="button"
-                            aria-expanded="false"
-                            aria-controls="faq-answer-2"
-                        >
-
-                            <span>
-                                Can you work with an existing QA process or team?
-                            </span>
-
-                            <i
-                                class="fas fa-chevron-down"
-                                aria-hidden="true"
-                            ></i>
-
-                        </button>
-
-
-                        <div class="faq-answer" id="faq-answer-2">
-
-                            <div class="faq-answer-inner">
-
-                                <p>
-
-                                    Yes. I'm comfortable joining an existing QA workflow, adapting to team tools and processes, and contributing to both manual and automated testing efforts from day one.
-
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="faq-item">
-
-                        <button
-                            class="faq-question"
-                            type="button"
-                            aria-expanded="false"
-                            aria-controls="faq-answer-3"
-                        >
-
-                            <span>
-                                How do you handle confidential client work in your portfolio?
-                            </span>
-
-                            <i
-                                class="fas fa-chevron-down"
-                                aria-hidden="true"
-                            ></i>
-
-                        </button>
-
-
-                        <div class="faq-answer" id="faq-answer-3">
-
-                            <div class="faq-answer-inner">
-
-                                <p>
-
-                                    All professional project examples are intentionally generalized. Client names, proprietary implementation details and internal documentation are omitted unless explicitly authorized for disclosure.
-
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="faq-item">
-
-                        <button
-                            class="faq-question"
-                            type="button"
-                            aria-expanded="false"
-                            aria-controls="faq-answer-4"
-                        >
-
-                            <span>
-                                What is your notice period / when can you start?
-                            </span>
-
-                            <i
-                                class="fas fa-chevron-down"
-                                aria-hidden="true"
-                            ></i>
-
-                        </button>
-
-
-                        <div class="faq-answer" id="faq-answer-4">
-
-                            <div class="faq-answer-inner">
-
-                                <p>
-
-                                    Available to discuss — please reach out via the contact page or email me directly and I'll respond promptly.
-
-                                </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                    <a href="/blog/api-testing-best-practices/" class="article-card">
+                        <span class="article-cat">API Testing</span>
+                        <h3>API Testing Best Practices for QA Engineers</h3>
+                        <p>Endpoint validation, request and response verification, authentication testing and common pitfalls to avoid.</p>
+                        <span class="article-more">Read article <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+                    </a>
 
                 </div>
+
+                <p class="articles-all"><a href="/blog/">All articles</a></p>
 
             </div>
 
         </section>
 
 
+        <!-- =====================================================
+             6. CONTACT CTA
+        ====================================================== -->
+
+        <section
+            id="contact"
+            class="section-padding cta-final"
+            aria-labelledby="contact-heading"
+        >
+
+            <div class="container">
+
+                <h2
+                    id="contact-heading"
+                    class="section-title"
+                >
+                    Let&rsquo;s Talk
+                </h2>
+
+                <p class="cta-text">
+                    I&rsquo;m open to full-time QA Engineer roles and to discussing clearly scoped
+                    freelance testing projects.
+                </p>
+
+                <div class="cta-buttons">
+                    <a href="/contact/" class="btn btn-primary">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        Contact Me
+                    </a>
+                    <a href="/services/#contact" class="btn btn-outline">
+                        <i class="fas fa-clipboard-check" aria-hidden="true"></i>
+                        Discuss a Testing Project
+                    </a>
+                </div>
+
+                <p class="cta-alt">
+                    Prefer a document?
+                    <a href="/resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf" download>Download my resume (PDF)</a>.
+                </p>
+
+            </div>
+
+        </section>
+
     </main>
 
-
-    <!-- =========================================================
-         FOOTER / CONTACT
-    ========================================================== -->
 
     <footer class="site-footer">
 
         <div class="container">
 
-            <div class="footer-grid">
+            <div class="footer-main">
 
-                <!-- BRAND COLUMN -->
-                <div class="footer-column footer-brand">
+                <div class="footer-brand">
+                    <p class="brand-name">Sayed<span>Asif</span></p>
+                    <p class="brand-title">Software QA Engineer</p>
+                    <p class="brand-tagline">API Testing &bull; Playwright Automation</p>
+                </div>
 
-                    <div class="brand-info">
-                        <p class="brand-name">Sayed<span>Asif</span></p>
-                        <p class="brand-title">QA Engineer</p>
-                        <p class="brand-tagline">API Testing • Playwright Automation</p>
-                    </div>
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/services/">Services</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/about/">About</a>
+                    <a href="/capabilities/">Capabilities</a>
+                    <a href="/payments/">Payment Testing</a>
+                </nav>
 
+                <div class="footer-contact">
+                    <a href="/contact/" class="footer-contact-link">Contact</a>
                     <div class="social-links">
-                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-github" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        </a>
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                     </div>
-
-                </div>
-
-                <!-- NAVIGATION COLUMN -->
-                <div class="footer-column">
-
-                    <h2 class="footer-heading">Navigation</h2>
-
-                    <nav class="footer-nav" aria-label="Footer navigation">
-                        <a href="/">Home</a>
-                        <a href="/about/">About</a>
-                        <a href="/proof-of-work/">Proof of Work</a>
-                        <a href="/resume/">Resume</a>
-                        <a href="/contact/">Contact</a>
-                    </nav>
-
-                </div>
-
-                <!-- RESOURCES COLUMN -->
-                <div class="footer-column">
-
-                    <h2 class="footer-heading">Resources</h2>
-
-                    <nav class="footer-nav" aria-label="Footer resources">
-                        <a href="/payments/">Payment Testing</a>
-                        <a href="/capabilities/">Capabilities</a>
-                        <a href="/blog/">Blog</a>
-                    </nav>
-
                 </div>
 
             </div>
 
-            <!-- FOOTER BOTTOM -->
             <div class="footer-bottom">
-
                 <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
-
                 <a href="/privacy/" class="privacy-link">Privacy Notice</a>
-
             </div>
 
         </div>
 
     </footer>
 
-
-    <!-- =========================================================
-         JAVASCRIPT
-    ========================================================== -->
-
-    <!-- Global header navigation behavior (single source of truth) -->
     <script src="/assets/js/global-nav.js" defer></script>
-
-    <script>
-
-        /* Mobile nav + "More" dropdown behavior now live in
-           /assets/js/global-nav.js (single source of truth). */
-
-        /* =====================================================
-           FAQ ACCORDION
-        ====================================================== */
-
-        const faqItems =
-            document.querySelectorAll(".faq-item");
-
-
-        faqItems.forEach(function (item) {
-
-            const question =
-                item.querySelector(".faq-question");
-
-
-            if (!question) {
-                return;
-            }
-
-
-            question.addEventListener(
-                "click",
-                function () {
-
-                    const isCurrentlyOpen =
-                        item.classList.contains("active");
-
-
-                    faqItems.forEach(
-                        function (otherItem) {
-
-                            otherItem.classList.remove(
-                                "active"
-                            );
-
-                            const otherQuestion =
-                                otherItem.querySelector(
-                                    ".faq-question"
-                                );
-
-                            if (otherQuestion) {
-
-                                otherQuestion.setAttribute(
-                                    "aria-expanded",
-                                    "false"
-                                );
-
-                            }
-
-                        }
-                    );
-
-
-                    if (!isCurrentlyOpen) {
-
-                        item.classList.add("active");
-
-                        question.setAttribute(
-                            "aria-expanded",
-                            "true"
-                        );
-
-                    }
-
-                }
-            );
-
-        });
-
-
-        /* =====================================================
-           CURRENT SECTION NAVIGATION
-        ====================================================== */
-
-        const sections =
-            document.querySelectorAll(
-                "main section[id]"
-            );
-
-        const navAnchors =
-            document.querySelectorAll(
-                ".nav-links a[href^='#']"
-            );
-
-
-        if (
-            "IntersectionObserver" in window &&
-            sections.length &&
-            navAnchors.length
-        ) {
-
-            const observer =
-                new IntersectionObserver(
-                    function (entries) {
-
-                        entries.forEach(
-                            function (entry) {
-
-                                if (
-                                    entry.isIntersecting
-                                ) {
-
-                                    navAnchors.forEach(
-                                        function (anchor) {
-
-                                            anchor.classList.remove(
-                                                "active"
-                                            );
-
-                                        }
-                                    );
-
-
-                                    const activeAnchor =
-                                        document.querySelector(
-                                            '.nav-links a[href="#' +
-                                            entry.target.id +
-                                            '"]'
-                                        );
-
-
-                                    if (
-                                        activeAnchor
-                                    ) {
-
-                                        activeAnchor.classList.add(
-                                            "active"
-                                        );
-
-                                    }
-
-                                }
-
-                            }
-                        );
-
-                    },
-                    {
-                        rootMargin:
-                            "-35% 0px -55% 0px"
-                    }
-                );
-
-
-            sections.forEach(
-                function (section) {
-
-                    observer.observe(section);
-
-                }
-            );
-
-        }
-
-        /* "More" dropdown behavior now lives in /assets/js/global-nav.js */
-
-    </script>
-
 
 </body>
 </html>
