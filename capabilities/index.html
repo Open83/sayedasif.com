@@ -113,7 +113,6 @@
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 90px;
         }
 
         body {
@@ -345,7 +344,7 @@
             border-radius: 50%;
         }
 
-        .skill-item h2 {
+        .skill-item h3 {
             font-size: 1.15rem;
             margin-bottom: 12px;
         }
@@ -360,6 +359,93 @@
         /* Old dead footer rules (bare footer/.footer-links/.copyright) and the
            site-footer implementation now live in /assets/css/global-nav.css. */
 
+
+
+        .skill-link {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 4px 0;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--brand-accent-text);
+            text-decoration: none;
+        }
+
+        .skill-link:hover { text-decoration: underline; }
+
+
+        /* =========================================================
+           METHOD, FOCUS AND NEXT STEPS
+        ========================================================= */
+
+        .method-section { background: var(--bg-secondary); }
+
+        .steps-list {
+            list-style: none;
+            counter-reset: step;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .steps-list li {
+            counter-increment: step;
+            background: #ffffff;
+            border: var(--border-light);
+            border-radius: 14px;
+            padding: 24px 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .steps-list li::before {
+            content: counter(step);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--brand-accent-text);
+            color: #ffffff;
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .steps-list h3 { font-size: 1.05rem; margin-bottom: 8px; }
+        .steps-list p { font-size: 0.92rem; line-height: 1.65; color: #5f6b79; }
+
+        .focus-text { max-width: 760px; margin: 0 auto; }
+        .focus-text p { font-size: 1.04rem; line-height: 1.85; margin-bottom: 18px; }
+
+        .next-section { background: var(--bg-secondary); text-align: center; }
+
+        .btn-group { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            min-height: 48px;
+            font-size: 0.96rem;
+        }
+
+        .btn-primary { background: var(--brand-accent-text); color: #ffffff; border: 2px solid var(--brand-accent-text); }
+        .btn-primary:hover { background: var(--brand-accent-text-strong); border-color: var(--brand-accent-text-strong); }
+        .btn-outline { border: 2px solid var(--brand-dark); color: var(--brand-dark); background: transparent; }
+        .btn-outline:hover { background: var(--brand-dark); color: #ffffff; }
+
+        @media (max-width: 1050px) {
+            .steps-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 700px) {
+            .steps-list { grid-template-columns: 1fr; }
+            .btn-group .btn { width: 100%; }
+        }
 
         /* =========================================================
            RESPONSIVE
@@ -512,82 +598,23 @@
 
         <div class="container nav-inner">
 
-            <a
-                href="/"
-                class="logo"
-                aria-label="Sayed Asif home"
-            >
-                Sayed<span>Asif</span>
-            </a>
+            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
 
-            <div
-                class="nav-links"
-                id="navLinks"
-            >
-
-                <a href="/">
-                    Home
-                </a>
-
-                <a href="/about/">
-                    About
-                </a>
-
-                <a href="/proof-of-work/">
-                    Proof of Work
-                </a>
-
-                <a href="/resume/">
-                    Resume
-                </a>
-
-                <a href="/contact/">
-                    Contact
-                </a>
-
-                <div class="nav-dropdown">
-
-                    <button
-                        class="nav-dropdown-toggle"
-                        id="moreButton"
-                        aria-expanded="false"
-                        aria-haspopup="true"
-                        aria-label="More options menu"
-                    >
-                        More
-                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                    </button>
-
-                    <div
-                        class="nav-dropdown-menu"
-                        id="moreMenu"
-                        role="menu"
-                    >
-                        <a href="/payments/" role="menuitem">
-                            Payment Testing
-                        </a>
-                        <a href="/capabilities/" role="menuitem" class="active" aria-current="page">
-                            Capabilities
-                        </a>
-                        <a href="/blog/" role="menuitem">
-                            Blog
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <button
-                class="hamburger"
-                id="menuButton"
-                type="button"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-                aria-controls="navLinks"
-            >
-                <i class="fas fa-bars" aria-hidden="true"></i>
+            <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
+            <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
             </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/proof-of-work/">Projects</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/">Blog</a>
+                <a href="/resume/">Resume</a>
+                <a href="/contact/">Contact</a>
+            </div>
 
         </div>
 
@@ -642,6 +669,8 @@
 
             <div class="container">
 
+                <h2 id="skills-heading" class="section-title">What I Test</h2>
+
                 <div class="skills-grid">
 
 
@@ -652,14 +681,15 @@
                             aria-hidden="true"
                         ></i>
 
-                        <h2>
+                        <h3>
                             Functional Testing
-                        </h2>
+                        </h3>
 
                         <p>
                             Validate application features, user journeys,
                             business rules and expected system behavior
-                            against documented requirements.
+                            against documented requirements, including
+                            exploratory and usability testing.
                         </p>
 
                     </article>
@@ -672,15 +702,17 @@
                             aria-hidden="true"
                         ></i>
 
-                        <h2>
+                        <h3>
                             Payment Testing
-                        </h2>
+                        </h3>
 
                         <p>
                             Test payment workflows, recurring transactions,
                             refunds, failures, redirects and transaction
                             related business logic.
                         </p>
+
+                        <a class="skill-link" href="/payments/">How I approach payment testing</a>
 
                     </article>
 
@@ -692,15 +724,17 @@
                             aria-hidden="true"
                         ></i>
 
-                        <h2>
+                        <h3>
                             API Validation
-                        </h2>
+                        </h3>
 
                         <p>
                             Validate endpoints, payloads, response codes,
                             authentication behavior, data integrity and
                             integration workflows.
                         </p>
+
+                        <a class="skill-link" href="/blog/api-testing-best-practices/">API testing best practices</a>
 
                     </article>
 
@@ -712,9 +746,9 @@
                             aria-hidden="true"
                         ></i>
 
-                        <h2>
+                        <h3>
                             Regression Testing
-                        </h2>
+                        </h3>
 
                         <p>
                             Revalidate existing functionality after changes
@@ -732,9 +766,9 @@
                             aria-hidden="true"
                         ></i>
 
-                        <h2>
+                        <h3>
                             Data Checks (SQL Basics)
-                        </h2>
+                        </h3>
 
                         <p>
                             Foundational SQL for test-data setup and basic
@@ -751,9 +785,9 @@
                             aria-hidden="true"
                         ></i>
 
-                        <h2>
+                        <h3>
                             Defect Management
-                        </h2>
+                        </h3>
 
                         <p>
                             Document reproducible defects, assess severity
@@ -771,15 +805,17 @@
                             aria-hidden="true"
                         ></i>
 
-                        <h2>
+                        <h3>
                             Test Automation
-                        </h2>
+                        </h3>
 
                         <p>
                             Build and maintain automated checks for
                             repeatable workflows and regression coverage
                             where automation provides practical value.
                         </p>
+
+                        <a class="skill-link" href="/proof-of-work/">See the automation projects</a>
 
                     </article>
 
@@ -791,9 +827,9 @@
                             aria-hidden="true"
                         ></i>
 
-                        <h2>
+                        <h3>
                             Cross-Platform Testing
-                        </h2>
+                        </h3>
 
                         <p>
                             Validate responsive web interfaces across
@@ -804,6 +840,102 @@
                     </article>
 
 
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             HOW I TEST (moved from About / homepage)
+        ====================================================== -->
+
+        <section
+            class="section-padding method-section"
+            aria-labelledby="method-heading"
+        >
+
+            <div class="container">
+
+                <h2 id="method-heading" class="section-title">How I Test</h2>
+
+                <p class="section-intro">
+                    A structured QA workflow, from requirements to release verification.
+                </p>
+
+                <ol class="steps-list">
+                    <li>
+                        <h3>Understand</h3>
+                        <p>Review requirements, user stories and business rules to understand expected behavior and integration points.</p>
+                    </li>
+                    <li>
+                        <h3>Design Tests</h3>
+                        <p>Create test cases covering happy path, edge cases, boundary conditions, failure scenarios and realistic user workflows.</p>
+                    </li>
+                    <li>
+                        <h3>Execute &amp; Document</h3>
+                        <p>Run manual test cycles, identify defects, and document findings with clear reproduction steps, expected vs actual results and supporting evidence.</p>
+                    </li>
+                    <li>
+                        <h3>Automate</h3>
+                        <p>Implement Playwright automation for repeatable workflows: page objects in the UI projects, an API client layer in the API project, and GitHub Actions CI.</p>
+                    </li>
+                    <li>
+                        <h3>Verify &amp; Report</h3>
+                        <p>Validate fixes, run regression suites, confirm CI pipeline stability and report release readiness with clear quality findings.</p>
+                    </li>
+                </ol>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             WHAT I FOCUS ON (moved from About)
+        ====================================================== -->
+
+        <section
+            class="section-padding focus-section"
+            aria-labelledby="focus-heading"
+        >
+
+            <div class="container">
+
+                <h2 id="focus-heading" class="section-title">What I Focus On</h2>
+
+                <div class="focus-text">
+                    <p>My testing approach starts with understanding the requirements and expected behaviour of a feature. From there, I design test scenarios that cover normal workflows, invalid inputs, boundary conditions, failures, and unexpected user actions.</p>
+                    <p>When a defect is identified, I focus on providing clear reproduction steps, expected and actual results, supporting evidence, and enough technical context for developers to investigate efficiently.</p>
+                    <p>I also consider areas such as API behaviour, data validation, authentication flows, browser compatibility, responsive layouts, payment workflows, and regression impact where they are relevant to the product.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             NEXT STEPS
+        ====================================================== -->
+
+        <section
+            class="section-padding next-section"
+            aria-labelledby="next-heading"
+        >
+
+            <div class="container">
+
+                <h2 id="next-heading" class="section-title">See It in Practice</h2>
+
+                <p class="section-intro">
+                    Public projects show these methods applied; services describe how I can apply them to your application.
+                </p>
+
+                <div class="btn-group">
+                    <a href="/proof-of-work/" class="btn btn-primary">Browse Projects</a>
+                    <a href="/services/" class="btn btn-outline">Explore QA Services</a>
                 </div>
 
             </div>
@@ -821,68 +953,37 @@
 
         <div class="container">
 
-            <div class="footer-grid">
+            <div class="footer-main">
 
-                <!-- BRAND COLUMN -->
-                <div class="footer-column footer-brand">
+                <div class="footer-brand">
+                    <p class="brand-name">Sayed<span>Asif</span></p>
+                    <p class="brand-title">Software QA Engineer</p>
+                    <p class="brand-tagline">API Testing &bull; Playwright Automation</p>
+                </div>
 
-                    <div class="brand-info">
-                        <p class="brand-name">Sayed<span>Asif</span></p>
-                        <p class="brand-title">QA Engineer</p>
-                        <p class="brand-tagline">API Testing • Playwright Automation</p>
-                    </div>
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/services/">Services</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/about/">About</a>
+                    <a href="/capabilities/">Capabilities</a>
+                    <a href="/payments/">Payment Testing</a>
+                </nav>
 
+                <div class="footer-contact">
+                    <a href="/contact/" class="footer-contact-link">Contact</a>
                     <div class="social-links">
-                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-github" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        </a>
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                     </div>
-
-                </div>
-
-                <!-- NAVIGATION COLUMN -->
-                <div class="footer-column">
-
-                    <h2 class="footer-heading">Navigation</h2>
-
-                    <nav class="footer-nav" aria-label="Footer navigation">
-                        <a href="/">Home</a>
-                        <a href="/about/">About</a>
-                        <a href="/proof-of-work/">Proof of Work</a>
-                        <a href="/resume/">Resume</a>
-                        <a href="/contact/">Contact</a>
-                    </nav>
-
-                </div>
-
-                <!-- RESOURCES COLUMN -->
-                <div class="footer-column">
-
-                    <h2 class="footer-heading">Resources</h2>
-
-                    <nav class="footer-nav" aria-label="Footer resources">
-                        <a href="/payments/">Payment Testing</a>
-                        <a href="/capabilities/">Capabilities</a>
-                        <a href="/blog/">Blog</a>
-                    </nav>
-
                 </div>
 
             </div>
 
-            <!-- FOOTER BOTTOM -->
             <div class="footer-bottom">
-
                 <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
-
                 <a href="/privacy/" class="privacy-link">Privacy Notice</a>
-
             </div>
 
         </div>

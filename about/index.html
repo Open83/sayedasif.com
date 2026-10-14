@@ -421,6 +421,20 @@
            MAIN CONTENT
         ====================================================== */
 
+        /* .section sets "padding: Npx 0", which removed the side padding that
+           .container provides; restore it for elements that use both classes. */
+        .container.section {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container.section {
+                padding-left: 17px;
+                padding-right: 17px;
+            }
+        }
+
         .section {
 
             padding:
@@ -1350,7 +1364,113 @@
 
         }
 
-    </style>
+
+        /* =========================================================
+           HOW I TEST / PROFESSIONAL EXPERIENCE (moved from the homepage)
+        ========================================================= */
+
+        .pro-experience .portfolio-disclosure {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--brand-primary);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 36px;
+        }
+
+        .pro-experience .portfolio-disclosure p { color: var(--brand-text); font-size: 0.96rem; line-height: 1.7; }
+        .pro-experience .portfolio-disclosure a { color: var(--brand-accent-text); font-weight: 700; }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            border: var(--border-light);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-img-wrapper { height: 170px; overflow: hidden; background: #e0f7ff; }
+        .project-img { width: 100%; height: 100%; object-fit: cover; }
+        .project-content { padding: 22px; flex-grow: 1; display: flex; flex-direction: column; }
+
+        .project-category {
+            font-size: 0.74rem;
+            color: var(--brand-accent-text);
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            font-weight: 800;
+            margin-bottom: 9px;
+        }
+
+        .project-title { font-size: 1.15rem; margin-bottom: 10px; color: var(--brand-dark); }
+        .project-desc { color: var(--brand-muted); font-size: 0.93rem; margin-bottom: 16px; line-height: 1.65; flex-grow: 1; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        .tech-pill {
+            font-size: 0.73rem;
+            background: var(--bg-secondary);
+            padding: 6px 11px;
+            border-radius: 20px;
+            color: var(--brand-muted);
+            font-weight: 700;
+        }
+
+        .areas-heading { font-size: 1.3rem; margin: 48px 0 8px; color: var(--brand-dark); }
+        .areas-intro { color: var(--brand-muted); font-size: 0.96rem; margin-bottom: 18px; max-width: 760px; }
+
+        .areas-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 32px;
+        }
+
+        .areas-list li { font-size: 0.95rem; line-height: 1.65; color: var(--brand-text); }
+        .areas-list strong { color: var(--brand-dark); }
+
+        @media (max-width: 1050px) {
+            .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 700px) {
+            .project-grid,
+            .areas-list { grid-template-columns: 1fr; }
+        }
+
+
+        .see-also { margin-top: 24px; color: #5f6b79; font-size: 0.97rem; line-height: 1.7; }
+        .see-also a { color: var(--brand-accent-text); font-weight: 700; }
+
+        .pro-lead { color: var(--brand-text); font-size: 1.02rem; line-height: 1.8; max-width: 860px; margin: 0 0 28px; }
+
+        .edu-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+
+        .edu-list li {
+            background: #ffffff;
+            border: var(--border-light);
+            border-left: 5px solid var(--brand-primary);
+            border-radius: 12px;
+            padding: 22px 24px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .edu-date { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.8px; text-transform: uppercase; color: var(--brand-accent-text); margin-bottom: 4px; }
+        .edu-list h3 { font-size: 1.15rem; margin-bottom: 2px; color: var(--brand-dark); }
+        .edu-org { color: var(--brand-muted); font-weight: 600; font-size: 0.93rem; margin-bottom: 10px; }
+        .edu-list li p:last-child { color: var(--brand-muted); font-size: 0.94rem; line-height: 1.65; }
+        .edu-more { margin-top: 18px; font-weight: 700; }
+        .edu-more a { color: var(--brand-accent-text); }
+
+        @media (max-width: 700px) { .edu-list { grid-template-columns: 1fr; } }
+
+</style>
 
 </head>
 
@@ -1368,94 +1488,23 @@
 
         <div class="container nav-inner">
 
+            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
 
-            <a
-                href="/"
-                class="logo"
-                aria-label="Sayed Asif home"
-            >
-                Sayed<span>Asif</span>
-            </a>
-
-
-            <div
-                class="nav-links"
-                id="navLinks"
-            >
-
-                <a href="/">
-                    Home
-                </a>
-
-                <a
-                    href="/about/"
-                    class="active"
-                    aria-current="page"
-                >
-                    About
-                </a>
-
-                <a href="/proof-of-work/">
-                    Proof of Work
-                </a>
-
-                <a href="/resume/">
-                    Resume
-                </a>
-
-                <a href="/contact/">
-                    Contact
-                </a>
-
-                <div class="nav-dropdown">
-
-                    <button
-                        class="nav-dropdown-toggle"
-                        id="moreButton"
-                        aria-expanded="false"
-                        aria-haspopup="true"
-                        aria-label="More options menu"
-                    >
-                        More
-                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                    </button>
-
-                    <div
-                        class="nav-dropdown-menu"
-                        id="moreMenu"
-                        role="menu"
-                    >
-                        <a href="/payments/" role="menuitem">
-                            Payment Testing
-                        </a>
-                        <a href="/capabilities/" role="menuitem">
-                            Capabilities
-                        </a>
-                        <a href="/blog/" role="menuitem">
-                            Blog
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="hamburger"
-                id="menuButton"
-                type="button"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-                aria-controls="navLinks"
-            >
-
-                <i
-                    class="fas fa-bars"
-                    aria-hidden="true"
-                ></i>
-
+            <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
+            <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
             </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/about/" class="active" aria-current="page">About</a>
+                <a href="/proof-of-work/">Projects</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/">Blog</a>
+                <a href="/resume/">Resume</a>
+                <a href="/contact/">Contact</a>
+            </div>
 
         </div>
 
@@ -1594,6 +1643,20 @@
 
                     </p>
 
+
+                    <p>
+                        <strong>Quality is not an afterthought.</strong>
+                        I approach software testing as a critical thinking exercise: understanding how
+                        products fail, validating that systems behave correctly under real conditions,
+                        and providing clear evidence to inform release decisions.
+                    </p>
+
+                    <p>
+                        <strong>Every test is intentional.</strong>
+                        I write automation that catches real bugs, validates business logic, and scales
+                        with your system. No cargo-cult testing. No false confidence from high test counts.
+                    </p>
+
                 </div>
 
 
@@ -1602,47 +1665,11 @@
                      EXPERIENCE
                 ================================================== -->
 
-                <div class="content-block">
-
-                    <h2>
-                        What I Focus On
-                    </h2>
-
-
-                    <p>
-
-                        My testing approach starts with understanding
-                        the requirements and expected behaviour of a
-                        feature. From there, I design test scenarios
-                        that cover normal workflows, invalid inputs,
-                        boundary conditions, failures, and unexpected
-                        user actions.
-
+                <p class="see-also">
+                        The skills and testing methods behind this approach are on the
+                        <a href="/capabilities/">QA Capabilities</a> page; independent projects that apply them are on
+                        <a href="/proof-of-work/">Projects</a>.
                     </p>
-
-
-                    <p>
-
-                        When a defect is identified, I focus on
-                        providing clear reproduction steps,
-                        expected and actual results, supporting
-                        evidence, and enough technical context for
-                        developers to investigate efficiently.
-
-                    </p>
-
-
-                    <p>
-
-                        I also consider areas such as API behaviour,
-                        data validation, authentication flows,
-                        browser compatibility, responsive layouts,
-                        payment workflows, and regression impact
-                        where they are relevant to the product.
-
-                    </p>
-
-                </div>
 
             </div>
 
@@ -1651,227 +1678,450 @@
 
 
         <!-- =================================================
-             EXPERTISE
+             PROFESSIONAL QA EXPERIENCE (moved from the homepage)
         ================================================== -->
 
         <section
-            class="expertise-section"
-            aria-labelledby="expertise-heading"
+            id="professional-experience"
+            class="container section pro-experience"
+            aria-labelledby="pro-experience-heading"
         >
 
-            <div class="container">
-
-
-                <div class="section-heading">
-
-                    <h2 id="expertise-heading">
-                        Testing Areas
-                    </h2>
-
-
-                    <p>
-
-                        Areas of software quality assurance that
-                        form part of my testing approach.
-
-                    </p>
-
-                </div>
-
-
-                <div class="expertise-grid">
-
-
-                    <!-- CARD 1 -->
-
-                    <article class="expertise-card">
-
-                        <div class="expertise-icon">
-
-                            <i
-                                class="fas fa-clipboard-check"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-
-                        <h3>
-                            Manual Testing
-                        </h3>
-
-
-                        <p>
-
-                            Functional, exploratory, regression,
-                            usability, and scenario-based testing
-                            focused on product behaviour.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <!-- CARD 2 -->
-
-                    <article class="expertise-card">
-
-                        <div class="expertise-icon">
-
-                            <i
-                                class="fas fa-code"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-
-                        <h3>
-                            Test Automation
-                        </h3>
-
-
-                        <p>
-
-                            Creating and maintaining automated
-                            tests for repeatable workflows and
-                            regression coverage.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <!-- CARD 3 -->
-
-                    <article class="expertise-card">
-
-                        <div class="expertise-icon">
-
-                            <i
-                                class="fas fa-network-wired"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-
-                        <h3>
-                            API Testing
-                        </h3>
-
-
-                        <p>
-
-                            Validating API requests, responses,
-                            status codes, data handling, error
-                            scenarios, and integration behaviour.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <!-- CARD 4 -->
-
-                    <article class="expertise-card">
-
-                        <div class="expertise-icon">
-
-                            <i
-                                class="fas fa-bug"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-
-                        <h3>
-                            Defect Analysis
-                        </h3>
-
-
-                        <p>
-
-                            Reproducing issues, documenting defects
-                            clearly, and providing useful information
-                            for investigation and resolution.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <!-- CARD 5 -->
-
-                    <article class="expertise-card">
-
-                        <div class="expertise-icon">
-
-                            <i
-                                class="fas fa-credit-card"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-
-                        <h3>
-                            Payment Testing
-                        </h3>
-
-
-                        <p>
-
-                            Testing transaction flows, authentication,
-                            failures, refunds, retries, and other
-                            payment-related edge cases.
-
-                        </p>
-
-                    </article>
-
-
-
-                    <!-- CARD 6 -->
-
-                    <article class="expertise-card">
-
-                        <div class="expertise-icon">
-
-                            <i
-                                class="fas fa-mobile-screen-button"
-                                aria-hidden="true"
-                            ></i>
-
-                        </div>
-
-
-                        <h3>
-                            Responsive Testing
-                        </h3>
-
-
-                        <p>
-
-                            Checking application behaviour and
-                            usability across desktop, tablet,
-                            and mobile screen sizes.
-
-                        </p>
-
-                    </article>
-
-                </div>
+            <div class="section-heading">
+                <h2 id="pro-experience-heading">
+                    Professional QA Experience
+                </h2>
+                <p>
+                    Employer project work: confidential, shown only as generalized summaries.
+                </p>
+            </div>
+
+            <p class="pro-lead">
+                Software QA Engineer specializing in manual testing, API validation, and Playwright automation.
+                I have validated critical workflows across web applications, payment processing, business
+                management systems, CRM platforms, donation management systems and logistics operations.
+                I focus on validating business workflows, documenting reproducible defects with clear evidence,
+                and building Playwright automation whose code and CI workflows can be inspected on GitHub.
+            </p>
+
+            <div class="portfolio-disclosure">
+                <p>
+                    <strong>Portfolio disclosure:</strong>
+                    The examples below represent selected areas of professional QA experience.
+                    Project names, client identities, proprietary implementation details,
+                    credentials, test data and other restricted information are intentionally
+                    omitted unless authorized for public disclosure. For independent projects with
+                    public source code, see <a href="/proof-of-work/">Projects</a>.
+                </p>
+            </div>
+
+            <div class="project-grid" id="professional-projects">
+
+<article class="project-card">
+
+        <div class="project-img-wrapper">
+
+            <img
+                src="/image/Donation Management.png"
+                alt="Payment workflow testing project"
+                class="project-img"
+                loading="lazy"
+                width="600"
+                height="400"
+            >
+
+        </div>
+
+
+        <div class="project-content">
+
+            <span class="project-category">
+                Non-Profit Platform
+            </span>
+
+            <h3 class="project-title">
+                Donation Management Platform
+            </h3>
+
+            <p class="project-desc">
+
+                Tested donation and payment workflows,
+                including recurring transactions,
+                failure scenarios and business-rule
+                validation.
+
+            </p>
+
+
+            <div class="tech-stack">
+
+                <span class="tech-pill">
+                    Payment Testing
+                </span>
+
+                <span class="tech-pill">
+                    Regression
+                </span>
+
+                <span class="tech-pill">
+                    API Validation
+                </span>
+
+                <span class="tech-pill">
+                    CMS Testing
+                </span>
 
             </div>
 
+        </div>
+
+    </article>
+
+<article class="project-card">
+
+        <div class="project-img-wrapper">
+
+            <img
+                src="/image/Donation.png"
+                alt="Charity management software testing project"
+                class="project-img"
+                loading="lazy"
+                width="600"
+                height="400"
+            >
+
+        </div>
+
+
+        <div class="project-content">
+
+            <span class="project-category">
+                Business Management Platform
+            </span>
+
+            <h3 class="project-title">
+                Management & CRM Platform
+            </h3>
+
+            <p class="project-desc">
+
+                Performed end-to-end QA across CRM,
+                financial workflows, reporting,
+                user permissions and business-critical
+                application modules.
+
+            </p>
+
+
+            <div class="tech-stack">
+
+                <span class="tech-pill">
+                    E2E Testing
+                </span>
+
+                <span class="tech-pill">
+                    CRM Testing
+                </span>
+
+                <span class="tech-pill">
+                    Data Validation
+                </span>
+
+                <span class="tech-pill">
+                    RBAC
+                </span>
+
+            </div>
+
+        </div>
+
+    </article>
+
+<article class="project-card">
+
+        <div class="project-img-wrapper">
+
+            <img
+                src="/image/Logistics.png"
+                alt="Logistics management platform testing"
+                class="project-img"
+                loading="lazy"
+                width="600"
+                height="400"
+            >
+
+        </div>
+
+
+        <div class="project-content">
+
+            <span class="project-category">
+                Logistics & Supply Chain
+            </span>
+
+            <h3 class="project-title">
+                Logistics Management Platform
+            </h3>
+
+            <p class="project-desc">
+
+                Tested shipment and logistics workflows,
+                status updates, business rules, data
+                consistency and regression scenarios.
+
+            </p>
+
+
+            <div class="tech-stack">
+
+                <span class="tech-pill">
+                    Functional Testing
+                </span>
+
+                <span class="tech-pill">
+                    Real-Time Data
+                </span>
+
+                <span class="tech-pill">
+                    Regression
+                </span>
+
+            </div>
+
+        </div>
+
+    </article>
+
+<article class="project-card">
+
+        <div class="project-img-wrapper">
+
+            <img
+                src="/image/Management.png"
+                alt="Donation platform quality assurance project"
+                class="project-img"
+                loading="lazy"
+                width="600"
+                height="400"
+            >
+
+        </div>
+
+
+        <div class="project-content">
+
+            <span class="project-category">
+                Non-Profit Platform
+            </span>
+
+            <h3 class="project-title">
+                Donation & Volunteer Platform
+            </h3>
+
+            <p class="project-desc">
+
+                Validated donor-facing workflows,
+                role-based functionality, data handling
+                and application behavior across multiple
+                user journeys.
+
+            </p>
+
+
+            <div class="tech-stack">
+
+                <span class="tech-pill">
+                    Functional Testing
+                </span>
+
+                <span class="tech-pill">
+                    Security Checks
+                </span>
+
+                <span class="tech-pill">
+                    RBAC
+                </span>
+
+                <span class="tech-pill">
+                    Regression
+                </span>
+
+            </div>
+
+        </div>
+
+    </article>
+
+<article class="project-card">
+
+        <div class="project-img-wrapper">
+
+            <img
+                src="/image/Multi.png"
+                alt="International donation workflow testing"
+                class="project-img"
+                loading="lazy"
+                width="600"
+                height="400"
+            >
+
+        </div>
+
+
+        <div class="project-content">
+
+            <span class="project-category">
+                International Platform
+            </span>
+
+            <h3 class="project-title">
+                Multi-Currency Donation Platform
+            </h3>
+
+            <p class="project-desc">
+
+                Tested donation workflows involving
+                multi-currency scenarios, transaction
+                behavior, validation rules and regression
+                coverage.
+
+            </p>
+
+
+            <div class="tech-stack">
+
+                <span class="tech-pill">
+                    Multi-Currency
+                </span>
+
+                <span class="tech-pill">
+                    Payment Testing
+                </span>
+
+                <span class="tech-pill">
+                    API Testing
+                </span>
+
+                <span class="tech-pill">
+                    Regression
+                </span>
+
+            </div>
+
+        </div>
+
+    </article>
+
+<article class="project-card">
+
+        <div class="project-img-wrapper">
+
+            <img
+                src="/image/Data Management.png"
+                alt="Data management software testing project"
+                class="project-img"
+                loading="lazy"
+                width="600"
+                height="400"
+            >
+
+        </div>
+
+
+        <div class="project-content">
+
+            <span class="project-category">
+                Data & Business Platform
+            </span>
+
+            <h3 class="project-title">
+                Data Management Application
+            </h3>
+
+            <p class="project-desc">
+
+                Validated data-driven workflows,
+                reporting behavior, data consistency,
+                business rules and user-facing
+                application functionality.
+
+            </p>
+
+
+            <div class="tech-stack">
+
+                <span class="tech-pill">
+                    Data Integrity
+                </span>
+
+                <span class="tech-pill">
+                    Functional Testing
+                </span>
+
+                <span class="tech-pill">
+                    Reporting
+                </span>
+
+            </div>
+
+        </div>
+
+    </article>
+
+            </div>
+
+            <h3 class="areas-heading">Representative areas of work</h3>
+            <p class="areas-intro">
+                A generalized example of QA activities performed on a business management
+                application. Client identity and proprietary implementation details have been
+                intentionally omitted.
+            </p>
+
+            <ul class="areas-list">
+                <li><strong>Financial Workflows.</strong> Validated financial and donation-related calculations, eligibility rules, transaction scenarios and reporting behavior against documented requirements.</li>
+                <li><strong>CRM &amp; Data Management.</strong> Tested user profiles, data entry, record updates, interaction history, search, filtering and data consistency across application workflows.</li>
+                <li><strong>Access Control.</strong> Validated role-based access behavior and checked that users could access only the functionality and information appropriate to their assigned permissions.</li>
+                <li><strong>Payment Workflows.</strong> Tested successful and unsuccessful payment scenarios, recurring transactions, refunds, redirects and related application behavior.</li>
+                <li><strong>Reporting &amp; Validation.</strong> Verified application reports, calculated values, filtering, data consistency and expected results across representative scenarios.</li>
+                <li><strong>Responsive Testing.</strong> Tested user-facing workflows across different browsers, viewport sizes and mobile devices to identify layout and usability issues.</li>
+            </ul>
+
         </section>
 
+
+        <!-- =================================================
+             TRAINING AND EDUCATION (moved from the homepage)
+        ================================================== -->
+
+        <section
+            class="container section edu-section"
+            aria-labelledby="edu-heading"
+        >
+
+            <div class="section-heading">
+                <h2 id="edu-heading">
+                    Training &amp; Education
+                </h2>
+            </div>
+
+            <ul class="edu-list">
+                <li>
+                    <p class="edu-date">2023</p>
+                    <h3>QA Training &amp; Certification</h3>
+                    <p class="edu-org">SQUAD Infotech Pvt. Ltd.</p>
+                    <p>Completed training covering manual testing, automation fundamentals and SQL database management.</p>
+                </li>
+                <li>
+                    <p class="edu-date">2020 &ndash; 2022</p>
+                    <h3>Bachelor of Commerce</h3>
+                    <p class="edu-org">MVM College</p>
+                    <p>Developed a foundation in accounting, business processes and financial concepts that supports testing of business-oriented software applications.</p>
+                </li>
+            </ul>
+
+            <p class="edu-more"><a href="/resume/">Full resume</a></p>
+
+        </section>
 
 
         <!-- =================================================
@@ -1960,7 +2210,8 @@
 
                     For professional enquiries, collaboration,
                     or QA-related discussions, you can get in
-                    touch with me directly.
+                    touch with me directly. For freelance testing
+                    work, see <a href="/services/" style="color: inherit; font-weight: 700; text-decoration: underline;">QA Services</a>.
 
                 </p>
 
@@ -1996,68 +2247,37 @@
 
         <div class="container">
 
-            <div class="footer-grid">
+            <div class="footer-main">
 
-                <!-- BRAND COLUMN -->
-                <div class="footer-column footer-brand">
+                <div class="footer-brand">
+                    <p class="brand-name">Sayed<span>Asif</span></p>
+                    <p class="brand-title">Software QA Engineer</p>
+                    <p class="brand-tagline">API Testing &bull; Playwright Automation</p>
+                </div>
 
-                    <div class="brand-info">
-                        <p class="brand-name">Sayed<span>Asif</span></p>
-                        <p class="brand-title">QA Engineer</p>
-                        <p class="brand-tagline">API Testing • Playwright Automation</p>
-                    </div>
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/services/">Services</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/about/">About</a>
+                    <a href="/capabilities/">Capabilities</a>
+                    <a href="/payments/">Payment Testing</a>
+                </nav>
 
+                <div class="footer-contact">
+                    <a href="/contact/" class="footer-contact-link">Contact</a>
                     <div class="social-links">
-                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-github" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        </a>
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                     </div>
-
-                </div>
-
-                <!-- NAVIGATION COLUMN -->
-                <div class="footer-column">
-
-                    <h2 class="footer-heading">Navigation</h2>
-
-                    <nav class="footer-nav" aria-label="Footer navigation">
-                        <a href="/">Home</a>
-                        <a href="/about/">About</a>
-                        <a href="/proof-of-work/">Proof of Work</a>
-                        <a href="/resume/">Resume</a>
-                        <a href="/contact/">Contact</a>
-                    </nav>
-
-                </div>
-
-                <!-- RESOURCES COLUMN -->
-                <div class="footer-column">
-
-                    <h2 class="footer-heading">Resources</h2>
-
-                    <nav class="footer-nav" aria-label="Footer resources">
-                        <a href="/payments/">Payment Testing</a>
-                        <a href="/capabilities/">Capabilities</a>
-                        <a href="/blog/">Blog</a>
-                    </nav>
-
                 </div>
 
             </div>
 
-            <!-- FOOTER BOTTOM -->
             <div class="footer-bottom">
-
                 <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
-
                 <a href="/privacy/" class="privacy-link">Privacy Notice</a>
-
             </div>
 
         </div>

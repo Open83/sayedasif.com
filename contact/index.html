@@ -35,6 +35,48 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
+    <!-- Structured data: FAQ (moved from the homepage) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Are you available for full-time roles or freelance projects?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "I'm open to full-time QA Engineer roles and to discussing clearly scoped freelance testing projects. For freelance work, see the Services page: scope, access and deliverables are agreed before any work begins. I'm based in Mumbai and open to remote, hybrid, or on-site roles."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can you work with an existing QA process or team?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. I'm comfortable joining an existing QA workflow, adapting to team tools and processes, and contributing to both manual and automated testing efforts from day one."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do you handle confidential client work in your portfolio?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "All professional project examples are intentionally generalized. Client names, proprietary implementation details and internal documentation are omitted unless explicitly authorized for disclosure."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is your notice period / when can you start?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Available to discuss — please reach out via the contact page or email me directly and I'll respond promptly."
+                }
+            }
+        ]
+    }
+    </script>
+
     <!-- Global header/footer styles (single source of truth) -->
     <link rel="stylesheet" href="/assets/css/global-nav.css">
 
@@ -64,7 +106,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+        html { scroll-behavior: smooth; }
 
         body {
             background-color: var(--bg-main);
@@ -443,7 +485,59 @@
                 animation-iteration-count: 1 !important;
             }
         }
-    </style>
+
+        /* =====================================================
+           FAQ (native details/summary, moved from the homepage)
+        ===================================================== */
+        .faq-block {
+            max-width: 820px;
+            margin: 70px auto 0;
+        }
+
+        .faq-block h2 {
+            font-size: 1.7rem;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .faq-item {
+            background: var(--bg-main);
+            border: var(--border-light);
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+
+        .faq-item summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 18px 22px;
+            font-weight: 700;
+            color: var(--brand-dark);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .faq-item summary::-webkit-details-marker { display: none; }
+
+        .faq-item summary::after {
+            content: "+";
+            font-size: 1.4rem;
+            line-height: 1;
+            color: var(--brand-accent-text);
+            flex-shrink: 0;
+        }
+
+        .faq-item[open] summary::after { content: "\2212"; }
+
+        .faq-item p {
+            padding: 0 22px 20px;
+            color: #5f6b79;
+            line-height: 1.75;
+        }
+
+</style>
 </head>
 
 <body>
@@ -456,87 +550,23 @@
 
         <div class="container nav-inner">
 
-            <a
-                href="/"
-                class="logo"
-                aria-label="Sayed Asif home"
-            >
-                Sayed<span>Asif</span>
-            </a>
+            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
 
-            <div
-                class="nav-links"
-                id="navLinks"
-            >
-
-                <a href="/">
-                    Home
-                </a>
-
-                <a href="/about/">
-                    About
-                </a>
-
-                <a href="/proof-of-work/">
-                    Proof of Work
-                </a>
-
-                <a href="/resume/">
-                    Resume
-                </a>
-
-                <a href="/contact/" class="active" aria-current="page">
-                    Contact
-                </a>
-
-                <div class="nav-dropdown">
-
-                    <button
-                        class="nav-dropdown-toggle"
-                        id="moreButton"
-                        aria-expanded="false"
-                        aria-haspopup="true"
-                        aria-label="More options menu"
-                    >
-                        More
-                        <i class="fas fa-chevron-down" aria-hidden="true"></i>
-                    </button>
-
-                    <div
-                        class="nav-dropdown-menu"
-                        id="moreMenu"
-                        role="menu"
-                    >
-                        <a href="/payments/" role="menuitem">
-                            Payment Testing
-                        </a>
-                        <a href="/capabilities/" role="menuitem">
-                            Capabilities
-                        </a>
-                        <a href="/blog/" role="menuitem">
-                            Blog
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <button
-                class="hamburger"
-                id="menuButton"
-                type="button"
-                aria-label="Open navigation menu"
-                aria-expanded="false"
-                aria-controls="navLinks"
-            >
-
-                <i
-                    class="fas fa-bars"
-                    aria-hidden="true"
-                ></i>
-
+            <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
+            <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
             </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/proof-of-work/">Projects</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/">Blog</a>
+                <a href="/resume/">Resume</a>
+                <a href="/contact/" class="active" aria-current="page">Contact</a>
+            </div>
 
         </div>
 
@@ -550,7 +580,7 @@
             <!-- Page Header -->
             <div class="contact-hero">
                 <h1>Let's Talk About Quality</h1>
-                <p>For professional opportunities, QA discussions or collaboration — reach out directly.</p>
+                <p>For professional opportunities, QA discussions or collaboration, reach out directly. Looking for freelance testing support? See <a href="/services/" style="color: var(--brand-accent-text); font-weight: 700;">QA Services</a> first.</p>
             </div>
 
             <!-- Contact Section -->
@@ -687,12 +717,33 @@
                     <div class="contact-card">
                         <h2>Availability</h2>
                         <div class="availability-box">
-                            Currently open to full-time QA Engineer roles. Remote, hybrid and on-site opportunities considered.
+                            Currently open to full-time QA Engineer roles. Remote, hybrid and on-site opportunities considered. For freelance testing work, see <a href="/services/">QA Services</a>: scope and deliverables are agreed before any work begins.
                         </div>
                     </div>
 
                 </aside>
             </div>
+
+            <!-- FAQ (moved from the homepage) -->
+            <section class="faq-block" aria-labelledby="faq-heading">
+                <h2 id="faq-heading">Frequently Asked Questions</h2>
+                <details class="faq-item">
+                    <summary>Are you available for full-time roles or freelance projects?</summary>
+                    <p>I'm open to full-time QA Engineer roles and to discussing clearly scoped freelance testing projects. For freelance work, see the Services page: scope, access and deliverables are agreed before any work begins. I'm based in Mumbai and open to remote, hybrid, or on-site roles.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>Can you work with an existing QA process or team?</summary>
+                    <p>Yes. I'm comfortable joining an existing QA workflow, adapting to team tools and processes, and contributing to both manual and automated testing efforts from day one.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>How do you handle confidential client work in your portfolio?</summary>
+                    <p>All professional project examples are intentionally generalized. Client names, proprietary implementation details and internal documentation are omitted unless explicitly authorized for disclosure.</p>
+                </details>
+                <details class="faq-item">
+                    <summary>What is your notice period / when can you start?</summary>
+                    <p>Available to discuss — please reach out via the contact page or email me directly and I'll respond promptly.</p>
+                </details>
+            </section>
 
         </div>
     </main>
@@ -701,68 +752,37 @@
 
         <div class="container">
 
-            <div class="footer-grid">
+            <div class="footer-main">
 
-                <!-- BRAND COLUMN -->
-                <div class="footer-column footer-brand">
+                <div class="footer-brand">
+                    <p class="brand-name">Sayed<span>Asif</span></p>
+                    <p class="brand-title">Software QA Engineer</p>
+                    <p class="brand-tagline">API Testing &bull; Playwright Automation</p>
+                </div>
 
-                    <div class="brand-info">
-                        <p class="brand-name">Sayed<span>Asif</span></p>
-                        <p class="brand-title">QA Engineer</p>
-                        <p class="brand-tagline">API Testing • Playwright Automation</p>
-                    </div>
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/services/">Services</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/about/">About</a>
+                    <a href="/capabilities/">Capabilities</a>
+                    <a href="/payments/">Payment Testing</a>
+                </nav>
 
+                <div class="footer-contact">
+                    <a href="/contact/" class="footer-contact-link">Contact</a>
                     <div class="social-links">
-                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-github" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin" aria-hidden="true"></i>
-                        </a>
-                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                        </a>
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                     </div>
-
-                </div>
-
-                <!-- NAVIGATION COLUMN -->
-                <div class="footer-column">
-
-                    <h2 class="footer-heading">Navigation</h2>
-
-                    <nav class="footer-nav" aria-label="Footer navigation">
-                        <a href="/">Home</a>
-                        <a href="/about/">About</a>
-                        <a href="/proof-of-work/">Proof of Work</a>
-                        <a href="/resume/">Resume</a>
-                        <a href="/contact/">Contact</a>
-                    </nav>
-
-                </div>
-
-                <!-- RESOURCES COLUMN -->
-                <div class="footer-column">
-
-                    <h2 class="footer-heading">Resources</h2>
-
-                    <nav class="footer-nav" aria-label="Footer resources">
-                        <a href="/payments/">Payment Testing</a>
-                        <a href="/capabilities/">Capabilities</a>
-                        <a href="/blog/">Blog</a>
-                    </nav>
-
                 </div>
 
             </div>
 
-            <!-- FOOTER BOTTOM -->
             <div class="footer-bottom">
-
                 <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
-
                 <a href="/privacy/" class="privacy-link">Privacy Notice</a>
-
             </div>
 
         </div>
