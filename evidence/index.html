@@ -396,6 +396,58 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
                 </div>
                 <p class="caption">These are historical results. ERPNext's hosted test instance is offline, so a new run there would fail at the authentication step.</p>
 
+                <h3>Playwright reports and traces (my own runs, 15 Oct 2026)</h3>
+                <p class="caption">
+                    I cloned each public repository, installed it and ran the tests that need no secrets. The Razorpay run is the 34 CI-safe tests with the repository's own
+                    CI placeholder configuration; the 3 live-gateway tests were not run and no API keys were used or requested.
+                </p>
+                <div class="figure-grid">
+                    <figure class="shot">
+                        <img src="/image/evidence/razorpay-playwright-report-34-passed.webp" alt="Playwright HTML report for the Razorpay suite showing 34 passed, 0 failed, 0 flaky and 0 skipped tests in Chromium" width="1100" height="653" loading="lazy" decoding="async">
+                        <figcaption>Playwright HTML report, CI-safe Razorpay suite: 34 passed, 0 failed (npm run test:ci, commit da9e7a2, 15 Oct 2026, 21.6 s). The 3 live-gateway tests were not run.</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="/image/evidence/razorpay-trace-web-fix-001-passing.webp" alt="Playwright Trace Viewer for test WEB-FIX-001 showing the POST to /api/webhooks/razorpay, three assertions and a GET of the order, all passing" width="1200" height="750" loading="lazy" decoding="async">
+                        <figcaption>Trace Viewer, WEB-FIX-001 (a correctly signed webhook is accepted and moves the order to paid). A passing trace: POST /api/webhooks/razorpay with the X-Razorpay-Signature header, then the order read back.</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="/image/evidence/razorpay-def002-reproduction-web-fix-001-failing.webp" alt="Playwright report for WEB-FIX-001 failing with Expected 200 and Received 401 at line 277 of the webhook spec" width="1100" height="791" loading="lazy" decoding="async">
+                        <figcaption>The same test, WEB-FIX-001, against a scratch copy of the repository with the DEF-002 fix reverted (webhook router mounted after express.json()): expected 200, received 401. Six of the eleven webhook tests failed in that copy. Not the published code.</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="/image/evidence/restful-booker-playwright-report-47-passed.webp" alt="Playwright HTML report for the RESTful Booker suite showing 47 passed, 0 failed, 0 flaky and 0 skipped tests" width="1100" height="653" loading="lazy" decoding="async">
+                        <figcaption>Playwright HTML report, RESTful Booker TypeScript suite: 47 passed, 0 failed (npm test, commit a385240, 15 Oct 2026, 29.2 s, against the public restful-booker.herokuapp.com API).</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="/image/evidence/restful-booker-workflow-test-steps.webp" alt="Playwright report for the booking lifecycle test listing each request and assertion: POST auth, POST booking, GET, PUT, GET, DELETE and a final GET" width="1100" height="1001" loading="lazy" decoding="async">
+                        <figcaption>One expanded test: the create, read, update, delete and verify workflow, showing each API call and assertion in order.</figcaption>
+                    </figure>
+                </div>
+                <p class="caption">
+                    <strong>Not captured:</strong> a Trace Viewer for the ERPNext autocomplete test, because its hosted test instance is offline and the suite cannot run;
+                    and a report for Automation Exercise, whose setup step needs login credentials that I do not have in a clean clone.
+                </p>
+
+                <h3>Latest green GitHub Actions run, per repository</h3>
+                <div class="figure-grid">
+                    <figure class="shot">
+                        <img src="/image/evidence/ci-razorpay-run.webp" alt="GitHub Actions run page for the Razorpay repository showing a successful Playwright CI run on commit da9e7a2" width="1100" height="541" loading="lazy" decoding="async">
+                        <figcaption>GitHub Actions, Razorpay repository: Playwright CI run #3 on commit da9e7a2, status Success, 46 s (14 Sep 2026). Job logs need a GitHub sign-in.</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="/image/evidence/ci-restful-booker-run.webp" alt="GitHub Actions run page for the RESTful Booker repository showing a successful Playwright Tests run on commit a385240" width="1100" height="541" loading="lazy" decoding="async">
+                        <figcaption>GitHub Actions, RESTful Booker repository: Playwright Tests run on commit a385240, status Success (10 Sep 2026).</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="/image/evidence/ci-erpnext-run.webp" alt="GitHub Actions run page for the ERPNext repository showing a successful Playwright Tests run on commit 8990014" width="1100" height="541" loading="lazy" decoding="async">
+                        <figcaption>GitHub Actions, ERPNext repository: Playwright Tests run #6 on commit 8990014, status Success, 6 m 57 s (4 Sep 2026). This is the last run: the hosted test instance has since gone offline.</figcaption>
+                    </figure>
+                    <figure class="shot">
+                        <img src="/image/evidence/ci-automation-exercise-run.webp" alt="GitHub Actions run page for the Automation Exercise repository showing a successful Playwright Test Suite run on commit 789d413" width="1100" height="541" loading="lazy" decoding="async">
+                        <figcaption>GitHub Actions, Automation Exercise repository: Playwright Test Suite run on commit 789d413, status Success (29 Aug 2026). Its UI tests need login credentials, so I did not re-run this suite myself.</figcaption>
+                    </figure>
+                </div>
+
             </div>
         </section>
 
