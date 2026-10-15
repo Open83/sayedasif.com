@@ -81,10 +81,6 @@
         /* .skip-link / :focus-visible now live in
            /assets/css/global-nav.css */
 
-        /* Base nav rules (nav/logo/nav-links/hamburger) and the
-           "More" dropdown now live in /assets/css/global-nav.css.
-           This page keeps its own nav-inner max-width/padding since
-           it doesn't use a shared .container wrapper. */
         .nav-inner {
             max-width: 1400px;
             margin: 0 auto;
@@ -1105,12 +1101,6 @@
             }
         }
 
-        /* Duplicate nav-dropdown block and full footer implementation
-           (.site-footer, .footer-grid, .footer-column, .brand-*,
-           .social-links/.social-icon, .footer-heading, .footer-nav,
-           .footer-bottom, .copyright, .privacy-link, and their
-           responsive overrides at 992px/768px) removed — all now
-           live in /assets/css/global-nav.css. */
 
     </style>
 </head>
@@ -1500,14 +1490,11 @@
 
     </footer>
 
-    <!-- Mobile nav + "More" dropdown behavior (shared) -->
+    <!-- Mobile nav -->
     <script src="/assets/js/global-nav.js" defer></script>
 
     <!-- Scroll Animations & Interactions -->
     <script>
-        // Mobile Navigation and More Dropdown Menu logic now live in
-        // /assets/js/global-nav.js (single source of truth).
-
         // Scroll Animations with IntersectionObserver
         const observerOptions = {
             threshold: 0.1,
