@@ -13,7 +13,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const { chromium } = require('@playwright/test');
+const { chromium } = (() => { try { return require('@playwright/test'); } catch { return require('./verify/node_modules/playwright'); } })();
 
 const ROOT = path.resolve(__dirname, '..');
 const JOBS = [
