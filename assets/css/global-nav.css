@@ -364,7 +364,7 @@ footer.site-footer .container {
     border-color: var(--brand-accent-text);
 }
 
-/* Click-to-reveal phone button (see /assets/js/reveal-phone.js) */
+/* Click-to-reveal phone button (see /assets/js/contact-actions.js) */
 .reveal-phone {
     font: inherit;
     color: var(--brand-accent-text);
@@ -377,6 +377,70 @@ footer.site-footer .container {
 
 .reveal-phone:hover {
     color: var(--brand-accent-text-strong);
+}
+
+/* =========================================================
+   FLOATING WHATSAPP BUTTON (see /assets/js/contact-actions.js)
+   Fixed bottom-right. Sits below the header and the open mobile menu
+   (z-index 1000). White icon on #1b9d52 is 3.5:1; #158043 on hover is 5:1.
+========================================================= */
+
+.wa-float {
+    position: fixed;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    z-index: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #1b9d52;
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, opacity 0.15s ease;
+    animation: wa-in 0.4s ease-out backwards;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.wa-float svg {
+    width: 30px;
+    height: 30px;
+    fill: currentColor;
+}
+
+.wa-float:hover {
+    background: #158043;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.26);
+}
+
+.wa-float:focus-visible {
+    outline: 3px solid var(--brand-dark);
+    outline-offset: 3px;
+}
+
+/* Steps aside while it would cover footer text, a form control or the open menu */
+.wa-float.wa-float--yield {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+@keyframes wa-in {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wa-float { animation: none; transition: none; }
+    .wa-float:hover { transform: none; }
+}
+
+/* Room under the last footer row so the button never sits on the footer text at the end of a page */
+.site-footer {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
 }
 
 .footer-disclaimer {
