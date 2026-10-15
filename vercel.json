@@ -27,8 +27,18 @@
       "permanent": true
     },
     {
+      "source": "/blog/who-is-sayed-asif-qa-engineer/",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/who-is-sayed-asif-qa-engineer",
+      "destination": "/about/",
+      "permanent": true
+    },
+    {
       "source": "/blog/who-is-sayed-asif-qa-engineer.html",
-      "destination": "/blog/who-is-sayed-asif-qa-engineer/",
+      "destination": "/about/",
       "permanent": true
     },
     {
