@@ -42,7 +42,6 @@ const FOOTER_NAV = [
 const SOCIAL = [
   ['GitHub', 'https://github.com/Open83', 'fab fa-github'],
   ['LinkedIn', 'https://www.linkedin.com/in/asifsayed83/', 'fab fa-linkedin'],
-  ['WhatsApp', 'https://wa.me/919867574386', 'fab fa-whatsapp'],
 ];
 
 function header(url) {
@@ -117,7 +116,7 @@ ${social}
 
 // Pages that intentionally have no shared header/footer (standalone documents).
 // Any OTHER page without them is treated as an error, not silently skipped.
-const STANDALONE = new Set(['resume/sayed-asif-qa-engineer-resume.html']);
+const STANDALONE = new Set([]);
 
 // Sanity limits: a real block is ~1-2.5 KB. Anything far larger means the regex
 // matched across page content (e.g. an unclosed tag) and must not be overwritten.

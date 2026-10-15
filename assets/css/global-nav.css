@@ -364,6 +364,21 @@ footer.site-footer .container {
     border-color: var(--brand-accent-text);
 }
 
+/* Click-to-reveal phone button (see /assets/js/reveal-phone.js) */
+.reveal-phone {
+    font: inherit;
+    color: var(--brand-accent-text);
+    background: none;
+    border: 0;
+    padding: 4px 0;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.reveal-phone:hover {
+    color: var(--brand-accent-text-strong);
+}
+
 .footer-disclaimer {
     max-width: 760px;
     margin: 0;

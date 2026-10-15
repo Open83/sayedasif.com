@@ -2,6 +2,21 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/resume/download/",
+      "destination": "/resume/",
+      "permanent": true
+    },
+    {
+      "source": "/resume/download",
+      "destination": "/resume/",
+      "permanent": true
+    },
+    {
+      "source": "/resume/sayed-asif-qa-engineer-resume.html",
+      "destination": "/resume/",
+      "permanent": true
+    },
+    {
       "source": "/capabilities/",
       "destination": "/",
       "permanent": true
@@ -74,7 +89,7 @@
       ]
     },
     {
-      "source": "/resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf",
+      "source": "/resume/(.*)\\.pdf",
       "headers": [
         {
           "key": "Cache-Control",
