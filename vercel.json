@@ -2,6 +2,16 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/capabilities/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/capabilities",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/blog/who-is-sayed-asif-qa-engineer.html",
       "destination": "/blog/who-is-sayed-asif-qa-engineer/",
       "permanent": true
