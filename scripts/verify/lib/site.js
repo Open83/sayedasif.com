@@ -4,7 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
 
-const ROOT = path.resolve(__dirname, '..', '..', '..');
+// VERIFY_ROOT points the whole suite at another copy of the site (mutate.js uses a temp copy)
+const ROOT = path.resolve(process.env.VERIFY_ROOT || path.join(__dirname, '..', '..', '..'));
 
 const NAMED = {
   amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', rsquo: '’', lsquo: '‘', rdquo: '”', ldquo: '“',

@@ -15,6 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { execFileSync } = require('child_process');
 const { result } = require('../lib/report');
 
 async function run(ctx) {
@@ -95,13 +96,15 @@ async function run(ctx) {
 
   // ---------------------------------------------------------------- private folders
   const leak = [];
-  for (const p of ['/scripts/resume-source/resume-ats.html', '/scripts/verify/package.json', '/drafts/blog/README.md']) {
+  const priv = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '--', 'scripts', 'drafts'], { cwd: root, encoding: 'utf8' }).split(String.fromCharCode(10)).filter(Boolean);
+  const spellings = [...priv.map((x) => '/' + x.split('/').map(encodeURIComponent).join('/')), '/scripts', '/scripts/', '/drafts', '/drafts/', '/scripts/resume-source/', '/%73cripts/resume-source/resume-ats.html', '/scripts//resume-source/resume-ats.html', '/Scripts/resume-source/resume-ats.html', '/scripts/resume-source/resume-ats.html/', '/drafts/blog/README.md?x=1'];
+  for (const p of spellings) {
     const res = await get(p);
     const loc = res.headers.get('location');
     if (res.status === 200) leak.push(`${p} is served (200)`);
     else if (res.status >= 300 && res.status < 400 && (!loc || new URL(loc, base).pathname !== '/')) leak.push(`${p} redirects to ${loc}`);
   }
-  r.expect(leak.length === 0, '/scripts/ and /drafts/ are not served (redirected to /)', leak.join(' | ') || '3 paths probed, none answers 200');
+  r.expect(leak.length === 0, `no file under /scripts/ or /drafts/ is served: ${priv.length} repository files plus ${spellings.length - priv.length} odd spellings (encoded, doubled slash, upper case, trailing slash, directory) never answer 200 and only redirect to /`, leak.slice(0, 4).join(' | ') || `${spellings.length} URLs probed, including every file in scripts/resume-source and drafts/blog`);
   const extra = [];
   for (const p of ['/vercel.json', '/.vercelignore', '/.git/config', '/package.json']) {
     const res = await get(p);

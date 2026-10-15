@@ -64,7 +64,7 @@ async function run(ctx) {
   // where the number does live in the repository (the PDFs carry it on purpose)
   const tracked = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard'], { cwd: ROOT, encoding: 'utf8' }).split('\n').filter((f) => f && isText(f) && !f.includes('node_modules') && !ctx.files.includes(f));
   const elsewhere = tracked.filter((f) => { try { return PHONE.test(readText(f)); } catch { return false; } });
-  r11.note(`also present in repository files that are NOT deployed (excluded by .vercelignore and redirected to / by vercel.json): ${elsewhere.join(', ') || 'none'}`);
+  r11.note(`also present in repository files that are NOT deployed (listed in .vercelignore, which Vercel documents for uploads only, and redirected to / by vercel.json: check 2 proves the redirect locally, check 20 on a preview proves it on Vercel): ${elsewhere.join(', ') || 'none'}`);
   r11.note('the two resume PDFs contain the number on purpose (check 15). The GitHub repository is public, so the number is also in the repository and its history.');
 
   // ---------------------------------------------------------------- 12

@@ -40,14 +40,17 @@ function redirectStatus(rule) {
   return rule.permanent === false ? 307 : 308;
 }
 
-function start({ root, port = 0, log = false }) {
-  const config = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
+// config: use this object instead of vercel.json (controls); honourVercelIgnore:false simulates a Git deployment that
+// uploads everything in the repository, so only the redirect rules stand between a visitor and a private file.
+function start({ root, port = 0, log = false, config: configOverride = null, honourVercelIgnore = true }) {
+  const config = configOverride || JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
   const redirects = (config.redirects || []).map(compileRedirect);
   const headerRules = (config.headers || []).map((h) => ({ re: new RegExp('^' + h.source + '$'), headers: h.headers }));
   const trailingSlash = config.trailingSlash === true;
-  const ignore = fs.existsSync(path.join(root, '.vercelignore'))
+  const ignore = honourVercelIgnore && fs.existsSync(path.join(root, '.vercelignore'))
     ? fs.readFileSync(path.join(root, '.vercelignore'), 'utf8').split(/\r?\n/).map((l) => l.trim()).filter((l) => l && !l.startsWith('#')).map((l) => l.replace(/^\//, ''))
     : [];
+  const realRoot = fs.realpathSync.native(root);
   const alwaysHidden = ['.git/', 'node_modules/', '.vercelignore', 'vercel.json'];
   const hidden = (rel) => [...ignore, ...alwaysHidden].some((i) => (i.endsWith('/') ? rel === i.slice(0, -1) || rel.startsWith(i) : rel === i));
 
@@ -82,6 +85,8 @@ function start({ root, port = 0, log = false }) {
       file = path.join(abs, 'index.html');
     }
     if (!fs.existsSync(file) || !fs.statSync(file).isFile()) return send(404, { 'Content-Type': 'text/plain' }, '404 ' + p);
+    // Vercel serves from a case-sensitive file system; Windows is not, so insist on the exact spelling
+    if (path.relative(realRoot, fs.realpathSync.native(file)) !== path.relative(path.normalize(root), file)) return send(404, { 'Content-Type': 'text/plain' }, '404 ' + p);
     let body = fs.readFileSync(file);
     const type = MIME[path.extname(file).toLowerCase()] || 'application/octet-stream';
     const headers = { 'Content-Type': type };

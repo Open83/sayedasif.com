@@ -8,6 +8,9 @@
  *   node run.js --only 13,14
  *   node run.js --skip-network            skip checks that call GitHub / Formspree / the CDN
  *   node run.js --probe-formspree         also send ONE honeypot-flagged POST to the Formspree endpoint (not delivered)
+ *   node run.js --release                 pre-deploy gate: also fail while any TODO marker ships in a page
+ *   node run.js --out <dir>               write the report somewhere else (default scripts/verify/out)
+ *   VERIFY_ROOT=<dir> node run.js         test another copy of the site (see mutate.js)
  *   node run.js --lighthouse              also run Lighthouse on every page (slow)
  *   node run.js --preview https://<name>.vercel.app    also run the real-host checks (20); add --bypass <token> if the
  *                                                      preview has Deployment Protection (sent as x-vercel-protection-bypass)
@@ -34,6 +37,8 @@ const args = {
   lighthouse: flag('lighthouse'),
   preview: opt('preview'),
   bypass: opt('bypass'),
+  out: opt('out'),
+  release: flag('release'),
 };
 
 const MODULES = [
@@ -44,7 +49,7 @@ const MODULES = [
 
 (async () => {
   const started = Date.now();
-  const outDir = path.join(__dirname, 'out');
+  const outDir = args.out ? path.resolve(args.out) : path.join(__dirname, 'out');
   fs.rmSync(outDir, { recursive: true, force: true });
   fs.mkdirSync(path.join(outDir, 'details'), { recursive: true });
 
