@@ -1156,38 +1156,33 @@
 
                     <div class="inquiry-form">
 
-                        <div class="success-message" id="successMessage" data-fs-success role="status" hidden>
-                            Thanks. Your inquiry has been sent and I will reply to the email address you gave.
-                        </div>
+                        <!-- Empty live region: the success or error message is created here only after a submission -->
+                        <div id="formStatus" aria-live="polite"></div>
 
-                        <div class="error-message" id="errorMessage" data-fs-error role="alert" hidden>
-                            Your inquiry could not be sent. Please try again, or email me directly at
-                            <a href="mailto:sayedasif83838@gmail.com">sayedasif83838@gmail.com</a>.
-                        </div>
-
-                        <form id="serviceForm" method="POST" action="https://formspree.io/f/xqpknrny">
+                        <form id="serviceForm" method="POST" action="https://formspree.io/f/xqpknrny" data-ajax-form data-status="formStatus"
+                              data-email="sayedasif83838@gmail.com">
 
                             <input type="hidden" name="_subject" value="Freelance QA inquiry from sayedasif.com/services/">
                             <input type="hidden" name="source" value="services-page">
 
                             <div class="form-group">
                                 <label for="svc-name">Full name <span class="req" aria-hidden="true">*</span></label>
-                                <input type="text" id="svc-name" name="name" autocomplete="name" required
-                                       aria-describedby="svc-name-error" data-fs-field>
-                                <span class="field-error" id="svc-name-error" data-fs-error="name" aria-live="polite"></span>
+                                <input type="text" id="svc-name" name="name" autocomplete="name" required data-error="Please enter your name."
+                                       aria-describedby="svc-name-error">
+                                <span class="field-error" id="svc-name-error" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="svc-email">Email address <span class="req" aria-hidden="true">*</span></label>
-                                <input type="email" id="svc-email" name="email" autocomplete="email" required
-                                       aria-describedby="svc-email-error" data-fs-field>
-                                <span class="field-error" id="svc-email-error" data-fs-error="email" aria-live="polite"></span>
+                                <input type="email" id="svc-email" name="email" autocomplete="email" required data-error="Please enter a valid email address, for example name@company.com."
+                                       aria-describedby="svc-email-error">
+                                <span class="field-error" id="svc-email-error" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="svc-service">What do you need? <span class="req" aria-hidden="true">*</span></label>
-                                <select id="svc-service" name="service" required
-                                        aria-describedby="svc-service-error" data-fs-field>
+                                <select id="svc-service" name="service" required data-error="Please choose what you need help with."
+                                        aria-describedby="svc-service-error">
                                     <option value="">Select a service&hellip;</option>
                                     <option value="Manual and functional testing">Manual and functional testing</option>
                                     <option value="API testing">API testing</option>
@@ -1195,15 +1190,15 @@
                                     <option value="Payment workflow testing">Payment workflow testing</option>
                                     <option value="Not sure yet">Not sure yet</option>
                                 </select>
-                                <span class="field-error" id="svc-service-error" data-fs-error="service" aria-live="polite"></span>
+                                <span class="field-error" id="svc-service-error" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="svc-message">About the project <span class="req" aria-hidden="true">*</span></label>
-                                <textarea id="svc-message" name="message" required minlength="20"
-                                          aria-describedby="svc-message-hint svc-message-error" data-fs-field></textarea>
+                                <textarea id="svc-message" name="message" required minlength="20" data-error="Please describe the project in at least 20 characters."
+                                          aria-describedby="svc-message-hint svc-message-error"></textarea>
                                 <span class="field-hint" id="svc-message-hint">What is the application, what should be tested, and is there a test environment? Please do not include passwords or confidential data.</span>
-                                <span class="field-error" id="svc-message-error" data-fs-error="message" aria-live="polite"></span>
+                                <span class="field-error" id="svc-message-error" aria-live="polite"></span>
                             </div>
 
                             <!-- Honeypot field for spam bots; real visitors never see or fill it -->
@@ -1212,7 +1207,7 @@
                                 <input type="text" id="svc-website" name="_gotcha" tabindex="-1" autocomplete="off">
                             </div>
 
-                            <button type="submit" class="btn btn-primary" data-fs-submit-btn>
+                            <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-paper-plane" aria-hidden="true"></i>
                                 Send Inquiry
                             </button>
@@ -1297,75 +1292,7 @@
     <!-- Global navigation (mobile menu + "More" dropdown) -->
     <script src="/assets/js/global-nav.js" defer></script>
 
-    <!-- Inquiry form: inline validation first, then Formspree AJAX submission -->
-    <script>
-        (function () {
-            "use strict";
-
-            var form = document.getElementById("serviceForm");
-            if (!form) { return; }
-
-            /* Native validation stays on without JavaScript. With it, the inline messages below replace the browser bubbles. */
-            form.noValidate = true;
-
-            var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            var rules = [
-                { id: "svc-name", error: "Please enter your name.", test: function (v) { return v.trim().length > 0; } },
-                { id: "svc-email", error: "Please enter a valid email address, for example name@company.com.", test: function (v) { return EMAIL.test(v.trim()); } },
-                { id: "svc-service", error: "Please choose what you need help with.", test: function (v) { return v !== ""; } },
-                { id: "svc-message", error: "Please describe the project in at least 20 characters.", test: function (v) { return v.trim().length >= 20; } }
-            ];
-
-            function setError(field, message) {
-                var span = document.getElementById(field.id + "-error");
-                if (message) {
-                    field.setAttribute("aria-invalid", "true");
-                    if (span) { span.textContent = message; }
-                } else {
-                    field.removeAttribute("aria-invalid");
-                    if (span) { span.textContent = ""; }
-                }
-            }
-
-            function validate() {
-                var firstInvalid = null;
-                rules.forEach(function (rule) {
-                    var field = document.getElementById(rule.id);
-                    var ok = rule.test(field.value);
-                    setError(field, ok ? "" : rule.error);
-                    if (!ok && !firstInvalid) { firstInvalid = field; }
-                });
-                return firstInvalid;
-            }
-
-            /* Registered before the Formspree library attaches its own handler,
-               so an invalid form is stopped here and never submitted. */
-            form.addEventListener("submit", function (event) {
-                var firstInvalid = validate();
-                if (firstInvalid) {
-                    event.preventDefault();
-                    event.stopImmediatePropagation();
-                    firstInvalid.focus();
-                }
-            });
-
-            rules.forEach(function (rule) {
-                var field = document.getElementById(rule.id);
-                field.addEventListener("input", function () {
-                    if (field.getAttribute("aria-invalid") === "true" && rule.test(field.value)) {
-                        setError(field, "");
-                    }
-                });
-            });
-
-            window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-            formspree("initForm", { formElement: "#serviceForm", formId: "xqpknrny" });
-        })();
-    </script>
-
-    <!-- Formspree AJAX library (same version and integrity hash as /contact/) -->
-    <script src="https://unpkg.com/@formspree/ajax@1.1.5/dist/global.js" integrity="sha384-9fQrvHz7unHjhv7e+pJqhvNxPV4tYHHsSn3PxBIEyPTGY8Q/PAKM1sfhL+zTYmhc" crossorigin="anonymous" defer></script>
+    <script src="/assets/js/form-submit.js" defer></script>
 
 </body>
 </html>
