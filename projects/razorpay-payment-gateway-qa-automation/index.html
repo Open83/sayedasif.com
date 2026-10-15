@@ -252,6 +252,40 @@
         .content-section h2 { font-size: 1.55rem; margin-bottom: 12px; color: var(--dark); font-weight: 700; }
         .content-section p { color: var(--text); margin-bottom: 10px; line-height: 1.7; }
 
+        /* Payment scenarios */
+        .scenario-list { display: grid; gap: 22px; margin: 22px 0; }
+        .scenario { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 24px 26px; box-shadow: var(--shadow); }
+        .scenario h3 { font-size: 1.15rem; color: var(--dark); margin-bottom: 8px; }
+        .scenario p { margin-bottom: 10px; }
+        .scenario-tag { display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 9px; border-radius: 20px; margin-right: 6px; vertical-align: 1px; }
+        .tag-ci { background: #dcfce7; color: #14532d; }
+        .tag-live { background: #fef3c7; color: #78350f; }
+        .tag-none { background: #e2e8f0; color: #1e293b; }
+
+        /* Real code excerpts, highlighted at build time (no runtime script) */
+        .code-figure { margin: 14px 0 22px; }
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 16px 18px;
+            overflow-x: auto;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            tab-size: 2;
+        }
+        .code-block code { background: none; color: inherit; padding: 0; font-size: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; }
+        .code-figure figcaption { font-size: 0.82rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+        .code-figure figcaption a { color: var(--primary-dark); font-weight: 700; }
+        .code-block .hljs-comment, .code-block .hljs-quote { color: #94a3b8; font-style: italic; }
+        .code-block .hljs-keyword, .code-block .hljs-selector-tag, .code-block .hljs-literal { color: #c4b5fd; }
+        .code-block .hljs-string, .code-block .hljs-regexp, .code-block .hljs-template-variable { color: #86efac; }
+        .code-block .hljs-number, .code-block .hljs-symbol { color: #fcd34d; }
+        .code-block .hljs-title, .code-block .hljs-title.function_, .code-block .hljs-built_in { color: #7dd3fc; }
+        .code-block .hljs-attr, .code-block .hljs-property, .code-block .hljs-variable { color: #fda4af; }
+        .code-block .hljs-subst, .code-block .hljs-params { color: #e2e8f0; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
         /* System Flow Diagram */
         .flow-diagram {
             background: var(--light);
@@ -860,6 +894,149 @@
         </section>
 
         <!-- =====================================================
+             7b. PAYMENT SCENARIOS (folded in from the former Payment Testing page)
+        ====================================================== -->
+        <section class="section section-light" id="payment-scenarios">
+            <div class="container">
+                <div class="content-section">
+                    <h2>Payment Scenarios, Mapped to the Tests That Prove Them</h2>
+                    <p>
+                        These are the payment failure scenarios I check first on any gateway integration. For each one,
+                        this is what the repository does and does not prove, with the test excerpt and a link to
+                        the exact lines on GitHub.
+                    </p>
+
+                    <div class="scenario-list">
+
+                        <article class="scenario">
+                            <h3>Duplicate payment attempts</h3>
+                            <p class="scenario-check"><strong>What I verify:</strong> a customer who clicks Pay twice, or a client that retries, cannot create a second charge or corrupt the order.</p>
+                            <p class="scenario-repo"><span class="scenario-tag tag-live">Live gateway only</span> <code>REPLAY-001</code> verifies the same real captured payment twice and checks the order stays <code>paid</code> with the same payment ID. It is tagged <code>@razorpay-live</code>: it needs the original Test Mode payment, so it is not one of the 34 CI tests. A double-click on the Pay button in the browser is not tested.</p>
+                            <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">const</span> first = <span class="hljs-keyword">await</span> request.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/payments/verify&#x27;</span>, {
+  <span class="hljs-attr">data</span>: { <span class="hljs-attr">orderId</span>: realOrderId, <span class="hljs-attr">paymentId</span>: realPaymentId, <span class="hljs-attr">signature</span>: validSignature },
+});
+<span class="hljs-keyword">const</span> second = <span class="hljs-keyword">await</span> request.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/payments/verify&#x27;</span>, {
+  <span class="hljs-attr">data</span>: { <span class="hljs-attr">orderId</span>: realOrderId, <span class="hljs-attr">paymentId</span>: realPaymentId, <span class="hljs-attr">signature</span>: validSignature },
+});
+
+<span class="hljs-title function_">expect</span>(first.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);
+<span class="hljs-title function_">expect</span>(second.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">const</span> orderState = <span class="hljs-title function_">await</span> (<span class="hljs-keyword">await</span> request.<span class="hljs-title function_">get</span>(<span class="hljs-string">`/api/payments/orders/<span class="hljs-subst">${realOrderId}</span>`</span>)).<span class="hljs-title function_">json</span>();
+<span class="hljs-title function_">expect</span>(orderState.<span class="hljs-property">status</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;paid&#x27;</span>);
+<span class="hljs-title function_">expect</span>(orderState.<span class="hljs-property">paymentId</span>).<span class="hljs-title function_">toBe</span>(realPaymentId);</code></pre>
+                        <figcaption>REPLAY-001. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L61-L79" target="_blank" rel="noopener noreferrer">tests/security/signature-verification.spec.js, lines 61&ndash;79 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                        </article>
+
+                        <article class="scenario">
+                            <h3>3D Secure and redirect flows</h3>
+                            <p class="scenario-check"><strong>What I verify:</strong> a customer who authenticates, cancels, abandons or lets the session expire, then returns to the app, ends with the correct final payment status.</p>
+                            <p class="scenario-repo"><span class="scenario-tag tag-none">Not tested here</span> No committed test covers authentication or redirect paths. The Phase 3.3 report documents Playwright driving the hosted Checkout through one successful payment, a real decline and a cancel-and-retry; those sessions are not repeatable tests. Cancelled authorisations, expired sessions and interrupted redirects are scenarios I would design next, not results I can show.</p>
+                        </article>
+
+                        <article class="scenario">
+                            <h3>Webhook retries</h3>
+                            <p class="scenario-check"><strong>What I verify:</strong> when a gateway redelivers an event because the first attempt timed out, the app acknowledges it without applying it twice.</p>
+                            <p class="scenario-repo"><span class="scenario-tag tag-ci">Runs in CI</span> <code>WEB-005</code> sends the same event ID twice and expects the second response to say it was already processed. The redelivery is simulated by the test; no retry sent by Razorpay itself was observed.</p>
+                            <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-comment">// Send the SAME webhook again (same event ID)</span>
+<span class="hljs-keyword">const</span> secondResponse = <span class="hljs-keyword">await</span> request.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/webhooks/razorpay&#x27;</span>, {
+  <span class="hljs-attr">data</span>: payload,
+  headers,
+});
+
+<span class="hljs-title function_">expect</span>(secondResponse.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);
+<span class="hljs-keyword">const</span> secondBody = <span class="hljs-keyword">await</span> secondResponse.<span class="hljs-title function_">json</span>();
+<span class="hljs-title function_">expect</span>(secondBody.<span class="hljs-property">success</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-literal">true</span>);
+<span class="hljs-comment">// Verify it indicates already processed</span>
+<span class="hljs-title function_">expect</span>(secondBody.<span class="hljs-property">message</span>).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;already processed&#x27;</span>);</code></pre>
+                        <figcaption>WEB-005, second delivery of the same event. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L147-L157" target="_blank" rel="noopener noreferrer">tests/security/webhook-validation.spec.js, lines 147&ndash;157 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                        </article>
+
+                        <article class="scenario">
+                            <h3>Idempotency</h3>
+                            <p class="scenario-check"><strong>What I verify:</strong> a duplicate event changes nothing: same order status, same payment ID, no repeated transition.</p>
+                            <p class="scenario-repo"><span class="scenario-tag tag-ci">Runs in CI</span> <code>WEB-FIX-004</code> replays a signed event against a freshly seeded order and asserts the order is still <code>paid</code> with the original payment ID. <code>WEB-006</code> checks that different event IDs are processed independently.</p>
+                            <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">const</span> first = <span class="hljs-keyword">await</span> request.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/webhooks/razorpay&#x27;</span>, { <span class="hljs-attr">data</span>: payload, headers });
+<span class="hljs-title function_">expect</span>(first.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);
+<span class="hljs-title function_">expect</span>((<span class="hljs-keyword">await</span> first.<span class="hljs-title function_">json</span>()).<span class="hljs-property">message</span>).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;Webhook received and validated&#x27;</span>);
+
+<span class="hljs-keyword">const</span> second = <span class="hljs-keyword">await</span> request.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/webhooks/razorpay&#x27;</span>, { <span class="hljs-attr">data</span>: payload, headers });
+<span class="hljs-title function_">expect</span>(second.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);
+<span class="hljs-title function_">expect</span>((<span class="hljs-keyword">await</span> second.<span class="hljs-title function_">json</span>()).<span class="hljs-property">message</span>).<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;already processed&#x27;</span>);
+<span class="hljs-comment">// ...</span>
+<span class="hljs-comment">// Idempotent replay must not have re-applied or duplicated the transition.</span>
+<span class="hljs-keyword">const</span> order = <span class="hljs-title function_">await</span> (<span class="hljs-keyword">await</span> request.<span class="hljs-title function_">get</span>(<span class="hljs-string">`/api/payments/orders/<span class="hljs-subst">${orderId}</span>`</span>)).<span class="hljs-title function_">json</span>();
+<span class="hljs-title function_">expect</span>(order.<span class="hljs-property">status</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;paid&#x27;</span>);
+<span class="hljs-title function_">expect</span>(order.<span class="hljs-property">paymentId</span>).<span class="hljs-title function_">toBe</span>(paymentId);</code></pre>
+                        <figcaption>WEB-FIX-004. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L350-L361" target="_blank" rel="noopener noreferrer">tests/security/webhook-validation.spec.js, lines 350&ndash;361 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                        </article>
+
+                        <article class="scenario">
+                            <h3>HMAC-signed webhooks</h3>
+                            <p class="scenario-check"><strong>What I verify:</strong> the signature is computed over the exact raw bytes received, and anything unsigned, mis-signed or modified is rejected.</p>
+                            <p class="scenario-repo"><span class="scenario-tag tag-ci">Runs in CI</span> <code>WEB-002</code>, <code>WEB-003</code>, <code>WEB-007</code>, <code>WEB-FIX-001</code>, <code>WEB-FIX-002</code> and <code>WEB-FIX-003</code> cover invalid, missing, tampered and valid signatures. They exist because of defect DEF-002, written up on the <a href="/evidence/#defect-report">Evidence page</a>. The webhook handler's check:</p>
+                            <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">function</span> <span class="hljs-title function_">validateWebhookSignature</span>(<span class="hljs-params">rawBody, signature</span>) {
+  <span class="hljs-keyword">if</span> (!config.<span class="hljs-property">razorpay</span>.<span class="hljs-property">webhookSecret</span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">warn</span>(<span class="hljs-string">&#x27;⚠️  Webhook secret not configured. Validation skipped.&#x27;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">const</span> expectedSignature = crypto
+    .<span class="hljs-title function_">createHmac</span>(<span class="hljs-string">&#x27;sha256&#x27;</span>, config.<span class="hljs-property">razorpay</span>.<span class="hljs-property">webhookSecret</span>)
+    .<span class="hljs-title function_">update</span>(rawBody)
+    .<span class="hljs-title function_">digest</span>(<span class="hljs-string">&#x27;hex&#x27;</span>);
+
+  <span class="hljs-keyword">return</span> expectedSignature === signature;
+}</code></pre>
+                        <figcaption>The check the webhook tests exercise. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/src/routes/webhooks.js#L34-L46" target="_blank" rel="noopener noreferrer">src/routes/webhooks.js, lines 34&ndash;46 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                        </article>
+
+                        <article class="scenario">
+                            <h3>Refund state transitions</h3>
+                            <p class="scenario-check"><strong>What I verify:</strong> a refund moves an order from <code>paid</code> to <code>refunded</code> only, never from an unpaid state, and a repeated refund event is harmless.</p>
+                            <p class="scenario-repo"><span class="scenario-tag tag-none">Partly tested</span> The transition rules are implemented in <code>src/stateMachine.js</code> (below) but no test exercises <code>paid</code> &rarr; <code>refunded</code>, and no successful refund was completed against Razorpay. What is tested is refund error handling: <code>REF-ERR-001</code> and <code>REF-ERR-002</code> (CI) prove a rejected refund returns a controlled error and the server stays up.</p>
+                            <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">ALLOWED_TRANSITIONS</span> = {
+  [<span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">CREATED</span>]: [<span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">AUTHORIZED</span>, <span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">PAID</span>, <span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">FAILED</span>],
+  [<span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">AUTHORIZED</span>]: [<span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">PAID</span>, <span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">FAILED</span>],
+  [<span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">PAID</span>]: [<span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">REFUNDED</span>],
+  [<span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">FAILED</span>]: [],
+  [<span class="hljs-variable constant_">STATES</span>.<span class="hljs-property">REFUNDED</span>]: [],
+};</code></pre>
+                        <figcaption>The allowed order transitions. Same-state repeats are treated as no-ops elsewhere in the file. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/src/stateMachine.js#L14-L20" target="_blank" rel="noopener noreferrer">src/stateMachine.js, lines 14&ndash;20 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                            <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;REF-ERR-002: the server remains available immediately after a refund error&#x27;</span>, <span class="hljs-title function_">async</span> ({ request }) =&gt; {
+  <span class="hljs-comment">// Trigger the same class of Razorpay-rejected refund as REF-ERR-001.</span>
+  <span class="hljs-keyword">await</span> request.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/refunds/create&#x27;</span>, {
+    <span class="hljs-attr">data</span>: { <span class="hljs-attr">paymentId</span>: <span class="hljs-string">&#x27;pay_another_nonexistent_id_67890&#x27;</span> },
+  });
+<span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">const</span> health = <span class="hljs-keyword">await</span> request.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/health&#x27;</span>);
+  <span class="hljs-title function_">expect</span>(health.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);</code></pre>
+                        <figcaption>REF-ERR-002, condensed: the regression assertion for DEF-001 is that the server is still alive after a rejected refund. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/refund-error-handling.spec.js#L34-L43" target="_blank" rel="noopener noreferrer">tests/security/refund-error-handling.spec.js, lines 34&ndash;43 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                        </article>
+
+                    </div>
+
+                    <p>
+                        For the method behind these checks, with more test code, read
+                        <a href="/blog/payment-gateway-testing-playwright/">How to Test a Payment Gateway with Playwright</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
              8. WHAT BROKE
         ====================================================== -->
         <section class="section section-light">
@@ -960,9 +1137,11 @@
                         <span class="defect-block-label">Root cause</span>
                         <p>
                             Express's global <code>express.json()</code> middleware was mounted ahead of the
-                            webhook route. It parsed and re-serialized the request body before the webhook
-                            handler ever saw it, so the bytes being hashed weren't the exact bytes Razorpay had
-                            signed. The signature check was correct; it was checking the wrong payload.
+                            webhook route. It consumed and parsed the body first, so the route's own
+                            <code>express.raw()</code> received an already-parsed object instead of a Buffer.
+                            The handler's <code>req.body.toString('utf-8')</code> then returned the string
+                            <code>"[object Object]"</code>, and the HMAC was computed over that instead of the
+                            real payload. The signature check was correct; it was checking the wrong bytes.
                         </p>
                     </div>
                     <div class="defect-block">
@@ -1276,7 +1455,6 @@
                     <a href="/services/">Services</a>
                     <a href="/blog/">Blog</a>
                     <a href="/about/">About</a>
-                    <a href="/payments/">Payment Testing</a>
                 </nav>
 
                 <div class="footer-contact">

@@ -37,7 +37,6 @@ const FOOTER_NAV = [
   ['Services', '/services/'],
   ['Blog', '/blog/'],
   ['About', '/about/'],
-  ['Payment Testing', '/payments/'],
 ];
 
 const SOCIAL = [

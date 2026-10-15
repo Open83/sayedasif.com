@@ -23,7 +23,17 @@
     },
     {
       "source": "/payments.html",
-      "destination": "/payments/",
+      "destination": "/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios",
+      "permanent": true
+    },
+    {
+      "source": "/payments/",
+      "destination": "/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios",
+      "permanent": true
+    },
+    {
+      "source": "/payments",
+      "destination": "/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios",
       "permanent": true
     },
     {
