@@ -1,0 +1,4 @@
+node_modules/
+scripts/verify/out/
+scripts/verify/.cache/
+.playwright-mcp/
