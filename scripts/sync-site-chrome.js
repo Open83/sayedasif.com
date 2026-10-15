@@ -24,8 +24,8 @@ const SKIP_DIRS = new Set(['.git', 'node_modules', 'scripts', '.backup_before_gl
 // ---- primary navigation (single source of truth)
 const NAV = [
   { label: 'Home', href: '/', match: (u) => u === '/' },
+  { label: 'Proof of Work', href: '/proof-of-work/', match: (u) => u === '/proof-of-work/' || u.startsWith('/projects/') || u === '/evidence/' },
   { label: 'About', href: '/about/', match: (u) => u === '/about/' },
-  { label: 'Projects', href: '/proof-of-work/', match: (u) => u === '/proof-of-work/' || u.startsWith('/projects/') },
   { label: 'Services', href: '/services/', match: (u) => u === '/services/' },
   { label: 'Blog', href: '/blog/', match: (u) => u === '/blog/' || u.startsWith('/blog/') },
   { label: 'Resume', href: '/resume/', match: (u) => u === '/resume/' || u.startsWith('/resume/') },
@@ -33,10 +33,12 @@ const NAV = [
 ];
 
 const FOOTER_NAV = [
-  ['Projects', '/proof-of-work/'],
+  ['Proof of Work', '/proof-of-work/'],
+  ['Evidence', '/evidence/'],
+  ['About', '/about/'],
   ['Services', '/services/'],
   ['Blog', '/blog/'],
-  ['About', '/about/'],
+  ['Resume', '/resume/'],
 ];
 
 const SOCIAL = [
