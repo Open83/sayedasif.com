@@ -796,11 +796,18 @@
                         The fix changed how the test interacts with the autocomplete when selecting an item:
                     </p>
                     <ul>
-                        <li>Type the search text with <code>type()</code> and a delay, so the autocomplete receives real key events</li>
-                        <li>Wait for the listbox to be attached to the DOM rather than visible, because the options can be hidden by CSS</li>
+                        <li>Type the search text key by key with a 50 ms delay (the repository calls <code>locator.type()</code>), so the autocomplete receives real key events</li>
+                        <li>Wait for the listbox with a Locator (<code>locator.waitFor({ state: 'attached' })</code>) rather than for it to be visible, because the options can be hidden by CSS</li>
                         <li>Select the option with ArrowDown and Enter, as a user would</li>
                         <li>Remove the silent fallback, so a failed selection surfaces as a failure</li>
                     </ul>
+                    <p style="margin-top: 12px; color: var(--muted); font-size: 0.95rem;">
+                        <strong>What I would change next:</strong> <code>locator.type()</code> is deprecated in current Playwright in favour of
+                        <code>locator.pressSequentially()</code>, and the step still ends with a fixed 500 ms pause
+                        (<code>waitForTimeout</code>) instead of a web-first assertion such as
+                        <code>expect(cell).toHaveText(...)</code> on the selected item. I have not changed the repository code: the hosted
+                        instance is offline, so I cannot re-run the suite to confirm a change is safe.
+                    </p>
                 </div>
 
                 <div class="content-section">
