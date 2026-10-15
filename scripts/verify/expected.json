@@ -1,0 +1,63 @@
+{
+  "_comment": "Independent expectations for the checks. They are written down here on purpose so a regression in the site (or in vercel.json) cannot also change what the checks expect.",
+
+  "availabilityMessage": "Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis.",
+  "availabilityRequiredOn": ["/", "/about/", "/contact/", "/services/"],
+  "noticePeriodAnswer": "I'm currently employed and not serving a notice period. For the right offer I can discuss joining timelines on a call.",
+  "footerDisclaimer": "Employer project work is confidential and shown only in general terms. No client names, data or system details are published.",
+
+  "whatsapp": {
+    "message": "Hi Sayed, I found your portfolio (sayedasif.com) and would like to discuss a QA opportunity."
+  },
+  "_phone": "Kept in pieces so the repository never holds the number as one searchable string; run.js assembles digits, display and the wa.me prefix.",
+  "phone": { "parts": ["98", "675", "74386"], "countryCode": "91", "email": "sayedasif83838@gmail.com" },
+
+  "redirects": [
+    { "from": "/capabilities/", "to": "/" },
+    { "from": "/capabilities", "to": "/" },
+    { "from": "/payments/", "to": "/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios" },
+    { "from": "/payments", "to": "/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios" },
+    { "from": "/payments.html", "to": "/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios" },
+    { "from": "/blog/who-is-sayed-asif-qa-engineer/", "to": "/about/" },
+    { "from": "/blog/who-is-sayed-asif-qa-engineer", "to": "/about/" },
+    { "from": "/blog/who-is-sayed-asif-qa-engineer.html", "to": "/about/" },
+    { "from": "/resume/download/", "to": "/resume/" },
+    { "from": "/resume/download", "to": "/resume/" },
+    { "from": "/resume/sayed-asif-qa-engineer-resume.html", "to": "/resume/" },
+    { "from": "/about.html", "to": "/about/" },
+    { "from": "/privacy.html", "to": "/privacy/" },
+    { "from": "/projects/automationexercise.html", "to": "/projects/automation-exercise/" }
+  ],
+  "guardRedirects": [
+    { "from": "/scripts/resume-source/resume-ats.html", "to": "/" },
+    { "from": "/drafts/blog/README.md", "to": "/" }
+  ],
+  "deletedPageFiles": ["capabilities/index.html", "payments/index.html", "blog/who-is-sayed-asif-qa-engineer/index.html", "resume/download/index.html", "resume/sayed-asif-qa-engineer-resume.html"],
+
+  "pages": ["/", "/about/", "/proof-of-work/", "/evidence/", "/services/", "/contact/", "/resume/", "/blog/", "/blog/payment-gateway-testing-playwright/", "/blog/api-testing-best-practices/", "/projects/razorpay-payment-gateway-qa-automation/", "/projects/restful-booker-api-automation/", "/projects/erpnext-qa-automation/", "/projects/automation-exercise/", "/privacy/"],
+  "pdfs": [
+    { "file": "resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf", "pages": 2, "mustContain": ["SAYED ASIF", "PROFESSIONAL SUMMARY", "Techno Serve Software Solutions", "SQUAD Infotech", "MVM College", "Playwright", "Postman", "Jira"] },
+    { "file": "resume/Sayed-Asif-Software-QA-Engineer-Resume-ATS.pdf", "pages": 2, "mustContain": ["SAYED ASIF", "PROFESSIONAL SUMMARY", "Techno Serve Software Solutions", "SQUAD Infotech", "MVM College", "Playwright", "Postman", "Jira"] }
+  ],
+
+  "navLabels": ["Home", "Proof of Work", "About", "Services", "Blog", "Resume", "Contact"],
+  "homepage": {
+    "sectionHeadings": ["Featured Proof of Work", "Professional Work Impact", "Evidence Library", "Experience at a Glance", "Let’s Talk"],
+    "statNumbers": ["1+", "6", "4", "116"]
+  },
+  "projectOrder": ["Razorpay", "RESTful Booker", "ERPNext", "Automation Exercise"],
+
+  "projects": {
+    "razorpay": { "name": "Razorpay Payment Gateway QA & Automation", "page": "/projects/razorpay-payment-gateway-qa-automation/", "total": 37, "ci": 34, "live": 3 },
+    "restful-booker": { "name": "RESTful Booker TypeScript API Automation", "page": "/projects/restful-booker-api-automation/", "total": 47 },
+    "erpnext": { "name": "ERPNext QA Automation", "page": "/projects/erpnext-qa-automation/", "total": 6, "ui": 5, "setup": 1 },
+    "automation-exercise": { "name": "Automation Exercise", "page": "/projects/automation-exercise/", "total": 26, "api": 16, "ui": 10 }
+  },
+  "repos": {
+    "razorpay": { "github": "Open83/Razorpay-Payment-Gateway---QA---Automation", "sha": "da9e7a2", "testDir": "tests", "specPattern": "\\.spec\\.js$" },
+    "restful-booker": { "github": "Open83/restful-booker-api-automation", "sha": "a385240", "testDir": "tests", "specPattern": "\\.spec\\.ts$" },
+    "erpnext": { "github": "Open83/ERPNext-QA-Automation", "sha": "8990014", "testDir": "tests", "specPattern": "\\.(spec|setup)\\.js$" },
+    "automation-exercise": { "github": "Open83/automationexercise", "sha": "789d413", "testDir": "tests", "specPattern": "\\.spec\\.js$" }
+  },
+  "totalAcrossProjects": 116
+}

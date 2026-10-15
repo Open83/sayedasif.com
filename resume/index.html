@@ -950,6 +950,7 @@
 
             .contact-list {
                 grid-column: 1;
+                grid-row: auto; /* the 768px rule pins it to row 3, which the title now owns: they overlapped */
                 grid-template-columns: 1fr;
                 gap: 10px;
                 margin: 0;
@@ -1114,7 +1115,7 @@
 
         <div class="container nav-inner">
 
-            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
+            <a href="/" class="logo" aria-label="SayedAsif home">Sayed<span>Asif</span></a>
 
             <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
             <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
@@ -1143,7 +1144,7 @@
             <!-- Sidebar -->
             <aside class="sidebar">
                 <div class="profile-card">
-                    <div class="profile-image"><img src="/image/asif.png" alt="Sayed Asif"></div>
+                    <div class="profile-image"><img src="/image/asif-avatar.webp" alt="Sayed Asif" width="240" height="240" decoding="async"></div>
                     <h1 class="profile-name">Sayed Asif</h1>
                     <p class="profile-title">Software QA Engineer</p>
                     <div class="divider"></div>
@@ -1276,7 +1277,6 @@
                                     <li>Used Postman for API validation and Jira for defect tracking, and automated repeatable workflows with Playwright, Page Object Model and GitHub Actions CI/CD.</li>
                                     <li>Investigated defects, verified fixes, and collaborated with development teams to improve software quality.</li>
                                 </ul>
-                                <p style="margin-top: 12px; font-size: 0.85rem; font-style: italic; color: #666;">Client identities and confidential project details are omitted to respect confidentiality.</p>
                             </div>
                         </div>
 
@@ -1319,7 +1319,7 @@
                 <!-- Featured Projects -->
                 <section class="section">
                     <h2 class="section-title">Featured Work</h2>
-                    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #666;">Selected examples from employer projects (client details omitted) and independent public GitHub repositories, demonstrating testing approach, technical skills, and quality focus.</p>
+                    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #666;">Selected examples from employer projects and independent public GitHub repositories, demonstrating testing approach, technical skills, and quality focus.</p>
                     <div class="projects-grid">
                         <div class="project-card">
                             <span class="project-tag">Professional Project</span>

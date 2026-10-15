@@ -49,10 +49,11 @@
         });
 
         /* Step aside while the button would sit on top of text or a control that
-           has to stay usable: footer links and text, form fields and buttons, the
-           open mobile menu. It comes back as soon as there is no overlap. */
+           has to stay usable: footer links and text, form buttons, the open mobile
+           menu. While a form field has focus (someone is typing) it also steps
+           aside. It comes back as soon as there is no overlap. */
         var guards = document.querySelectorAll(
-            ".site-footer a:not([data-whatsapp]), .site-footer p, form input, form textarea, form select, form button, .nav-links a"
+            ".site-footer a:not([data-whatsapp]), .site-footer p, form button, form [type=submit], .nav-links a"
         );
         var pending = false;
 
@@ -60,12 +61,17 @@
             return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
         };
 
+        var typing = function () {
+            var el = document.activeElement;
+            return !!(el && el.matches && el.matches("form input, form textarea, form select"));
+        };
+
         var update = function () {
             pending = false;
 
             var r = wa.getBoundingClientRect();
             var zone = { left: r.left - 8, right: r.right + 8, top: r.top - 8, bottom: r.bottom + 8 };
-            var hit = false;
+            var hit = typing();
 
             for (var i = 0; i < guards.length && !hit; i++) {
                 var g = guards[i].getBoundingClientRect();
@@ -85,6 +91,7 @@
         window.addEventListener("scroll", schedule, { passive: true });
         window.addEventListener("resize", schedule);
         document.addEventListener("focusin", schedule);
+        document.addEventListener("focusout", schedule);
         document.addEventListener("click", schedule);
 
         if ("ResizeObserver" in window) {

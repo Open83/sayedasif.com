@@ -605,7 +605,7 @@
 
         <div class="container nav-inner">
 
-            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
+            <a href="/" class="logo" aria-label="SayedAsif home">Sayed<span>Asif</span></a>
 
             <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
             <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
@@ -1069,7 +1069,6 @@
   <span class="hljs-comment">// The rejected webhook must not have touched the order.</span>
   <span class="hljs-keyword">const</span> order = <span class="hljs-title function_">await</span> (<span class="hljs-keyword">await</span> request.<span class="hljs-title function_">get</span>(<span class="hljs-string">`/api/payments/orders/<span class="hljs-subst">${orderId}</span>`</span>)).<span class="hljs-title function_">json</span>();
   <span class="hljs-title function_">expect</span>(order.<span class="hljs-property">status</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;created&#x27;</span>);
-<span class="hljs-comment">// ...</span>
 });</code></pre>
                         <figcaption>WEB-FIX-002, condensed. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L288-L314" target="_blank" rel="noopener noreferrer">tests/security/webhook-validation.spec.js, lines 288, 295&ndash;296, 299, 307, 311&ndash;314 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
