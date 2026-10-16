@@ -29,6 +29,14 @@
             margin: 0 auto;
             padding: 96px 24px 110px;
             text-align: center;
+            /* Fill the first screen so the footer starts below the fold, as it does on every other page. Otherwise a
+               short page puts the footer's last row in the corner the floating WhatsApp button occupies, and the
+               button hides itself on load. */
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .notfound .code { color: var(--brand-accent-text); font-weight: 700; letter-spacing: 1px; font-size: 0.9rem; }
         .notfound h1 { color: #314259; font-size: 2.2rem; margin: 8px 0 14px; line-height: 1.25; }
