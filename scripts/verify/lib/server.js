@@ -66,6 +66,13 @@ function start({ root, port = 0, log = false, config: configOverride = null, hon
       res.end(req.method === 'HEAD' ? undefined : body);
     };
 
+    // Like Vercel: an unmatched path answers 404 with the contents of /404.html when the site has one.
+    const notFound = () => {
+      const page = path.join(root, '404.html');
+      if (fs.existsSync(page) && !hidden('404.html')) return send(404, { 'Content-Type': 'text/html; charset=utf-8' }, fs.readFileSync(page));
+      return send(404, { 'Content-Type': 'text/plain' }, '404 ' + p);
+    };
+
     for (const r of redirects) {
       if (r.test(p)) {
         const status = redirectStatus(r.rule);
@@ -77,16 +84,16 @@ function start({ root, port = 0, log = false, config: configOverride = null, hon
     const abs = path.normalize(path.join(root, p));
     if (!abs.startsWith(path.normalize(root))) return send(403, {}, 'forbidden');
     const rel = path.relative(root, abs).split(path.sep).join('/');
-    if (hidden(rel)) return send(404, { 'Content-Type': 'text/plain' }, '404 ' + p);
+    if (hidden(rel)) return notFound();
 
     let file = abs;
     if (fs.existsSync(abs) && fs.statSync(abs).isDirectory()) {
       if (trailingSlash && !p.endsWith('/')) return send(308, { Location: p + '/' + u.search }, '');
       file = path.join(abs, 'index.html');
     }
-    if (!fs.existsSync(file) || !fs.statSync(file).isFile()) return send(404, { 'Content-Type': 'text/plain' }, '404 ' + p);
+    if (!fs.existsSync(file) || !fs.statSync(file).isFile()) return notFound();
     // Vercel serves from a case-sensitive file system; Windows is not, so insist on the exact spelling
-    if (path.relative(realRoot, fs.realpathSync.native(file)) !== path.relative(path.normalize(root), file)) return send(404, { 'Content-Type': 'text/plain' }, '404 ' + p);
+    if (path.relative(realRoot, fs.realpathSync.native(file)) !== path.relative(path.normalize(root), file)) return notFound();
     let body = fs.readFileSync(file);
     const type = MIME[path.extname(file).toLowerCase()] || 'application/octet-stream';
     const headers = { 'Content-Type': type };

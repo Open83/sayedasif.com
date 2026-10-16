@@ -23,7 +23,11 @@ async function run(ctx) {
   r.expect(bad.length === 0, `${ex.pages.length} expected pages return 200 text/html`, bad.length ? bad.join(', ') : ex.pages.length + ' pages');
 
   // no page exists that is not expected (a stray page would be indexable)
-  const extra = ctx.pages.map((p) => p.url).filter((u) => !ex.pages.includes(u));
+  // /404.html is the branded not-found page: it must exist, be noindex, and answer unknown URLs with a real 404
+  const extra = ctx.pages.map((p) => p.url).filter((u) => !ex.pages.includes(u) && u !== '/404.html');
+  const nf = await fetch(baseUrl + '/no-such-page-xyz/', { redirect: 'manual' });
+  const nfBody = await nf.text();
+  r.expect(nf.status === 404 && /<title>Page not found/.test(nfBody) && /name="robots" content="noindex/.test(nfBody), 'unknown URL answers a real HTTP 404 with the branded 404 page (noindex), not a redirect or a 200', `${nf.status} ${nfBody.length} bytes`);
   r.expect(extra.length === 0, 'no unexpected pages in the deployed tree', extra.length ? extra.join(', ') : 'none');
 
   // deleted pages are gone from disk

@@ -61,7 +61,7 @@ async function run(ctx) {
     if (!/<script src="\/assets\/js\/contact-actions\.js" defer><\/script>/.test(html)) bad.push(`${p.url}: contact-actions.js not loaded`);
   }
   r.expect(bad.length === 0, `exactly one button on each of ${pages.length} pages; href=/contact/, aria-label, aria-hidden icon, no number/wa.me in its markup, script loaded`, bad.join(' | ') || `${pages.length} pages`);
-  r.note('There is no 404.html in this project (Vercel serves its own), so there is no custom 404 page to add the button to.');
+  r.note('The branded 404.html is one of the pages above, so it carries the button too.');
 
   const VIEWPORTS = [{ name: '1280px', width: 1280, height: 800 }, { name: '390px', width: 390, height: 844 }];
 
@@ -72,7 +72,7 @@ async function run(ctx) {
     const page = await context.newPage();
     const out = { geometry: null, problems: [], samples: 0, yielded: 0, note: null };
     await page.goto(baseUrl + p.url, { waitUntil: 'load' });
-    await page.waitForTimeout(600); // entrance animation
+    await page.evaluate(() => Promise.all(document.querySelector("[data-whatsapp]").getAnimations().map((a) => a.finished.catch(() => null)))); // wait for the entrance animation to finish, not a fixed sleep: on a heavy page its first frame can start late
 
     const info = await page.evaluate(() => {
       const btn = document.querySelector('[data-whatsapp]');
@@ -226,7 +226,7 @@ async function run(ctx) {
       const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
       const page = await context.newPage();
       await page.goto(baseUrl + '/contact/', { waitUntil: 'load' });
-      await page.waitForTimeout(600);
+      await page.evaluate(() => Promise.all(document.querySelector("[data-whatsapp]").getAnimations().map((a) => a.finished.catch(() => null)))); // wait for the entrance animation to finish, not a fixed sleep: on a heavy page its first frame can start late
       const atTop = await page.evaluate(scan);
       await page.focus('#name');
       await page.evaluate(settle);

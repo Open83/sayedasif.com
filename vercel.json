@@ -12,6 +12,11 @@
       "permanent": false
     },
     {
+      "source": "/.github/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/resume/download/",
       "destination": "/resume/",
       "statusCode": 301

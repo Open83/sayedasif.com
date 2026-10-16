@@ -12,14 +12,7 @@
   "_phone": "Kept in pieces so the repository never holds the number as one searchable string; run.js assembles digits, display and the wa.me prefix.",
   "phone": { "parts": ["98", "675", "74386"], "countryCode": "91", "email": "sayedasif83838@gmail.com" },
 
-  "pendingTodos": [
-    { "file": "about/index.html", "text": "owner to confirm the specifics of the accounting claim" },
-    { "file": "contact/index.html", "text": "optionally state my contractual notice period" },
-    { "file": "evidence/index.html", "text": "add a priority for DEF-002" },
-    { "file": "index.html", "text": "real metric, NDA-safe (for example defects found, regression cycle time" },
-    { "file": "index.html", "text": "real metric, NDA-safe (for example permission cases verified" },
-    { "file": "index.html", "text": "real metric, NDA-safe (for example regression scenarios maintained" }
-  ],
+  "pendingTodos": [],
 
   "redirects": [
     { "from": "/capabilities/", "to": "/" },
@@ -51,7 +44,7 @@
 
   "navLabels": ["Home", "Proof of Work", "About", "Services", "Blog", "Resume", "Contact"],
   "homepage": {
-    "sectionHeadings": ["Featured Proof of Work", "Professional Work Impact", "Evidence Library", "Experience at a Glance", "Let’s Talk"],
+    "sectionHeadings": ["Featured Proof of Work", "Professional Work", "Evidence Library", "Experience at a Glance", "Let’s Talk"],
     "statNumbers": ["1+", "6", "4", "116"]
   },
   "projectOrder": ["Razorpay", "RESTful Booker", "ERPNext", "Automation Exercise"],

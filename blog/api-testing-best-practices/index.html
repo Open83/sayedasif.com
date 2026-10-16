@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>API Testing Best Practices for QA Engineers | Sayed Asif</title>
+    <title>API Testing Lessons from a Playwright and TypeScript Suite | Sayed Asif</title>
 
     <meta
         name="description"
-        content="Practical API testing strategies including endpoint validation, request/response verification, authentication testing, error handling, and common pitfalls to avoid in QA."
+        content="What a 47-test Playwright and TypeScript API suite taught me about assertions, test isolation, negative tests and CI, and what it does not cover."
     >
 
     <meta name="author" content="Sayed Asif">
@@ -18,8 +18,8 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="API Testing Best Practices for QA Engineers">
-    <meta property="og:description" content="Practical strategies for effective API testing, validation, and quality assurance.">
+    <meta property="og:title" content="API Testing Lessons from a Playwright and TypeScript Suite">
+    <meta property="og:description" content="What a 47-test Playwright and TypeScript API suite taught me about assertions, test isolation, negative tests and CI, and what it does not cover.">
     <meta property="og:url" content="https://sayedasif.com/blog/api-testing-best-practices/">
     <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
     <meta property="og:image:width" content="1200">
@@ -28,17 +28,16 @@
     <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
     <meta property="og:site_name" content="Sayed Asif">
     <meta property="article:published_time" content="2026-09-11">
-    <meta property="article:modified_time" content="2026-09-11">
+    <meta property="article:modified_time" content="2026-10-16">
     <meta property="article:author" content="Sayed Asif">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="API Testing Best Practices for QA Engineers">
-    <meta name="twitter:description" content="Practical strategies for effective API testing and validation.">
+    <meta name="twitter:title" content="API Testing Lessons from a Playwright and TypeScript Suite">
+    <meta name="twitter:description" content="What a 47-test Playwright and TypeScript API suite taught me about assertions, test isolation, negative tests and CI, and what it does not cover.">
     <meta name="twitter:image" content="https://sayedasif.com/image/og-share.jpg">
 
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <script type="application/ld+json">
     {
@@ -48,8 +47,8 @@
             "@type": "WebPage",
             "@id": "https://sayedasif.com/blog/api-testing-best-practices/"
         },
-        "headline": "API Testing Best Practices for QA Engineers",
-        "description": "Practical strategies for effective API testing, including endpoint validation, request/response verification, authentication testing, and common pitfalls.",
+        "headline": "API Testing Lessons from a Playwright and TypeScript Suite",
+        "description": "What a 47-test Playwright and TypeScript API suite taught me about assertions, test isolation, negative tests and CI, and what it does not cover.",
         "image": "https://sayedasif.com/image/og-share.jpg",
         "author": {
             "@type": "Person",
@@ -62,15 +61,15 @@
             "url": "https://sayedasif.com/"
         },
         "datePublished": "2026-09-11",
-        "dateModified": "2026-09-11",
+        "dateModified": "2026-10-16",
         "articleSection": "API Testing",
         "keywords": [
             "API Testing",
-            "QA",
+            "Playwright",
+            "TypeScript",
             "Test Automation",
             "REST API",
-            "Software Testing",
-            "Quality Assurance"
+            "RESTful Booker"
         ]
     }
     </script>
@@ -207,6 +206,54 @@
             color: var(--brand-dark);
         }
 
+        .article-content code {
+            background: #eef2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            overflow-wrap: anywhere;
+        }
+
+        .article-content pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin: 20px 0 8px;
+            overflow-x: auto;
+            font-size: 0.86rem;
+            line-height: 1.65;
+            tab-size: 2;
+        }
+
+        .article-content pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            font-size: inherit;
+            overflow-wrap: normal;
+        }
+
+        .code-caption {
+            font-size: 0.85rem;
+            color: var(--brand-muted);
+            margin-bottom: 22px;
+        }
+
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        .article-content th,
+        .article-content td {
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: var(--border-light);
+        }
+
         .highlight-box {
             background: #e0f7ff;
             border-left: 4px solid var(--brand-primary);
@@ -307,19 +354,19 @@
         <section class="article-header">
             <div class="container">
                 <span class="article-category">API Testing</span>
-                <h1 class="article-title">API Testing Best Practices for QA Engineers</h1>
+                <h1 class="article-title">API Testing Lessons from a Playwright and TypeScript Suite</h1>
 
                 <div class="article-meta">
                     <div class="article-meta-item">
-                        <i class="fas fa-calendar" aria-hidden="true"></i>
-                        <span>September 11, 2026</span>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#calendar"/></svg></i>
+                        <span>Published September 11, 2026 &middot; Rewritten October 16, 2026</span>
                     </div>
                     <div class="article-meta-item">
-                        <i class="fas fa-user" aria-hidden="true"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#user"/></svg></i>
                         <span>Sayed Asif</span>
                     </div>
                     <div class="article-meta-item">
-                        <i class="fas fa-folder" aria-hidden="true"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#folder"/></svg></i>
                         <span>API Testing</span>
                     </div>
                 </div>
@@ -330,229 +377,208 @@
         <article class="article-content">
             <div class="container">
 
-                <h2>Introduction</h2>
-
                 <p>
-                    API testing is a critical component of modern software quality assurance. As applications increasingly rely on backend services and third-party integrations, the ability to validate APIs effectively has become essential for QA engineers. This article explores practical strategies for comprehensive API testing, from basic endpoint validation to complex authentication and error handling scenarios.
+                    These are notes from one project, not a general guide. I wrote 47 API tests with Playwright and
+                    TypeScript against <a href="https://restful-booker.herokuapp.com" target="_blank" rel="noopener noreferrer">RESTful Booker</a>,
+                    a public API built for practising API testing. It is an independent project, not client or employer work,
+                    and a practice API has no real users, roles or money, so none of this shows how I would test a
+                    production system. What it does show is how I structure checks, and a few decisions I would
+                    now make differently. All code below is from commit
+                    <a href="https://github.com/Open83/restful-booker-api-automation/tree/a385240" target="_blank" rel="noopener noreferrer"><code>a385240</code></a>
+                    of the <a href="https://github.com/Open83/restful-booker-api-automation" target="_blank" rel="noopener noreferrer">public repository</a>.
                 </p>
 
-                <h2>Understanding API Testing Scope</h2>
+                <h2>What the suite checks</h2>
+
+                <table>
+                    <caption class="code-caption">Test definitions per spec file (47 in 9 files).</caption>
+                    <thead><tr><th scope="col">Spec</th><th scope="col">Tests</th><th scope="col">Covers</th></tr></thead>
+                    <tbody>
+                        <tr><td>auth</td><td>5</td><td>Token creation, bad and empty credentials</td></tr>
+                        <tr><td>booking-create</td><td>7</td><td>Create, response shape, optional fields</td></tr>
+                        <tr><td>booking-read</td><td>6</td><td>Get one, list, required fields, dates</td></tr>
+                        <tr><td>booking-update</td><td>6</td><td>Full update, with and without a token</td></tr>
+                        <tr><td>booking-partial-update</td><td>5</td><td>PATCH behaviour</td></tr>
+                        <tr><td>booking-delete</td><td>6</td><td>Delete, missing and invalid token, verify gone</td></tr>
+                        <tr><td>health-check</td><td>1</td><td>Service reachable</td></tr>
+                        <tr><td>negative-testing</td><td>8</td><td>Invalid input, bad IDs, odd payloads</td></tr>
+                        <tr><td>workflow</td><td>3</td><td>Multi-step lifecycles</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>1. Assert what the API actually does, and write down where it surprises you</h2>
 
                 <p>
-                    API testing validates the functionality, performance, and security of application programming interfaces. Unlike UI testing, which focuses on user-facing features, API testing examines the underlying logic, data processing, and system integrations that power applications.
+                    I expected a failed login to return 401. RESTful Booker returns 200 with a body that carries a
+                    <code>reason</code> instead. The test asserts that real behaviour, and its name says so:
                 </p>
 
+                <pre tabindex="0"><code>test('POST /auth with invalid credentials should return 200 but no token', async () =&gt; {
+  const response = await authClient.createTokenResponse('invalid_user', 'wrong_password');
+
+  expect(response.status()).toBe(200);
+  const body = await response.json();
+  expect(body).toHaveProperty('reason');
+  expect(body.reason).toMatch(/Unauthorized|Bad credentials/i);
+});</code></pre>
+                <p class="code-caption"><a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/auth.spec.ts" target="_blank" rel="noopener noreferrer">tests/api/auth.spec.ts</a></p>
+
                 <p>
-                    Effective API testing covers:
+                    On a team I would not leave this as a passing test and move on. A 200 for failed authentication is
+                    something to raise with whoever owns the API, because clients that only check the status code will
+                    treat a failed login as a success. Here it is a practice API I do not control, so the test records
+                    the behaviour and the name makes the surprise visible.
                 </p>
+
+                <h2>2. Make every test create its own data</h2>
+
+                <p>
+                    Each spec creates the booking it needs in a <code>beforeEach</code> or inside the test, and gets a
+                    fresh token, so no test depends on another test having run and the order does not matter:
+                </p>
+
+                <pre tabindex="0"><code>test.beforeEach(async ({ request }) =&gt; {
+  bookingClient = new BookingClient(request, config.baseURL);
+  authClient = new AuthClient(request, config.baseURL);
+  token = await authClient.createToken(config.auth.username, config.auth.password);
+});
+
+test('DELETE /booking/{id} without token should return 403', async () =&gt; {
+  const createResponse = await bookingClient.createBooking(validBooking);
+  const bookingId = createResponse.bookingid;
+
+  const response = await bookingClient.deleteBookingResponse(bookingId, '');
+  expect(response.status()).toBe(403);
+});</code></pre>
+                <p class="code-caption"><a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts" target="_blank" rel="noopener noreferrer">tests/api/booking-delete.spec.ts</a> (excerpt)</p>
+
+                <p>
+                    <strong>The trade-off I did not handle:</strong> only the delete and lifecycle tests remove what they create. Every
+                    other test leaves its booking behind on a shared public server, and the fixtures reuse the same names
+                    (<code>John Smith</code>), so a test cannot find its booking by name. It finds it by the returned
+                    <code>bookingid</code>. Cleanup in an <code>afterEach</code> is the first thing I would add.
+                </p>
+
+                <h2>3. Keep a way to see the status code</h2>
+
+                <p>
+                    The API client has two kinds of method. The convenient ones return the parsed body. The
+                    <code>...Response</code> variants return the raw response so a test can assert on status and headers:
+                </p>
+
+                <pre tabindex="0"><code>async get&lt;T&gt;(endpoint: string, token?: string): Promise&lt;T&gt; {
+  const headers = this.getHeaders(token);
+  const response = await this.request.get(`${this.baseURL}${endpoint}`, { headers });
+  return response.json();
+}
+
+async getResponse(endpoint: string, token?: string): Promise&lt;APIResponse&gt; {
+  const headers = this.getHeaders(token);
+  return this.request.get(`${this.baseURL}${endpoint}`, { headers });
+}</code></pre>
+                <p class="code-caption"><a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/src/api/clients/api-client.ts" target="_blank" rel="noopener noreferrer">src/api/clients/api-client.ts</a> (excerpt)</p>
+
+                <p>
+                    That split keeps happy-path tests short, but it has a weakness: the body-returning helpers never check
+                    the status. If the server returned a 500 with an error body, the failure would show up later as a
+                    confusing assertion on a missing field instead of a clear status failure. I would make those helpers
+                    assert <code>response.ok()</code> before parsing.
+                </p>
+
+                <h2>4. Negative tests can pin behaviour you would call a bug, and some cannot fail</h2>
+
+                <p>
+                    Several of the eight negative tests do not show the API rejecting bad input. They show it accepting it:
+                    a negative price, an invalid date string, a checkout date before the check-in date.
+                </p>
+
+                <pre tabindex="0"><code>test('POST /booking with negative price is accepted by API', async ({ request }) =&gt; {
+  const bookingWithNegativePrice = {
+    ...validBooking,
+    totalprice: -100,
+  };
+
+  const response = await bookingClient.postResponse('/booking', bookingWithNegativePrice);
+  expect(response.ok).toBeTruthy();
+});</code></pre>
+                <p class="code-caption"><a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts" target="_blank" rel="noopener noreferrer">tests/api/negative-testing.spec.ts</a> (excerpt)</p>
+
+                <p>
+                    On a real product each of these would be a defect report or a question about the requirement, not a
+                    green test that blesses the behaviour. Reviewing this file for this article I also found a bug in my
+                    own assertion. In Playwright, <code>response.ok</code> is a method, so without the call parentheses
+                    the expression is a function and always truthy, and the check can never fail. Three tests have it
+                    (lines 35, 48 and 61 of that file). It should be <code>response.ok()</code>. Those three therefore
+                    count in the 47 test definitions but prove nothing about the API. A test that cannot fail is the first
+                    thing I look for when I review tests, and I missed it in my own.
+                </p>
+                <p>
+                    Only two of the eight negative tests assert a rejection: an incomplete PUT returns 400, and a non-numeric
+                    booking ID returns 404. The other six record input the API accepts (zero and negative prices, an
+                    invalid date, a checkout before the check-in, special characters in the login, a 1,000-character name).
+                    Rejection of a missing token is covered separately in the delete spec, which expects a 403.
+                </p>
+
+                <h2>5. After a write, read it back</h2>
+
+                <p>
+                    A successful response to an update does not prove the data was saved. The lifecycle test reads the
+                    booking again after each change, and finishes by checking that the deleted booking now returns 404:
+                </p>
+
+                <pre tabindex="0"><code>// Step 4: Update booking
+const updatedResponse = await bookingClient.updateBooking(bookingId, updatedBooking, token);
+expect(updatedResponse.firstname).toBe(updatedBooking.firstname);
+
+// Step 5: Verify update persisted
+const verifyUpdated = await bookingClient.getBooking(bookingId);
+expect(verifyUpdated.firstname).toBe(updatedBooking.firstname);
+expect(verifyUpdated.totalprice).toBe(updatedBooking.totalprice);</code></pre>
+                <p class="code-caption"><a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/workflow.spec.ts" target="_blank" rel="noopener noreferrer">tests/api/workflow.spec.ts</a> (excerpt)</p>
+
+                <h2>6. CI, retries and what a green run does not prove</h2>
+
+                <p>
+                    The Playwright configuration retries once in CI, collects a trace on the first retry, and runs with a
+                    single worker so tests do not collide on shared server state:
+                </p>
+
+                <pre tabindex="0"><code>retries: process.env.CI ? 1 : 0,
+workers: process.env.CI ? 1 : undefined,
+use: {
+  trace: 'on-first-retry',
+}</code></pre>
+                <p class="code-caption"><a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/playwright.config.ts" target="_blank" rel="noopener noreferrer">playwright.config.ts</a> (excerpt)</p>
+
+                <p>
+                    The first workflow run on 10 September 2026 failed, and the next run, after a commit titled
+                    &ldquo;fix: align CI Node version with Playwright&rdquo;, passed. That commit message is my only
+                    evidence for the cause, because GitHub Actions logs need a sign-in to read, so treat it as the
+                    likely cause, not a documented root cause. Retries are also a reason to read a green run carefully:
+                    with one retry configured, a pass does not by itself show that no test needed it.
+                </p>
+
+                <h2>What this suite does not cover</h2>
 
                 <ul>
-                    <li><strong>Endpoint validation</strong> - Ensuring endpoints respond correctly to requests</li>
-                    <li><strong>Request/response verification</strong> - Validating payload structure and data accuracy</li>
-                    <li><strong>Authentication and authorization</strong> - Confirming proper access control implementation</li>
-                    <li><strong>Error handling</strong> - Verifying appropriate error messages and status codes</li>
-                    <li><strong>Data validation</strong> - Confirming data integrity and consistency</li>
-                    <li><strong>Performance testing</strong> - Checking response times and throughput</li>
-                </ul>
-
-                <h2>Best Practice #1: Understand Your API Contract</h2>
-
-                <p>
-                    Before writing tests, thoroughly review the API documentation. Understand:
-                </p>
-
-                <ul>
-                    <li>Available endpoints and their purposes</li>
-                    <li>Required and optional request parameters</li>
-                    <li>Expected response structure and data types</li>
-                    <li>Authentication requirements and token handling</li>
-                    <li>Rate limits and performance expectations</li>
-                    <li>Error codes and their meanings</li>
+                    <li><strong>Contract or schema validation.</strong> Response shape is checked with <code>toHaveProperty</code> on a few fields, not against a schema, so an extra, renamed or wrongly typed field would go unnoticed.</li>
+                    <li><strong>Performance and load.</strong> There are no response-time assertions and no load tests.</li>
+                    <li><strong>Authorization models.</strong> The API has one admin account and a cookie token. There are no roles, so nothing here tests who may see whose data.</li>
+                    <li><strong>Databases and integrations.</strong> Everything goes through the public HTTP interface.</li>
+                    <li><strong>Real systems.</strong> This is a demo service that other people also use. Results depend on its uptime and on shared data.</li>
                 </ul>
 
                 <p>
-                    Clear documentation understanding prevents test creation based on assumptions rather than specifications. When documentation is incomplete, collaborate with developers to clarify expected behavior.
-                </p>
-
-                <h2>Best Practice #2: Test Happy Path and Edge Cases</h2>
-
-                <p>
-                    Comprehensive API testing requires validating both expected behavior and boundary conditions.
-                </p>
-
-                <div class="highlight-box">
-                    <p>
-                        <strong>Happy Path:</strong> Standard scenarios with valid inputs that follow the expected workflow. These tests validate core functionality and typical user interactions.
-                    </p>
-                </div>
-
-                <p>
-                    Edge cases to consider:
-                </p>
-
-                <ul>
-                    <li><strong>Boundary values</strong> - Empty strings, null values, extremely large numbers</li>
-                    <li><strong>Invalid data types</strong> - Sending strings where numbers are expected</li>
-                    <li><strong>Missing required fields</strong> - Omitting mandatory request parameters</li>
-                    <li><strong>Malformed requests</strong> - Invalid JSON or XML structure</li>
-                    <li><strong>Concurrent requests</strong> - Testing behavior under simultaneous load</li>
-                    <li><strong>Resource exhaustion</strong> - Testing limits and quotas</li>
-                </ul>
-
-                <h2>Best Practice #3: Validate Response Structure and Status Codes</h2>
-
-                <p>
-                    Always verify that API responses match the documented contract. Validate:
-                </p>
-
-                <ul>
-                    <li><strong>HTTP Status Codes</strong> - 200 for success, 400 for bad request, 401 for unauthorized, 404 for not found, 500 for server error</li>
-                    <li><strong>Response Headers</strong> - Content-Type, authentication tokens, CORS headers</li>
-                    <li><strong>Response Body Structure</strong> - Expected JSON/XML format and field presence</li>
-                    <li><strong>Data Types</strong> - Confirm strings, numbers, booleans, arrays match specifications</li>
-                    <li><strong>Null Handling</strong> - Optional fields should be null or absent, not empty strings</li>
-                </ul>
-
-                <p>
-                    A common mistake is validating only the success case. Equally important is confirming that error responses follow the documented format and contain appropriate error messages.
-                </p>
-
-                <h2>Best Practice #4: Test Authentication and Authorization</h2>
-
-                <p>
-                    Security-related testing should include:
-                </p>
-
-                <ul>
-                    <li><strong>Missing Credentials</strong> - API should reject requests without authentication</li>
-                    <li><strong>Invalid Credentials</strong> - Expired or malformed tokens should be rejected</li>
-                    <li><strong>Role-Based Access</strong> - Users should access only resources permitted by their role</li>
-                    <li><strong>Token Expiration</strong> - Expired tokens should trigger re-authentication</li>
-                    <li><strong>Cross-User Data Access</strong> - Verify users cannot access other users' data</li>
-                </ul>
-
-                <p>
-                    Authentication testing often requires collaboration with developers to obtain valid test credentials and understand token refresh mechanisms.
-                </p>
-
-                <h2>Best Practice #5: Handle State and Sequencing</h2>
-
-                <p>
-                    API tests often depend on resource state. Consider:
-                </p>
-
-                <ul>
-                    <li><strong>Test Isolation</strong> - Each test should be independent; avoid test order dependencies</li>
-                    <li><strong>Setup and Teardown</strong> - Create test data before tests and clean up afterward</li>
-                    <li><strong>Resource Cleanup</strong> - Delete test resources to prevent interference with other tests</li>
-                    <li><strong>Concurrent Test Execution</strong> - Ensure parallel test runs don't cause conflicts</li>
-                </ul>
-
-                <p>
-                    Some testing scenarios require workflow sequences (e.g., creating, updating, then deleting a resource). Clearly document these dependencies and ensure tests that depend on prior state explicitly verify that state exists.
-                </p>
-
-                <h2>Best Practice #6: Verify Data Integrity</h2>
-
-                <p>
-                    Beyond response validation, confirm that data persists correctly in the backend:
-                </p>
-
-                <ul>
-                    <li><strong>Create and Verify</strong> - Create a resource via API, then retrieve and validate it</li>
-                    <li><strong>Update and Verify</strong> - Modify a resource and confirm changes persisted</li>
-                    <li><strong>Delete and Verify</strong> - Delete a resource and confirm it no longer exists</li>
-                    <li><strong>Database Validation</strong> - When possible, query the database to confirm data accuracy</li>
-                </ul>
-
-                <p>
-                    This end-to-end validation catches bugs that response-only checks might miss, such as data not persisting or being corrupted in storage.
-                </p>
-
-                <h2>Best Practice #7: Test Error Scenarios</h2>
-
-                <p>
-                    Comprehensive error testing validates application resilience:
-                </p>
-
-                <ul>
-                    <li><strong>Invalid Inputs</strong> - Negative numbers for quantities, past dates for future events</li>
-                    <li><strong>Business Logic Errors</strong> - Insufficient funds for transactions, duplicate entries</li>
-                    <li><strong>Resource Not Found</strong> - Requesting non-existent IDs</li>
-                    <li><strong>Conflict Scenarios</strong> - Simultaneous updates to the same resource</li>
-                    <li><strong>Timeout Scenarios</strong> - Long-running operations and timeout behavior</li>
-                </ul>
-
-                <p>
-                    Error testing often reveals critical bugs because developers may focus primarily on happy path scenarios. Thorough error validation improves application reliability.
-                </p>
-
-                <h2>Best Practice #8: Monitor Performance and Load</h2>
-
-                <p>
-                    Beyond functional correctness, API performance matters:
-                </p>
-
-                <ul>
-                    <li><strong>Response Times</strong> - Confirm requests complete within acceptable timeframes</li>
-                    <li><strong>Throughput</strong> - Validate APIs handle expected request volumes</li>
-                    <li><strong>Resource Limits</strong> - Test behavior when hitting rate limits or quota restrictions</li>
-                    <li><strong>Consistency Under Load</strong> - Verify APIs remain reliable during high concurrency</li>
-                </ul>
-
-                <p>
-                    Performance baselines established during testing provide metrics to detect regressions in later releases.
-                </p>
-
-                <h2>Common Pitfalls to Avoid</h2>
-
-                <div class="highlight-box">
-                    <p>
-                        <strong>1. Insufficient Negative Testing</strong> - Testing only success scenarios misses error handling bugs.
-                    </p>
-                </div>
-
-                <div class="highlight-box">
-                    <p>
-                        <strong>2. Ignoring Documentation Gaps</strong> - Unclear specifications should be clarified before testing begins, not assumed.
-                    </p>
-                </div>
-
-                <div class="highlight-box">
-                    <p>
-                        <strong>3. Flaky Tests</strong> - Tests that pass inconsistently indicate timing issues or external dependencies. Ensure tests are deterministic.
-                    </p>
-                </div>
-
-                <div class="highlight-box">
-                    <p>
-                        <strong>4. Insufficient Logging</strong> - When tests fail, logs should provide enough information to diagnose root causes quickly.
-                    </p>
-                </div>
-
-                <div class="highlight-box">
-                    <p>
-                        <strong>5. Hardcoded Values</strong> - Tests should use configurable values for endpoints, credentials, and test data to support multiple environments.
-                    </p>
-                </div>
-
-                <h2>Conclusion</h2>
-
-                <p>
-                    Effective API testing requires a combination of understanding API contracts, comprehensive test coverage, and attention to edge cases and error scenarios. By following these best practices, QA engineers can identify issues early, ensure data integrity, and validate that APIs reliably support application functionality.
-                </p>
-
-                <p>
-                    API testing is an ongoing practice. As applications evolve and APIs change, maintaining thorough test coverage ensures quality remains consistent throughout the development lifecycle.
-                </p>
-
-                <p>
-                    For a practical example of these API testing principles in action, explore the <a href="/projects/restful-booker-api-automation/">RESTful Booker API Automation case study</a>.
+                    For the same approach applied to something with money in it, the
+                    <a href="/blog/payment-gateway-testing-playwright/">payment gateway article</a> covers webhooks,
+                    signatures and refunds in a Razorpay Test Mode project. The
+                    <a href="/projects/restful-booker-api-automation/">RESTful Booker case study</a> and the
+                    <a href="/evidence/">Evidence Library</a> have the reports and runs.
                 </p>
 
                 <div class="back-to-blog">
                     <a href="/blog/">
-                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i>
                         Back to Blog
                     </a>
                 </div>
@@ -587,8 +613,8 @@
                 <div class="footer-contact">
                     <a href="/contact/" class="footer-contact-link">Contact</a>
                     <div class="social-links">
-                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
-                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i></a>
                     </div>
                 </div>
 
