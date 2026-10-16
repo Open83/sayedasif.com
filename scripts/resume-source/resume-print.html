@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayed Asif – Software QA Engineer</title>
+
+    <link rel="canonical" href="https://sayedasif.com/resume/">
+    <meta name="robots" content="noindex, follow">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- Font Awesome (icons used by the global header) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 12mm 15mm 12mm 15mm;
+            orphans: 3;
+            widows: 3;
+        }
+
+        main#main-content {
+            display: block;
+            padding-top: 90px;
+        }
+
+        @media print {
+            main#main-content {
+                padding-top: 0;
+            }
+
+            .site-header,
+            .site-footer,
+            .skip-link {
+                display: none !important;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Print-style black/transparent reset applies only to the resume
+           document itself, not the global site header/footer. */
+        body *:not(.site-header):not(.site-header *):not(.site-footer):not(.site-footer *) {
+            color: #000000 !important;
+            background: transparent !important;
+            border-color: #000000 !important;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.5;
+            color: #000000;
+            background: #ffffff;
+        }
+
+        body a:not(.site-header a):not(.site-footer a) {
+            color: #000000 !important;
+            text-decoration: none;
+        }
+
+        a[href]:after {
+            content: none !important;
+            display: none !important;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            page-break-after: avoid;
+        }
+
+        h1:not(.site-footer *), h2:not(.site-footer *), h3:not(.site-footer *),
+        h4:not(.site-footer *), h5:not(.site-footer *), h6:not(.site-footer *) {
+            color: #000000 !important;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 12pt;
+            padding-bottom: 10pt;
+            border-bottom: 1.5pt solid #000000;
+            page-break-after: avoid;
+        }
+
+        .name {
+            font-size: 18pt;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 2pt;
+            color: #000000;
+        }
+
+        .title {
+            font-size: 11pt;
+            font-weight: bold;
+            margin-bottom: 8pt;
+            color: #000000;
+        }
+
+        .contact-info {
+            font-size: 9.5pt;
+            line-height: 1.3;
+            color: #000000;
+        }
+
+        .contact-info p {
+            margin: 2pt 0;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 10pt;
+            page-break-inside: avoid;
+        }
+
+        .section-title {
+            font-size: 12pt;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 6pt;
+            padding-bottom: 4pt;
+            border-bottom: 1.5pt solid #000000;
+            page-break-after: avoid;
+        }
+
+        .section-content {
+            font-size: 10pt;
+            color: #000000;
+            line-height: 1.4;
+        }
+
+        /* Summary */
+        .summary {
+            margin-bottom: 8pt;
+            line-height: 1.5;
+        }
+
+        /* Skills */
+        .skills-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10pt;
+            margin-bottom: 10pt;
+        }
+
+        .skill-category {
+            page-break-inside: avoid;
+        }
+
+        .skill-category-title {
+            font-weight: bold;
+            font-size: 10pt;
+            margin-bottom: 4pt;
+            color: #000000;
+            display: inline;
+        }
+
+        .skill-category-title:after {
+            content: ": ";
+        }
+
+        .skill-list {
+            display: inline;
+            font-size: 10pt;
+            color: #000000;
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 12pt;
+            padding-bottom: 8pt;
+            border-bottom: 0.5pt solid #cccccc;
+            page-break-inside: avoid;
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2pt;
+            font-weight: bold;
+            color: #000000;
+            font-size: 11pt;
+        }
+
+        .experience-company {
+            font-weight: bold;
+            margin-bottom: 4pt;
+            color: #000000;
+            font-size: 10pt;
+        }
+
+        .experience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4pt;
+            margin-bottom: 6pt;
+        }
+
+        .tag {
+            border: 0.5pt solid #555555;
+            padding: 1pt 3pt;
+            font-size: 8.5pt;
+            color: #000000;
+        }
+
+        .experience-bullets {
+            list-style: none;
+            padding-left: 12pt;
+            margin-top: 4pt;
+        }
+
+        .experience-bullets li {
+            margin-bottom: 3pt;
+            padding-left: 0;
+            font-size: 10pt;
+            color: #000000;
+            line-height: 1.3;
+        }
+
+        .experience-bullets li:before {
+            content: "• ";
+            margin-right: 4pt;
+            font-weight: bold;
+        }
+
+        /* Education */
+        .education-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8pt;
+        }
+
+        .education-item {
+            page-break-inside: avoid;
+            margin-bottom: 6pt;
+        }
+
+        .education-degree {
+            font-weight: bold;
+            font-size: 11pt;
+            color: #000000;
+            margin: 0 0 2pt 0;
+        }
+
+        .education-school {
+            font-weight: bold;
+            font-size: 10pt;
+            color: #000000;
+            margin: 0;
+        }
+
+        .education-year {
+            font-size: 9pt;
+            color: #000000;
+            margin: 0;
+        }
+
+        /* Projects */
+        .projects-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2pt;
+        }
+
+        .project-item {
+            page-break-inside: avoid;
+            margin-bottom: 4pt;
+        }
+
+        .project-title {
+            font-weight: bold;
+            font-size: 11pt;
+            color: #000000;
+            margin-bottom: 2pt;
+        }
+
+        .project-tag {
+            font-size: 8.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #000000;
+            margin-bottom: 2pt;
+        }
+
+        .project-description {
+            font-size: 10pt;
+            color: #000000;
+            line-height: 1.4;
+            margin-bottom: 2pt;
+        }
+
+        .project-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4pt;
+            font-size: 8.5pt;
+            color: #000000;
+        }
+
+        .project-skill {
+            border: 0.5pt solid #555555;
+            padding: 1pt 3pt;
+        }
+
+        /* Tools */
+        .tools-section {
+            font-size: 10pt;
+            color: #000000;
+            line-height: 1.5;
+        }
+
+        /* Print-specific */
+        @media print {
+            body, html {
+                margin: 0;
+                padding: 0;
+                background: #ffffff;
+                color: #000000;
+            }
+        }
+
+        /* Global nav-dropdown + footer CSS (added but never wired to markup by a
+           previous broken edit) now lives in /assets/css/global-nav.css. */
+
+        /* Respect reduced-motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <header class="site-header">
+    <nav aria-label="Main navigation">
+
+        <div class="container nav-inner">
+
+            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
+
+            <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
+            <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/about/">About</a>
+                <a href="/proof-of-work/">Projects</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/">Blog</a>
+                <a href="/resume/" class="active">Resume</a>
+                <a href="/contact/">Contact</a>
+            </div>
+
+        </div>
+
+    </nav>
+    </header>
+
+    <main id="main-content">
+
+    <!-- Header -->
+    <div class="header">
+        <h1 class="name">SAYED ASIF</h1>
+        <div class="title">SOFTWARE QA ENGINEER</div>
+        <div class="contact-info">
+            <p>sayedasif83838@gmail.com | +91 9867574386 | linkedin.com/in/asifsayed83 | sayedasif.com</p>
+        </div>
+    </div>
+
+    <!-- Professional Summary -->
+    <section>
+        <h2 class="section-title">PROFESSIONAL SUMMARY</h2>
+        <div class="section-content summary">
+            Software QA Engineer with 1+ years of professional QA experience testing business-critical web applications across payment platforms, CRM systems, donation management, and logistics software. Skilled in manual testing, API validation, regression testing, and test automation with Playwright. Focused on validating workflows, identifying defects early, and helping teams understand product quality.
+        </div>
+    </section>
+
+    <!-- Core Skills -->
+    <section>
+        <h2 class="section-title">CORE SKILLS</h2>
+        <div class="section-content">
+            <div class="skills-section">
+                <div class="skill-category">
+                    <span class="skill-category-title">Testing Types</span>
+                    <span class="skill-list">Functional Testing · Regression Testing · Exploratory Testing · API Testing · Payment Testing · Cross-Platform Testing · End-to-End Testing</span>
+                </div>
+                <div class="skill-category">
+                    <span class="skill-category-title">Tools & Technologies</span>
+                    <span class="skill-list">Playwright · Postman · Jira · GitHub Actions · Browser DevTools · REST APIs · Page Object Model · Git</span>
+                </div>
+                <div class="skill-category">
+                    <span class="skill-category-title">Methodologies</span>
+                    <span class="skill-list">Agile/Scrum · Test Case Design · Defect Management · RBAC Testing · CI/CD Integration · Requirements Analysis · Risk-Based Testing · Test Planning</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Experience -->
+    <section>
+        <h2 class="section-title">PROFESSIONAL EXPERIENCE</h2>
+        <div class="section-content">
+            <div class="experience-item">
+                <div class="experience-header">
+                    <span>Software QA Engineer / QA Lead</span>
+                    <span>Dec 2024 – Present</span>
+                </div>
+                <div class="experience-company">Techno Serve Software Solutions Pvt. Ltd.</div>
+                <div class="experience-tags">
+                    <span class="tag">Payments</span>
+                    <span class="tag">CRM</span>
+                    <span class="tag">Logistics</span>
+                    <span class="tag">Non-Profit</span>
+                </div>
+                <ul class="experience-bullets">
+                    <li>Performed software quality assurance across multiple client projects.</li>
+                    <li>Designed and executed test scenarios based on application requirements and business workflows.</li>
+                    <li>Used Postman for API validation and Jira for defect tracking, and automated repeatable workflows with Playwright, Page Object Model and GitHub Actions CI/CD.</li>
+                    <li>Investigated defects, verified fixes, and collaborated with development teams to improve software quality.</li>
+                </ul>
+                <div style="font-size: 9.5pt; font-style: italic; margin-top: 4pt;">Client identities and confidential project details are omitted to respect confidentiality.</div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <span>QA Training & Certification</span>
+                    <span>2023</span>
+                </div>
+                <div class="experience-company">SQUAD Infotech Pvt. Ltd.</div>
+                <ul class="experience-bullets">
+                    <li>Completed professional training in QA fundamentals, manual testing methodologies, and automation framework concepts</li>
+                    <li>Gained hands-on experience with SQL database management for test data setup and validation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section>
+        <h2 class="section-title">EDUCATION</h2>
+        <div class="section-content">
+            <div class="education-grid">
+                <div class="education-item">
+                    <div class="education-degree">Bachelor of Commerce (B.Com)</div>
+                    <div class="education-school">MVM College of Commerce &amp; Science</div>
+                    <div class="education-year">2020 – 2022</div>
+                </div>
+
+                <div class="education-item">
+                    <div class="education-degree">Manual Software Testing</div>
+                    <div class="education-school">SQUAD Infotech Pvt. Ltd.</div>
+                    <div class="education-year">2023</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section>
+        <h2 class="section-title">FEATURED PROJECTS</h2>
+        <div class="section-content">
+            <div class="projects-section">
+                <div class="project-item">
+                    <div class="project-tag">Independent QA Project</div>
+                    <div class="project-title">Razorpay Payment Gateway QA &amp; Automation</div>
+                    <div class="project-description">Independent QA project testing a Razorpay Test Mode payment flow for verification, security, webhook behavior, state transitions and failure handling. Two real defects found and fixed with regression coverage. 37 tests, 34 of them CI-safe.</div>
+                    <div class="project-skills">
+                        <span class="project-skill">Playwright Test</span>
+                        <span class="project-skill">Node.js / Express</span>
+                        <span class="project-skill">Razorpay Test Mode</span>
+                        <span class="project-skill">SQLite</span>
+                        <span class="project-skill">GitHub Actions</span>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-tag">API Automation</div>
+                    <div class="project-title">RESTful Booker API Automation</div>
+                    <div class="project-description">Professional REST API automation framework with comprehensive testing of authentication, CRUD operations, PUT/PATCH updates, negative testing and realistic API workflows. Built with Playwright Test and TypeScript. 47 tests.</div>
+                    <div class="project-skills">
+                        <span class="project-skill">Playwright Test</span>
+                        <span class="project-skill">TypeScript</span>
+                        <span class="project-skill">REST API</span>
+                        <span class="project-skill">GitHub Actions</span>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-tag">Non-Profit Platform</div>
+                    <div class="project-title">Donation Management Platform</div>
+                    <div class="project-description">Tested donation and payment workflows including recurring transactions, failure scenarios and business-rule validation across donor-facing and admin interfaces.</div>
+                    <div class="project-skills">
+                        <span class="project-skill">Payment Testing</span>
+                        <span class="project-skill">Regression</span>
+                        <span class="project-skill">API Validation</span>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-tag">Business Management</div>
+                    <div class="project-title">Management & CRM Platform</div>
+                    <div class="project-description">Performed end-to-end QA across CRM modules, financial workflows, role-based access control, reporting, and user permission management.</div>
+                    <div class="project-skills">
+                        <span class="project-skill">E2E Testing</span>
+                        <span class="project-skill">CRM Testing</span>
+                        <span class="project-skill">RBAC Testing</span>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-tag">Logistics & Supply Chain</div>
+                    <div class="project-title">Logistics Management Platform</div>
+                    <div class="project-description">Tested shipment and logistics workflows, status updates, business rules, data consistency and regression scenarios.</div>
+                    <div class="project-skills">
+                        <span class="project-skill">Functional Testing</span>
+                        <span class="project-skill">Real-Time Data</span>
+                        <span class="project-skill">Regression</span>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-tag">International Platform</div>
+                    <div class="project-title">Multi-Currency Donation Platform</div>
+                    <div class="project-description">Tested donation workflows involving multi-currency scenarios, transaction behavior, validation rules and regression coverage.</div>
+                    <div class="project-skills">
+                        <span class="project-skill">Multi-Currency</span>
+                        <span class="project-skill">Payment Testing</span>
+                        <span class="project-skill">API Testing</span>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-tag">Independent QA Project</div>
+                    <div class="project-title">Automation Exercise</div>
+                    <div class="project-description">Playwright-based QA automation for e-commerce application covering UI workflows, API automation, regression scenarios, and checkout flows using Page Object Model and GitHub Actions CI.</div>
+                    <div class="project-skills">
+                        <span class="project-skill">Playwright</span>
+                        <span class="project-skill">API Testing</span>
+                        <span class="project-skill">Page Object Model</span>
+                        <span class="project-skill">GitHub Actions</span>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-tag">Independent QA Project</div>
+                    <div class="project-title">ERPNext QA Automation</div>
+                    <div class="project-description">Independent QA automation project demonstrating Playwright-based UI testing of ERPNext workflows using Page Object Model architecture and GitHub Actions CI.</div>
+                    <div class="project-skills">
+                        <span class="project-skill">Playwright</span>
+                        <span class="project-skill">Page Object Model</span>
+                        <span class="project-skill">GitHub Actions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools & Technologies -->
+    <section>
+        <h2 class="section-title">TOOLS & TECHNOLOGIES</h2>
+        <div class="section-content tools-section">
+            Playwright · Postman · Jira · GitHub Actions · Browser DevTools · Manual Testing · API Testing · Page Object Model · Git · Cross-Browser Testing · Responsive Testing · Bug Tracking
+        </div>
+    </section>
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+                    <p class="brand-name">Sayed<span>Asif</span></p>
+                    <p class="brand-title">Software QA Engineer</p>
+                    <p class="brand-tagline">API Testing &bull; Playwright Automation</p>
+                </div>
+
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/services/">Services</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/about/">About</a>
+                </nav>
+
+                <div class="footer-contact">
+                    <a href="/contact/" class="footer-contact-link">Contact</a>
+                    <div class="social-links">
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="footer-disclaimer">Employer project work is confidential and shown only in general terms. No client names, data or system details are published.</p>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
+                <a href="/privacy/" class="privacy-link">Privacy Notice</a>
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script src="/assets/js/global-nav.js" defer></script>
+</body>
+</html>

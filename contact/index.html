@@ -8,7 +8,7 @@
 
     <meta
         name="description"
-        content="Get in touch with Sayed Asif, Software QA Engineer based in Mumbai. Available for full-time roles, freelance QA projects and professional collaborations."
+        content="Contact Sayed Asif, QA Engineer. Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis."
     >
 
     <meta name="author" content="Sayed Asif">
@@ -21,7 +21,7 @@
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Contact Sayed Asif | Software QA Engineer">
-    <meta property="og:description" content="Get in touch with Sayed Asif for QA collaboration, job opportunities, or freelance projects.">
+    <meta property="og:description" content="Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis.">
     <meta property="og:url" content="https://sayedasif.com/contact/">
     <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
     <meta property="og:image:width" content="1200">
@@ -46,7 +46,7 @@
                 "name": "Are you available for full-time roles or freelance projects?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "I'm open to full-time QA Engineer roles and to discussing clearly scoped freelance testing projects. For freelance work, see the Services page: scope, access and deliverables are agreed before any work begins. I'm based in Mumbai and open to remote, hybrid, or on-site roles."
+                    "text": "Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis. For freelance work, see the Services page: scope, access and deliverables are agreed before any work begins. I'm based in Mumbai and open to remote, hybrid, or on-site roles."
                 }
             },
             {
@@ -59,18 +59,10 @@
             },
             {
                 "@type": "Question",
-                "name": "How do you handle confidential client work in your portfolio?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "All professional project examples are intentionally generalized. Client names, proprietary implementation details and internal documentation are omitted unless explicitly authorized for disclosure."
-                }
-            },
-            {
-                "@type": "Question",
                 "name": "What is your notice period / when can you start?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Available to discuss — please reach out via the contact page or email me directly and I'll respond promptly."
+                    "text": "I'm currently employed and not serving a notice period. For the right offer I can discuss joining timelines on a call."
                 }
             }
         ]
@@ -137,8 +129,6 @@
             padding: 0 20px;
         }
 
-        /* Global nav (header/nav-inner/logo/nav-links/hamburger/dropdown)
-           now lives in /assets/css/global-nav.css. */
 
         /* =====================================================
            MAIN CONTENT
@@ -393,7 +383,6 @@
            TABLET
         ====================================================== */
 
-        /* Nav-dropdown + footer responsive rules (992px) now live in /assets/css/global-nav.css. */
 
 
         /* =====================================================
@@ -463,11 +452,9 @@
             }
         }
 
-        /* Duplicate nav-dropdown CSS removed — now lives in /assets/css/global-nav.css. */
 
         /* Duplicate footer CSS removed — now lives in /assets/css/global-nav.css. */
 
-        /* Nav-dropdown + footer responsive rules (992px) now live in /assets/css/global-nav.css. */
 
         /* Footer responsive rules (768px) now live in /assets/css/global-nav.css. */
 
@@ -550,7 +537,7 @@
 
         <div class="container nav-inner">
 
-            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
+            <a href="/" class="logo" aria-label="SayedAsif home">Sayed<span>Asif</span></a>
 
             <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
             <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
@@ -560,8 +547,8 @@
 
             <div class="nav-links" id="navLinks">
                 <a href="/">Home</a>
+                <a href="/proof-of-work/">Proof of Work</a>
                 <a href="/about/">About</a>
-                <a href="/proof-of-work/">Projects</a>
                 <a href="/services/">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/">Resume</a>
@@ -589,26 +576,22 @@
                 <!-- Contact Form -->
                 <div>
                     <div class="contact-form">
-                        <div class="success-message" id="successMessage" data-fs-success role="status" hidden>
-                            ✓ Thanks for reaching out! I'll get back to you shortly.
-                        </div>
+                        <!-- Empty live region: the success or error message is created here only after a submission -->
+                        <div id="formStatus" aria-live="polite"></div>
 
-                        <div class="error-message" id="errorMessage" data-fs-error role="alert" hidden>
-                            Something went wrong. Please try again or email me directly at sayedasif83838@gmail.com.
-                        </div>
-
-                        <form id="contactForm">
+                        <form id="contactForm" method="POST" action="https://formspree.io/f/xqpknrny" data-ajax-form data-status="formStatus"
+                              data-email="sayedasif83838@gmail.com">
                             <div class="form-group">
                                 <label for="name">Full Name *</label>
                                 <input
                                     type="text"
                                     id="name"
                                     name="name" autocomplete="name"
-                                    required
+                                    required data-error="Please enter your name."
                                     placeholder="Your name"
-                                    aria-describedby="name-error" data-fs-field
+                                    aria-describedby="name-error"
                                 >
-                                <span class="field-error" id="name-error" data-fs-error="name" aria-live="polite"></span>
+                                <span class="field-error" id="name-error" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
@@ -617,23 +600,23 @@
                                     type="email"
                                     id="email"
                                     name="email" autocomplete="email"
-                                    required
+                                    required data-error="Please enter a valid email address, for example name@company.com."
                                     placeholder="your@email.com"
-                                    aria-describedby="email-error" data-fs-field
+                                    aria-describedby="email-error"
                                 >
-                                <span class="field-error" id="email-error" data-fs-error="email" aria-live="polite"></span>
+                                <span class="field-error" id="email-error" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="subject">Subject *</label>
-                                <select id="subject" name="subject" required aria-describedby="subject-error" data-fs-field>
+                                <select id="subject" name="subject" required data-error="Please choose a subject." aria-describedby="subject-error">
                                     <option value="">Select a subject...</option>
                                     <option value="Job Opportunity">Job Opportunity</option>
                                     <option value="Freelance Project">Freelance Project</option>
                                     <option value="QA Collaboration">QA Collaboration</option>
                                     <option value="General Enquiry">General Enquiry</option>
                                 </select>
-                                <span class="field-error" id="subject-error" data-fs-error="subject" aria-live="polite"></span>
+                                <span class="field-error" id="subject-error" aria-live="polite"></span>
                             </div>
 
                             <div class="form-group">
@@ -641,14 +624,14 @@
                                 <textarea
                                     id="message"
                                     name="message"
-                                    required
+                                    required data-error="Please enter a message."
                                     placeholder="Tell me about your inquiry..."
-                                    aria-describedby="message-error" data-fs-field
+                                    aria-describedby="message-error"
                                 ></textarea>
-                                <span class="field-error" id="message-error" data-fs-error="message" aria-live="polite"></span>
+                                <span class="field-error" id="message-error" aria-live="polite"></span>
                             </div>
 
-                            <button type="submit" class="btn btn-primary" data-fs-submit-btn>
+                            <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-paper-plane"></i>
                                 Send Message
                             </button>
@@ -665,7 +648,7 @@
 
                         <div class="contact-detail">
                             <p><i class="fas fa-phone" style="color: var(--brand-primary); margin-right: 8px;"></i>Phone</p>
-                            <a href="tel:+919867574386">+91 9867574386</a>
+                            <span class="phone-slot" aria-live="polite"><button type="button" class="reveal-phone" data-reveal-phone>Show phone number</button></span>
                         </div>
 
                         <div class="contact-detail">
@@ -700,16 +683,6 @@
                                 <i class="fab fa-github"></i>
                             </a>
 
-                            <a
-                                href="https://wa.me/919867574386"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="contact-social-icon"
-                                aria-label="WhatsApp"
-                                title="WhatsApp"
-                            >
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
                         </div>
                     </div>
 
@@ -717,7 +690,7 @@
                     <div class="contact-card">
                         <h2>Availability</h2>
                         <div class="availability-box">
-                            Currently open to full-time QA Engineer roles. Remote, hybrid and on-site opportunities considered. For freelance testing work, see <a href="/services/">QA Services</a>: scope and deliverables are agreed before any work begins.
+                            Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis. Remote, hybrid and on-site opportunities considered. For freelance work, see <a href="/services/">QA Services</a>: scope and deliverables are agreed before any work begins.
                         </div>
                     </div>
 
@@ -729,19 +702,16 @@
                 <h2 id="faq-heading">Frequently Asked Questions</h2>
                 <details class="faq-item">
                     <summary>Are you available for full-time roles or freelance projects?</summary>
-                    <p>I'm open to full-time QA Engineer roles and to discussing clearly scoped freelance testing projects. For freelance work, see the Services page: scope, access and deliverables are agreed before any work begins. I'm based in Mumbai and open to remote, hybrid, or on-site roles.</p>
+                    <p>Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis. For freelance work, see the Services page: scope, access and deliverables are agreed before any work begins. I'm based in Mumbai and open to remote, hybrid, or on-site roles.</p>
                 </details>
                 <details class="faq-item">
                     <summary>Can you work with an existing QA process or team?</summary>
                     <p>Yes. I'm comfortable joining an existing QA workflow, adapting to team tools and processes, and contributing to both manual and automated testing efforts from day one.</p>
                 </details>
                 <details class="faq-item">
-                    <summary>How do you handle confidential client work in your portfolio?</summary>
-                    <p>All professional project examples are intentionally generalized. Client names, proprietary implementation details and internal documentation are omitted unless explicitly authorized for disclosure.</p>
-                </details>
-                <details class="faq-item">
                     <summary>What is your notice period / when can you start?</summary>
-                    <p>Available to discuss — please reach out via the contact page or email me directly and I'll respond promptly.</p>
+                    <!-- TODO: optionally state my contractual notice period, e.g. 30 days -->
+                    <p>I'm currently employed and not serving a notice period. For the right offer I can discuss joining timelines on a call.</p>
                 </details>
             </section>
 
@@ -761,12 +731,12 @@
                 </div>
 
                 <nav class="footer-nav" aria-label="Footer navigation">
-                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/proof-of-work/">Proof of Work</a>
+                    <a href="/evidence/">Evidence</a>
+                    <a href="/about/">About</a>
                     <a href="/services/">Services</a>
                     <a href="/blog/">Blog</a>
-                    <a href="/about/">About</a>
-                    <a href="/capabilities/">Capabilities</a>
-                    <a href="/payments/">Payment Testing</a>
+                    <a href="/resume/">Resume</a>
                 </nav>
 
                 <div class="footer-contact">
@@ -774,11 +744,12 @@
                     <div class="social-links">
                         <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
                         <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
             </div>
+
+            <p class="footer-disclaimer">Employer project work is confidential and shown only in general terms. No client names, data or system details are published.</p>
 
             <div class="footer-bottom">
                 <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
@@ -787,24 +758,18 @@
 
         </div>
 
+        <!-- Floating WhatsApp button. No number here: contact-actions.js builds the link on click; without JavaScript it opens the contact page. -->
+        <a href="/contact/" class="wa-float" data-whatsapp aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+
     </footer>
 
     <!-- Global header/footer navigation -->
     <script src="/assets/js/global-nav.js" defer></script>
+    <script src="/assets/js/contact-actions.js" defer></script>
 
-    <!-- Contact form -->
-    <script>
-
-        // Mobile nav toggle and "More" dropdown logic now live in
-        // /assets/js/global-nav.js
-
-        // Initialize Formspree AJAX
-        window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-        formspree('initForm', { formElement: '#contactForm', formId: 'xqpknrny' });
-    </script>
-
-    <!-- Formspree AJAX Library -->
-    <script src="https://unpkg.com/@formspree/ajax@1.1.5/dist/global.js" integrity="sha384-9fQrvHz7unHjhv7e+pJqhvNxPV4tYHHsSn3PxBIEyPTGY8Q/PAKM1sfhL+zTYmhc" crossorigin="anonymous" defer></script>
+    <script src="/assets/js/form-submit.js" defer></script>
 
 </body>
 </html>

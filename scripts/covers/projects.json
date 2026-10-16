@@ -1,0 +1,81 @@
+{
+  "_comment": "Display data for the four project covers. Every value must be true and already stated on the site; scripts/verify recounts the test numbers from the public repositories and fails if they differ.",
+  "projects": [
+    {
+      "slug": "razorpay",
+      "name": "Razorpay Payment Gateway QA & Automation",
+      "eyebrow": "PAYMENT WORKFLOW TESTING",
+      "title": ["Razorpay", "Payment Gateway", "QA & Automation"],
+      "count": 37,
+      "countSub": "34 run in CI, 3 live-gateway",
+      "stack": "Playwright · Node.js · Express · SQLite",
+      "caption": "Two high-severity defects found, fixed and regression-tested",
+      "colors": { "accent": "#00708f", "soft": "#e0f7ff", "accentDark": "#38c6f0", "softDark": "#103247" },
+      "flow": [
+        ["Order", "create order"],
+        ["Verify", "pay signature"],
+        ["Webhook", "event ID"],
+        ["HMAC", "raw body", "hot"],
+        ["State", "SQLite state"]
+      ],
+      "desc": "Flow covered by the suite: create an order, verify the payment signature, receive a webhook, check its HMAC over the raw request body, update the order state."
+    },
+    {
+      "slug": "restful-booker",
+      "name": "RESTful Booker TypeScript API Automation",
+      "eyebrow": "API AUTOMATION",
+      "title": ["RESTful Booker", "TypeScript API", "Automation"],
+      "count": 47,
+      "countSub": "9 spec files",
+      "stack": "Playwright · TypeScript · REST API",
+      "caption": "Each step asserts the status code and the response data",
+      "colors": { "accent": "#15803d", "soft": "#dcfce7", "accentDark": "#4ade80", "softDark": "#10331f" },
+      "flow": [
+        ["Auth", "POST /auth"],
+        ["Create", "POST"],
+        ["Read", "GET"],
+        ["Update", "PUT · PATCH"],
+        ["Delete", "DELETE"]
+      ],
+      "desc": "Booking lifecycle covered by the suite: authenticate, create, read, update with PUT and PATCH, delete."
+    },
+    {
+      "slug": "erpnext",
+      "name": "ERPNext QA Automation",
+      "eyebrow": "UI TEST AUTOMATION · ERP",
+      "title": ["ERPNext", "QA Automation"],
+      "count": 6,
+      "countSub": "5 UI + 1 auth setup",
+      "stack": "Playwright · Page Object Model · GitHub Actions",
+      "caption": "Material Request · Quotation · Sales Order",
+      "colors": { "accent": "#b45309", "soft": "#fef3c7", "accentDark": "#fbbf24", "softDark": "#3a2a0c" },
+      "flow": [
+        ["Auth", "saved login"],
+        ["Form", "new document"],
+        ["Item", "autocomplete", "hot"],
+        ["Qty", "and rate"],
+        ["Save", "then verify"]
+      ],
+      "desc": "Workflow covered by the suite: reuse the saved login, open a new document, select an item through the autocomplete, set quantity and rate, save and verify."
+    },
+    {
+      "slug": "automation-exercise",
+      "name": "Automation Exercise",
+      "eyebrow": "PRACTICE-SITE PROJECT",
+      "title": ["Automation", "Exercise"],
+      "count": 26,
+      "countSub": "16 API + 10 UI",
+      "stack": "Playwright · Page Object Model · GitHub Actions",
+      "caption": "UI flows plus API tests for account, authentication and products",
+      "colors": { "accent": "#314259", "soft": "#e8eef5", "accentDark": "#9db4d3", "softDark": "#22344b" },
+      "flow": [
+        ["Login", "or sign up"],
+        ["Browse", "products"],
+        ["Cart", "add, remove"],
+        ["Review", "order items"],
+        ["Checkout", "place order"]
+      ],
+      "desc": "Shopping flow covered by the suite: log in or sign up, browse products, add to and remove from the cart, review the order items, check out."
+    }
+  ]
+}
