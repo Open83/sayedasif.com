@@ -81,10 +81,6 @@
         /* .skip-link / :focus-visible now live in
            /assets/css/global-nav.css */
 
-        /* Base nav rules (nav/logo/nav-links/hamburger) and the
-           "More" dropdown now live in /assets/css/global-nav.css.
-           This page keeps its own nav-inner max-width/padding since
-           it doesn't use a shared .container wrapper. */
         .nav-inner {
             max-width: 1400px;
             margin: 0 auto;
@@ -264,13 +260,6 @@
         .btn-outline:hover {
             background: var(--brand-dark);
             color: #ffffff;
-        }
-
-        .btn-tooltip {
-            font-size: 11px;
-            color: var(--brand-muted);
-            font-style: italic;
-            margin-top: 6px;
         }
 
         /* Content */
@@ -961,6 +950,7 @@
 
             .contact-list {
                 grid-column: 1;
+                grid-row: auto; /* the 768px rule pins it to row 3, which the title now owns: they overlapped */
                 grid-template-columns: 1fr;
                 gap: 10px;
                 margin: 0;
@@ -1000,11 +990,6 @@
                 grid-column: 1;
                 padding: 10px 12px;
                 font-size: 12px;
-            }
-
-            .btn-tooltip {
-                font-size: 10px;
-                margin-top: 4px;
             }
 
             .section-title {
@@ -1117,12 +1102,6 @@
             }
         }
 
-        /* Duplicate nav-dropdown block and full footer implementation
-           (.site-footer, .footer-grid, .footer-column, .brand-*,
-           .social-links/.social-icon, .footer-heading, .footer-nav,
-           .footer-bottom, .copyright, .privacy-link, and their
-           responsive overrides at 992px/768px) removed — all now
-           live in /assets/css/global-nav.css. */
 
     </style>
 </head>
@@ -1136,7 +1115,7 @@
 
         <div class="container nav-inner">
 
-            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
+            <a href="/" class="logo" aria-label="SayedAsif home">Sayed<span>Asif</span></a>
 
             <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
             <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
@@ -1146,8 +1125,8 @@
 
             <div class="nav-links" id="navLinks">
                 <a href="/">Home</a>
+                <a href="/proof-of-work/">Proof of Work</a>
                 <a href="/about/">About</a>
-                <a href="/proof-of-work/">Projects</a>
                 <a href="/services/">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/" class="active" aria-current="page">Resume</a>
@@ -1165,7 +1144,7 @@
             <!-- Sidebar -->
             <aside class="sidebar">
                 <div class="profile-card">
-                    <div class="profile-image"><img src="/image/asif.png" alt="Sayed Asif"></div>
+                    <div class="profile-image"><img src="/image/asif-avatar.webp" alt="Sayed Asif" width="240" height="240" decoding="async"></div>
                     <h1 class="profile-name">Sayed Asif</h1>
                     <p class="profile-title">Software QA Engineer</p>
                     <div class="divider"></div>
@@ -1177,7 +1156,7 @@
                         </div>
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <a href="tel:+919867574386">+91 9867574386</a>
+                            <span class="phone-slot" aria-live="polite"><button type="button" class="reveal-phone" data-reveal-phone>Show phone number</button></span>
                         </div>
                         <div class="contact-item">
                             <i class="fab fa-linkedin"></i>
@@ -1212,15 +1191,10 @@
                         <i class="fas fa-download" aria-hidden="true"></i>
                         Download Resume (PDF)
                     </a>
-                    <a href="/resume/download/" class="btn btn-outline" target="_blank" rel="noopener" title="Opens a print-ready page. Use your browser's Print, then Save as PDF">
-                        <i class="fas fa-print" aria-hidden="true"></i>
-                        Print-Ready Resume
+                    <a href="/resume/Sayed-Asif-Software-QA-Engineer-Resume-ATS.pdf" class="btn btn-outline" download>
+                        <i class="fas fa-file-alt" aria-hidden="true"></i>
+                        Download ATS Resume (PDF)
                     </a>
-                    <a href="/resume/sayed-asif-qa-engineer-resume.html" class="btn btn-outline" target="_blank" rel="noopener">
-                        <i class="fas fa-file-alt"></i>
-                        ATS Version
-                    </a>
-                    <div class="btn-tooltip">Open a print-ready page, then use Print → Save as PDF</div>
                 </div>
             </aside>
 
@@ -1303,7 +1277,6 @@
                                     <li>Used Postman for API validation and Jira for defect tracking, and automated repeatable workflows with Playwright, Page Object Model and GitHub Actions CI/CD.</li>
                                     <li>Investigated defects, verified fixes, and collaborated with development teams to improve software quality.</li>
                                 </ul>
-                                <p style="margin-top: 12px; font-size: 0.85rem; font-style: italic; color: #666;">Client identities and confidential project details are omitted to respect confidentiality.</p>
                             </div>
                         </div>
 
@@ -1346,7 +1319,7 @@
                 <!-- Featured Projects -->
                 <section class="section">
                     <h2 class="section-title">Featured Work</h2>
-                    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #666;">Selected examples from employer projects (client details omitted) and independent public GitHub repositories, demonstrating testing approach, technical skills, and quality focus.</p>
+                    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #666;">Selected examples from employer projects and independent public GitHub repositories, demonstrating testing approach, technical skills, and quality focus.</p>
                     <div class="projects-grid">
                         <div class="project-card">
                             <span class="project-tag">Professional Project</span>
@@ -1488,12 +1461,12 @@
                 </div>
 
                 <nav class="footer-nav" aria-label="Footer navigation">
-                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/proof-of-work/">Proof of Work</a>
+                    <a href="/evidence/">Evidence</a>
+                    <a href="/about/">About</a>
                     <a href="/services/">Services</a>
                     <a href="/blog/">Blog</a>
-                    <a href="/about/">About</a>
-                    <a href="/capabilities/">Capabilities</a>
-                    <a href="/payments/">Payment Testing</a>
+                    <a href="/resume/">Resume</a>
                 </nav>
 
                 <div class="footer-contact">
@@ -1501,11 +1474,12 @@
                     <div class="social-links">
                         <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
                         <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
             </div>
+
+            <p class="footer-disclaimer">Employer project work is confidential and shown only in general terms. No client names, data or system details are published.</p>
 
             <div class="footer-bottom">
                 <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
@@ -1514,16 +1488,19 @@
 
         </div>
 
+        <!-- Floating WhatsApp button. No number here: contact-actions.js builds the link on click; without JavaScript it opens the contact page. -->
+        <a href="/contact/" class="wa-float" data-whatsapp aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+
     </footer>
 
-    <!-- Mobile nav + "More" dropdown behavior (shared) -->
+    <!-- Mobile nav -->
     <script src="/assets/js/global-nav.js" defer></script>
+    <script src="/assets/js/contact-actions.js" defer></script>
 
     <!-- Scroll Animations & Interactions -->
     <script>
-        // Mobile Navigation and More Dropdown Menu logic now live in
-        // /assets/js/global-nav.js (single source of truth).
-
         // Scroll Animations with IntersectionObserver
         const observerOptions = {
             threshold: 0.1,

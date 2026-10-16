@@ -59,11 +59,12 @@
         content="https://sayedasif.com/projects/automation-exercise/"
     >
 
-    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image" content="https://sayedasif.com/image/og/automation-exercise.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Automation Exercise: 26 test definitions (16 API + 10 UI). Playwright, Page Object Model, GitHub Actions.">
+    <meta name="twitter:image" content="https://sayedasif.com/image/og/automation-exercise.png">
 
     <meta
         property="og:site_name"
@@ -273,8 +274,6 @@
            TOP NAV
         ========================================================= */
 
-        /* Global nav (header/nav-inner/logo/nav-links/hamburger/dropdown)
-           now lives in /assets/css/global-nav.css. */
 
         .project-breadcrumb {
             padding: 80px 20px 0;
@@ -695,32 +694,13 @@
         }
 
 
-        .challenge-question {
-            padding: 30px;
-
-            border-radius: 22px;
-
-            background: var(--dark);
-            color: var(--white);
-
-            box-shadow: var(--shadow);
-        }
 
 
-        .challenge-question i {
-            color: var(--primary);
-            font-size: 1.7rem;
-
-            margin-bottom: 20px;
-        }
 
 
-        .challenge-question h3 {
-            font-size: 1.8rem;
-            line-height: 1.25;
 
-            letter-spacing: -0.025em;
-        }
+
+
 
 
         .challenge-copy p {
@@ -912,87 +892,22 @@
         }
 
 
-        .architecture-diagram {
-            padding: 32px;
-
-            border-radius: 24px;
-
-            background: var(--dark);
-
-            box-shadow: var(--shadow);
-
-            overflow: hidden;
-        }
 
 
-        .diagram-label {
-            color: rgba(255,255,255,0.65);
-
-            font-size: 0.75rem;
-            font-weight: 800;
-
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-
-            margin-bottom: 25px;
-        }
 
 
-        .diagram-main {
-            padding: 17px;
-
-            border:
-                1px solid rgba(255,255,255,0.12);
-
-            border-radius: 13px;
-
-            text-align: center;
-
-            color: var(--white);
-
-            background:
-                rgba(255,255,255,0.06);
-
-            font-weight: 800;
-        }
 
 
-        .diagram-arrow {
-            text-align: center;
-
-            color: var(--primary);
-
-            padding: 9px;
-        }
 
 
-        .diagram-columns {
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            gap: 12px;
-        }
 
 
-        .diagram-box {
-            padding: 16px;
 
-            border-radius: 12px;
 
-            background:
-                rgba(0,186,242,0.11);
 
-            border:
-                1px solid rgba(0,186,242,0.22);
 
-            color: var(--white);
 
-            text-align: center;
 
-            font-size: 0.88rem;
-            font-weight: 700;
-        }
 
 
         .architecture-points {
@@ -1069,63 +984,19 @@
         }
 
 
-        .ci-flow {
-            padding: 30px;
-
-            border-radius: 22px;
-
-            background: var(--white);
-
-            border:
-                1px solid var(--border);
-
-            box-shadow: var(--shadow);
-        }
 
 
-        .ci-node {
-            padding: 17px;
-
-            border:
-                1px solid var(--border);
-
-            border-radius: 12px;
-
-            text-align: center;
-
-            color: var(--dark);
-
-            font-weight: 800;
-
-            background: var(--white);
-        }
 
 
-        .ci-node.primary {
-            border-color:
-                rgba(0,186,242,0.35);
-
-            background:
-                rgba(0,186,242,0.07);
-        }
 
 
-        .ci-arrow {
-            text-align: center;
-
-            color: var(--primary);
-
-            padding: 8px;
-        }
 
 
-        .ci-split {
-            display: grid;
 
-            grid-template-columns: 1fr 1fr;
 
-            gap: 10px;
-        }
+
+
+
 
 
         .ci-description {
@@ -1646,32 +1517,13 @@
            FOOTER
         ========================================================= */
 
-        .project-footer {
-            padding: 28px 0;
-
-            border-top:
-                1px solid var(--border);
-
-            color: var(--muted);
-
-            font-size: 0.82rem;
-        }
 
 
-        .footer-inner {
-            display: flex;
-
-            align-items: center;
-            justify-content: space-between;
-
-            gap: 20px;
-        }
 
 
-        .footer-back {
-            color: var(--primary-dark);
-            font-weight: 800;
-        }
+
+
+
 
 
         /* =========================================================
@@ -1815,11 +1667,7 @@
             }
 
 
-            .footer-inner {
-                flex-direction: column;
 
-                align-items: flex-start;
-            }
         }
 
 
@@ -1850,10 +1698,7 @@
             }
 
 
-            .diagram-columns,
-            .ci-split {
-                grid-template-columns: 1fr;
-            }
+
 
 
             .debugging-card {
@@ -1861,14 +1706,10 @@
             }
         }
 
-        /* Nav-dropdown + footer CSS + responsive rules now live in
-           /assets/css/global-nav.css (single source of truth). */
 
 
         /* focus ring on dark panels */
-        .cta-box :focus-visible,
-        .architecture-diagram :focus-visible,
-        .challenge-question :focus-visible {
+        .cta-box :focus-visible {
             outline-color: #5ad0f5;
         }
 
@@ -1885,6 +1726,60 @@
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
             }
+        }
+
+        /* Inline SVG diagrams */
+        .diagram { margin: 18px 0; text-align: center; }
+        .dg { width: 100%; height: auto; max-width: 820px; display: block; margin: 0 auto; }
+
+        .dg-node { fill: #ffffff; stroke: #9fb4c7; stroke-width: 1.5; }
+        .dg-primary { fill: #e0f7ff; stroke: #007ca1; stroke-width: 2; }
+        .dg-terminal { fill: #f1f5f9; stroke: #314259; stroke-width: 2; }
+        .dg-muted { fill: #f5f9fc; stroke: #9fb4c7; stroke-dasharray: 5 4; }
+        .dg-text { fill: #314259; font: 600 14px Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        .dg-small { font-weight: 500; font-size: 12px; fill: #5f6b79; }
+
+        .dg-arrow { stroke: #007ca1; stroke-width: 2; fill: none; }
+        .dg-head { fill: #007ca1; }
+        .diagram figcaption { font-size: 0.88rem; color: #5f6b79; margin-top: 8px; line-height: 1.5; }
+
+
+        /* Real code excerpts, highlighted at build time (no runtime script) */
+        .code-figure { margin: 14px 0 22px; }
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 16px 18px;
+            overflow-x: auto;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            tab-size: 2;
+        }
+        .code-block code { background: none; color: inherit; padding: 0; font-size: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; }
+        .code-figure figcaption { font-size: 0.82rem; color: #5f6b79; margin-top: 8px; line-height: 1.5; }
+        .code-figure figcaption a { color: #007ca1; font-weight: 700; }
+        .code-block .hljs-comment { color: #94a3b8; font-style: italic; }
+        .code-block .hljs-keyword { color: #c4b5fd; }
+        .code-block .hljs-string { color: #86efac; }
+
+        .code-block .hljs-title,
+.code-block .hljs-title.function_ { color: #7dd3fc; }
+        .code-block .hljs-property,
+.code-block .hljs-variable { color: #fda4af; }
+        .code-block .hljs-params { color: #e2e8f0; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+        .code-section { max-width: 900px; margin: 34px auto 0; }
+    
+        /* Project cover under the hero */
+        .cover-section { padding: 8px 0 0; }
+        .cover-wrap { container-type: inline-size; overflow: hidden; }
+        .project-cover {
+            max-width: 880px;
+            margin: 0 auto;
+            border: 1px solid #e3ebf2;
+            border-radius: 16px;
+            box-shadow: 0 18px 55px rgba(49, 66, 89, 0.10);
         }
     </style>
 </head>
@@ -1903,7 +1798,7 @@
 
         <div class="container nav-inner">
 
-            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
+            <a href="/" class="logo" aria-label="SayedAsif home">Sayed<span>Asif</span></a>
 
             <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
             <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
@@ -1913,8 +1808,8 @@
 
             <div class="nav-links" id="navLinks">
                 <a href="/">Home</a>
+                <a href="/proof-of-work/" class="active">Proof of Work</a>
                 <a href="/about/">About</a>
-                <a href="/proof-of-work/" class="active">Projects</a>
                 <a href="/services/">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/">Resume</a>
@@ -1933,7 +1828,7 @@
         <div class="container project-breadcrumb">
             <a href="/proof-of-work/" class="back-link">
                 <i class="fa-solid fa-arrow-left"></i>
-                Back to Projects
+                Back to Proof of Work
             </a>
         </div>
 
@@ -2065,6 +1960,38 @@
 
             </div>
 
+        </section>
+
+        <!-- Project cover (inline SVG built by scripts/covers/build.js) -->
+        <section class="cover-section" aria-label="Project cover">
+            <div class="container">
+                <figure class="project-cover cover-wrap"><!-- cover:automation-exercise --><svg class="cv cv-automation-exercise cv-wide" viewBox="0 0 1200 630" role="img" aria-labelledby="cv-automation-exercise-wide-t cv-automation-exercise-wide-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-automation-exercise-wide-t">Automation Exercise: project cover</title><desc id="cv-automation-exercise-wide-d">Cover for Automation Exercise: 26 test definitions (16 API + 10 UI). Shopping flow covered by the suite: log in or sign up, browse products, add to and remove from the cart, review the order items, check out. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
+:where(.cv-automation-exercise){--cv-accent:#314259;--cv-soft:#e8eef5}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-automation-exercise){--cv-accent:light-dark(#314259,#9db4d3);--cv-soft:light-dark(#e8eef5,#22344b)}}
+.cv-automation-exercise.cv-wide{display:block;width:100%;height:auto}
+.cv-automation-exercise.cv-wide .bg{fill:var(--cv-bg)}.cv-automation-exercise.cv-wide .stripe{fill:var(--cv-accent)}.cv-automation-exercise.cv-wide .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
+.cv-automation-exercise.cv-wide .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-automation-exercise.cv-wide .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
+.cv-automation-exercise.cv-wide .badge{fill:var(--cv-accent)}.cv-automation-exercise.cv-wide .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-automation-exercise.cv-wide .head{fill:var(--cv-accent)}
+.cv-automation-exercise.cv-wide text{fill:var(--cv-fg);font-weight:600}
+.cv-automation-exercise.cv-wide .mute{fill:var(--cv-mute);font-weight:500}.cv-automation-exercise.cv-wide .num{fill:var(--cv-on);font-size:18px;font-weight:800}
+.cv-automation-exercise.cv-wide .eyebrow{fill:var(--cv-accent);font-size:24px;font-weight:700;letter-spacing:2.4px}
+.cv-automation-exercise.cv-wide .title{font-size:58px;font-weight:800}.cv-automation-exercise.cv-wide .count{fill:var(--cv-accent);font-size:150px;font-weight:800}
+.cv-automation-exercise.cv-wide .countl{font-size:32px}.cv-automation-exercise.cv-wide .sub{font-size:26px}.cv-automation-exercise.cv-wide .stack{font-size:28px}.cv-automation-exercise.cv-wide .cap{font-size:26px}.cv-automation-exercise.cv-wide .dom{font-size:22px}
+.cv-automation-exercise.cv-wide .nl{font-size:32px;font-weight:700}.cv-automation-exercise.cv-wide .ns{font-size:21px}
+@container (max-width:559px){.cv-automation-exercise.cv-wide{display:none}}</style><defs><marker id="cv-automation-exercise-wide-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="1200" height="630"/><rect class="stripe" width="16" height="630"/><text class="eyebrow" x="64" y="76">PRACTICE-SITE PROJECT</text><text class="title" x="64" y="150">Automation</text><text class="title" x="64" y="214">Exercise</text><text class="stack mute" x="64" y="270">Playwright · Page Object Model · GitHub Actions</text><text class="count" x="1136" y="200" text-anchor="end">26</text><text class="countl" x="1136" y="246" text-anchor="end">test definitions</text><text class="sub mute" x="1136" y="286" text-anchor="end">16 API + 10 UI</text><rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/><rect class="node" x="64" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="88" cy="396" r="14"/><text class="num" x="88" y="396" text-anchor="middle" dominant-baseline="central">1</text><text class="nl" x="154" y="442" text-anchor="middle">Login</text><text class="ns mute" x="154" y="468" text-anchor="middle">or sign up</text><path class="arrow" d="M250 426H277" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="287" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="311" cy="396" r="14"/><text class="num" x="311" y="396" text-anchor="middle" dominant-baseline="central">2</text><text class="nl" x="377" y="442" text-anchor="middle">Browse</text><text class="ns mute" x="377" y="468" text-anchor="middle">products</text><path class="arrow" d="M473 426H500" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="510" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="534" cy="396" r="14"/><text class="num" x="534" y="396" text-anchor="middle" dominant-baseline="central">3</text><text class="nl" x="600" y="442" text-anchor="middle">Cart</text><text class="ns mute" x="600" y="468" text-anchor="middle">add, remove</text><path class="arrow" d="M696 426H723" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="733" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="757" cy="396" r="14"/><text class="num" x="757" y="396" text-anchor="middle" dominant-baseline="central">4</text><text class="nl" x="823" y="442" text-anchor="middle">Review</text><text class="ns mute" x="823" y="468" text-anchor="middle">order items</text><path class="arrow" d="M919 426H946" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="956" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="980" cy="396" r="14"/><text class="num" x="980" y="396" text-anchor="middle" dominant-baseline="central">5</text><text class="nl" x="1046" y="442" text-anchor="middle">Checkout</text><text class="ns mute" x="1046" y="468" text-anchor="middle">place order</text><text class="cap mute" x="64" y="528">UI flows plus API tests for account, authentication and products</text><text class="dom mute" x="1136" y="598" text-anchor="end">sayedasif.com</text></svg><svg class="cv cv-automation-exercise cv-narrow" viewBox="0 0 640 604" role="img" aria-labelledby="cv-automation-exercise-narrow-t cv-automation-exercise-narrow-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-automation-exercise-narrow-t">Automation Exercise: project cover</title><desc id="cv-automation-exercise-narrow-d">Cover for Automation Exercise: 26 test definitions (16 API + 10 UI). Shopping flow covered by the suite: log in or sign up, browse products, add to and remove from the cart, review the order items, check out. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
+:where(.cv-automation-exercise){--cv-accent:#314259;--cv-soft:#e8eef5}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-automation-exercise){--cv-accent:light-dark(#314259,#9db4d3);--cv-soft:light-dark(#e8eef5,#22344b)}}
+.cv-automation-exercise.cv-narrow{display:block;width:100%;height:auto}
+.cv-automation-exercise.cv-narrow .bg{fill:var(--cv-bg)}.cv-automation-exercise.cv-narrow .stripe{fill:var(--cv-accent)}.cv-automation-exercise.cv-narrow .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
+.cv-automation-exercise.cv-narrow .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-automation-exercise.cv-narrow .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
+.cv-automation-exercise.cv-narrow .badge{fill:var(--cv-accent)}.cv-automation-exercise.cv-narrow .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-automation-exercise.cv-narrow .head{fill:var(--cv-accent)}
+.cv-automation-exercise.cv-narrow text{fill:var(--cv-fg);font-weight:600}
+.cv-automation-exercise.cv-narrow .mute{fill:var(--cv-mute);font-weight:500}.cv-automation-exercise.cv-narrow .num{fill:var(--cv-on);font-size:18px;font-weight:800}
+.cv-automation-exercise.cv-narrow .title{font-size:54px;font-weight:800}.cv-automation-exercise.cv-narrow .count{fill:var(--cv-accent);font-size:100px;font-weight:800}
+.cv-automation-exercise.cv-narrow .countl{font-size:32px}.cv-automation-exercise.cv-narrow .sub{font-size:24px}.cv-automation-exercise.cv-narrow .stack{font-size:22px}.cv-automation-exercise.cv-narrow .nl{font-size:30px;font-weight:700}
+.cv-automation-exercise.cv-narrow{display:none}
+@container (max-width:559px){.cv-automation-exercise.cv-narrow{display:block}}</style><defs><marker id="cv-automation-exercise-narrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="640" height="604"/><rect class="stripe" width="14" height="604"/><text class="title" x="40" y="88">Automation</text><text class="title" x="40" y="146">Exercise</text><text class="count" x="40" y="304">26</text><text class="countl" x="174" y="304">test definitions</text><text class="sub mute" x="40" y="344">16 API + 10 UI</text><text class="stack mute" x="40" y="384">Playwright · Page Object Model · GitHub Actions</text><rect class="node" x="40" y="414" width="168" height="72" rx="12"/><text class="nl" x="124" y="461" text-anchor="middle">Login</text><path class="arrow" d="M211 450H238" marker-end="url(#cv-automation-exercise-narrow-a)"/><rect class="node" x="242" y="414" width="168" height="72" rx="12"/><text class="nl" x="326" y="461" text-anchor="middle">Browse</text><path class="arrow" d="M413 450H440" marker-end="url(#cv-automation-exercise-narrow-a)"/><rect class="node" x="444" y="414" width="168" height="72" rx="12"/><text class="nl" x="528" y="461" text-anchor="middle">Cart</text><rect class="node" x="40" y="508" width="168" height="72" rx="12"/><text class="nl" x="124" y="555" text-anchor="middle">Review</text><path class="arrow" d="M211 544H238" marker-end="url(#cv-automation-exercise-narrow-a)"/><rect class="node" x="242" y="508" width="168" height="72" rx="12"/><text class="nl" x="326" y="555" text-anchor="middle">Checkout</text><path class="arrow" d="M528 488V498H124V506" marker-end="url(#cv-automation-exercise-narrow-a)"/></svg><!-- /cover:automation-exercise --></figure>
+            </div>
         </section>
 
 
@@ -2387,78 +2314,26 @@
                 <div class="architecture-grid">
 
 
-                    <div class="architecture-diagram">
+                    <figure class="diagram">
+                        <svg class="dg " viewBox="0 0 440 318" role="img" aria-labelledby="dg1-t dg1-d" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                            <title id="dg1-t">Automation Exercise test framework structure</title>
+                            <desc id="dg1-d">GitHub Actions runs the Playwright Test Runner. UI tests (login, cart, checkout) call five page object classes. API tests (account, authentication, products) call three API client classes.</desc>
+                            <defs><marker id="dg1-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="dg-head"/></marker></defs>
+                            <rect x="120" y="8" width="200" height="40" rx="8" class="dg-node dg-muted"/><text x="220" y="28" class="dg-text" text-anchor="middle" dominant-baseline="middle">GitHub Actions</text>
+                            <path d="M220 48 V68" class="dg-arrow" marker-end="url(#dg1-a)"/>
+                            <rect x="120" y="68" width="200" height="40" rx="8" class="dg-node dg-primary"/><text x="220" y="88" class="dg-text" text-anchor="middle" dominant-baseline="middle">Playwright Test Runner</text>
+                            <path d="M190 108 L110 138" class="dg-arrow" marker-end="url(#dg1-a)"/>
+                            <path d="M250 108 L330 138" class="dg-arrow" marker-end="url(#dg1-a)"/>
+                            <rect x="15" y="138" width="190" height="66" rx="8" class="dg-node "/><text x="110" y="162.5" class="dg-text" text-anchor="middle" dominant-baseline="middle">UI tests</text><text x="110" y="179.5" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">login, cart, checkout</text>
+                            <rect x="235" y="138" width="190" height="66" rx="8" class="dg-node "/><text x="330" y="154" class="dg-text" text-anchor="middle" dominant-baseline="middle">API tests</text><text x="330" y="171" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">account, authentication,</text><text x="330" y="188" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">products</text>
+                            <path d="M110 204 V236" class="dg-arrow" marker-end="url(#dg1-a)"/>
+                            <path d="M330 204 V236" class="dg-arrow" marker-end="url(#dg1-a)"/>
+                            <rect x="15" y="236" width="190" height="66" rx="8" class="dg-node dg-terminal"/><text x="110" y="260.5" class="dg-text" text-anchor="middle" dominant-baseline="middle">Page Objects</text><text x="110" y="277.5" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">pages/: 5 classes</text>
+                            <rect x="235" y="236" width="190" height="66" rx="8" class="dg-node dg-terminal"/><text x="330" y="260.5" class="dg-text" text-anchor="middle" dominant-baseline="middle">API clients</text><text x="330" y="277.5" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">api/: 3 classes</text>
 
-                        <div class="diagram-label">
-                            Playwright Test Framework
-                        </div>
-
-
-                        <div class="diagram-main">
-                            Playwright Test Runner
-                        </div>
-
-
-                        <div class="diagram-arrow">
-                            ↓
-                        </div>
-
-
-                        <div class="diagram-columns">
-
-                            <div class="diagram-box">
-                                UI Tests
-                            </div>
-
-                            <div class="diagram-box">
-                                API Tests
-                            </div>
-
-                        </div>
-
-
-                        <div class="diagram-arrow">
-                            ↓
-                        </div>
-
-
-                        <div class="diagram-columns">
-
-                            <div class="diagram-box">
-                                Login<br>
-                                Cart<br>
-                                Checkout
-                            </div>
-
-                            <div class="diagram-box">
-                                Account<br>
-                                Authentication<br>
-                                Products
-                            </div>
-
-                        </div>
-
-
-                        <div class="diagram-arrow">
-                            ↓
-                        </div>
-
-
-                        <div class="diagram-main">
-                            Page Objects + Reusable Utilities
-                        </div>
-
-
-                        <div class="diagram-arrow">
-                            ↓
-                        </div>
-
-
-                        <div class="diagram-main">
-                            GitHub Actions CI
-                        </div>
-
-                    </div>
+                        </svg>
+                        <figcaption>Spec files call page objects (UI) or API client classes (API). Structure read from the repository.</figcaption>
+                    </figure>
 
 
                     <div class="architecture-points">
@@ -2558,6 +2433,28 @@
 
                 </div>
 
+
+                <div class="code-section">
+                    <h3>A page object, from the repository</h3>
+                    <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LoginPage</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">page</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">page</span> = page;
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-comment">// Login section</span>
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">loginEmailInput</span> = page.<span class="hljs-title function_">locator</span>(<span class="hljs-string">&#x27;input[data-qa=&quot;login-email&quot;]&#x27;</span>);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">loginPasswordInput</span> = page.<span class="hljs-title function_">locator</span>(<span class="hljs-string">&#x27;input[data-qa=&quot;login-password&quot;]&#x27;</span>);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">loginButton</span> = page.<span class="hljs-title function_">locator</span>(<span class="hljs-string">&#x27;button[data-qa=&quot;login-button&quot;]&#x27;</span>);
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">login</span>(<span class="hljs-params">email, password</span>) {
+    <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">loginEmailInput</span>.<span class="hljs-title function_">fill</span>(email);
+    <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">loginPasswordInput</span>.<span class="hljs-title function_">fill</span>(password);
+    <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">loginButton</span>.<span class="hljs-title function_">click</span>();
+  }
+}</code></pre>
+                        <figcaption>LoginPage: locators live in the constructor, tests call <code>login()</code>. Condensed. <a href="https://github.com/Open83/automationexercise/blob/789d413/pages/LoginPage.js#L1-L35" target="_blank" rel="noopener noreferrer">pages/LoginPage.js, lines 1&ndash;3, 10&ndash;13, 30&ndash;35 @ 789d413<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                </div>
             </div>
 
         </section>
@@ -2593,61 +2490,26 @@
                 <div class="ci-grid">
 
 
-                    <div class="ci-flow">
+                    <figure class="diagram">
+                        <svg class="dg " viewBox="0 0 440 330" role="img" aria-labelledby="dg2-t dg2-d" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                            <title id="dg2-t">Automation Exercise CI workflow</title>
+                            <desc id="dg2-d">A push or pull request starts GitHub Actions, which runs two jobs: API Tests and UI Tests. Each uploads its own Playwright report as an artifact.</desc>
+                            <defs><marker id="dg2-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="dg-head"/></marker></defs>
+                            <rect x="120" y="8" width="200" height="40" rx="8" class="dg-node dg-primary"/><text x="220" y="28" class="dg-text" text-anchor="middle" dominant-baseline="middle">Push / Pull Request</text>
+                            <path d="M220 48 V68" class="dg-arrow" marker-end="url(#dg2-a)"/>
+                            <rect x="120" y="68" width="200" height="40" rx="8" class="dg-node dg-muted"/><text x="220" y="88" class="dg-text" text-anchor="middle" dominant-baseline="middle">GitHub Actions</text>
+                            <path d="M190 108 L110 138" class="dg-arrow" marker-end="url(#dg2-a)"/>
+                            <path d="M250 108 L330 138" class="dg-arrow" marker-end="url(#dg2-a)"/>
+                            <rect x="15" y="138" width="190" height="62" rx="8" class="dg-node "/><text x="110" y="160.5" class="dg-text" text-anchor="middle" dominant-baseline="middle">API Tests job</text><text x="110" y="177.5" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">npm run test:api</text>
+                            <rect x="235" y="138" width="190" height="62" rx="8" class="dg-node "/><text x="330" y="152" class="dg-text" text-anchor="middle" dominant-baseline="middle">UI Tests job</text><text x="330" y="169" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">checks login config, then</text><text x="330" y="186" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">npm run test:ui</text>
+                            <path d="M110 200 V232" class="dg-arrow" marker-end="url(#dg2-a)"/>
+                            <path d="M330 200 V232" class="dg-arrow" marker-end="url(#dg2-a)"/>
+                            <rect x="15" y="232" width="190" height="60" rx="8" class="dg-node dg-terminal"/><text x="110" y="253.5" class="dg-text" text-anchor="middle" dominant-baseline="middle">Artifact</text><text x="110" y="270.5" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">playwright-api-report</text>
+                            <rect x="235" y="232" width="190" height="60" rx="8" class="dg-node dg-terminal"/><text x="330" y="245" class="dg-text" text-anchor="middle" dominant-baseline="middle">Artifacts</text><text x="330" y="262" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">playwright-ui-report,</text><text x="330" y="279" class="dg-text dg-small" text-anchor="middle" dominant-baseline="middle">auth diagnostics</text>
 
-                        <div class="ci-node primary">
-                            Push / Pull Request
-                        </div>
-
-
-                        <div class="ci-arrow">
-                            ↓
-                        </div>
-
-
-                        <div class="ci-node">
-                            GitHub Actions
-                        </div>
-
-
-                        <div class="ci-arrow">
-                            ↓
-                        </div>
-
-
-                        <div class="ci-split">
-
-                            <div class="ci-node">
-                                API Tests
-                            </div>
-
-                            <div class="ci-node">
-                                UI Tests
-                            </div>
-
-                        </div>
-
-
-                        <div class="ci-arrow">
-                            ↓
-                        </div>
-
-
-                        <div class="ci-node">
-                            Playwright Reports
-                        </div>
-
-
-                        <div class="ci-arrow">
-                            ↓
-                        </div>
-
-
-                        <div class="ci-node primary">
-                            CI Artifacts
-                        </div>
-
-                    </div>
+                        </svg>
+                        <figcaption>From .github/workflows/playwright.yml. The two jobs run separately.</figcaption>
+                    </figure>
 
 
                     <div class="ci-description">
@@ -3361,7 +3223,7 @@
                             class="button button-secondary"
                         >
                             <i class="fa-solid fa-arrow-left"></i>
-                            Back to Projects
+                            Back to Proof of Work
                         </a>
 
                     </div>
@@ -3392,12 +3254,12 @@
                 </div>
 
                 <nav class="footer-nav" aria-label="Footer navigation">
-                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/proof-of-work/">Proof of Work</a>
+                    <a href="/evidence/">Evidence</a>
+                    <a href="/about/">About</a>
                     <a href="/services/">Services</a>
                     <a href="/blog/">Blog</a>
-                    <a href="/about/">About</a>
-                    <a href="/capabilities/">Capabilities</a>
-                    <a href="/payments/">Payment Testing</a>
+                    <a href="/resume/">Resume</a>
                 </nav>
 
                 <div class="footer-contact">
@@ -3405,11 +3267,12 @@
                     <div class="social-links">
                         <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
                         <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
             </div>
+
+            <p class="footer-disclaimer">Employer project work is confidential and shown only in general terms. No client names, data or system details are published.</p>
 
             <div class="footer-bottom">
                 <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
@@ -3418,9 +3281,15 @@
 
         </div>
 
+        <!-- Floating WhatsApp button. No number here: contact-actions.js builds the link on click; without JavaScript it opens the contact page. -->
+        <a href="/contact/" class="wa-float" data-whatsapp aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+
     </footer>
 
     <script src="/assets/js/global-nav.js" defer></script>
+    <script src="/assets/js/contact-actions.js" defer></script>
 
 </body>
 </html>

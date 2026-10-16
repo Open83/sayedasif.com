@@ -24,8 +24,8 @@ const SKIP_DIRS = new Set(['.git', 'node_modules', 'scripts', '.backup_before_gl
 // ---- primary navigation (single source of truth)
 const NAV = [
   { label: 'Home', href: '/', match: (u) => u === '/' },
+  { label: 'Proof of Work', href: '/proof-of-work/', match: (u) => u === '/proof-of-work/' || u.startsWith('/projects/') || u === '/evidence/' },
   { label: 'About', href: '/about/', match: (u) => u === '/about/' },
-  { label: 'Projects', href: '/proof-of-work/', match: (u) => u === '/proof-of-work/' || u.startsWith('/projects/') },
   { label: 'Services', href: '/services/', match: (u) => u === '/services/' },
   { label: 'Blog', href: '/blog/', match: (u) => u === '/blog/' || u.startsWith('/blog/') },
   { label: 'Resume', href: '/resume/', match: (u) => u === '/resume/' || u.startsWith('/resume/') },
@@ -33,18 +33,17 @@ const NAV = [
 ];
 
 const FOOTER_NAV = [
-  ['Projects', '/proof-of-work/'],
+  ['Proof of Work', '/proof-of-work/'],
+  ['Evidence', '/evidence/'],
+  ['About', '/about/'],
   ['Services', '/services/'],
   ['Blog', '/blog/'],
-  ['About', '/about/'],
-  ['Capabilities', '/capabilities/'],
-  ['Payment Testing', '/payments/'],
+  ['Resume', '/resume/'],
 ];
 
 const SOCIAL = [
   ['GitHub', 'https://github.com/Open83', 'fab fa-github'],
   ['LinkedIn', 'https://www.linkedin.com/in/asifsayed83/', 'fab fa-linkedin'],
-  ['WhatsApp', 'https://wa.me/919867574386', 'fab fa-whatsapp'],
 ];
 
 function header(url) {
@@ -59,7 +58,7 @@ function header(url) {
 
         <div class="container nav-inner">
 
-            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
+            <a href="/" class="logo" aria-label="SayedAsif home">Sayed<span>Asif</span></a>
 
             <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
             <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
@@ -75,6 +74,19 @@ ${links}
 
     </nav>
     </header>`;
+}
+
+// Floating WhatsApp button: inside the footer block so it is on every page. The markup holds no phone number;
+// /assets/js/contact-actions.js builds the wa.me link on click. Icon path: Simple Icons (CC0 1.0).
+const WA_PATH = 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z';
+
+function whatsappButton() {
+  return `
+        <!-- Floating WhatsApp button. No number here: contact-actions.js builds the link on click; without JavaScript it opens the contact page. -->
+        <a href="/contact/" class="wa-float" data-whatsapp aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${WA_PATH}"/></svg>
+        </a>
+`;
 }
 
 function footer() {
@@ -105,19 +117,32 @@ ${social}
 
             </div>
 
+            <p class="footer-disclaimer">Employer project work is confidential and shown only in general terms. No client names, data or system details are published.</p>
+
             <div class="footer-bottom">
                 <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
                 <a href="/privacy/" class="privacy-link">Privacy Notice</a>
             </div>
 
         </div>
-
+${whatsappButton()}
     </footer>`;
+}
+
+// Every page loads /assets/js/contact-actions.js right after global-nav.js. Older per-page tags are dropped.
+const NAV_SCRIPT = '<script src="/assets/js/global-nav.js" defer></script>';
+const ACTIONS_SCRIPT = '<script src="/assets/js/contact-actions.js" defer></script>';
+
+function withActionsScript(text, rel) {
+  const cleaned = text.replace(/^[ \t]*<script src="\/assets\/js\/(?:reveal-phone|contact-actions)\.js" defer><\/script>\n/gm, '');
+  const n = cleaned.split(NAV_SCRIPT).length - 1;
+  if (n !== 1) return { error: `${rel}: expected exactly one global-nav.js script tag, found ${n}` };
+  return { text: cleaned.replace(NAV_SCRIPT, `${NAV_SCRIPT}\n    ${ACTIONS_SCRIPT}`) };
 }
 
 // Pages that intentionally have no shared header/footer (standalone documents).
 // Any OTHER page without them is treated as an error, not silently skipped.
-const STANDALONE = new Set(['resume/sayed-asif-qa-engineer-resume.html']);
+const STANDALONE = new Set([]);
 
 // Sanity limits: a real block is ~1-2.5 KB. Anything far larger means the regex
 // matched across page content (e.g. an unclosed tag) and must not be overwritten.
@@ -179,6 +204,9 @@ for (const file of walk(ROOT, []).sort()) {
   // replace the later block first so earlier offsets stay valid
   t = t.slice(0, f.from) + footer() + t.slice(f.to);
   t = t.slice(0, h.from) + header(url) + t.slice(h.to);
+  const withScript = withActionsScript(t, rel);
+  if (withScript.error) { errors.push(withScript.error); continue; }
+  t = withScript.text;
   const out = crlf ? t.replace(/\n/g, '\r\n') : t;
   if (out === raw) same++;
   else plan.push({ file, rel, out });

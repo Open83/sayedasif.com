@@ -63,17 +63,6 @@
             },
             {
                 "@type": "BlogPosting",
-                "headline": "Who Is Sayed Asif? QA Engineer & Software Testing",
-                "url": "https://sayedasif.com/blog/who-is-sayed-asif-qa-engineer/",
-                "datePublished": "2026-03-30",
-                "dateModified": "2026-03-30",
-                "author": {
-                    "@type": "Person",
-                    "name": "Sayed Asif"
-                }
-            },
-            {
-                "@type": "BlogPosting",
                 "headline": "API Testing Best Practices for QA Engineers",
                 "url": "https://sayedasif.com/blog/api-testing-best-practices/",
                 "datePublished": "2026-09-11",
@@ -144,8 +133,6 @@
             padding: 90px 0;
         }
 
-        /* Base nav rules (nav/logo/nav-links/hamburger) and the
-           "More" dropdown now live in /assets/css/global-nav.css. */
 
         .hero {
             position: relative;
@@ -287,7 +274,6 @@
 
             .hero h1 { font-size: 2.8rem; }
 
-            /* .nav-links, .hamburger, .nav-dropdown-* mobile rules: see global-nav.css */
         }
 
         @media (max-width: 768px) {
@@ -298,8 +284,6 @@
             .hero-description { font-size: 1rem; line-height: 1.7; }
             .blog-grid { grid-template-columns: 1fr; }
 
-            /* footer/.footer-grid/.footer-heading/.brand-*/.social-links/
-               .footer-bottom/.copyright/.privacy-link mobile rules: see global-nav.css */
         }
 
         @media (max-width: 420px) {
@@ -329,7 +313,7 @@
 
         <div class="container nav-inner">
 
-            <a href="/" class="logo" aria-label="Sayed Asif home">Sayed<span>Asif</span></a>
+            <a href="/" class="logo" aria-label="SayedAsif home">Sayed<span>Asif</span></a>
 
             <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
             <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
@@ -339,8 +323,8 @@
 
             <div class="nav-links" id="navLinks">
                 <a href="/">Home</a>
+                <a href="/proof-of-work/">Proof of Work</a>
                 <a href="/about/">About</a>
-                <a href="/proof-of-work/">Projects</a>
                 <a href="/services/">Services</a>
                 <a href="/blog/" class="active" aria-current="page">Blog</a>
                 <a href="/resume/">Resume</a>
@@ -389,24 +373,6 @@
                         </div>
                     </a>
 
-                    <!-- Article 1 -->
-                    <a href="/blog/who-is-sayed-asif-qa-engineer/" class="blog-card">
-                        <div class="blog-card-content">
-                            <span class="blog-category">QA Profile</span>
-                            <h2 class="blog-title">Who Is Sayed Asif? QA Engineer & Software Testing</h2>
-                            <p class="blog-excerpt">
-                                A professional introduction to Sayed Asif and his approach to software testing, quality assurance, and test automation.
-                            </p>
-                            <div class="blog-meta">
-                                <span class="blog-date">March 30, 2026</span>
-                                <span class="blog-read-more">
-                                    Read More
-                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-
                     <!-- Article 2 -->
                     <a href="/blog/api-testing-best-practices/" class="blog-card">
                         <div class="blog-card-content">
@@ -433,7 +399,7 @@
             <div class="container">
                 <h2 id="blog-links-heading">Where to go next</h2>
                 <ul>
-                    <li><a href="/proof-of-work/">Projects</a>: the public projects these articles draw from</li>
+                    <li><a href="/proof-of-work/">Proof of Work</a>: the public projects these articles draw from</li>
                     <li><a href="/services/">QA Services</a>: scoped freelance testing for web apps, APIs and payment flows</li>
                     <li><a href="/about/">About</a> and <a href="/contact/">Contact</a></li>
                 </ul>
@@ -456,12 +422,12 @@
                 </div>
 
                 <nav class="footer-nav" aria-label="Footer navigation">
-                    <a href="/proof-of-work/">Projects</a>
+                    <a href="/proof-of-work/">Proof of Work</a>
+                    <a href="/evidence/">Evidence</a>
+                    <a href="/about/">About</a>
                     <a href="/services/">Services</a>
                     <a href="/blog/">Blog</a>
-                    <a href="/about/">About</a>
-                    <a href="/capabilities/">Capabilities</a>
-                    <a href="/payments/">Payment Testing</a>
+                    <a href="/resume/">Resume</a>
                 </nav>
 
                 <div class="footer-contact">
@@ -469,11 +435,12 @@
                     <div class="social-links">
                         <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
                         <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-                        <a href="https://wa.me/919867574386" class="social-icon" aria-label="WhatsApp (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
             </div>
+
+            <p class="footer-disclaimer">Employer project work is confidential and shown only in general terms. No client names, data or system details are published.</p>
 
             <div class="footer-bottom">
                 <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
@@ -482,10 +449,16 @@
 
         </div>
 
+        <!-- Floating WhatsApp button. No number here: contact-actions.js builds the link on click; without JavaScript it opens the contact page. -->
+        <a href="/contact/" class="wa-float" data-whatsapp aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+
     </footer>
 
-    <!-- Mobile nav + "More" dropdown behavior (shared) -->
+    <!-- Mobile nav -->
     <script src="/assets/js/global-nav.js" defer></script>
+    <script src="/assets/js/contact-actions.js" defer></script>
 
 </body>
 </html>

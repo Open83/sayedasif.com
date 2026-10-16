@@ -2,29 +2,84 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/scripts/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/drafts/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/resume/download/",
+      "destination": "/resume/",
+      "statusCode": 301
+    },
+    {
+      "source": "/resume/download",
+      "destination": "/resume/",
+      "statusCode": 301
+    },
+    {
+      "source": "/resume/sayed-asif-qa-engineer-resume.html",
+      "destination": "/resume/",
+      "statusCode": 301
+    },
+    {
+      "source": "/capabilities/",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/capabilities",
+      "destination": "/",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/who-is-sayed-asif-qa-engineer/",
+      "destination": "/about/",
+      "statusCode": 301
+    },
+    {
+      "source": "/blog/who-is-sayed-asif-qa-engineer",
+      "destination": "/about/",
+      "statusCode": 301
+    },
+    {
       "source": "/blog/who-is-sayed-asif-qa-engineer.html",
-      "destination": "/blog/who-is-sayed-asif-qa-engineer/",
-      "permanent": true
+      "destination": "/about/",
+      "statusCode": 301
     },
     {
       "source": "/about.html",
       "destination": "/about/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/payments.html",
-      "destination": "/payments/",
-      "permanent": true
+      "destination": "/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios",
+      "statusCode": 301
+    },
+    {
+      "source": "/payments/",
+      "destination": "/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios",
+      "statusCode": 301
+    },
+    {
+      "source": "/payments",
+      "destination": "/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios",
+      "statusCode": 301
     },
     {
       "source": "/privacy.html",
       "destination": "/privacy/",
-      "permanent": true
+      "statusCode": 301
     },
     {
       "source": "/projects/automationexercise.html",
       "destination": "/projects/automation-exercise/",
-      "permanent": true
+      "statusCode": 301
     }
   ],
   "headers": [
@@ -54,7 +109,7 @@
       ]
     },
     {
-      "source": "/resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf",
+      "source": "/resume/(.*)\\.pdf",
       "headers": [
         {
           "key": "Cache-Control",
