@@ -1,6 +1,6 @@
 'use strict';
 /*
- * 15. Both resume PDFs: valid, expected page count, contain the phone number and email (on purpose), no text outside the
+ * 15. Both resume PDFs: valid, expected page count, contain the email but NOT the phone number (the site hides it behind click-to-reveal), no text outside the
  *     page or crowding its edge, no blank page. Every page is rasterised to out/pdf/*.png so it can be looked at.
  */
 const fs = require('fs');
@@ -43,7 +43,7 @@ async function inspect(browser, file) {
 }
 
 async function run(ctx) {
-  const r = result(15, 'Resume PDFs: valid, page count, phone + email present, nothing clipped, pages rasterised');
+  const r = result(15, 'Resume PDFs: valid, page count, email present, phone number absent, nothing clipped, pages rasterised');
   const { expected: ex, root, browser } = ctx;
   const digitsOnly = (s) => s.replace(/\D/g, '');
   const outDir = path.join(ctx.outDir, 'pdf');
@@ -60,7 +60,7 @@ async function run(ctx) {
     const info = await inspect(browser, abs);
     r.expect(info.numPages === spec.pages, `${name}: ${spec.pages} pages`, `${info.numPages} pages`);
     const all = info.pages.map((p) => p.text).join(' ');
-    r.expect(digitsOnly(all).includes(ex.phone.digits), `${name}: contains the phone number (by design)`, all.match(/\+?91[ \d]{10,13}/)?.[0] || 'found');
+    r.expect(!digitsOnly(all).includes(ex.phone.digits) && !/\+\s*91[ \d-]{10,13}/.test(all), `${name}: does not contain the phone number (public PDFs must not expose what the site hides)`, 'absent');
     r.expect(all.includes(ex.phone.email), `${name}: contains the email address`, ex.phone.email);
     const missing = spec.mustContain.filter((w) => !all.toLowerCase().includes(w.toLowerCase()));
     r.expect(missing.length === 0, `${name}: key resume content present (name, summary, employer, training, college, tools)`, missing.length ? 'missing: ' + missing.join(', ') : `${spec.mustContain.length} phrases`);

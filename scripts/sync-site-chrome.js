@@ -41,9 +41,12 @@ const FOOTER_NAV = [
   ['Resume', '/resume/'],
 ];
 
+// Width in em = viewBox aspect ratio of the symbol in assets/icons.svg.
+const ICON_WIDTH = { github: '0.969em', linkedin: '0.875em' };
+
 const SOCIAL = [
-  ['GitHub', 'https://github.com/Open83', 'fab fa-github'],
-  ['LinkedIn', 'https://www.linkedin.com/in/asifsayed83/', 'fab fa-linkedin'],
+  ['GitHub', 'https://github.com/Open83', 'github'],
+  ['LinkedIn', 'https://www.linkedin.com/in/asifsayed83/', 'linkedin'],
 ];
 
 function header(url) {
@@ -91,7 +94,7 @@ function whatsappButton() {
 
 function footer() {
   const nav = FOOTER_NAV.map(([t, h]) => `                    <a href="${h}">${t}</a>`).join('\n');
-  const social = SOCIAL.map(([n, h, i]) => `                        <a href="${h}" class="social-icon" aria-label="${n} (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="${i}" aria-hidden="true"></i></a>`).join('\n');
+  const social = SOCIAL.map(([n, h, i]) => `                        <a href="${h}" class="social-icon" aria-label="${n} (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="${ICON_WIDTH[i]}" height="1em"><use href="/assets/icons.svg#${i}"/></svg></i></a>`).join('\n');
   return `    <footer class="site-footer">
 
         <div class="container">

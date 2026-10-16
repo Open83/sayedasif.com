@@ -16,7 +16,7 @@
 
     <meta
         name="description"
-        content="Automation Exercise QA automation case study by Sayed Asif demonstrating Playwright UI and API automation, Page Object Model architecture and GitHub Actions CI for e-commerce applications."
+        content="Independent case study: Playwright UI and API tests for the Automation Exercise demo store, with Page Object Model structure and GitHub Actions CI."
     >
 
     <meta
@@ -115,9 +115,6 @@
     <!--
         Icons
     -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Global header/footer styles (single source of truth) -->
     <link rel="stylesheet" href="/assets/css/global-nav.css">
@@ -1827,7 +1824,7 @@
         <!-- Breadcrumb -->
         <div class="container project-breadcrumb">
             <a href="/proof-of-work/" class="back-link">
-                <i class="fa-solid fa-arrow-left"></i>
+                <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i>
                 Back to Proof of Work
             </a>
         </div>
@@ -1846,7 +1843,7 @@
                 <div>
 
                     <div class="hero-label">
-                        <i class="fa-solid fa-flask"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#flask"/></svg></i>
                         QA Proof of Work
                     </div>
 
@@ -1863,10 +1860,11 @@
 
 
                     <p class="hero-description">
-                        A self-initiated QA engineering project combining
-                        manual testing, REST API validation, Playwright UI
-                        automation, Page Object Model architecture,
-                        debugging and GitHub Actions CI.
+                        An independent, self-initiated QA project, not client
+                        work, run against automationexercise.com, a public
+                        practice store. It combines manual testing, REST API
+                        validation, Playwright UI automation, Page Object
+                        Model architecture, debugging and GitHub Actions CI.
                     </p>
 
 
@@ -1878,7 +1876,7 @@
                             rel="noopener noreferrer"
                             class="button button-primary"
                         >
-                            <i class="fa-brands fa-github"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>
                             View Source Code
                         </a>
 
@@ -1889,7 +1887,7 @@
                             rel="noopener noreferrer"
                             class="button button-secondary"
                         >
-                            <i class="fa-solid fa-code-branch"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#code-branch"/></svg></i>
                             View CI Runs
                         </a>
 
@@ -1909,7 +1907,7 @@
                         </span>
 
                         <span class="passed-badge">
-                            <i class="fa-solid fa-circle-check"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-check"/></svg></i>
                             Passed
                         </span>
 
@@ -2188,7 +2186,7 @@
                     <article class="coverage-card">
 
                         <div class="coverage-icon">
-                            <i class="fa-solid fa-user-lock"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#user-lock"/></svg></i>
                         </div>
 
                         <h3>Authentication</h3>
@@ -2207,7 +2205,7 @@
                     <article class="coverage-card">
 
                         <div class="coverage-icon">
-                            <i class="fa-solid fa-box-open"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#box-open"/></svg></i>
                         </div>
 
                         <h3>Products</h3>
@@ -2225,7 +2223,7 @@
                     <article class="coverage-card">
 
                         <div class="coverage-icon">
-                            <i class="fa-solid fa-cart-shopping"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1.125em" height="1em"><use href="/assets/icons.svg#cart-shopping"/></svg></i>
                         </div>
 
                         <h3>Shopping Cart</h3>
@@ -2244,7 +2242,7 @@
                     <article class="coverage-card">
 
                         <div class="coverage-icon">
-                            <i class="fa-solid fa-credit-card"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1.125em" height="1em"><use href="/assets/icons.svg#credit-card"/></svg></i>
                         </div>
 
                         <h3>Checkout</h3>
@@ -2263,7 +2261,7 @@
                     <article class="coverage-card">
 
                         <div class="coverage-icon">
-                            <i class="fa-solid fa-server"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#server"/></svg></i>
                         </div>
 
                         <h3>API</h3>
@@ -2342,7 +2340,7 @@
                         <article class="architecture-point">
 
                             <div class="architecture-point-icon">
-                                <i class="fa-solid fa-layer-group"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#layer-group"/></svg></i>
                             </div>
 
                             <div>
@@ -2365,7 +2363,7 @@
                         <article class="architecture-point">
 
                             <div class="architecture-point-icon">
-                                <i class="fa-solid fa-recycle"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#recycle"/></svg></i>
                             </div>
 
                             <div>
@@ -2388,7 +2386,7 @@
                         <article class="architecture-point">
 
                             <div class="architecture-point-icon">
-                                <i class="fa-solid fa-key"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#key"/></svg></i>
                             </div>
 
                             <div>
@@ -2410,7 +2408,7 @@
                         <article class="architecture-point">
 
                             <div class="architecture-point-icon">
-                                <i class="fa-solid fa-code"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#code"/></svg></i>
                             </div>
 
                             <div>
@@ -2530,27 +2528,27 @@
                         <ul class="ci-checks">
 
                             <li>
-                                <i class="fa-solid fa-circle-check"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-check"/></svg></i>
                                 Playwright dependencies installed in CI
                             </li>
 
                             <li>
-                                <i class="fa-solid fa-circle-check"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-check"/></svg></i>
                                 Chromium installed for UI execution
                             </li>
 
                             <li>
-                                <i class="fa-solid fa-circle-check"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-check"/></svg></i>
                                 API and UI suites executed independently
                             </li>
 
                             <li>
-                                <i class="fa-solid fa-circle-check"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-check"/></svg></i>
                                 Playwright reports configured as workflow artifacts (14-day retention, now expired)
                             </li>
 
                             <li>
-                                <i class="fa-solid fa-circle-check"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-check"/></svg></i>
                                 Workflow triggered by repository changes
                             </li>
 
@@ -2569,7 +2567,7 @@
                         rel="noopener noreferrer"
                         class="button button-primary"
                     >
-                        <i class="fa-brands fa-github"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>
                         Inspect GitHub Actions
                     </a>
 
@@ -2804,7 +2802,7 @@
                     >
 
                         <div class="evidence-icon">
-                            <i class="fa-brands fa-github"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>
                         </div>
 
                         <h3>
@@ -2818,7 +2816,7 @@
 
                         <span class="evidence-link">
                             Open Repository
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#arrow-up-right-from-square"/></svg></i>
                         </span>
 
                     </a>
@@ -2832,7 +2830,7 @@
                     >
 
                         <div class="evidence-icon">
-                            <i class="fa-solid fa-clipboard-list"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.75em" height="1em"><use href="/assets/icons.svg#clipboard-list"/></svg></i>
                         </div>
 
                         <h3>
@@ -2846,7 +2844,7 @@
 
                         <span class="evidence-link">
                             View Test Plan
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#arrow-up-right-from-square"/></svg></i>
                         </span>
 
                     </a>
@@ -2860,7 +2858,7 @@
                     >
 
                         <div class="evidence-icon">
-                            <i class="fa-solid fa-list-check"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#list-check"/></svg></i>
                         </div>
 
                         <h3>
@@ -2874,7 +2872,7 @@
 
                         <span class="evidence-link">
                             View Test Cases
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#arrow-up-right-from-square"/></svg></i>
                         </span>
 
                     </a>
@@ -2888,7 +2886,7 @@
                     >
 
                         <div class="evidence-icon">
-                            <i class="fa-solid fa-chart-line"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#chart-line"/></svg></i>
                         </div>
 
                         <h3>
@@ -2902,7 +2900,7 @@
 
                         <span class="evidence-link">
                             View Report
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#arrow-up-right-from-square"/></svg></i>
                         </span>
 
                     </a>
@@ -2916,7 +2914,7 @@
                     >
 
                         <div class="evidence-icon">
-                            <i class="fa-solid fa-gears"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#gears"/></svg></i>
                         </div>
 
                         <h3>
@@ -2930,7 +2928,7 @@
 
                         <span class="evidence-link">
                             View CI Runs
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#arrow-up-right-from-square"/></svg></i>
                         </span>
 
                     </a>
@@ -2944,7 +2942,7 @@
                     >
 
                         <div class="evidence-icon">
-                            <i class="fa-solid fa-clipboard-check"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.75em" height="1em"><use href="/assets/icons.svg#clipboard-check"/></svg></i>
                         </div>
 
                         <h3>
@@ -2961,7 +2959,7 @@
 
                         <span class="evidence-link">
                             View Passing Run
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#arrow-up-right-from-square"/></svg></i>
                         </span>
 
                     </a>
@@ -3202,7 +3200,7 @@
                             rel="noopener noreferrer"
                             class="button button-primary"
                         >
-                            <i class="fa-brands fa-github"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>
                             View GitHub
                         </a>
 
@@ -3213,7 +3211,7 @@
                             rel="noopener noreferrer"
                             class="button button-secondary"
                         >
-                            <i class="fa-solid fa-code-branch"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#code-branch"/></svg></i>
                             Verify CI
                         </a>
 
@@ -3222,7 +3220,7 @@
                             href="/proof-of-work/"
                             class="button button-secondary"
                         >
-                            <i class="fa-solid fa-arrow-left"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i>
                             Back to Proof of Work
                         </a>
 
@@ -3265,8 +3263,8 @@
                 <div class="footer-contact">
                     <a href="/contact/" class="footer-contact-link">Contact</a>
                     <div class="social-links">
-                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
-                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i></a>
                     </div>
                 </div>
 

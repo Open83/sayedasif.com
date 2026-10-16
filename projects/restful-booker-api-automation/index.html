@@ -10,7 +10,7 @@
 
     <meta
         name="description"
-        content="Professional REST API automation framework using Playwright Test and TypeScript. 47 API tests covering authentication, CRUD, PUT/PATCH, negative testing, API workflows, and GitHub Actions CI/CD."
+        content="Independent project: 47 Playwright and TypeScript API tests for the public RESTful Booker practice API, covering auth, CRUD, negative cases and workflows."
     >
 
     <meta name="author" content="Sayed Asif">
@@ -21,7 +21,7 @@
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="RESTful Booker API Automation | REST API Testing | Sayed Asif">
-    <meta property="og:description" content="Professional REST API automation framework demonstrating Playwright Test, TypeScript, CRUD testing, authentication, negative testing, and CI/CD.">
+    <meta property="og:description" content="Independent project: Playwright and TypeScript API tests for the public RESTful Booker practice API, covering authentication, CRUD, negative cases and workflows.">
     <meta property="og:url" content="https://sayedasif.com/projects/restful-booker-api-automation/">
     <meta property="og:image" content="https://sayedasif.com/image/og/restful-booker.png">
     <meta property="og:image:width" content="1200">
@@ -36,14 +36,13 @@
     <meta name="twitter:description" content="REST API automation framework with 47 tests covering authentication, CRUD, PUT/PATCH, negative testing and CI/CD.">
 
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "TechArticle",
         "headline": "RESTful Booker API Automation Framework",
-        "description": "Professional REST API automation framework demonstrating Playwright Test, TypeScript, API testing, authentication, CRUD operations, negative testing and GitHub Actions CI/CD.",
+        "description": "Independent project: Playwright and TypeScript API tests for the public RESTful Booker practice API, covering authentication, CRUD operations, negative cases and workflows, run in GitHub Actions.",
         "author": {"@type": "Person", "name": "Sayed Asif", "url": "https://sayedasif.com/"},
         "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sayedasif.com/projects/restful-booker-api-automation/"},
         "keywords": ["API Testing", "Playwright", "TypeScript", "REST API", "CRUD Testing", "CI/CD", "GitHub Actions"]
@@ -713,7 +712,7 @@
         <!-- Breadcrumb -->
         <div class="container project-breadcrumb">
             <a href="/proof-of-work/" class="back-link">
-                <i class="fa-solid fa-arrow-left"></i>
+                <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i>
                 Back to Proof of Work
             </a>
         </div>
@@ -723,7 +722,7 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-label">
-                    <i class="fa-solid fa-flask"></i>
+                    <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#flask"/></svg></i>
                     API Automation
                 </div>
                 <h1>
@@ -740,11 +739,11 @@
                 </p>
                 <div class="hero-actions">
                     <a href="https://github.com/Open83/restful-booker-api-automation" target="_blank" rel="noopener noreferrer" class="button button-primary">
-                        <i class="fa-brands fa-github"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>
                         View on GitHub
                     </a>
                     <a href="https://github.com/Open83/restful-booker-api-automation/actions" target="_blank" rel="noopener noreferrer" class="button button-secondary">
-                        <i class="fa-solid fa-play"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.75em" height="1em"><use href="/assets/icons.svg#play"/></svg></i>
                         CI Run History
                     </a>
                 </div>
@@ -790,7 +789,7 @@
                     <div class="proof-header">
                         <span class="proof-title">Test Results</span>
                         <span class="passed-badge">
-                            <i class="fas fa-check-circle"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-check"/></svg></i>
                             PASSED IN CI, 10 SEP 2026
                         </span>
                     </div>
@@ -827,7 +826,7 @@
                 <div class="content-section">
                     <h2>Project Context</h2>
                     <p>
-                        This is an <strong>independent, public QA automation project</strong> built to demonstrate professional API testing expertise.
+                        This is an <strong>independent, public QA automation project</strong> built to show how I structure and run API tests.
                         It provides comprehensive testing of the RESTful Booker API—a public booking/reservation system designed for API testing practice.
                     </p>
                     <p>
@@ -1083,7 +1082,7 @@
             <div class="container">
                 <div class="content-section">
                     <h2>Negative Testing</h2>
-                    <p>The test suite includes 8 negative tests validating API resilience beyond happy-path scenarios:</p>
+                    <p>The test suite includes 8 negative tests, covering these areas:</p>
                     <div class="negative-grid">
                         <div class="negative-item">
                             <div class="negative-label">Invalid Credentials</div>
@@ -1102,8 +1101,11 @@
                         </div>
                     </div>
                     <p style="margin-top: 20px;">
-                        These tests ensure the API correctly rejects invalid requests and returns meaningful error messages,
-                        not just verifying successful operations.
+                        Two of the eight assert a rejection (an incomplete PUT returns 400, a non-numeric ID returns 404). The other six record
+                        input this practice API accepts: zero and negative prices, an invalid date, a checkout before the check-in,
+                        special characters in the login and a 1,000-character name. Three of those six use
+                        <code>expect(response.ok).toBeTruthy()</code> without calling <code>ok()</code>, so the assertion cannot fail.
+                        The <a href="/blog/api-testing-best-practices/">article</a> explains what I would change.
                     </p>
                 </div>
             </div>
@@ -1118,7 +1120,7 @@
                     <div class="evidence-grid">
                         <div class="evidence-card">
                             <div class="evidence-icon">
-                                <i class="fab fa-github"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>
                             </div>
                             <h3>Source Code</h3>
                             <p>Complete Playwright Test framework with API clients, fixtures, models, and comprehensive test specifications.</p>
@@ -1128,7 +1130,7 @@
                         </div>
                         <div class="evidence-card">
                             <div class="evidence-icon">
-                                <i class="fas fa-play-circle"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-play"/></svg></i>
                             </div>
                             <h3>CI/CD Execution</h3>
                             <p>GitHub Actions workflow that runs the tests on every push and pull request to main. Its run history has 2 runs, both on 10 September 2026. Job logs require a GitHub sign-in.</p>
@@ -1138,7 +1140,7 @@
                         </div>
                         <div class="evidence-card">
                             <div class="evidence-icon">
-                                <i class="fas fa-file-alt"></i>
+                                <i class="ic" aria-hidden="true"><svg focusable="false" width="0.75em" height="1em"><use href="/assets/icons.svg#file-lines"/></svg></i>
                             </div>
                             <h3>Documentation</h3>
                             <p>README file with project structure, test descriptions, setup instructions, and framework architecture overview.</p>
@@ -1190,16 +1192,16 @@
                     Inspect the complete source code, test suites, CI/CD configuration, and documentation on GitHub.
                 </p>
                 <p class="cta-desc">
-                    For the principles behind these tests, read <a href="/blog/api-testing-best-practices/" style="color: inherit; font-weight: 700; text-decoration: underline;">API Testing Best Practices for QA Engineers</a>.
+                    For the decisions and weaknesses behind these tests, read <a href="/blog/api-testing-best-practices/" style="color: inherit; font-weight: 700; text-decoration: underline;">API Testing Lessons from a Playwright and TypeScript Suite</a>.
                     If you need similar API testing, see <a href="/services/" style="color: inherit; font-weight: 700; text-decoration: underline;">QA Services</a>.
                 </p>
                 <div class="cta-buttons">
                     <a href="https://github.com/Open83/restful-booker-api-automation" class="button button-primary" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-github"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>
                         View Source Code
                     </a>
                     <a href="/proof-of-work/" class="button button-secondary">
-                        <i class="fas fa-arrow-left"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i>
                         Back to Proof of Work
                     </a>
                 </div>
@@ -1233,8 +1235,8 @@
                 <div class="footer-contact">
                     <a href="/contact/" class="footer-contact-link">Contact</a>
                     <div class="social-links">
-                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
-                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i></a>
                     </div>
                 </div>
 

@@ -521,3 +521,17 @@ footer.site-footer .container {
         padding: 10px 0 14px;
     }
 }
+
+/* Inline SVG icons (assets/icons.svg). Each svg carries its own width in em (the glyph's aspect ratio), so existing font-size rules keep working. */
+.ic {
+    display: inline-block;
+    height: 1em;
+    line-height: 1;
+    vertical-align: -0.125em;
+}
+
+.ic svg {
+    display: block;
+    height: 1em;
+    fill: currentColor;
+}

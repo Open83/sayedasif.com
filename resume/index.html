@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Resume | Sayed Asif – Software QA Engineer</title>
-    <meta name="description" content="Resume of Sayed Asif, Software QA Engineer with 1+ years of professional QA experience in manual testing, API validation, Playwright automation, payment workflow testing and regression testing.">
+    <meta name="description" content="Resume of Sayed Asif, Software QA Engineer: 1+ years of experience in manual and API testing, Playwright automation, payment workflows and regression.">
     <link rel="canonical" href="https://sayedasif.com/resume/">
 
     <meta property="og:type" content="profile">
@@ -24,7 +24,6 @@
     <meta name="color-scheme" content="light">
 
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <!-- Global header/footer styles (single source of truth) -->
     <link rel="stylesheet" href="/assets/css/global-nav.css">
@@ -608,6 +607,12 @@
             border-color: var(--brand-primary);
         }
 
+        .project-group-title {
+            font-size: 1.05rem;
+            margin: 24px 0 12px;
+            color: var(--text-dark, #1f2937);
+        }
+
         .project-tag {
             display: inline-block;
             background: rgba(0, 186, 242, 0.1);
@@ -1151,19 +1156,19 @@
 
                     <div class="contact-list">
                         <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>
                             <a href="mailto:sayedasif83838@gmail.com">sayedasif83838@gmail.com</a>
                         </div>
                         <div class="contact-item">
-                            <i class="fas fa-phone"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#phone"/></svg></i>
                             <span class="phone-slot" aria-live="polite"><button type="button" class="reveal-phone" data-reveal-phone>Show phone number</button></span>
                         </div>
                         <div class="contact-item">
-                            <i class="fab fa-linkedin"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i>
                             <a href="https://www.linkedin.com/in/asifsayed83/" target="_blank" rel="noopener noreferrer">linkedin.com/in/asifsayed83</a>
                         </div>
                         <div class="contact-item">
-                            <i class="fas fa-globe"></i>
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#globe"/></svg></i>
                             <a href="https://sayedasif.com" target="_blank" rel="noopener noreferrer">sayedasif.com</a>
                         </div>
                     </div>
@@ -1188,11 +1193,11 @@
                     <div class="divider"></div>
 
                     <a href="/resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf" class="btn btn-primary" download>
-                        <i class="fas fa-download" aria-hidden="true"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#download"/></svg></i>
                         Download Resume (PDF)
                     </a>
                     <a href="/resume/Sayed-Asif-Software-QA-Engineer-Resume-ATS.pdf" class="btn btn-outline" download>
-                        <i class="fas fa-file-alt" aria-hidden="true"></i>
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.75em" height="1em"><use href="/assets/icons.svg#file-lines"/></svg></i>
                         Download ATS Resume (PDF)
                     </a>
                 </div>
@@ -1235,6 +1240,10 @@
                                 <span class="skill-badge">Browser DevTools</span>
                                 <span class="skill-badge">REST APIs</span>
                                 <span class="skill-badge">Page Object Model</span>
+                                <span class="skill-badge">Git</span>
+                                <span class="skill-badge">Cross-Browser Testing</span>
+                                <span class="skill-badge">Responsive Testing</span>
+                                <span class="skill-badge">Bug Tracking</span>
                             </div>
                         </div>
 
@@ -1290,6 +1299,7 @@
                                 <ul class="experience-bullets">
                                     <li>Completed professional training in QA fundamentals, manual testing methodologies, and automation framework concepts</li>
                                     <li>Gained hands-on experience with SQL database management for test data setup and validation</li>
+                                    <li>Certificate: Manual Software Testing</li>
                                 </ul>
                             </div>
                         </div>
@@ -1301,17 +1311,9 @@
                     <h2 class="section-title">Education</h2>
                     <div class="education-grid">
                         <div class="education-card">
-                            <div class="education-icon">🎓</div>
                             <h3 class="education-degree">Bachelor of Commerce (B.Com)</h3>
                             <p class="education-school">MVM College of Commerce &amp; Science</p>
                             <p class="education-year">2020 – 2022</p>
-                        </div>
-
-                        <div class="education-card">
-                            <div class="education-icon">📋</div>
-                            <h3 class="education-degree">Manual Software Testing</h3>
-                            <p class="education-school">SQUAD Infotech Pvt. Ltd.</p>
-                            <p class="education-year">2023</p>
                         </div>
                     </div>
                 </section>
@@ -1319,11 +1321,70 @@
                 <!-- Featured Projects -->
                 <section class="section">
                     <h2 class="section-title">Featured Work</h2>
-                    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #666;">Selected examples from employer projects and independent public GitHub repositories, demonstrating testing approach, technical skills, and quality focus.</p>
+                    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #666;">Independent projects have public source code on GitHub. Four of the six employer projects are described here, in general terms.</p>
+                    <h3 class="project-group-title">Independent projects (public GitHub)</h3>
                     <div class="projects-grid">
                         <div class="project-card">
-                            <span class="project-tag">Professional Project</span>
-                            <h3 class="project-title">Donation Management Platform</h3>
+                            <span class="project-tag">Independent Project</span>
+                            <h4 class="project-title">Razorpay Payment Gateway QA &amp; Automation</h4>
+                            <p class="project-description">Playwright API tests for a Razorpay Test Mode checkout app: payment and webhook signature checks, duplicate webhook events, refund errors and order state. Two high-severity defects were found, fixed and regression-tested. Sandbox only. 37 test definitions, 34 run in CI.</p>
+                            <div class="project-skills">
+                                <span class="project-skill">Playwright Test</span>
+                                <span class="project-skill">Webhooks</span>
+                                <span class="project-skill">Node.js</span>
+                                <span class="project-skill">GitHub Actions</span>
+                            </div>
+                            <a href="/projects/razorpay-payment-gateway-qa-automation/" class="project-link">
+                                View Case Study <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
+                            </a>
+                        </div>
+                        <div class="project-card">
+                            <span class="project-tag">Independent Project</span>
+                            <h4 class="project-title">RESTful Booker API Automation</h4>
+                            <p class="project-description">Playwright and TypeScript tests for the public RESTful Booker practice API: authentication, create, retrieve, full and partial update, delete, negative cases and multi-step workflows, built on reusable API client classes. 47 test definitions.</p>
+                            <div class="project-skills">
+                                <span class="project-skill">Playwright Test</span>
+                                <span class="project-skill">TypeScript</span>
+                                <span class="project-skill">REST API</span>
+                                <span class="project-skill">GitHub Actions</span>
+                            </div>
+                            <a href="/projects/restful-booker-api-automation/" class="project-link">
+                                View Case Study <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
+                            </a>
+                        </div>
+                        <div class="project-card">
+                            <span class="project-tag">Independent Project</span>
+                            <h4 class="project-title">Automation Exercise</h4>
+                            <p class="project-description">Playwright UI and API tests against automationexercise.com, a public demo store built for test practice, using the Page Object Model and GitHub Actions CI. 26 test definitions.</p>
+                            <div class="project-skills">
+                                <span class="project-skill">Playwright</span>
+                                <span class="project-skill">API Testing</span>
+                                <span class="project-skill">Page Object Model</span>
+                                <span class="project-skill">GitHub Actions</span>
+                            </div>
+                            <a href="/projects/automation-exercise/" class="project-link">
+                                View Case Study <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
+                            </a>
+                        </div>
+                        <div class="project-card">
+                            <span class="project-tag">Independent Project</span>
+                            <h4 class="project-title">ERPNext QA Automation</h4>
+                            <p class="project-description">Playwright UI tests for three ERPNext workflows, built with Page Objects and run in GitHub Actions. The hosted test instance is currently offline, so the suite cannot run today.</p>
+                            <div class="project-skills">
+                                <span class="project-skill">Playwright</span>
+                                <span class="project-skill">Page Object Model</span>
+                                <span class="project-skill">GitHub Actions</span>
+                            </div>
+                            <a href="/projects/erpnext-qa-automation/" class="project-link">
+                                View Case Study <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3 class="project-group-title">Employer projects (general descriptions)</h3>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <span class="project-tag">Employer Project</span>
+                            <h4 class="project-title">Donation Management Platform</h4>
                             <p class="project-description">Tested donation and payment workflows including recurring transactions, failure scenarios and business-rule validation across donor-facing and admin interfaces.</p>
                             <div class="project-skills">
                                 <span class="project-skill">Payment Testing</span>
@@ -1331,10 +1392,9 @@
                                 <span class="project-skill">API Validation</span>
                             </div>
                         </div>
-
                         <div class="project-card">
-                            <span class="project-tag">Professional Project</span>
-                            <h3 class="project-title">Management & CRM Platform</h3>
+                            <span class="project-tag">Employer Project</span>
+                            <h4 class="project-title">Management &amp; CRM Platform</h4>
                             <p class="project-description">Performed end-to-end QA across CRM modules, financial workflows, role-based access control, reporting, and user permission management.</p>
                             <div class="project-skills">
                                 <span class="project-skill">E2E Testing</span>
@@ -1342,10 +1402,9 @@
                                 <span class="project-skill">RBAC Testing</span>
                             </div>
                         </div>
-
                         <div class="project-card">
-                            <span class="project-tag">Professional Project</span>
-                            <h3 class="project-title">Logistics Management Platform</h3>
+                            <span class="project-tag">Employer Project</span>
+                            <h4 class="project-title">Logistics Management Platform</h4>
                             <p class="project-description">Tested shipment and logistics workflows, status updates, business rules, data consistency and regression scenarios.</p>
                             <div class="project-skills">
                                 <span class="project-skill">Functional Testing</span>
@@ -1354,92 +1413,14 @@
                             </div>
                         </div>
                         <div class="project-card">
-                            <span class="project-tag">Professional Project</span>
-                            <h3 class="project-title">Multi-Currency Donation Platform</h3>
+                            <span class="project-tag">Employer Project</span>
+                            <h4 class="project-title">Multi-Currency Donation Platform</h4>
                             <p class="project-description">Tested donation workflows involving multi-currency scenarios, transaction behavior, validation rules and regression coverage.</p>
                             <div class="project-skills">
                                 <span class="project-skill">Multi-Currency</span>
                                 <span class="project-skill">Payment Testing</span>
                                 <span class="project-skill">API Testing</span>
                             </div>
-                        </div>
-                        <div class="project-card">
-                            <span class="project-tag">Public GitHub Project</span>
-                            <h3 class="project-title">Automation Exercise</h3>
-                            <p class="project-description">Playwright-based QA automation for e-commerce application covering UI workflows, API automation, regression scenarios, and checkout flows using Page Object Model and GitHub Actions CI.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">Playwright</span>
-                                <span class="project-skill">API Testing</span>
-                                <span class="project-skill">Page Object Model</span>
-                                <span class="project-skill">GitHub Actions</span>
-                            </div>
-                            <a href="/projects/automation-exercise/" class="project-link">
-                                View Case Study <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <div class="project-card">
-                            <span class="project-tag">Public GitHub Project</span>
-                            <h3 class="project-title">ERPNext QA Automation</h3>
-                            <p class="project-description">Independent QA automation project demonstrating Playwright-based UI testing of ERPNext workflows using Page Object Model architecture and GitHub Actions CI.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">Playwright</span>
-                                <span class="project-skill">Page Object Model</span>
-                                <span class="project-skill">GitHub Actions</span>
-                            </div>
-                            <a href="/projects/erpnext-qa-automation/" class="project-link">
-                                View Case Study <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Tools Grid -->
-                <section class="section">
-                    <h2 class="section-title">Tools & Technologies</h2>
-                    <div class="tools-grid">
-                        <div class="tool-item">
-                            <span class="tool-icon">🎭</span>
-                            <div class="tool-name">Playwright</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">📮</span>
-                            <div class="tool-name">Postman</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">📋</span>
-                            <div class="tool-name">Jira</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">⚙️</span>
-                            <div class="tool-name">GitHub Actions</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">🔍</span>
-                            <div class="tool-name">Browser DevTools</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">🔌</span>
-                            <div class="tool-name">REST APIs</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">📐</span>
-                            <div class="tool-name">Page Object Model</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">🔀</span>
-                            <div class="tool-name">Git</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">🌐</span>
-                            <div class="tool-name">Cross-Browser</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">📱</span>
-                            <div class="tool-name">Responsive Testing</div>
-                        </div>
-                        <div class="tool-item">
-                            <span class="tool-icon">🐛</span>
-                            <div class="tool-name">Bug Tracking</div>
                         </div>
                     </div>
                 </section>
@@ -1472,8 +1453,8 @@
                 <div class="footer-contact">
                     <a href="/contact/" class="footer-contact-link">Contact</a>
                     <div class="social-links">
-                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
-                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i></a>
                     </div>
                 </div>
 

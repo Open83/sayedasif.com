@@ -10,7 +10,10 @@ const { readText, decodeEntities } = require('../lib/site');
 async function run(ctx) {
   const r = result(16, 'Links and assets resolve; sitemap; canonicals; unique meta; JSON-LD valid');
   const { baseUrl, expected: ex } = ctx;
-  const pages = ctx.pages;
+  const pages = ctx.pages.filter((p) => p.url !== '/404.html'); // branded 404 page: noindex, no canonical (checked in check 2)
+  const sprite = readText('assets/icons.svg');
+  const spriteIds = new Set([...sprite.matchAll(/<symbol id="([^"]+)"/g)].map((m) => m[1]));
+  const missingIcons = [];
   const html = Object.fromEntries(pages.map((p) => [p.url, readText(p.file)]));
   const ids = Object.fromEntries(Object.entries(html).map(([u, t]) => [u, new Set([...t.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]))]));
 
@@ -27,6 +30,8 @@ async function run(ctx) {
     for (const m of body.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)) found.push(m[1]);
     for (let h of found) {
       h = decodeEntities(h);
+      const ic = /^\/assets\/icons\.svg#(.+)$/.exec(h); // <use href> into the icon sprite: the symbol must exist
+      if (ic) { if (!spriteIds.has(ic[1])) missingIcons.push(u + ' -> ' + ic[1]); continue; }
       if (!h || /^(mailto:|tel:|data:|javascript:|about:)/.test(h)) continue;
       if (/^https?:\/\//.test(h)) { const host = new URL(h).host; if (host !== 'sayedasif.com') { (external.get(host) || external.set(host, new Set()).get(host)).add(h); continue; } h = new URL(h).pathname + new URL(h).hash; }
       if (h.startsWith('#')) { anchors.push([u, u, h.slice(1)]); continue; }
@@ -43,6 +48,7 @@ async function run(ctx) {
   }
   r.expect(broken.length === 0, `${refs.size} distinct local links/assets (href, src, srcset, action, css url) all answer 200 with no redirect hops`, broken.slice(0, 4).join(' | ') || `${refs.size} URLs fetched`);
   const badAnchors = anchors.filter(([, page, id]) => !ids[page] || !ids[page].has(id)).map(([from, page, id]) => `${from} -> ${page}#${id}`);
+  r.expect(missingIcons.length === 0, `every icon <use> points at a symbol in assets/icons.svg (${spriteIds.size} symbols)`, missingIcons.slice(0, 4).join(' | ') || 'all found');
   r.expect(badAnchors.length === 0, `${anchors.length} in-site #anchors point at an existing id`, badAnchors.slice(0, 4).join(' | ') || 'all found');
 
   // ------------------------------------------------------------ sitemap and robots

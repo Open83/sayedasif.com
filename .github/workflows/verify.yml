@@ -1,0 +1,46 @@
+name: Site verification
+
+# Runs the repository's own verification suite (scripts/verify) on every pull request and on pushes to main.
+# It serves the site locally the way vercel.json describes and checks it with Chromium. Nothing is deployed here.
+# --skip-network leaves out the checks that call external sites (live link checks, Formspree, CDN).
+# Checks 9 and 10 still clone the public test repositories to recount tests and compare code excerpts.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scripts/verify
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: scripts/verify/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Run verification suite
+        run: node run.js --skip-network --release
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-report
+          path: scripts/verify/out/report.md
+          if-no-files-found: ignore
