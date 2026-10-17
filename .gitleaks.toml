@@ -1,0 +1,16 @@
+title = "Secret scan"
+
+[extend]
+useDefault = true
+
+# The built-in rules look for API keys and tokens. They do NOT notice a
+# committed .env file or a Playwright login-session file (storageState.json),
+# so this rule flags those files by name.
+[[rules]]
+id = "env-or-session-file"
+description = "A .env file or a Playwright login-session file was committed"
+path = '''(^|/)(\.env(\.[A-Za-z0-9_-]+)?|storageState\.json|auth-failure[^/]*\.html)$'''
+
+[[rules.allowlists]]
+description = "Template files with placeholder values only"
+paths = ['''(^|/)\.env\.example$''']
