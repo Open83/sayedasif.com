@@ -6,6 +6,10 @@
  * The site has no dark theme (pages declare color-scheme: light and have no prefers-color-scheme styles). The dark runs
  * therefore prove the pages stay readable when the visitor's system asks for dark; this is reported, not hidden.
  * The project covers DO follow the colour scheme (light-dark()), so their palettes are checked in both schemes below.
+ *
+ * The contexts use bypassCSP because the check injects axe-core as an inline script, which the site's own
+ * Content-Security-Policy (script-src 'self') blocks. Only the test harness bypasses it; check 18 loads the pages
+ * without the bypass and fails on any CSP violation or console error.
  */
 const fs = require('fs');
 const path = require('path');
@@ -71,7 +75,7 @@ async function run(ctx) {
   const fingerprints = {};
   for (const combo of combos) {
     // reduced motion: the pages' own prefers-reduced-motion rule jumps every animation to its end state, so contrast is judged on the final look
-    const context = await browser.newContext({ viewport: { width: combo.width, height: 900 }, colorScheme: combo.scheme, reducedMotion: 'reduce' });
+    const context = await browser.newContext({ bypassCSP: true, viewport: { width: combo.width, height: 900 }, colorScheme: combo.scheme, reducedMotion: 'reduce' });
     const results = await pool(pages, 4, async (p) => {
       const page = await context.newPage();
       await page.goto(baseUrl + p.url, { waitUntil: 'load' });
@@ -110,7 +114,7 @@ async function run(ctx) {
   r.expect(pixelBad.length === 0, 'text axe marks "needs review" (gradient, image or overlapping backgrounds; form fields): every one is judged and has sufficient contrast (worst pixel / typed and placeholder text)', pixelBad.length ? pixelBad.slice(0, 4).join(' | ') + (pixelBad.length > 4 ? ` (+${pixelBad.length - 4} more)` : '') : `${pixel.checked} elements judged (light scheme, 1280 and 390px), none unjudged, ${pixel.svg} skipped as SVG cover text (judged by the palette check below); worst ${pixel.worst ? pixel.worst.ratio.toFixed(2) + ':1 on ' + pixel.worst.url + ' ' + pixel.worst.target + ' (' + pixel.worst.width + 'px)' : 'n/a'}`);
 
   // the sampler must be able to fail: controls with known contrast on a gradient, plain text and gradient-clipped text
-  const ctl = await browser.newContext({ viewport: { width: 800, height: 600 } });
+  const ctl = await browser.newContext({ bypassCSP: true, viewport: { width: 800, height: 600 } });
   const cp = await ctl.newPage();
   await cp.setContent('<!doctype html><body style="margin:0;font:700 20px sans-serif"><div style="background:linear-gradient(90deg,#fff,#ddd);padding:20px">'
     + '<p id="low" style="margin:0;color:#aaa">low contrast control</p>'
@@ -134,7 +138,7 @@ async function run(ctx) {
   // the fingerprint must be able to see dark styling: a synthetic page that does restyle itself for dark must hash differently
   const hashes = {};
   for (const scheme of ['light', 'dark']) {
-    const c = await browser.newContext({ colorScheme: scheme });
+    const c = await browser.newContext({ bypassCSP: true, colorScheme: scheme });
     const pg = await c.newPage();
     await pg.setContent('<!doctype html><style>body{background:#fff;color:#111}@media (prefers-color-scheme: dark){body{background:#000;color:#eee}}</style><p>control</p>');
     hashes[scheme] = (await pg.evaluate(colourFingerprint)).hash;
@@ -145,7 +149,7 @@ async function run(ctx) {
   // ---------------------------------------------------------------- cover palettes in both schemes
   // the one dark palette that exists: light-dark() in the covers. It only shows if something sets color-scheme: dark, so force it.
   const harness = '<!doctype html><meta charset="utf-8"><body style="margin:0">' + projects.map((p) => '<div style="width:800px">' + render(p) + '</div>').join('');
-  const context = await browser.newContext({ viewport: { width: 1000, height: 900 } });
+  const context = await browser.newContext({ bypassCSP: true, viewport: { width: 1000, height: 900 } });
   const page = await context.newPage();
   await page.setContent(harness);
   const pairs = [...(await page.evaluate(coverPairs, 'light')), ...(await page.evaluate(coverPairs, 'dark'))];
