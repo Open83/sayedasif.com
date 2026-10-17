@@ -413,12 +413,12 @@
             text-align: left;
         }
 
-        /* Two pathways: hiring and freelance testing */
+        /* One pathway: hiring. Freelance is a single sentence (the availability line). */
         .hero-paths {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: minmax(0, 1fr);
             gap: 14px;
-            max-width: 610px;
+            max-width: 320px;
         }
 
         .hero-path {
@@ -431,8 +431,6 @@
             padding: 18px 18px 16px;
             box-shadow: var(--shadow-soft);
         }
-
-        .hero-path + .hero-path { border-top-color: var(--brand-dark); }
 
         .hero-path h2 {
             font-size: 1.08rem;
@@ -899,7 +897,7 @@
 
         @media (max-width: 560px) {
             .hero-paths { grid-template-columns: 1fr; gap: 10px; }
-            /* Headings and buttons are self-explanatory; keep both pathways on the first phone screen */
+            /* Heading and button are self-explanatory; keep the pathway on the first phone screen */
             .hero-path { padding: 14px 16px 14px; }
             .hero-path h2 { margin-bottom: 10px; font-size: 1.02rem; }
             .hero-path p { display: none; }
@@ -1026,14 +1024,7 @@
                             <p>See my resume and professional experience.</p>
                             <a href="/resume/" class="btn btn-primary">View Resume</a>
                         </div>
-
-                        <div class="hero-path">
-                            <h2>Need testing support?</h2>
-                            <p>Scoped web, API and automation testing.</p>
-                            <a href="/services/" class="btn btn-outline">Explore QA Services</a>
-                        </div>
-
-                    </div>
+</div>
 
                 </div>
 
@@ -1524,20 +1515,15 @@
                 </h2>
 
                 <p class="cta-text">
-                    Currently employed. Open to strong full-time QA Engineer offers and available for
-                    freelance QA projects on a part-time basis.
+                    The quickest way to reach me is the contact form or email. My resume has the full
+                    experience and the Evidence Library has the checkable work.
                 </p>
 
                 <div class="cta-buttons">
                     <a href="/contact/" class="btn btn-primary">
                         <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>
                         Contact Me
-                    </a>
-                    <a href="/services/#contact" class="btn btn-outline">
-                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.75em" height="1em"><use href="/assets/icons.svg#clipboard-check"/></svg></i>
-                        Discuss a Testing Project
-                    </a>
-                </div>
+                    </a></div>
 
                 <p class="cta-alt">
                     Prefer a document?
