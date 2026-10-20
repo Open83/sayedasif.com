@@ -1,3 +1,18 @@
 scripts/
 drafts/
 .github/
+AUDIT.md
+PROGRESS.md
+PENDING-FACTS.md
+/API/
+/ERPNext-QA-Automation/
+/Razorpay Payment Gateway*/
+/automation-exercise-playwright/
+/design-exploration/
+.env
+.env.*
+storageState.json
+auth-diagnostics/
+auth-failure-attempt-*
+node_modules/
+.playwright-mcp/

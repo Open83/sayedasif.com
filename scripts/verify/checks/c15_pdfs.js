@@ -42,6 +42,19 @@ async function inspect(browser, file) {
   return out;
 }
 
+const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', ndash: '–', mdash: '—', rsquo: '’', lsquo: '‘', ldquo: '“', rdquo: '”', middot: '·', bull: '•' };
+
+// Every sentence or bullet of 50+ characters in the visible body of a resume source page (header and footer are hidden in print).
+function sourceSentences(html) {
+  const text = html
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+    .replace(/<(style|script|head|header|footer)\b[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<[^>]+>/g, '\n')
+    .replace(/&(#x?[0-9a-f]+|\w+);/gi, (m, e) => (e[0] === '#' ? String.fromCodePoint(e[1].toLowerCase() === 'x' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10)) : (ENTITIES[e] ?? m)));
+  return text.split(/\n+|(?<=[.;])\s+/).map((s) => s.replace(/\s+/g, ' ').trim()).filter((s) => s.length >= 50);
+}
+const alnum = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, ''); // ignores spacing, hyphenation at line ends, ligatures and punctuation
+
 async function run(ctx) {
   const r = result(15, 'Resume PDFs: valid, page count, email present, phone number absent, nothing clipped, pages rasterised');
   const { expected: ex, root, browser } = ctx;
@@ -64,6 +77,15 @@ async function run(ctx) {
     r.expect(all.includes(ex.phone.email), `${name}: contains the email address`, ex.phone.email);
     const missing = spec.mustContain.filter((w) => !all.toLowerCase().includes(w.toLowerCase()));
     r.expect(missing.length === 0, `${name}: key resume content present (name, summary, employer, training, college, tools)`, missing.length ? 'missing: ' + missing.join(', ') : `${spec.mustContain.length} phrases`);
+
+    // Freshness: the PDF is a build product of its source page. A source edited after the last build (for example a wording
+    // correction) leaves the published PDF saying the old thing while every other check still passes.
+    if (spec.source) {
+      const sentences = sourceSentences(fs.readFileSync(path.join(root, spec.source), 'utf8'));
+      const pdfText = alnum(all);
+      const stale = sentences.filter((s) => !pdfText.includes(alnum(s)));
+      r.expect(sentences.length >= 15 && stale.length === 0, `${name}: PDF text matches its source ${spec.source} (rebuild with node scripts/build-resume-pdfs.js if not)`, stale.length ? `${stale.length} of ${sentences.length} source sentences not in the PDF, e.g. "${stale[0].slice(0, 90)}"` : `${sentences.length} sentences all present`);
+    }
 
     const edge = [];
     info.pages.forEach((p, i) => {

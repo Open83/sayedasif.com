@@ -18,3 +18,8 @@ scripts/verify/out-mutation/
 storageState.json
 auth-diagnostics/
 auth-failure-attempt-*
+
+# Internal working notes: never commit or publish (Vercel would serve them as /AUDIT.md etc.)
+/AUDIT.md
+/PROGRESS.md
+/PENDING-FACTS.md

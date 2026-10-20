@@ -48,7 +48,8 @@ async function run(ctx) {
     redirectBad.length ? redirectBad.join(' | ') : ex.redirects.map((x) => x.from).join(', '));
 
   // vercel.json and the expectations agree in both directions
-  const configured = (vercel.redirects || []).filter((x) => !/:path\*/.test(x.source));
+  // guard rules (a :path* folder rule, or a single private file listed in expected.json guardFiles) are checked further down
+  const configured = (vercel.redirects || []).filter((x) => !/:path\*/.test(x.source) && !(ex.guardFiles || []).includes(x.source));
   const missing = ex.redirects.filter((e) => !configured.some((c) => c.source === e.from && c.destination === e.to && c.statusCode === 301 && c.permanent === undefined));
   const unexpected = configured.filter((c) => !ex.redirects.some((e) => e.from === c.source));
   r.expect(missing.length === 0 && unexpected.length === 0, 'vercel.json redirects equal the expected list, each declaring "statusCode": 301',
@@ -97,6 +98,16 @@ async function run(ctx) {
     const c3 = await probe(only.url, 'scripts/resume-source/resume-ats.html');
     await only.close();
     r.expect(c3.status === 404, 'control: .vercelignore alone (no guard rules) hides the file with a 404', `${c3.status}`);
+
+    // README.md is for GitHub readers. At the site root a static host would serve it as /README.md, so a rule sends it to /.
+    const readmeProbe = async (base) => { const res = await fetch(base + '/README.md', { redirect: 'manual' }); return { status: res.status, loc: res.headers.get('location') }; };
+    const rmGuardOff = await start({ root, honourVercelIgnore: false, config: { ...vercel, redirects: (vercel.redirects || []).filter((x) => x.source !== '/README.md') } });
+    try {
+      const rm = [await readmeProbe(baseUrl), await readmeProbe(noIgnoreServer.url)];
+      r.expect(fs.existsSync(path.join(root, 'README.md')) && rm.every(guarded), 'README.md is not served: /README.md answers a redirect to / (with and without .vercelignore)', rm.map((x) => `${x.status} -> ${x.loc}`).join(' | '));
+      const rmCtl = await readmeProbe(rmGuardOff.url);
+      r.expect(rmCtl.status === 200, 'control: with the /README.md rule removed the same probe DOES get 200', `${rmCtl.status}`);
+    } finally { await rmGuardOff.close(); }
   } finally { await noIgnore.close(); await noIgnoreServer.close(); await noGuards.close(); }
   const ignoreText = fs.readFileSync(path.join(root, '.vercelignore'), 'utf8').split(/\r?\n/).filter(Boolean).join(' | ');
   r.note(`.vercelignore lines: ${ignoreText}`);

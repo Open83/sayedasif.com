@@ -17,6 +17,11 @@
       "permanent": false
     },
     {
+      "source": "/README.md",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/resume/download/",
       "destination": "/resume/",
       "statusCode": 301

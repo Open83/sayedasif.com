@@ -546,10 +546,22 @@
         .sample-report dt { font-weight: 700; color: var(--brand-dark); }
         .sample-report dd { margin: 0; color: var(--brand-text); line-height: 1.7; }
         .sample-report ol { margin: 0 0 0 20px; }
+        .scenario-matrix { max-width: 960px; }
+        .scenario-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+        .scenario-table th, .scenario-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: var(--border-light); line-height: 1.55; color: var(--brand-text); }
+        .scenario-table thead th { background: #eef6fb; color: var(--brand-dark); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .scenario-table tbody th { font-weight: 700; color: var(--brand-dark); }
+        .scenario-table tbody tr:last-child th, .scenario-table tbody tr:last-child td { border-bottom: 0; }
+        .scenario-gaps { margin: 16px 0 0; }
         @media (max-width: 640px) {
             .sample-report { padding: 22px 18px; }
             .sample-report dl { grid-template-columns: 1fr; gap: 2px; }
             .sample-report dd { margin-bottom: 12px; }
+            .scenario-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+            .scenario-table tr { display: block; padding: 10px 0; border-bottom: var(--border-light); }
+            .scenario-table tbody tr:last-child { border-bottom: 0; }
+            .scenario-table th, .scenario-table td { display: block; padding: 2px 0; border-bottom: 0; }
+            .scenario-table td::before { content: attr(data-label) ": "; font-weight: 700; color: var(--brand-dark); }
         }
         .expect-grid {
             display: grid;
@@ -1189,6 +1201,70 @@
                         <dt>Status</dt>
                         <dd>Resolved by mounting the webhook router before the global parser, with regression tests.</dd>
                     </dl>
+                </div>
+
+                <div class="sample-report scenario-matrix" id="sample-matrix">
+                    <h3>What a test-scenario matrix looks like</h3>
+                    <p class="sample-note">
+                        A sample: six rows condensed from the 37-test coverage matrix of my own Razorpay Test Mode project, not client work.
+                        All 37 tests are listed on the <a href="/evidence/#coverage-matrix">Evidence page</a>. The IDs below are the CI-safe tests among them.
+                    </p>
+                    <table class="scenario-table">
+                        <caption class="sr-only">Sample test scenarios with expected results and test IDs</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Area</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Test IDs</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Payment signature</th>
+                                <td data-label="Scenario">Wrong signature, tampered order ID, or missing signature field on payment verification</td>
+                                <td data-label="Expected result">The payment is rejected</td>
+                                <td data-label="Test IDs">SIG-002, SIG-003, SIG-004</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Webhook signature</th>
+                                <td data-label="Scenario">Correctly signed event, invalid signature, missing signature header</td>
+                                <td data-label="Expected result">The signed event is accepted and updates the order; the other two are rejected</td>
+                                <td data-label="Test IDs">WEB-001, WEB-FIX-001, WEB-002, WEB-003</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Webhook idempotency</th>
+                                <td data-label="Scenario">The same event ID sent twice; two different event IDs</td>
+                                <td data-label="Expected result">The duplicate is processed once; different IDs are processed independently</td>
+                                <td data-label="Test IDs">WEB-005, WEB-006</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Error handling</th>
+                                <td data-label="Scenario">Order creation fails; a request body is malformed JSON</td>
+                                <td data-label="Expected result">No gateway details in the error message; HTTP 400 for the malformed body</td>
+                                <td data-label="Test IDs">ERR-001, ERR-004</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Refund errors</th>
+                                <td data-label="Scenario">The gateway rejects a refund</td>
+                                <td data-label="Expected result">A controlled error, and the server stays available</td>
+                                <td data-label="Test IDs">REF-ERR-001, REF-ERR-002</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Checkout page</th>
+                                <td data-label="Scenario">Page source and the Test Mode banner</td>
+                                <td data-label="Expected result">No secrets in the HTML; the Test Mode indicator is visible</td>
+                                <td data-label="Test IDs">UI-004, UI-005</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="sample-note scenario-gaps">
+                        Not covered by any test in that project: authentication and redirect flows, a real Razorpay-originated webhook,
+                        a successful refund, and the paid to refunded transition. The tests listed run against my own demo app in Razorpay Test Mode,
+                        and the CI-safe ones use placeholder credentials, so they do not process a real payment. They do not show that live-mode
+                        payments, real card networks, settlement or a production system work; testing those would need your environment and access.
+                        A matrix for your product would state its own gaps the same way.
+                    </p>
                 </div>
 
             </div>
