@@ -37,6 +37,10 @@ jobs:
       - name: Run verification suite
         run: node run.js --skip-network --release
 
+      # Offline: proves the Vercel bypass token is never printed or written by the suite (synthetic canary, no real token).
+      - name: Preview-token redaction self-test
+        run: node selftest-token.js
+
       - name: Upload report
         if: always()
         uses: actions/upload-artifact@v4

@@ -95,6 +95,20 @@ const MUTATIONS = [
     expect: [3],
     apply: () => edit('about/index.html', (t) => t.replace('</main>', '<!-- TODO: something nobody planned --></main>')),
   },
+  {
+    name: 'README guard removed',
+    detail: 'the /README.md redirect deleted from vercel.json, so the root README would be served',
+    files: ['vercel.json'],
+    expect: [2],
+    apply: () => edit('vercel.json', (t) => t.replace(/\s*\{\s*"source": "\/README\.md",[^}]*\},?/, '')),
+  },
+  {
+    name: 'resume source edited, PDF not rebuilt',
+    detail: 'one sentence of resume-ats.html changed, the published ATS PDF left as it was',
+    files: ['scripts/resume-source/resume-ats.html'],
+    expect: [15],
+    apply: () => edit('scripts/resume-source/resume-ats.html', (t) => t.replace('fixed with regression tests.', 'fixed with regression tests and a retest.')),
+  },
 ];
 
 function runChecks(ids, label) {

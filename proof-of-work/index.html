@@ -1024,7 +1024,7 @@
                 </div>
 
                 <p style="max-width: 760px; margin: 24px auto 0; font-size: 0.85rem; line-height: 1.7; color: #5f6b79; text-align: center;">
-                    116 counts unique test definitions, listed with each repository’s <code>npm test -- --list</code> on 12 October 2026: Automation Exercise 26, ERPNext 6, RESTful Booker 47, Razorpay 37. It is not a coverage measure and not a count of executions. ERPNext’s 6 includes 1 authentication setup test, and 3 of Razorpay’s 37 are live-mode tests run separately (34 run in CI). CI results are historical: the last runs were 29 August (Automation Exercise), 4 September (ERPNext, whose hosted test environment is now offline), 10 September (RESTful Booker) and 14 September 2026 (Razorpay), checked on 16 October 2026 against the GitHub Actions run lists (no newer run exists). CI is configured with retries.
+                    116 counts unique test definitions, counted from each repository’s test files at the commit shown here and cited on its project page (the same list <code>playwright test --list</code> prints): Automation Exercise 26 (<code>789d413</code>), ERPNext 6 (<code>8990014</code>), RESTful Booker 47 (<code>a385240</code>), Razorpay 37 (<code>da9e7a2</code>). It is not a coverage measure, not a count of executions and says nothing about whether those tests pass. ERPNext’s 6 includes 1 authentication setup test, and 3 of Razorpay’s 37 are live-mode tests run separately (34 run in CI). CI results are historical: the last runs were 29 August (Automation Exercise), 4 September (ERPNext, whose hosted test environment is now offline), 10 September (RESTful Booker) and 14 September 2026 (Razorpay), checked on 16 October 2026 against the GitHub Actions run lists (no newer run exists). CI is configured with retries.
                 </p>
 
             </div>
@@ -1104,7 +1104,7 @@
 
                                 Independent QA project testing a Razorpay Test Mode payment flow for
                                 verification, security, webhook behavior, state transitions and failure
-                                handling. Two real defects found and fixed with regression coverage.
+                                handling. Two high-severity defects found in the demo app I built as the test target, fixed with regression tests.
 
                             </p>
 

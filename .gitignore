@@ -3,3 +3,23 @@ scripts/verify/out/
 scripts/verify/.cache/
 .playwright-mcp/
 scripts/verify/out-mutation/
+
+# Local clones of the four QA repos live in this folder. They are separate
+# git repos and hold .env files, so they must never be added to the site repo.
+/API/
+/ERPNext-QA-Automation/
+/Razorpay Payment Gateway*/
+/automation-exercise-playwright/
+
+# Secrets and login-session files, anywhere in the tree
+.env
+.env.*
+!.env.example
+storageState.json
+auth-diagnostics/
+auth-failure-attempt-*
+
+# Internal working notes: never commit or publish (Vercel would serve them as /AUDIT.md etc.)
+/AUDIT.md
+/PROGRESS.md
+/PENDING-FACTS.md

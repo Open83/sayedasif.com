@@ -155,6 +155,8 @@ function walk(dir, out) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     if (SKIP_DIRS.has(e.name)) continue;
     const f = path.join(dir, e.name);
+    // A folder with its own .git is a separate repo (a local clone of a QA repo), not part of the site.
+    if (e.isDirectory() && fs.existsSync(path.join(f, '.git'))) continue;
     if (e.isDirectory()) walk(f, out);
     else if (e.name.endsWith('.html')) out.push(f);
   }

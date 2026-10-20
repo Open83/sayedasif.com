@@ -30,6 +30,7 @@
     { "from": "/privacy.html", "to": "/privacy/" },
     { "from": "/projects/automationexercise.html", "to": "/projects/automation-exercise/" }
   ],
+  "guardFiles": ["/README.md"],
   "guardRedirects": [
     { "from": "/scripts/resume-source/resume-ats.html", "to": "/" },
     { "from": "/drafts/blog/README.md", "to": "/" }
@@ -38,8 +39,8 @@
 
   "pages": ["/", "/about/", "/proof-of-work/", "/evidence/", "/services/", "/contact/", "/resume/", "/blog/", "/blog/payment-gateway-testing-playwright/", "/blog/api-testing-best-practices/", "/projects/razorpay-payment-gateway-qa-automation/", "/projects/restful-booker-api-automation/", "/projects/erpnext-qa-automation/", "/projects/automation-exercise/", "/privacy/"],
   "pdfs": [
-    { "file": "resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf", "pages": 2, "mustContain": ["SAYED ASIF", "PROFESSIONAL SUMMARY", "Techno Serve Software Solutions", "SQUAD Infotech", "MVM College", "Playwright", "Postman", "Jira", "Razorpay Payment Gateway QA", "RESTful Booker API Automation", "37 tests", "47 tests"] },
-    { "file": "resume/Sayed-Asif-Software-QA-Engineer-Resume-ATS.pdf", "pages": 2, "mustContain": ["SAYED ASIF", "PROFESSIONAL SUMMARY", "Techno Serve Software Solutions", "SQUAD Infotech", "MVM College", "Playwright", "Postman", "Jira", "Razorpay Payment Gateway QA", "RESTful Booker API Automation", "37 tests", "47 tests"] }
+    { "file": "resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf", "source": "scripts/resume-source/resume-print.html", "pages": 2, "mustContain": ["SAYED ASIF", "PROFESSIONAL SUMMARY", "Techno Serve Software Solutions", "SQUAD Infotech", "MVM College", "Playwright", "Postman", "Jira", "Razorpay Payment Gateway QA", "RESTful Booker API Automation", "37 tests", "47 tests"] },
+    { "file": "resume/Sayed-Asif-Software-QA-Engineer-Resume-ATS.pdf", "source": "scripts/resume-source/resume-ats.html", "pages": 2, "mustContain": ["SAYED ASIF", "PROFESSIONAL SUMMARY", "Techno Serve Software Solutions", "SQUAD Infotech", "MVM College", "Playwright", "Postman", "Jira", "Razorpay Payment Gateway QA", "RESTful Booker API Automation", "37 tests", "47 tests"] }
   ],
 
   "navLabels": ["Home", "Proof of Work", "About", "Services", "Blog", "Resume", "Contact"],

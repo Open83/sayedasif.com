@@ -2,7 +2,10 @@
 /*
  * 20. Checks that only a real deployment can answer. Run with a preview URL:
  *
- *     node run.js --only 20 --preview https://<deployment>.vercel.app [--bypass <protection-bypass-token>]
+ *     [VERCEL_PROTECTION_BYPASS=<token> in the environment] node run.js --only 20 --preview https://<deployment>.vercel.app
+ *
+ * The bypass token is read from the environment by run.js (never from an argument), sent as x-vercel-protection-bypass to the
+ * preview's origin only, and redacted from everything printed or written (lib/redact.js; test: selftest-token.js).
  *
  * Without --preview this check is SKIPPED: a local server cannot prove what Vercel itself does with redirects (permanent:true
  * becomes a 308 there), with rule order, with .vercelignore in a Git deployment, or with headers and compression.
@@ -22,11 +25,15 @@ async function run(ctx) {
   const r = result(20, 'Real host (Vercel preview): redirects, pages, headers, PDFs, WhatsApp button');
   const { args, expected: ex, root } = ctx;
   if (!args.preview) {
-    r.skip('No preview URL was given, so nothing was checked on the real host. Run: node run.js --only 20 --preview https://<deployment>.vercel.app (add --bypass <token> if Deployment Protection is on).');
+    r.skip('No preview URL was given, so nothing was checked on the real host. Run: node run.js --only 20 --preview https://<deployment>.vercel.app (if Deployment Protection is on, export VERCEL_PROTECTION_BYPASS first).');
     return [r.finish()];
   }
   const base = args.preview.replace(/\/+$/, '');
-  const headers = args.bypass ? { 'x-vercel-protection-bypass': args.bypass } : {};
+  const baseOrigin = new URL(base).origin;
+  // The token (from VERCEL_PROTECTION_BYPASS, see run.js) is sent only to the preview's own origin, never to another host a
+  // redirect or a page might point at.
+  const headersFor = (url) => (ctx.bypass && new URL(url, base).origin === baseOrigin ? { 'x-vercel-protection-bypass': ctx.bypass } : {});
+  const headers = headersFor(base + '/');
   const isLocal = /^https?:\/\/(127\.0\.0\.1|localhost)(:|\/|$)/.test(base);
   const get = (p, opt = {}) => fetch(base + p, { redirect: 'manual', headers, ...opt });
   const vercel = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8'));
@@ -35,7 +42,9 @@ async function run(ctx) {
   const home = await get('/');
   const homeText = await home.text();
   if (home.status === 401 || home.status === 403 || /Authentication Required|vercel\.com\/sso|Vercel Authentication/i.test(homeText.slice(0, 4000))) {
-    r.fail('the preview is publicly readable', `GET / answered ${home.status} with a login page: Deployment Protection is on. Pass --bypass <token> or use a public URL.`);
+    r.fail('the preview is reachable by the check', ctx.bypass
+      ? `GET / answered ${home.status} with a login page although a bypass token was sent: the token is probably not the one for this project, or Deployment Protection is configured differently. Nothing else was checked.`
+      : `GET / answered ${home.status} with a login page: Deployment Protection is on and no bypass token is set. Export VERCEL_PROTECTION_BYPASS (do not pass it as an argument) or use a public URL. Nothing else was checked.`);
     return [r.finish()];
   }
   r.expect(home.status === 200, 'GET / answers 200', `${home.status}`);
@@ -65,7 +74,7 @@ async function run(ctx) {
     const hops = [];
     let url = base + from;
     for (let i = 0; i < 6; i++) {
-      const res = await fetch(url, { redirect: 'manual', headers });
+      const res = await fetch(url, { redirect: 'manual', headers: headersFor(url) });
       hops.push({ status: res.status, url: new URL(url).pathname + new URL(url).hash });
       const loc = res.headers.get('location');
       if (res.status >= 300 && res.status < 400 && loc) { url = new URL(loc, url).toString(); continue; }
@@ -86,23 +95,29 @@ async function run(ctx) {
   }
   r.expect(redirBad.length === 0, `${ex.redirects.length} redirects: every hop is permanent (at least one is the declared 301, never 302/307), each ends at the right page with 200`, redirBad.slice(0, 4).join(' | ') || lines.slice(0, 3).join('; ') + '; ...');
   r.note('redirect chains (status per hop): ' + lines.join(' | '));
+  // The first hop for a path without a trailing slash is Vercel's own 308 to the slash form, so the anchor is
+  // judged on the end of the chain (the URL the visitor lands on), not on the first Location header.
   const fragmentBad = [];
   for (const { from, to } of ex.redirects.filter((x) => x.to.includes('#'))) {
-    const res = await get(from);
-    const loc = res.headers.get('location') || '';
-    if (!loc.endsWith(to.slice(to.indexOf('#')))) fragmentBad.push(`${from} -> ${loc}`);
+    const c = await chain(from);
+    const anchor = to.slice(to.indexOf('#'));
+    if (c.final.hash !== anchor) fragmentBad.push(`${from} -> ${c.final.pathname}${c.final.hash || ' (anchor lost)'}`);
   }
-  r.expect(fragmentBad.length === 0, 'redirects that target an #anchor keep the anchor in the Location header', fragmentBad.join(' | ') || `${ex.redirects.filter((x) => x.to.includes('#')).length} rules`);
+  r.expect(fragmentBad.length === 0, 'redirects that target an #anchor keep the anchor in the URL the chain ends at', fragmentBad.join(' | ') || `${ex.redirects.filter((x) => x.to.includes('#')).length} rules`);
 
   // ---------------------------------------------------------------- private folders
   const leak = [];
   const priv = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '--', 'scripts', 'drafts'], { cwd: root, encoding: 'utf8' }).split(String.fromCharCode(10)).filter(Boolean);
-  const spellings = [...priv.map((x) => '/' + x.split('/').map(encodeURIComponent).join('/')), '/scripts', '/scripts/', '/drafts', '/drafts/', '/scripts/resume-source/', '/%73cripts/resume-source/resume-ats.html', '/scripts//resume-source/resume-ats.html', '/Scripts/resume-source/resume-ats.html', '/scripts/resume-source/resume-ats.html/', '/drafts/blog/README.md?x=1'];
+  const spellings = [...priv.map((x) => '/' + x.split('/').map(encodeURIComponent).join('/')), '/scripts', '/scripts/', '/drafts', '/drafts/', '/README.md', '/scripts/resume-source/', '/%73cripts/resume-source/resume-ats.html', '/scripts//resume-source/resume-ats.html', '/Scripts/resume-source/resume-ats.html', '/scripts/resume-source/resume-ats.html/', '/drafts/blog/README.md?x=1'];
   for (const p of spellings) {
-    const res = await get(p);
-    const loc = res.headers.get('location');
-    if (res.status === 200) leak.push(`${p} is served (200)`);
-    else if (res.status >= 300 && res.status < 400 && (!loc || new URL(loc, base).pathname !== '/')) leak.push(`${p} redirects to ${loc}`);
+    // Follow the whole chain: "/scripts" first gets Vercel's 308 to "/scripts/", which the guard rule then sends to "/".
+    // The chain must end on the home page (or a 404); landing on any other page, or on a 200 for a private path, is a leak.
+    const c = await chain(p);
+    const last = c.hops[c.hops.length - 1].status;
+    if (c.loop) leak.push(`${p} redirects in a loop`);
+    else if (c.final.pathname === '/') { /* guard rule worked */ }
+    else if (last === 200) leak.push(`${p} is served (200 at ${c.final.pathname})`);
+    else if (last >= 300 && last < 400) leak.push(`${p} redirects without a Location (${last})`);
   }
   r.expect(leak.length === 0, `no file under /scripts/ or /drafts/ is served: ${priv.length} repository files plus ${spellings.length - priv.length} odd spellings (encoded, doubled slash, upper case, trailing slash, directory) never answer 200 and only redirect to /`, leak.slice(0, 4).join(' | ') || `${spellings.length} URLs probed, including every file in scripts/resume-source and drafts/blog`);
   const extra = [];
@@ -150,7 +165,14 @@ async function run(ctx) {
   r.expect(sm.status === 200 && /xml/.test(sm.headers.get('content-type') || '') && rb.status === 200, 'sitemap.xml (xml) and robots.txt answer 200', `sitemap ${sm.status} ${sm.headers.get('content-type')}, robots ${rb.status}`);
 
   // ---------------------------------------------------------------- browser smoke test on the real host
-  const context = await ctx.browser.newContext({ viewport: { width: 390, height: 800 }, extraHTTPHeaders: headers });
+  const context = await ctx.browser.newContext({ viewport: { width: 390, height: 800 } });
+  if (ctx.bypass) {
+    // Not extraHTTPHeaders: that would attach the token to every request the page makes, including third-party hosts.
+    await context.route('**/*', (route) => {
+      const req = route.request();
+      return route.continue(headersFor(req.url())['x-vercel-protection-bypass'] ? { headers: { ...req.headers(), ...headersFor(req.url()) } } : {});
+    });
+  }
   const page = await context.newPage();
   const problems = [];
   page.on('pageerror', (e) => problems.push(String(e.message).slice(0, 120)));

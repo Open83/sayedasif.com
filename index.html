@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Primary SEO -->
-    <title>Sayed Asif | Software QA Engineer | Playwright, API &amp; Payment Testing</title>
+    <title>Sayed Asif | Software QA Engineer in Mumbai | Playwright, API &amp; Payment Testing</title>
 
     <meta
         name="description"
@@ -48,7 +48,7 @@
 
     <meta
         property="og:title"
-        content="Sayed Asif | QA Engineer with Public Portfolio (4 Public Projects)"
+        content="Sayed Asif | Software QA Engineer in Mumbai | Playwright, API &amp; Payment Testing"
     >
 
     <meta
@@ -84,7 +84,7 @@
 
     <meta
         name="twitter:title"
-        content="Sayed Asif | QA Engineer | 4 Public Test-Automation Projects on GitHub"
+        content="Sayed Asif | Software QA Engineer in Mumbai | Playwright, API &amp; Payment Testing"
     >
 
     <meta
@@ -115,27 +115,33 @@
     <!-- Structured Data: Person -->
     <script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Sayed Asif",
-        "url": "https://sayedasif.com/",
-        "jobTitle": "Software QA Engineer",
-        "description": "Software QA Engineer experienced in manual testing, API validation, test automation, payment workflows, regression testing and business-critical web applications.",
-        "sameAs": [
-            "https://www.linkedin.com/in/asifsayed83/",
-            "https://github.com/Open83"
-        ],
-        "knowsAbout": [
-            "Software Quality Assurance",
-            "Manual Testing",
-            "Automation Testing",
-            "API Testing",
-            "Regression Testing",
-            "Payment Testing",
-            "Functional Testing",
-            "Web Application Testing",
-            "Defect Management"
-        ]
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "@id": "https://sayedasif.com/#person",
+      "name": "Sayed Asif",
+      "url": "https://sayedasif.com/",
+      "jobTitle": "Software QA Engineer",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mumbai",
+        "addressCountry": "IN"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/asifsayed83/",
+        "https://github.com/Open83"
+      ],
+      "description": "Software QA Engineer experienced in manual testing, API validation, test automation, payment workflows, regression testing and business-critical web applications.",
+      "knowsAbout": [
+        "Software Quality Assurance",
+        "Manual Testing",
+        "Automation Testing",
+        "API Testing",
+        "Regression Testing",
+        "Payment Testing",
+        "Functional Testing",
+        "Web Application Testing",
+        "Defect Management"
+      ]
     }
     </script>
 
@@ -407,12 +413,12 @@
             text-align: left;
         }
 
-        /* Two pathways: hiring and freelance testing */
+        /* One pathway: hiring. Freelance is a single sentence (the availability line). */
         .hero-paths {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-columns: minmax(0, 1fr);
             gap: 14px;
-            max-width: 610px;
+            max-width: 320px;
         }
 
         .hero-path {
@@ -425,8 +431,6 @@
             padding: 18px 18px 16px;
             box-shadow: var(--shadow-soft);
         }
-
-        .hero-path + .hero-path { border-top-color: var(--brand-dark); }
 
         .hero-path h2 {
             font-size: 1.08rem;
@@ -893,7 +897,7 @@
 
         @media (max-width: 560px) {
             .hero-paths { grid-template-columns: 1fr; gap: 10px; }
-            /* Headings and buttons are self-explanatory; keep both pathways on the first phone screen */
+            /* Heading and button are self-explanatory; keep the pathway on the first phone screen */
             .hero-path { padding: 14px 16px 14px; }
             .hero-path h2 { margin-bottom: 10px; font-size: 1.02rem; }
             .hero-path p { display: none; }
@@ -1020,14 +1024,7 @@
                             <p>See my resume and professional experience.</p>
                             <a href="/resume/" class="btn btn-primary">View Resume</a>
                         </div>
-
-                        <div class="hero-path">
-                            <h2>Need testing support?</h2>
-                            <p>Scoped web, API and automation testing.</p>
-                            <a href="/services/" class="btn btn-outline">Explore QA Services</a>
-                        </div>
-
-                    </div>
+</div>
 
                 </div>
 
@@ -1086,8 +1083,9 @@
                 </div>
 
                 <p class="stats-note">
-                    116 counts unique test definitions listed by each public repository's test list as of
-                    14 October 2026. It is not a coverage measure or a count of executions.
+                    116 counts unique test definitions in the four public repositories, counted from their test files
+                    at the commits listed on Proof of Work. It is not a coverage measure, a count of executions
+                    or a pass count.
                     <a href="/proof-of-work/">How it is counted</a>.
                 </p>
 
@@ -1116,8 +1114,7 @@
                 </h2>
 
                 <p class="section-intro">
-                    Public source code, tests and CI workflows on GitHub. These are independent
-                    projects, separate from my employer work.
+                    Public source code, tests and CI workflows on GitHub. These are independent projects, separate from my employer work. The Razorpay project tests a small demo app that I built as the test target, so its defects are bugs in my own code.
                 </p>
 
                 <div class="featured-grid">
@@ -1153,8 +1150,7 @@
                         <h3>Razorpay Payment Gateway QA &amp; Automation</h3>
                         <p>
                             Playwright API tests for a Razorpay Test Mode checkout app: payment and webhook
-                            signature checks, duplicate webhook events, refund errors and order state. Two
-                            high-severity defects were found, fixed and regression-tested.
+                            signature checks, duplicate webhook events, refund errors and order state. Two high-severity defects were found in the demo app I built as the test target, then fixed and regression-tested.
                         </p>
                         <p class="featured-note">
                             Sandbox only. No webhook sent by Razorpay itself and no successful live refund were observed.
@@ -1520,20 +1516,15 @@
                 </h2>
 
                 <p class="cta-text">
-                    Currently employed. Open to strong full-time QA Engineer offers and available for
-                    freelance QA projects on a part-time basis.
+                    The quickest way to reach me is the contact form or email. My resume has the full
+                    experience and the Evidence Library has the checkable work.
                 </p>
 
                 <div class="cta-buttons">
                     <a href="/contact/" class="btn btn-primary">
                         <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>
                         Contact Me
-                    </a>
-                    <a href="/services/#contact" class="btn btn-outline">
-                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.75em" height="1em"><use href="/assets/icons.svg#clipboard-check"/></svg></i>
-                        Discuss a Testing Project
-                    </a>
-                </div>
+                    </a></div>
 
                 <p class="cta-alt">
                     Prefer a document?
