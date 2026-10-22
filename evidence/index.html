@@ -389,12 +389,12 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
                         <tbody>
                             <tr><th scope="row">Razorpay Payment Gateway QA & Automation</th><td>Playwright CI</td><td>14 Sep 2026</td><td><code>da9e7a2</code></td><td>Success</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/actions/runs/34838802189" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
                             <tr><th scope="row">RESTful Booker TypeScript API</th><td>Playwright Tests</td><td>22 Oct 2026</td><td><code>1e7f137</code></td><td>Success</td><td><a href="https://github.com/Open83/restful-booker-api-automation/actions/runs/39747765779" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">ERPNext QA Automation</th><td>Playwright Tests</td><td>4 Sep 2026</td><td><code>8990014</code></td><td>Success</td><td><a href="https://github.com/Open83/ERPNext-QA-Automation/actions/runs/33863756524" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">ERPNext QA Automation</th><td>Playwright Tests</td><td>22 Oct 2026</td><td><code>bd3846a</code></td><td>Failed <span class="note">By my reading of the job log: the hosted test instance is gone; 1 test failed, 5 did not run. Last green run: 4 Sep 2026.</span></td><td><a href="https://github.com/Open83/ERPNext-QA-Automation/actions/runs/39761819207" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
                             <tr><th scope="row">Automation Exercise</th><td>Playwright Test Suite</td><td>29 Aug 2026</td><td><code>789d413</code></td><td>Success</td><td><a href="https://github.com/Open83/automationexercise/actions/runs/33252150193" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="caption">These are historical results. ERPNext's hosted test instance is offline, so a new run there would fail at the authentication step.</p>
+                <p class="caption">These are historical results. ERPNext's latest run failed because its hosted test instance is gone: by my reading of the job log, the authentication setup test failed and the other 5 tests did not run. Its last green run was run #6 on 4 September 2026 (below).</p>
 
                 <h3>Playwright reports and traces (my own runs, 15 Oct 2026)</h3>
                 <p class="caption">
@@ -440,7 +440,7 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
                     </figure>
                     <figure class="shot">
                         <img src="/image/evidence/ci-erpnext-run.webp" alt="GitHub Actions run page for the ERPNext repository showing a successful Playwright Tests run on commit 8990014" width="1100" height="541" loading="lazy" decoding="async">
-                        <figcaption>GitHub Actions, ERPNext repository: Playwright Tests run #6 on commit 8990014, status Success, 6 m 57 s (4 Sep 2026). This is the last run: the hosted test instance has since gone offline.</figcaption>
+                        <figcaption>GitHub Actions, ERPNext repository: Playwright Tests run #6 on commit 8990014, status Success, 6 m 57 s (4 Sep 2026). This is the last green run; the latest run, #7 on 22 Oct 2026, failed because the hosted test instance has since gone offline (see the table above).</figcaption>
                     </figure>
                     <figure class="shot">
                         <img src="/image/evidence/ci-automation-exercise-run.webp" alt="GitHub Actions run page for the Automation Exercise repository showing a successful Playwright Test Suite run on commit 789d413" width="1100" height="541" loading="lazy" decoding="async">

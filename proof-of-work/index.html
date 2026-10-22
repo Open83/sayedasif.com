@@ -1017,14 +1017,14 @@
                     </div>
 
                     <div class="snapshot-card">
-                        <div class="snapshot-number">4 of 4</div>
-                        <div class="snapshot-label">Last Recorded CI Runs Passed (Aug to Oct 2026)</div>
+                        <div class="snapshot-number">3 of 4</div>
+                        <div class="snapshot-label">Last Recorded CI Runs Passed (ERPNext’s 22 Oct run failed: its test instance is gone)</div>
                     </div>
 
                 </div>
 
                 <p style="max-width: 760px; margin: 24px auto 0; font-size: 0.85rem; line-height: 1.7; color: #5f6b79; text-align: center;">
-                    116 counts unique test definitions, counted from each repository’s test files at the commit shown here and cited on its project page (the same list <code>playwright test --list</code> prints): Automation Exercise 26 (<code>789d413</code>), ERPNext 6 (<code>8990014</code>), RESTful Booker 47 (<code>a385240</code>), Razorpay 37 (<code>da9e7a2</code>). It is not a coverage measure, not a count of executions and says nothing about whether those tests pass. ERPNext’s 6 includes 1 authentication setup test, and 3 of Razorpay’s 37 are live-mode tests run separately (34 run in CI). CI results are historical: the last runs were 29 August (Automation Exercise), 4 September (ERPNext, whose hosted test environment is now offline), 14 September (Razorpay) and 22 October 2026 (RESTful Booker, whose latest commit only added a manual workflow trigger), checked on 22 October 2026 against the GitHub Actions run lists (no newer run exists). CI is configured with retries.
+                    116 counts unique test definitions, counted from each repository’s test files at the commit shown here and cited on its project page (the same list <code>playwright test --list</code> prints): Automation Exercise 26 (<code>789d413</code>), ERPNext 6 (<code>8990014</code>), RESTful Booker 47 (<code>a385240</code>), Razorpay 37 (<code>da9e7a2</code>). It is not a coverage measure, not a count of executions and says nothing about whether those tests pass. ERPNext’s 6 includes 1 authentication setup test, and 3 of Razorpay’s 37 are live-mode tests run separately (34 run in CI). CI results are historical. The last runs were 29 August (Automation Exercise), 14 September (Razorpay) and 22 October 2026 (RESTful Booker, whose latest commit only added a manual workflow trigger), and all three passed. ERPNext’s last green run was 4 September; its latest run, on 22 October 2026, failed because the hosted test instance it needs is gone (by my reading of the job log). I checked all four run lists on 22 October 2026. CI is configured with retries.
                 </p>
 
             </div>
@@ -1347,7 +1347,7 @@
 
                                 <strong style="color: var(--brand-accent-text);">6 Tests</strong>
                                 &nbsp; | &nbsp;
-                                <strong style="color: var(--brand-accent-text);">Last CI Run: Passed (4 Sep 2026); environment now offline</strong>
+                                <strong style="color: var(--brand-accent-text);">Last CI Run: Failed (22 Oct 2026, test instance gone); last green 4 Sep 2026</strong>
 
                             </div>
 
