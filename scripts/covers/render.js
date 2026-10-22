@@ -32,7 +32,7 @@ ${k} .mute{fill:var(--cv-mute);font-weight:500}${k} .num{fill:var(--cv-on);font-
   if (kind === 'wide') {
     return (common + `
 ${k} .eyebrow{fill:var(--cv-accent);font-size:24px;font-weight:700;letter-spacing:2.4px}
-${k} .title{font-size:58px;font-weight:800}${k} .count{fill:var(--cv-accent);font-size:150px;font-weight:800}
+${k} .title{font-size:58px;font-weight:800}${k} .count{fill:var(--cv-accent);font-size:150px;font-weight:800}${p.side ? `${k} .big{fill:var(--cv-accent);font-size:64px;font-weight:800}` : ''}
 ${k} .countl{font-size:32px}${k} .sub{font-size:26px}${k} .stack{font-size:28px}${k} .cap{font-size:26px}${k} .dom{font-size:22px}
 ${k} .nl{font-size:32px;font-weight:700}${k} .ns{font-size:21px}
 @container (max-width:559px){${k}{display:none}}`).trim();
@@ -51,7 +51,9 @@ function defs(id, kind) {
 function head(p, kind, size, standalone) {
   const id = `cv-${p.slug}`;
   const title = `${p.name}: project cover`;
-  const desc = `Cover for ${p.name}: ${p.count} test definitions (${p.countSub}). ${p.desc} Built with ${p.stack.replace(/ · /g, ', ')}.`;
+  const desc = p.count == null
+    ? `Cover for ${p.name}. ${p.desc} Built with ${p.stack.replace(/ · /g, ', ')}.`
+    : `Cover for ${p.name}: ${p.count} test definitions (${p.countSub}). ${p.desc} Built with ${p.stack.replace(/ · /g, ', ')}.`;
   const dims = standalone ? ` width="${size.w}" height="${size.h}"` : '';
   return `<svg class="cv cv-${p.slug} cv-${kind}" viewBox="0 0 ${size.w} ${size.h}"${dims} role="img" aria-labelledby="${id}-${kind}-t ${id}-${kind}-d" xmlns="http://www.w3.org/2000/svg" focusable="false">` +
     `<title id="${id}-${kind}-t">${esc(title)}</title><desc id="${id}-${kind}-d">${esc(desc)}</desc>` +
@@ -65,9 +67,15 @@ function renderWide(p, opts = {}) {
   o.push(`<text class="eyebrow" x="64" y="76">${esc(p.eyebrow)}</text>`);
   p.title.forEach((t, i) => o.push(`<text class="title" x="64" y="${150 + i * 64}">${esc(t)}</text>`));
   o.push(`<text class="stack mute" x="64" y="${150 + (p.title.length - 1) * 64 + 56}">${esc(p.stack)}</text>`);
-  o.push(`<text class="count" x="1136" y="200" text-anchor="end">${p.count}</text>`);
-  o.push(`<text class="countl" x="1136" y="246" text-anchor="end">test definitions</text>`);
-  o.push(`<text class="sub mute" x="1136" y="286" text-anchor="end">${esc(p.countSub)}</text>`);
+  if (p.count != null) {
+    o.push(`<text class="count" x="1136" y="200" text-anchor="end">${p.count}</text>`);
+    o.push(`<text class="countl" x="1136" y="246" text-anchor="end">test definitions</text>`);
+    o.push(`<text class="sub mute" x="1136" y="286" text-anchor="end">${esc(p.countSub)}</text>`);
+  } else {
+    // pages without a count (social image only): up to three right-aligned lines from p.side
+    const ys = [200, 246, 286];
+    (p.side || []).slice(0, 3).forEach((s, i) => o.push(`<text class="${s.cls}" x="1136" y="${ys[i]}" text-anchor="end">${esc(s.text)}</text>`));
+  }
   o.push(`<rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/>`);
   p.flow.forEach(([label, sec, hot], i) => {
     const x = NODE.x0 + i * (NODE.w + NODE.gap), cx = x + NODE.w / 2;

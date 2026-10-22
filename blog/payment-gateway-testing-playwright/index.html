@@ -28,7 +28,7 @@
     <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
     <meta property="og:site_name" content="Sayed Asif">
     <meta property="article:published_time" content="2026-10-14">
-    <meta property="article:modified_time" content="2026-10-14">
+    <meta property="article:modified_time" content="2026-10-22">
     <meta property="article:author" content="Sayed Asif">
     <meta property="article:section" content="Payment Testing">
 
@@ -64,7 +64,7 @@
                     "url": "https://sayedasif.com/"
                 },
                 "datePublished": "2026-10-14",
-                "dateModified": "2026-10-14",
+                "dateModified": "2026-10-22",
                 "articleSection": "Payment Testing",
                 "keywords": [
                     "payment gateway testing",
@@ -615,7 +615,7 @@
                             <tr>
                                 <td>Amount integrity (client cannot set the amount)</td>
                                 <td><span class="tag part">Weak in CI</span></td>
-                                <td><code>ORDER-003</code> only asserts when order creation succeeds (see section 10)</td>
+                                <td><code>ORDER-003</code> only asserts when order creation succeeds, and <code>ORDER-001</code> only when it returns 200 or 503 (see section 10)</td>
                             </tr>
                             <tr>
                                 <td>Webhook signature: valid, invalid, missing, tampered</td>
@@ -1075,6 +1075,9 @@ test('WEB-FIX-002: a modified payload with the original signature is rejected', 
                         reported 34 of 34 passed. With real credentials the test does run (the Phase 3.3
                         report records it passing), but CI would not catch the regression. Marking the
                         test as skipped when order creation fails makes CI report that honestly.
+                        <code>ORDER-001</code> has the same gap: it asserts only when the status is 200 or
+                        503, and with the CI placeholder configuration the endpoint returns 400 (I checked
+                        by calling it on 22 October 2026), so it runs no assertions in CI.
                     </li>
                     <li>
                         <strong>Order of checks matters.</strong> Verify the signature first, then

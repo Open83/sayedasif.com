@@ -10,15 +10,19 @@
     </url>
     <url>
         <loc>https://sayedasif.com/proof-of-work/</loc>
-        <lastmod>2026-10-17</lastmod>
+        <lastmod>2026-10-22</lastmod>
     </url>
     <url>
         <loc>https://sayedasif.com/evidence/</loc>
-        <lastmod>2026-10-17</lastmod>
+        <lastmod>2026-10-22</lastmod>
+    </url>
+    <url>
+        <loc>https://sayedasif.com/api-testing/</loc>
+        <lastmod>2026-10-22</lastmod>
     </url>
     <url>
         <loc>https://sayedasif.com/services/</loc>
-        <lastmod>2026-10-20</lastmod>
+        <lastmod>2026-10-22</lastmod>
     </url>
     <url>
         <loc>https://sayedasif.com/resume/</loc>
@@ -34,11 +38,11 @@
     </url>
     <url>
         <loc>https://sayedasif.com/projects/erpnext-qa-automation/</loc>
-        <lastmod>2026-10-16</lastmod>
+        <lastmod>2026-10-22</lastmod>
     </url>
     <url>
         <loc>https://sayedasif.com/projects/restful-booker-api-automation/</loc>
-        <lastmod>2026-10-16</lastmod>
+        <lastmod>2026-10-22</lastmod>
     </url>
     <url>
         <loc>https://sayedasif.com/projects/razorpay-payment-gateway-qa-automation/</loc>
@@ -46,14 +50,14 @@
     </url>
     <url>
         <loc>https://sayedasif.com/blog/</loc>
-        <lastmod>2026-10-16</lastmod>
+        <lastmod>2026-10-22</lastmod>
     </url>
     <url>
         <loc>https://sayedasif.com/blog/payment-gateway-testing-playwright/</loc>
-        <lastmod>2026-10-14</lastmod>
+        <lastmod>2026-10-22</lastmod>
     </url>
     <url>
         <loc>https://sayedasif.com/blog/api-testing-best-practices/</loc>
-        <lastmod>2026-10-16</lastmod>
+        <lastmod>2026-10-22</lastmod>
     </url>
 </urlset>

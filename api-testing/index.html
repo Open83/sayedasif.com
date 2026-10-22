@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Playwright API Testing: Risk to Evidence Map | Sayed Asif</title>
+
+    <meta
+        name="description"
+        content="How I test APIs with Playwright: each API risk mapped to the public tests that cover it, with pinned code links and what is not tested."
+    >
+
+    <meta name="author" content="Sayed Asif">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <link rel="canonical" href="https://sayedasif.com/api-testing/">
+    <meta name="theme-color" content="#00baf2">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Playwright API Testing: Risk to Evidence Map | Sayed Asif">
+    <meta property="og:description" content="An API risk to evidence map: for each risk I check on an API, the tests in my public repositories that cover it, or a plain note that nothing does.">
+    <meta property="og:url" content="https://sayedasif.com/api-testing/">
+    <meta property="og:image" content="https://sayedasif.com/image/og/api-testing.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="API Testing with Playwright: an API risk to evidence map. Playwright, TypeScript, JavaScript, REST APIs.">
+    <meta name="twitter:image" content="https://sayedasif.com/image/og/api-testing.png">
+    <meta property="og:site_name" content="Sayed Asif">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Playwright API Testing: Risk to Evidence Map | Sayed Asif">
+    <meta name="twitter:description" content="Each API risk I check, mapped to the public Playwright tests that cover it, with code linked at pinned commits and the gaps stated.">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://sayedasif.com/"},
+                    {"@type": "ListItem", "position": 2, "name": "Proof of Work", "item": "https://sayedasif.com/proof-of-work/"},
+                    {"@type": "ListItem", "position": 3, "name": "API testing evidence map", "item": "https://sayedasif.com/api-testing/"}
+                ]
+            },
+            {
+                "@type": "TechArticle",
+                "headline": "Playwright API testing: an API risk to evidence map",
+                "description": "Ten API risks, each mapped to the Playwright tests in three independent public repositories that cover it, with code linked at pinned commits and the gaps stated.",
+                "image": "https://sayedasif.com/image/og/api-testing.png",
+                "datePublished": "2026-10-22",
+                "dateModified": "2026-10-22",
+                "author": {"@type": "Person", "name": "Sayed Asif", "url": "https://sayedasif.com/"},
+                "publisher": {"@type": "Person", "name": "Sayed Asif"},
+                "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sayedasif.com/api-testing/"},
+                "keywords": ["API Testing", "Playwright", "TypeScript", "REST API", "Webhook Testing", "Test Automation"]
+            }
+        ]
+    }
+    </script>
+
+    <!-- Global header/footer styles (single source of truth) -->
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+
+    <style>
+        :root {
+            --primary: #00baf2;
+            --primary-dark: #007ca1;
+            --dark: #314259;
+            --text: #314259;
+            --muted: #5f6b79;
+            --light: #f5f9fc;
+            --white: #ffffff;
+            --border: #e3ebf2;
+            --shadow: 0 18px 55px rgba(49, 66, 89, 0.10);
+            --radius: 12px;
+            --container: 1180px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        ::selection { background: var(--brand-accent-text); color: var(--white); }
+
+        .container { width: min(calc(100% - 40px), var(--container)); margin-inline: auto; }
+        .narrow { max-width: 900px; }
+        .section { padding: 32px 0; }
+        .section-light { background: var(--light); }
+
+        code {
+            padding: 2px 6px;
+            border-radius: 5px;
+            background: #e2e8f0;
+            color: var(--dark);
+            font-size: 0.88em;
+            word-break: break-word;
+        }
+
+        .project-breadcrumb { padding: 80px 20px 0; }
+        .project-breadcrumb + .hero { padding-top: 24px; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--dark);
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .back-link:hover { color: var(--primary-dark); transform: translateX(-3px); }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 70px 0 50px;
+            background: radial-gradient(circle at 85% 15%, rgba(0, 186, 242, 0.14), transparent 30%), linear-gradient(135deg, #ffffff 0%, #f5faff 100%);
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 8px 13px;
+            border: 1px solid rgba(0, 186, 242, 0.25);
+            border-radius: 999px;
+            background: rgba(0, 186, 242, 0.07);
+            color: var(--brand-accent-on-tint);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.6rem);
+            line-height: 1.12;
+            letter-spacing: -0.02em;
+            color: var(--dark);
+            margin-bottom: 20px;
+            overflow-wrap: break-word;
+        }
+
+        .hero h1 span { color: var(--brand-accent-text); display: block; }
+
+        .hero-subtitle {
+            max-width: 720px;
+            font-size: 1.15rem;
+            line-height: 1.55;
+            color: var(--dark);
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+
+        .hero-description {
+            max-width: 730px;
+            color: var(--muted);
+            font-size: 0.97rem;
+            margin-bottom: 24px;
+            line-height: 1.75;
+        }
+
+        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-height: 48px;
+            padding: 0 20px;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 800;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .button:hover { transform: translateY(-2px); }
+
+        .button-primary {
+            background: var(--brand-accent-text);
+            color: var(--white);
+            box-shadow: 0 10px 25px rgba(0, 186, 242, 0.22);
+        }
+
+        .button-primary:hover { background: var(--primary-dark); }
+
+        .button-secondary {
+            background: var(--white);
+            color: var(--dark);
+            border: 1px solid var(--border);
+        }
+
+        .button-secondary:hover { box-shadow: var(--shadow); }
+
+        /* Text sections */
+        .content-section h2 { font-size: 1.55rem; margin-bottom: 12px; color: var(--dark); font-weight: 700; line-height: 1.3; }
+        .content-section p { color: var(--text); margin-bottom: 12px; line-height: 1.7; }
+        .content-section .lead { color: var(--muted); }
+        .content-section ul { margin: 8px 0 14px 22px; }
+        .content-section li { margin-bottom: 8px; }
+        .content-section p a, .content-section li a, .content-section td a, .caption a {
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* Tally table */
+        .table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--white); margin: 14px 0 8px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+        td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+        thead th { background: #eef6fb; color: var(--dark); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        tbody th { font-weight: 700; }
+        tfoot th, tfoot td { font-weight: 800; border-bottom: 0; background: var(--light); }
+        .caption { font-size: 0.85rem; color: var(--muted); margin: 6px 0 0; }
+
+        /* What I check */
+        .check-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin: 14px 0;
+            list-style: none;
+        }
+
+        .check-grid li {
+            min-width: 0;
+            padding: 16px 18px;
+            background: var(--white);
+            border-radius: 10px;
+            border-left: 3px solid var(--primary);
+            margin: 0;
+        }
+
+        .check-grid strong { display: block; color: var(--dark); margin-bottom: 4px; font-size: 0.95rem; }
+        .check-grid strong a { color: var(--dark); font-weight: 700; }
+        .check-grid p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.6; }
+
+        /* Badges: the same styles as the Razorpay case study, plus tag-fail */
+        .scenario-tag { display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 9px; border-radius: 20px; margin-right: 6px; vertical-align: 1px; white-space: nowrap; }
+        .tag-ci { background: #dcfce7; color: #14532d; }
+        .tag-live { background: #fef3c7; color: #78350f; }
+        .tag-none { background: #e2e8f0; color: #1e293b; }
+        .tag-fail { background: #fee2e2; color: #7f1d1d; }
+
+        .badge-legend { list-style: none; margin: 10px 0 18px; display: grid; gap: 8px; }
+        .badge-legend li { margin: 0; font-size: 0.92rem; }
+
+        /* Evidence map */
+        .risk-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; margin: 22px 0; }
+        .risk { min-width: 0; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 24px 26px; box-shadow: var(--shadow); scroll-margin-top: 90px; }
+        .risk h3 { font-size: 1.15rem; color: var(--dark); margin-bottom: 8px; }
+        .risk p { margin-bottom: 10px; }
+        .risk-tests { list-style: none; margin: 10px 0 14px; padding: 0; display: grid; gap: 10px; }
+        .risk-tests li { margin: 0; padding-left: 0; font-size: 0.93rem; line-height: 1.65; }
+        .risk-tests a, .risk-gap a, .structure a {
+            color: var(--primary-dark);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .repo { font-weight: 700; color: var(--dark); }
+        .risk-gap { padding: 12px 14px; background: var(--light); border-left: 3px solid var(--primary); border-radius: 8px; font-size: 0.92rem; }
+
+        /* Real code excerpts, highlighted at build time (no runtime script) */
+        .code-figure { margin: 14px 0 22px; min-width: 0; }
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 10px;
+            padding: 16px 18px;
+            overflow-x: auto;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            tab-size: 2;
+        }
+        .code-block code { background: none; color: inherit; padding: 0; font-size: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; word-break: normal; }
+        .code-figure figcaption { font-size: 0.82rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+        .code-figure figcaption a { color: var(--primary-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+        .code-block .hljs-comment { color: #94a3b8; font-style: italic; }
+        .code-block .hljs-keyword,
+        .code-block .hljs-literal { color: #c4b5fd; }
+        .code-block .hljs-string { color: #86efac; }
+        .code-block .hljs-number { color: #fcd34d; }
+        .code-block .hljs-title,
+        .code-block .hljs-title.function_ { color: #7dd3fc; }
+        .code-block .hljs-attr, .code-block .hljs-property, .code-block .hljs-variable { color: #fda4af; }
+        .code-block .hljs-subst, .code-block .hljs-params { color: #e2e8f0; }
+        .code-block .hljs-built_in, .code-block .hljs-type { color: #fcd34d; }
+        .code-block .hljs-regexp { color: #86efac; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+        /* How I structure suites */
+        .structure h3 { font-size: 1.1rem; color: var(--dark); margin: 24px 0 8px; }
+
+        /* Next steps */
+        .next-list { list-style: none; margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+        .next-list li { margin: 0; padding: 16px 18px; background: var(--white); border: 1px solid var(--border); border-radius: 10px; font-size: 0.9rem; color: var(--muted); }
+        .next-list li a { display: block; color: var(--primary-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; margin-bottom: 4px; }
+
+        /* CTA */
+        .cta-section { background: var(--light); padding: 40px 0; text-align: center; }
+        .cta-title { font-size: 1.4rem; margin-bottom: 10px; color: var(--dark); font-weight: 700; }
+        .cta-desc { color: var(--muted); margin-bottom: 18px; font-size: 0.9rem; max-width: 560px; margin-inline: auto; }
+        .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+
+        /* Responsive */
+        @media (max-width: 1050px) {
+            .hero { padding: 80px 0 60px; }
+            .hero h1 { font-size: 2.9rem; }
+        }
+
+        @media (max-width: 768px) {
+            .container { width: min(calc(100% - 34px), var(--container)); }
+            .section { padding: 28px 0; }
+            .cta-section { padding: 32px 0; }
+            .hero { padding: 55px 0 40px; }
+            .hero h1 { font-size: 2.3rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .hero-description { font-size: 0.9rem; }
+            .cta-buttons { flex-direction: column; }
+            .button { width: 100%; }
+            .risk { padding: 20px 18px; }
+        }
+
+        @media (max-width: 600px) {
+            .section { padding: 24px 0; }
+            .hero h1 { font-size: 2rem; }
+            .hero { padding: 50px 0 35px; }
+            .code-block { font-size: 0.78rem; padding: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .back-link { font-size: 0.85rem; }
+            .section { padding: 20px 0; }
+            .cta-section { padding: 24px 0; }
+            .hero { padding: 45px 0 30px; }
+            .hero h1 { font-size: 1.7rem; }
+            .hero-label { font-size: 0.7rem; padding: 6px 10px; }
+            .hero-subtitle { font-size: 0.9rem; margin-bottom: 12px; }
+            .hero-description { font-size: 0.85rem; margin-bottom: 16px; }
+            .content-section h2 { font-size: 1.3rem; margin-bottom: 10px; }
+            .cta-title { font-size: 1.2rem; }
+            .button { padding: 0 16px; min-height: 44px; font-size: 0.85rem; }
+            th, td { padding: 8px 10px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            * { transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================== -->
+
+    <header class="site-header">
+    <nav aria-label="Main navigation">
+
+        <div class="container nav-inner">
+
+            <a href="/" class="logo" aria-label="SayedAsif home">Sayed<span>Asif</span></a>
+
+            <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
+            <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/proof-of-work/" class="active">Proof of Work</a>
+                <a href="/about/">About</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/">Blog</a>
+                <a href="/resume/">Resume</a>
+                <a href="/contact/">Contact</a>
+            </div>
+
+        </div>
+
+    </nav>
+    </header>
+
+    <main id="main-content">
+
+        <!-- Breadcrumb -->
+        <div class="container project-breadcrumb">
+            <a href="/proof-of-work/" class="back-link">
+                <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i>
+                Back to Proof of Work
+            </a>
+        </div>
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+        <section class="hero">
+            <div class="container">
+                <p class="hero-label">Evidence map</p>
+                <h1>Playwright API testing<span>An API risk to evidence map</span></h1>
+                <p class="hero-subtitle">How I test an API, shown through tests you can open.</p>
+                <p class="hero-description">
+                    Ten risks I check on any API. For each one: the tests in my public repositories that cover it,
+                    whether they run in CI, the exact lines at a pinned commit, and where the coverage is weak or missing.
+                </p>
+                <div class="hero-actions">
+                    <a href="#evidence-map" class="button button-primary">See the evidence map</a>
+                    <a href="#limits" class="button button-secondary">What this does not prove</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             1. WHAT THIS PAGE IS
+        ====================================================== -->
+        <section class="section content-section" aria-labelledby="about-heading">
+            <div class="container narrow">
+                <h2 id="about-heading">What this page is</h2>
+                <p>
+                    The evidence comes from three independent public projects, not from employer work: a TypeScript
+                    suite for the RESTful Booker practice API, a JavaScript suite for the Automation Exercise demo shop
+                    (API and web pages), and the API and security tests of a Razorpay Test Mode checkout app that I built
+                    as the test target. The targets are practice APIs and a payment sandbox. None of them is a client system.
+                </p>
+                <p>
+                    I gave every API test in those repositories one risk category: all 47 tests in RESTful Booker,
+                    32 of the 37 in Razorpay (the other five check the checkout page) and 16 of the 26 in Automation
+                    Exercise (the other ten drive the shop's web pages). The table shows where they sit. It is my tagging,
+                    and a count says how many tests touch a risk, not how well they test it.
+                </p>
+
+                <div class="table-wrap" tabindex="0" role="region" aria-label="API tests by risk category and repository">
+                    <table id="tally">
+                        <caption class="sr-only">API tests by risk category and repository, as I tagged them</caption>
+                        <thead><tr><th scope="col">Risk</th><th scope="col" class="num">RESTful Booker</th><th scope="col" class="num">Razorpay</th><th scope="col" class="num">Automation Exercise</th><th scope="col" class="num">All</th></tr></thead>
+                        <tbody>
+                            <tr><th scope="row">authentication</th><td class="num">4</td><td class="num">0</td><td class="num">2</td><td class="num">6</td></tr>
+                            <tr><th scope="row">authorization</th><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">5</td></tr>
+                            <tr><th scope="row">status codes</th><td class="num">6</td><td class="num">0</td><td class="num">2</td><td class="num">8</td></tr>
+                            <tr><th scope="row">response structure</th><td class="num">7</td><td class="num">5</td><td class="num">3</td><td class="num">15</td></tr>
+                            <tr><th scope="row">invalid input</th><td class="num">9</td><td class="num">7</td><td class="num">6</td><td class="num">22</td></tr>
+                            <tr><th scope="row">CRUD lifecycle</th><td class="num">9</td><td class="num">0</td><td class="num">1</td><td class="num">10</td></tr>
+                            <tr><th scope="row">read-back after write</th><td class="num">6</td><td class="num">0</td><td class="num">2</td><td class="num">8</td></tr>
+                            <tr><th scope="row">idempotency/&#8203;replay</th><td class="num">1</td><td class="num">4</td><td class="num">0</td><td class="num">5</td></tr>
+                            <tr><th scope="row">signature/&#8203;HMAC</th><td class="num">0</td><td class="num">10</td><td class="num">0</td><td class="num">10</td></tr>
+                            <tr><th scope="row">error handling</th><td class="num">0</td><td class="num">6</td><td class="num">0</td><td class="num">6</td></tr>
+                        </tbody>
+                        <tfoot><tr><th scope="row">API tests tagged</th><td class="num">47</td><td class="num">32</td><td class="num">16</td><td class="num">95</td></tr></tfoot>
+                    </table>
+                </div>
+
+                <p class="caption">
+                    Every code link opens the file at a pinned commit: RESTful Booker <code>a385240</code>, Razorpay
+                    <code>da9e7a2</code>, Automation Exercise <code>789d413</code>. RESTful Booker's newest commit,
+                    <code>1e7f137</code>, changed only its CI workflow file, so the tests are the same as at
+                    <code>a385240</code>.
+                </p>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             2. WHAT I CHECK ON ANY API
+        ====================================================== -->
+        <section class="section section-light content-section" aria-labelledby="checks-heading">
+            <div class="container">
+                <h2 id="checks-heading">What I check on any API</h2>
+                <p class="lead">Each item links to its block in the evidence map below.</p>
+                <ul class="check-grid">
+                    <li><strong><a href="#risk-authentication">Authentication</a></strong><p>Can a caller prove who it is, and does a missing or wrong credential fail in a way no client could mistake for success?</p></li>
+                    <li><strong><a href="#risk-authorization">Authorization</a></strong><p>Once a caller is known, can it reach only what it is allowed to? A valid token is not the same as permission for this record.</p></li>
+                    <li><strong><a href="#risk-status-codes">Status codes</a></strong><p>Does each outcome return the code the API documents, and does the test assert that code instead of assuming success?</p></li>
+                    <li><strong><a href="#risk-response-structure">Response structure</a></strong><p>Are the fields and types a client depends on present, and are fields that must stay private, such as secrets, absent?</p></li>
+                    <li><strong><a href="#risk-invalid-input">Invalid input</a></strong><p>What happens with missing, malformed, out-of-range or oversized input: a clear rejection, silent acceptance, or a server error?</p></li>
+                    <li><strong><a href="#risk-crud">CRUD lifecycle</a></strong><p>Do create, read, update and delete work in sequence, the way a real client would use them?</p></li>
+                    <li><strong><a href="#risk-read-back">Read-back after write</a></strong><p>After a change, does a separate read show it, rather than trusting the response to the write itself?</p></li>
+                    <li><strong><a href="#risk-idempotency">Idempotency and replay</a></strong><p>What happens when the same request arrives twice, from a retry, a double click or a redelivered webhook?</p></li>
+                    <li><strong><a href="#risk-signature">Signature and HMAC</a></strong><p>Does the server accept a correctly signed message and reject one that is unsigned, wrongly signed or changed after signing?</p></li>
+                    <li><strong><a href="#risk-errors">Error handling</a></strong><p>Do failures return a controlled message without internal details, and does the service keep working afterwards?</p></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             3. EVIDENCE MAP
+        ====================================================== -->
+        <section class="section content-section" id="evidence-map" aria-labelledby="map-heading">
+            <div class="container narrow">
+                <h2 id="map-heading">Evidence map</h2>
+                <p>
+                    One block per risk. Each names the tests that cover it, links every test to its lines at the pinned
+                    commit, shows a short excerpt copied from the repository, and says what is weak or missing. Razorpay
+                    tests are named by their IDs; the other two repositories have no IDs, so their tests are named by file
+                    and line range. A badge describes one test or one gap:
+                </p>
+                <ul class="badge-legend">
+                    <li><span class="scenario-tag tag-ci">Runs in CI</span> The repository's own GitHub Actions workflow runs it. That says nothing about how strong it is.</li>
+                    <li><span class="scenario-tag tag-live">Live gateway only</span> It needs my original Razorpay Test Mode account, so CI never runs it.</li>
+                    <li><span class="scenario-tag tag-none">Partly tested</span> Some of the risk is covered; the gap is stated next to it.</li>
+                    <li><span class="scenario-tag tag-none">Not tested</span> No test in these repositories covers it. I say what I would test instead.</li>
+                    <li><span class="scenario-tag tag-fail">Assertion cannot fail</span> The test passes whatever the API returns, so it proves nothing.</li>
+                </ul>
+
+                <div class="risk-list">
+
+                    <article class="risk" id="risk-authentication">
+                        <h3>Authentication</h3>
+                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> a valid login returns a usable credential, and a failed login is reported as a failure, not as a success.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/auth.spec.ts#L14-L20" target="_blank" rel="noopener noreferrer">auth.spec.ts:14&ndash;20<span class="sr-only"> (opens in a new tab)</span></a>: valid credentials return a token made of hex characters.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/auth.spec.ts#L28-L35" target="_blank" rel="noopener noreferrer">auth.spec.ts:28&ndash;35<span class="sr-only"> (opens in a new tab)</span></a>: wrong credentials return HTTP 200 with a <code>reason</code> field and no token. The test pins that behaviour; <a href="/blog/api-testing-best-practices/">the article</a> says why I would raise it.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Automation Exercise</span> &middot; <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/authentication.api.spec.js#L46-L68" target="_blank" rel="noopener noreferrer">authentication.api.spec.js:46&ndash;68<span class="sr-only"> (opens in a new tab)</span></a>: wrong credentials return HTTP 200 with <code>responseCode</code> 404 and &ldquo;User not found!&rdquo; in the body.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Automation Exercise</span> &middot; <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/authentication.api.spec.js#L6-L44" target="_blank" rel="noopener noreferrer">authentication.api.spec.js:6&ndash;44<span class="sr-only"> (opens in a new tab)</span></a>: a valid login. It needs an existing account passed in as repository secrets (<a href="https://github.com/Open83/automationexercise/blob/789d413/.github/workflows/playwright.yml#L70-L79" target="_blank" rel="noopener noreferrer">workflow, lines 70&ndash;79<span class="sr-only"> (opens in a new tab)</span></a>), so it cannot pass from a clean clone.</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> Expired and revoked tokens, lockout or rate limiting after repeated failures, and malformed credential headers. On a real API I would test each of those.</li>
+                        </ul>
+                        <p class="risk-gap"><strong>Weak:</strong> <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/auth.spec.ts#L45-L51" target="_blank" rel="noopener noreferrer">auth.spec.ts:45&ndash;51<span class="sr-only"> (opens in a new tab)</span></a> only checks that two tokens are truthy.</p>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;POST /auth with valid credentials should return token&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> token = <span class="hljs-keyword">await</span> authClient.<span class="hljs-title function_">createToken</span>(config.<span class="hljs-property">auth</span>.<span class="hljs-property">username</span>, config.<span class="hljs-property">auth</span>.<span class="hljs-property">password</span>);
+
+  <span class="hljs-title function_">expect</span>(token).<span class="hljs-title function_">toBeTruthy</span>();
+  <span class="hljs-title function_">expect</span>(token).<span class="hljs-title function_">toMatch</span>(<span class="hljs-regexp">/^[a-f0-9]+$/</span>);
+  <span class="hljs-title function_">expect</span>(token.<span class="hljs-property">length</span>).<span class="hljs-title function_">toBeGreaterThan</span>(<span class="hljs-number">0</span>);
+});</code></pre>
+                        <figcaption>RESTful Booker, valid login. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/auth.spec.ts#L14-L20" target="_blank" rel="noopener noreferrer">tests/api/auth.spec.ts, lines 14&ndash;20 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                    <article class="risk" id="risk-authorization">
+                        <h3>Authorization</h3>
+                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> a caller can change only what it is allowed to change, and a missing or wrong token is refused.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L40-L44" target="_blank" rel="noopener noreferrer">booking-update.spec.ts:40&ndash;44<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L46-L50" target="_blank" rel="noopener noreferrer">booking-update.spec.ts:46&ndash;50<span class="sr-only"> (opens in a new tab)</span></a>: PUT without a token, or with an invalid one, returns 403.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-partial-update.spec.ts#L74-L82" target="_blank" rel="noopener noreferrer">booking-partial-update.spec.ts:74&ndash;82<span class="sr-only"> (opens in a new tab)</span></a>: PATCH without a token returns 403.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L38-L44" target="_blank" rel="noopener noreferrer">booking-delete.spec.ts:38&ndash;44<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L46-L52" target="_blank" rel="noopener noreferrer">booking-delete.spec.ts:46&ndash;52<span class="sr-only"> (opens in a new tab)</span></a>: DELETE without a token, or with an invalid one, returns 403.</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> Roles. RESTful Booker has one admin account and a token that is either present or not, so nothing here shows that one user cannot change another user's booking, or that a lower role cannot do what an admin can.</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> <span class="repo">Automation Exercise</span> &middot; the suite reads an account's details with nothing but its email address (<a href="https://github.com/Open83/automationexercise/blob/789d413/api/AccountApi.js#L22-L32" target="_blank" rel="noopener noreferrer">AccountApi.js, lines 22&ndash;32<span class="sr-only"> (opens in a new tab)</span></a>, used by <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/account.api.spec.js#L17-L62" target="_blank" rel="noopener noreferrer">account.api.spec.js:17&ndash;62<span class="sr-only"> (opens in a new tab)</span></a>). It uses that as a working feature and never tests who else should be allowed to do it.</li>
+                        </ul>
+                        <p class="risk-gap"><strong>What I would test:</strong> two accounts, each trying to read and change the other's data; every role against every endpoint; a token issued for one resource used on another.</p>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;PUT /booking/{id} without token should return 403&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">updateBookingResponse</span>(bookingId, updatedBooking, <span class="hljs-string">&#x27;&#x27;</span>);
+
+  <span class="hljs-title function_">expect</span>(response.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">403</span>);
+});
+
+<span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;PUT /booking/{id} with invalid token should fail&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">updateBookingResponse</span>(bookingId, updatedBooking, <span class="hljs-string">&#x27;invalid_token&#x27;</span>);
+
+  <span class="hljs-title function_">expect</span>(response.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">403</span>);
+});</code></pre>
+                        <figcaption>RESTful Booker, PUT without a token and with an invalid token. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L40-L50" target="_blank" rel="noopener noreferrer">tests/api/booking-update.spec.ts, lines 40&ndash;50 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                    <article class="risk" id="risk-status-codes">
+                        <h3>Status codes</h3>
+                        <p><span class="scenario-tag tag-ci">Runs in CI</span> <strong>What I verify:</strong> each outcome returns the documented code, and the test asserts the code instead of assuming success.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-read.spec.ts#L53-L57" target="_blank" rel="noopener noreferrer">booking-read.spec.ts:53&ndash;57<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-read.spec.ts#L59-L63" target="_blank" rel="noopener noreferrer">booking-read.spec.ts:59&ndash;63<span class="sr-only"> (opens in a new tab)</span></a>: an unknown ID and a non-numeric ID return 404.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/health-check.spec.ts#L5-L12" target="_blank" rel="noopener noreferrer">health-check.spec.ts:5&ndash;12<span class="sr-only"> (opens in a new tab)</span></a>: <code>GET /ping</code> returns 201 with the body &ldquo;Created&rdquo;.</li>
+                            <li><span class="scenario-tag tag-none">Partly tested</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L59-L63" target="_blank" rel="noopener noreferrer">booking-update.spec.ts:59&ndash;63<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L54-L57" target="_blank" rel="noopener noreferrer">booking-delete.spec.ts:54&ndash;57<span class="sr-only"> (opens in a new tab)</span></a>: PUT and DELETE on a booking that does not exist return 405. The tests record what the API does, but their titles (&ldquo;should return 405&rdquo;) read as if 405 were the right answer. I would expect 404.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Automation Exercise</span> &middot; <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/products.api.spec.js#L127-L176" target="_blank" rel="noopener noreferrer">products.api.spec.js:127&ndash;176<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/authentication.api.spec.js#L125-L149" target="_blank" rel="noopener noreferrer">authentication.api.spec.js:125&ndash;149<span class="sr-only"> (opens in a new tab)</span></a>: an unsupported method is answered with HTTP 200 and <code>responseCode</code> 405 in the body. Each test asserts both numbers, because a client that checks only the HTTP status would treat these errors as success.</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> Headers that belong with a status, such as <code>Allow</code> on a 405 or <code>Retry-After</code> on a 429, and the codes for rate limiting and server errors. I would assert the header together with the code, and on an API that rate-limits I would trigger the limit on purpose.</li>
+                        </ul>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-comment">// Automation Exercise returns HTTP 200</span>
+<span class="hljs-comment">// and places the actual API error code</span>
+<span class="hljs-comment">// inside the response body.</span>
+
+<span class="hljs-title function_">expect</span>(response.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);
+<span class="hljs-comment">// ...</span>
+<span class="hljs-title function_">expect</span>(body).<span class="hljs-title function_">toHaveProperty</span>(<span class="hljs-string">&#x27;responseCode&#x27;</span>);
+
+<span class="hljs-title function_">expect</span>(body.<span class="hljs-property">responseCode</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">405</span>);</code></pre>
+                        <figcaption>Automation Exercise, POST to a read-only list (condensed). <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/products.api.spec.js#L144-L162" target="_blank" rel="noopener noreferrer">tests/api/products.api.spec.js, lines 144&ndash;148, 160&ndash;162 @ 789d413<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                    <article class="risk" id="risk-response-structure">
+                        <h3>Response structure</h3>
+                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> the fields and types a client relies on are present, and fields that must stay private are absent.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-create.spec.ts#L34-L40" target="_blank" rel="noopener noreferrer">booking-create.spec.ts:34&ndash;40<span class="sr-only"> (opens in a new tab)</span></a>: numeric and boolean fields keep their types.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-read.spec.ts#L27-L35" target="_blank" rel="noopener noreferrer">booking-read.spec.ts:27&ndash;35<span class="sr-only"> (opens in a new tab)</span></a>: the booking has five named fields. It checks only that they exist, not their types.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-create.spec.ts#L24-L32" target="_blank" rel="noopener noreferrer">booking-create.spec.ts:24&ndash;32<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L52-L57" target="_blank" rel="noopener noreferrer">booking-update.spec.ts:52&ndash;57<span class="sr-only"> (opens in a new tab)</span></a>: compare a whole booking with <code>toEqual</code>, which would also fail on an extra or renamed field in those two responses.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Automation Exercise</span> &middot; <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/products.api.spec.js#L81-L121" target="_blank" rel="noopener noreferrer">products.api.spec.js:81&ndash;121<span class="sr-only"> (opens in a new tab)</span></a>: the brands list is a non-empty array whose first item has <code>id</code> and <code>brand</code>.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L16-L26" target="_blank" rel="noopener noreferrer">CONFIG-001 (health.spec.js:16&ndash;26)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L28-L45" target="_blank" rel="noopener noreferrer">CONFIG-002 (health.spec.js:28&ndash;45)<span class="sr-only"> (opens in a new tab)</span></a>: the public config has <code>keyId</code>, <code>currency</code> and a boolean <code>configured</code>, and its JSON contains none of the strings <code>keySecret</code>, <code>webhookSecret</code> or <code>RAZORPAY</code>.</li>
+                            <li><span class="scenario-tag tag-fail">Assertion cannot fail</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L39-L66" target="_blank" rel="noopener noreferrer">ORDER-001 (orders.spec.js:39&ndash;66)<span class="sr-only"> (opens in a new tab)</span></a>: every check sits inside <code>if (status === 200)</code> or <code>else if (status === 503)</code>. With the placeholder keys CI uses, the route returns 400 (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/src/routes/payments.js#L132-L138" target="_blank" rel="noopener noreferrer">payments.js, lines 132&ndash;138<span class="sr-only"> (opens in a new tab)</span></a>), so in CI no assertion runs. I confirmed the 400 by calling the endpoint with the CI configuration on 22 October 2026.</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> Schema or contract validation. Nothing checks a response against a schema, so outside the two <code>toEqual</code> checks a renamed, retyped or extra field would pass. I would validate each response against the API's published schema, including required fields and types.</li>
+                        </ul>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;POST /booking with numeric fields should maintain data types&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">createBooking</span>(validBooking);
+
+  <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">typeof</span> response.<span class="hljs-property">booking</span>.<span class="hljs-property">totalprice</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;number&#x27;</span>);
+  <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">typeof</span> response.<span class="hljs-property">booking</span>.<span class="hljs-property">depositpaid</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;boolean&#x27;</span>);
+  <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">typeof</span> response.<span class="hljs-property">bookingid</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;number&#x27;</span>);
+});</code></pre>
+                        <figcaption>RESTful Booker, field types. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-create.spec.ts#L34-L40" target="_blank" rel="noopener noreferrer">tests/api/booking-create.spec.ts, lines 34&ndash;40 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> request.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/payments/create-order&#x27;</span>, {});
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">if</span> (response.<span class="hljs-title function_">status</span>() === <span class="hljs-number">200</span>) {
+  <span class="hljs-keyword">const</span> body = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();
+<span class="hljs-comment">// ...</span>
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (response.<span class="hljs-title function_">status</span>() === <span class="hljs-number">503</span>) {
+  <span class="hljs-comment">// Razorpay not configured - acceptable skip for this phase</span>
+  <span class="hljs-keyword">const</span> body = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();
+  <span class="hljs-title function_">expect</span>(body.<span class="hljs-property">error</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;Razorpay not configured&#x27;</span>);
+}</code></pre>
+                        <figcaption>Razorpay ORDER-001: no branch for the 400 that CI gets (condensed). <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L40-L65" target="_blank" rel="noopener noreferrer">tests/api/orders.spec.js, lines 40, 44&ndash;45, 61&ndash;65 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                    <article class="risk" id="risk-invalid-input">
+                        <h3>Invalid input</h3>
+                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> bad input is rejected with a clear client error, not accepted silently or answered with a server error.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L64-L75" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:64&ndash;75<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L77-L80" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:77&ndash;80<span class="sr-only"> (opens in a new tab)</span></a>: an incomplete PUT returns 400 and a non-numeric booking ID returns 404. Only these two of the eight tests in <code>negative-testing.spec.ts</code> assert a rejection.</li>
+                            <li><span class="scenario-tag tag-fail">Assertion cannot fail</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L28-L36" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:28&ndash;36<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L38-L49" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:38&ndash;49<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L51-L62" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:51&ndash;62<span class="sr-only"> (opens in a new tab)</span></a>: a negative price, an invalid date and a checkout before check-in. Each ends with <code>expect(response.ok).toBeTruthy()</code> (lines 35, 48 and 61). <code>ok</code> is a method; without the call the assertion only checks that the method exists, so it passes whatever the API returns.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L18-L26" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:18&ndash;26<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L87-L99" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:87&ndash;99<span class="sr-only"> (opens in a new tab)</span></a>: a zero price and a 1,000-character first name are accepted. Like the rest of that file, they record what the practice API accepts; they do not show it rejecting anything.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-create.spec.ts#L56-L70" target="_blank" rel="noopener noreferrer">booking-create.spec.ts:56&ndash;70<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-create.spec.ts#L72-L83" target="_blank" rel="noopener noreferrer">booking-create.spec.ts:72&ndash;83<span class="sr-only"> (opens in a new tab)</span></a>: a booking without <code>firstname</code> or without <code>bookingdates</code> returns 500. The tests pass because the API answers with a server error, which I would report rather than assert as correct.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L120-L133" target="_blank" rel="noopener noreferrer">SIG-004 (signature-verification.spec.js:120&ndash;133)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L135-L150" target="_blank" rel="noopener noreferrer">SIG-005 (signature-verification.spec.js:135&ndash;150)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L152-L167" target="_blank" rel="noopener noreferrer">SIG-006 (signature-verification.spec.js:152&ndash;167)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L106-L124" target="_blank" rel="noopener noreferrer">WEB-004 (webhook-validation.spec.js:106&ndash;124)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L58-L76" target="_blank" rel="noopener noreferrer">ERR-004 (error-handling.spec.js:58&ndash;76)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L82-L94" target="_blank" rel="noopener noreferrer">REF-001 (error-handling.spec.js:82&ndash;94)<span class="sr-only"> (opens in a new tab)</span></a>: missing fields, a missing event-ID header and malformed JSON return 400.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Automation Exercise</span> &middot; <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/account.api.spec.js#L238-L315" target="_blank" rel="noopener noreferrer">account.api.spec.js:238&ndash;315<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/account.api.spec.js#L321-L397" target="_blank" rel="noopener noreferrer">account.api.spec.js:321&ndash;397<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/account.api.spec.js#L402-L481" target="_blank" rel="noopener noreferrer">account.api.spec.js:402&ndash;481<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/authentication.api.spec.js#L69-L95" target="_blank" rel="noopener noreferrer">authentication.api.spec.js:69&ndash;95<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/authentication.api.spec.js#L97-L123" target="_blank" rel="noopener noreferrer">authentication.api.spec.js:97&ndash;123<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/products.api.spec.js#L55-L79" target="_blank" rel="noopener noreferrer">products.api.spec.js:55&ndash;79<span class="sr-only"> (opens in a new tab)</span></a>: missing parameters and a duplicate email return <code>responseCode</code> 400 inside an HTTP 200.</li>
+                            <li><span class="scenario-tag tag-fail">Assertion cannot fail</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L26-L37" target="_blank" rel="noopener noreferrer">ORDER-003 (orders.spec.js:26&ndash;37)<span class="sr-only"> (opens in a new tab)</span></a>: a client-supplied amount must not change the order amount. Its assertions run only when order creation returns 200, which it does not in CI (excerpt below).</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> Boundary values, wrong types (a string where a number belongs), unknown fields, very large bodies and injection-style strings, each with an assertion on the rejection and its error message.</li>
+                        </ul>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;POST /booking with checkout before checkin is accepted by API&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> bookingWithBackwardDates = {
+    ...validBooking,
+    <span class="hljs-attr">bookingdates</span>: {
+      <span class="hljs-attr">checkin</span>: <span class="hljs-string">&#x27;2025-03-20&#x27;</span>,
+      <span class="hljs-attr">checkout</span>: <span class="hljs-string">&#x27;2025-03-15&#x27;</span>,
+    },
+  };
+
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">postResponse</span>(<span class="hljs-string">&#x27;/booking&#x27;</span>, bookingWithBackwardDates);
+  <span class="hljs-title function_">expect</span>(response.<span class="hljs-property">ok</span>).<span class="hljs-title function_">toBeTruthy</span>();
+});</code></pre>
+                        <figcaption>RESTful Booker: <code>response.ok</code> without the call, line 61. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L51-L62" target="_blank" rel="noopener noreferrer">tests/api/negative-testing.spec.ts, lines 51&ndash;62 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">if</span> (response.<span class="hljs-title function_">status</span>() === <span class="hljs-number">200</span>) {
+  <span class="hljs-keyword">const</span> body = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();
+  <span class="hljs-comment">// Backend ignores whatever the client sent and always uses config.js&#x27;s amount/currency</span>
+  <span class="hljs-title function_">expect</span>(body.<span class="hljs-property">amount</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">50000</span>);
+  <span class="hljs-title function_">expect</span>(body.<span class="hljs-property">currency</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-string">&#x27;INR&#x27;</span>);
+}</code></pre>
+                        <figcaption>Razorpay ORDER-003: the only assertions sit inside this branch. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L31-L36" target="_blank" rel="noopener noreferrer">tests/api/orders.spec.js, lines 31&ndash;36 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                    <article class="risk" id="risk-crud">
+                        <h3>CRUD lifecycle</h3>
+                        <p><span class="scenario-tag tag-ci">Runs in CI</span> <strong>What I verify:</strong> create, read, update and delete work in sequence, as one flow a client would follow.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/workflow.spec.ts#L10-L47" target="_blank" rel="noopener noreferrer">workflow.spec.ts:10&ndash;47<span class="sr-only"> (opens in a new tab)</span></a>: authenticate, create, read, update, read again, delete, and confirm the booking is gone.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/workflow.spec.ts#L49-L84" target="_blank" rel="noopener noreferrer">workflow.spec.ts:49&ndash;84<span class="sr-only"> (opens in a new tab)</span></a>: create two bookings, find both in the list, update and delete one, and confirm the other still exists.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/workflow.spec.ts#L86-L111" target="_blank" rel="noopener noreferrer">workflow.spec.ts:86&ndash;111<span class="sr-only"> (opens in a new tab)</span></a>: create, change one field with PATCH, and confirm the other fields kept their values.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Automation Exercise</span> &middot; <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/account.api.spec.js#L17-L62" target="_blank" rel="noopener noreferrer">account.api.spec.js:17&ndash;62<span class="sr-only"> (opens in a new tab)</span></a>: a fixture creates a fresh account, the test reads it back by email, and the fixture deletes it afterwards.</li>
+                            <li><span class="scenario-tag tag-none">Partly tested</span> <span class="repo">RESTful Booker</span> &middot; cleanup. The workflow tests delete their bookings only after their other assertions, so a failed assertion earlier in the test skips the delete. Only six of the 47 tests delete a booking at all.</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> Two clients updating the same record at once, and filtering or paging the list. I would update one record from two sessions and check which write wins and what each response says, and request a filtered, paged list and check its contents against what I created.</li>
+                        </ul>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-comment">// Delete first booking</span>
+<span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">deleteBooking</span>(bookingId1, token);
+
+<span class="hljs-comment">// Verify first is deleted, second still exists</span>
+<span class="hljs-keyword">const</span> deleteCheck = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">getBookingResponse</span>(bookingId1);
+<span class="hljs-title function_">expect</span>(deleteCheck.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">404</span>);
+
+<span class="hljs-keyword">const</span> stillExists = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">getBooking</span>(bookingId2);
+<span class="hljs-title function_">expect</span>(stillExists.<span class="hljs-property">firstname</span>).<span class="hljs-title function_">toBe</span>(validBooking.<span class="hljs-property">firstname</span>);
+
+<span class="hljs-comment">// Cleanup: delete second booking</span>
+<span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">deleteBooking</span>(bookingId2, token);</code></pre>
+                        <figcaption>RESTful Booker, end of the two-booking workflow: cleanup is the last line. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/workflow.spec.ts#L72-L83" target="_blank" rel="noopener noreferrer">tests/api/workflow.spec.ts, lines 72&ndash;83 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                    <article class="risk" id="risk-read-back">
+                        <h3>Read-back after write</h3>
+                        <p><span class="scenario-tag tag-ci">Runs in CI</span> <strong>What I verify:</strong> after a write, a separate read shows the change, instead of trusting the write's own response.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L32-L38" target="_blank" rel="noopener noreferrer">booking-update.spec.ts:32&ndash;38<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-partial-update.spec.ts#L63-L72" target="_blank" rel="noopener noreferrer">booking-partial-update.spec.ts:63&ndash;72<span class="sr-only"> (opens in a new tab)</span></a>: after PUT or PATCH, a GET returns the new values.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L28-L36" target="_blank" rel="noopener noreferrer">booking-delete.spec.ts:28&ndash;36<span class="sr-only"> (opens in a new tab)</span></a>: after DELETE, a GET returns 404.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Automation Exercise</span> &middot; <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/account.api.spec.js#L69-L153" target="_blank" rel="noopener noreferrer">account.api.spec.js:69&ndash;153<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/account.api.spec.js#L160-L231" target="_blank" rel="noopener noreferrer">account.api.spec.js:160&ndash;231<span class="sr-only"> (opens in a new tab)</span></a>: after an update the account shows the new company, address and city; after a delete it is reported as not found.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L259-L286" target="_blank" rel="noopener noreferrer">WEB-FIX-001 (webhook-validation.spec.js:259&ndash;286)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L288-L314" target="_blank" rel="noopener noreferrer">WEB-FIX-002 (webhook-validation.spec.js:288&ndash;314)<span class="sr-only"> (opens in a new tab)</span></a>: the order is read back after a webhook: paid after a valid one, still <code>created</code> after a rejected one. Both seed their order by importing the app's own database module (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L237-L239" target="_blank" rel="noopener noreferrer">webhook-validation.spec.js, lines 237&ndash;239<span class="sr-only"> (opens in a new tab)</span></a>), so they need the app running locally on the same database file (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/src/db.js#L13-L14" target="_blank" rel="noopener noreferrer">db.js, lines 13&ndash;14<span class="sr-only"> (opens in a new tab)</span></a>).</li>
+                            <li><span class="scenario-tag tag-none">Partly tested</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L20-L26" target="_blank" rel="noopener noreferrer">booking-delete.spec.ts:20&ndash;26<span class="sr-only"> (opens in a new tab)</span></a>: the delete test asserts only that the response body is truthy. A rejected delete returns 403 with the body &ldquo;Forbidden&rdquo;, which is also truthy; I checked that body on 22 October 2026. The read-back test above would still catch a delete that did nothing.</li>
+                        </ul>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;DELETE /booking/{id} with valid token should delete booking&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> createResponse = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">createBooking</span>(validBooking);
+  <span class="hljs-keyword">const</span> bookingId = createResponse.<span class="hljs-property">bookingid</span>;
+
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">deleteBooking</span>(bookingId, token);
+  <span class="hljs-title function_">expect</span>(response).<span class="hljs-title function_">toBeTruthy</span>();
+});</code></pre>
+                        <figcaption>RESTful Booker, the delete test: a truthy body is the only check. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L20-L26" target="_blank" rel="noopener noreferrer">tests/api/booking-delete.spec.ts, lines 20&ndash;26 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                    <article class="risk" id="risk-idempotency">
+                        <h3>Idempotency and replay</h3>
+                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> sending the same request twice does not create a second effect or corrupt state.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L126-L158" target="_blank" rel="noopener noreferrer">WEB-005 (webhook-validation.spec.js:126&ndash;158)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L336-L362" target="_blank" rel="noopener noreferrer">WEB-FIX-004 (webhook-validation.spec.js:336&ndash;362)<span class="sr-only"> (opens in a new tab)</span></a>: the same signed webhook event sent twice is processed once; WEB-FIX-004 also reads the order back to show the second delivery changed nothing.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L160-L199" target="_blank" rel="noopener noreferrer">WEB-006 (webhook-validation.spec.js:160&ndash;199)<span class="sr-only"> (opens in a new tab)</span></a>: two different event IDs are both processed.</li>
+                            <li><span class="scenario-tag tag-live">Live gateway only</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L58-L80" target="_blank" rel="noopener noreferrer">REPLAY-001 (signature-verification.spec.js:58&ndash;80)<span class="sr-only"> (opens in a new tab)</span></a>: verifying the same real payment twice leaves the order paid with the same payment ID. It needs my original Test Mode account, so CI never runs it.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L59-L67" target="_blank" rel="noopener noreferrer">booking-delete.spec.ts:59&ndash;67<span class="sr-only"> (opens in a new tab)</span></a>: a second DELETE of the same booking returns 405.</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> Two identical requests in flight at the same moment, and idempotency keys on create requests. I would send concurrent duplicates and check that exactly one record or charge results.</li>
+                        </ul>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;DELETE /booking/{id} twice should return 405 on second attempt&#x27;</span>, <span class="hljs-title function_">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> createResponse = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">createBooking</span>(validBooking);
+  <span class="hljs-keyword">const</span> bookingId = createResponse.<span class="hljs-property">bookingid</span>;
+
+  <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">deleteBooking</span>(bookingId, token);
+
+  <span class="hljs-keyword">const</span> secondDelete = <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">deleteBookingResponse</span>(bookingId, token);
+  <span class="hljs-title function_">expect</span>(secondDelete.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">405</span>);
+});</code></pre>
+                        <figcaption>RESTful Booker, deleting the same booking twice. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L59-L67" target="_blank" rel="noopener noreferrer">tests/api/booking-delete.spec.ts, lines 59&ndash;67 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                    <article class="risk" id="risk-signature">
+                        <h3>Signature and HMAC</h3>
+                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> a correctly signed message is accepted, and an unsigned, wrongly signed or modified one is rejected.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L42-L65" target="_blank" rel="noopener noreferrer">WEB-001 (webhook-validation.spec.js:42&ndash;65)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L259-L286" target="_blank" rel="noopener noreferrer">WEB-FIX-001 (webhook-validation.spec.js:259&ndash;286)<span class="sr-only"> (opens in a new tab)</span></a>: a webhook signed over its exact raw body is accepted.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L67-L85" target="_blank" rel="noopener noreferrer">WEB-002 (webhook-validation.spec.js:67&ndash;85)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L87-L104" target="_blank" rel="noopener noreferrer">WEB-003 (webhook-validation.spec.js:87&ndash;104)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L201-L223" target="_blank" rel="noopener noreferrer">WEB-007 (webhook-validation.spec.js:201&ndash;223)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L288-L314" target="_blank" rel="noopener noreferrer">WEB-FIX-002 (webhook-validation.spec.js:288&ndash;314)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L316-L334" target="_blank" rel="noopener noreferrer">WEB-FIX-003 (webhook-validation.spec.js:316&ndash;334)<span class="sr-only"> (opens in a new tab)</span></a>: a wrong signature, a missing signature header, or a body changed after signing is rejected with 401.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L82-L99" target="_blank" rel="noopener noreferrer">SIG-002 (signature-verification.spec.js:82&ndash;99)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L101-L118" target="_blank" rel="noopener noreferrer">SIG-003 (signature-verification.spec.js:101&ndash;118)<span class="sr-only"> (opens in a new tab)</span></a>: payment verification rejects a wrong signature and a signature made for a different order ID.</li>
+                            <li><span class="scenario-tag tag-live">Live gateway only</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L37-L56" target="_blank" rel="noopener noreferrer">SIG-001 (signature-verification.spec.js:37&ndash;56)<span class="sr-only"> (opens in a new tab)</span></a>: payment verification accepts a correct signature for a real captured payment. It needs the original Test Mode account and that payment, so in CI payment verification is only tested for rejections, never for acceptance.</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> A signature made with an old or rotated secret, and a signature header of the wrong length or encoding. I would send each and expect a 401, not a server error.</li>
+                        </ul>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-title function_">test</span>(<span class="hljs-string">&#x27;SIG-001: POST /api/payments/verify with valid signature accepts a real captured payment @razorpay-live&#x27;</span>, <span class="hljs-title function_">async</span> ({ request }) =&gt; {
+  <span class="hljs-keyword">const</span> validSignature = <span class="hljs-title function_">generateSignature</span>(realOrderId, realPaymentId);
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> request.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/api/payments/verify&#x27;</span>, {
+    <span class="hljs-attr">data</span>: {
+      <span class="hljs-attr">orderId</span>: realOrderId,
+      <span class="hljs-attr">paymentId</span>: realPaymentId,
+      <span class="hljs-attr">signature</span>: validSignature,
+    },
+  });
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-title function_">expect</span>(response.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);</code></pre>
+                        <figcaption>Razorpay SIG-001, tagged <code>@razorpay-live</code> and left out of CI (condensed). <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L37-L48" target="_blank" rel="noopener noreferrer">tests/security/signature-verification.spec.js, lines 37&ndash;38, 40&ndash;46, 48 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                    <article class="risk" id="risk-errors">
+                        <h3>Error handling</h3>
+                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> failures return a controlled message with no internal details, and the service keeps working afterwards.</p>
+                        <ul class="risk-tests">
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L26-L46" target="_blank" rel="noopener noreferrer">ERR-002 (error-handling.spec.js:26&ndash;46)<span class="sr-only"> (opens in a new tab)</span></a>: a failed verification returns 401, and the body contains no stack-trace or file-path text.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L48-L56" target="_blank" rel="noopener noreferrer">ERR-003 (error-handling.spec.js:48&ndash;56)<span class="sr-only"> (opens in a new tab)</span></a>: an unknown route returns a JSON 404 that names the path.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/refund-error-handling.spec.js#L16-L32" target="_blank" rel="noopener noreferrer">REF-ERR-001 (refund-error-handling.spec.js:16&ndash;32)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/refund-error-handling.spec.js#L34-L49" target="_blank" rel="noopener noreferrer">REF-ERR-002 (refund-error-handling.spec.js:34&ndash;49)<span class="sr-only"> (opens in a new tab)</span></a>: a refund the gateway rejects returns a controlled 400 or 404, and the server keeps answering. They make a real call to Razorpay's API, so they need network access; I have not traced which rejection CI receives.</li>
+                            <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L4-L24" target="_blank" rel="noopener noreferrer">ERR-001 (error-handling.spec.js:4&ndash;24)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L4-L24" target="_blank" rel="noopener noreferrer">ORDER-002 (orders.spec.js:4&ndash;24)<span class="sr-only"> (opens in a new tab)</span></a>: a failed order creation hides gateway details. ERR-001 checks only when the status is not 200, and ORDER-002 accepts 200, 400 or 503; with the CI configuration both get 400, so their checks do run.</li>
+                            <li><span class="scenario-tag tag-none">Not tested</span> A slow or failing dependency, 5xx bodies, and the error bodies of RESTful Booker and Automation Exercise. I would simulate the dependency failing and assert the status, the message, and that nothing was half-written.</li>
+                        </ul>
+                        <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-comment">// Should fail at signature validation</span>
+<span class="hljs-title function_">expect</span>(response.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">401</span>);
+
+<span class="hljs-keyword">const</span> body = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">json</span>();
+<span class="hljs-keyword">const</span> responseString = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(body);
+
+<span class="hljs-comment">// Verify no stack trace or internal details</span>
+<span class="hljs-title function_">expect</span>(responseString).<span class="hljs-property">not</span>.<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;at &#x27;</span>);
+<span class="hljs-title function_">expect</span>(responseString).<span class="hljs-property">not</span>.<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;Error&#x27;</span>);
+<span class="hljs-title function_">expect</span>(responseString).<span class="hljs-property">not</span>.<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;stack&#x27;</span>);
+<span class="hljs-title function_">expect</span>(responseString).<span class="hljs-property">not</span>.<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;/routes/&#x27;</span>);</code></pre>
+                        <figcaption>Razorpay ERR-002: status first, then what the body must not contain. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L35-L45" target="_blank" rel="noopener noreferrer">tests/security/error-handling.spec.js, lines 35&ndash;45 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             4. HOW I STRUCTURE PLAYWRIGHT API SUITES
+        ====================================================== -->
+        <section class="section section-light content-section structure" aria-labelledby="structure-heading">
+            <div class="container narrow">
+                <h2 id="structure-heading">How I structure Playwright API suites</h2>
+
+                <h3>API client classes</h3>
+                <p>
+                    Requests go through client classes, not inline calls. In RESTful Booker a base class builds the URL
+                    and headers, and one class per resource gives each call a name, so a test reads
+                    <code>bookingClient.createBooking(validBooking)</code> and a header change is made in one place.
+                    Automation Exercise uses the same idea in plain JavaScript, one class per area
+                    (<a href="https://github.com/Open83/automationexercise/blob/789d413/api/AccountApi.js#L3-L59" target="_blank" rel="noopener noreferrer">AccountApi.js<span class="sr-only"> (opens in a new tab)</span></a>).
+                </p>
+                <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BookingClient</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">APIClient</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">request</span>: <span class="hljs-title class_">APIRequestContext</span>, <span class="hljs-attr">baseURL</span>: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-variable language_">super</span>(request, baseURL);
+  }
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-keyword">async</span> <span class="hljs-title function_">createBooking</span>(<span class="hljs-attr">booking</span>: <span class="hljs-title class_">Booking</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">CreateBookingResponse</span>&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/booking&#x27;</span>, booking);
+  }</code></pre>
+                        <figcaption>RESTful Booker, the booking client (condensed). <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/src/api/clients/booking-client.ts#L5-L16" target="_blank" rel="noopener noreferrer">src/api/clients/booking-client.ts, lines 5&ndash;8, 14&ndash;16 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+
+                <h3>Raw responses and parsed bodies</h3>
+                <p>
+                    Each HTTP verb has two helpers. The parsed ones return the body; the <code>&hellip;Response</code>
+                    ones return the raw response, so a test can assert the status. The weakness is that the parsed
+                    helpers never look at the status. The <code>delete</code> helper below returns the text of any reply,
+                    so a 403 comes back as the string &ldquo;Forbidden&rdquo;, and that is why the truthy check in the delete
+                    test proves nothing. <a href="/blog/api-testing-best-practices/">The article</a> walks through the same
+                    split for <code>get</code>.
+                </p>
+                <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">async</span> <span class="hljs-title function_">delete</span>(<span class="hljs-attr">endpoint</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">token</span>?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; | <span class="hljs-built_in">string</span>&gt; {
+  <span class="hljs-keyword">const</span> headers = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getHeaders</span>(token);
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">request</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-variable language_">this</span>.baseURL}</span><span class="hljs-subst">${endpoint}</span>`</span>, { headers });
+  <span class="hljs-keyword">const</span> text = <span class="hljs-keyword">await</span> response.<span class="hljs-title function_">text</span>();
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(text);
+  } <span class="hljs-keyword">catch</span> {
+    <span class="hljs-keyword">return</span> text;
+  }
+}
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">async</span> <span class="hljs-title function_">deleteResponse</span>(<span class="hljs-attr">endpoint</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">token</span>?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">APIResponse</span>&gt; {
+  <span class="hljs-keyword">const</span> headers = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getHeaders</span>(token);
+  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">request</span>.<span class="hljs-title function_">delete</span>(<span class="hljs-string">`<span class="hljs-subst">${<span class="hljs-variable language_">this</span>.baseURL}</span><span class="hljs-subst">${endpoint}</span>`</span>, { headers });
+}</code></pre>
+                        <figcaption>RESTful Booker, a parsed-body helper and its raw-response twin (condensed). <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/src/api/clients/api-client.ts#L44-L79" target="_blank" rel="noopener noreferrer">src/api/clients/api-client.ts, lines 44&ndash;53, 76&ndash;79 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+
+                <h3>Data for each test</h3>
+                <p>
+                    Each test creates the data it needs instead of sharing records. In Automation Exercise a fixture
+                    generates a unique account, creates it through the API, hands it to the test and deletes it in its
+                    teardown, which Playwright runs even when the test fails. RESTful Booker creates a booking per test,
+                    but its read, update and partial-update files do it in <code>beforeEach</code> and never delete it.
+                    The Razorpay webhook tests that expect an event to be accepted build a unique event ID with <code>Date.now()</code>,
+                    because processed IDs are stored and a fixed ID would be &ldquo;already processed&rdquo; on the next run
+                    (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L43-L47" target="_blank" rel="noopener noreferrer">webhook-validation.spec.js, lines 43&ndash;47<span class="sr-only"> (opens in a new tab)</span></a>).
+                </p>
+                <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">const</span> userData = <span class="hljs-title function_">generateAccountData</span>();
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">const</span> createResponse =
+    <span class="hljs-keyword">await</span> accountApi.<span class="hljs-title function_">createAccount</span>(userData);
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">if</span> (!account.<span class="hljs-property">deleted</span>) {
+
+    <span class="hljs-keyword">const</span> deleteResponse =
+        <span class="hljs-keyword">await</span> accountApi.<span class="hljs-title function_">deleteAccount</span>(
+            userData.<span class="hljs-property">email</span>,
+            userData.<span class="hljs-property">password</span>
+        );
+
+    <span class="hljs-title function_">expect</span>(deleteResponse.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);</code></pre>
+                        <figcaption>Automation Exercise, the account fixture (condensed). <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/fixtures/account.fixture.js#L20-L94" target="_blank" rel="noopener noreferrer">tests/fixtures/account.fixture.js, lines 20, 34&ndash;35, 86&ndash;94 @ 789d413<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+
+                <h3>Read back after every write</h3>
+                <p>
+                    A write's own response says what the server claims to have done; a separate GET says what it stored.
+                    I treat the second as the evidence. The <a href="#risk-read-back">read-back block</a> above lists where
+                    these repositories do it, and the delete test shows what happens when a test trusts the write alone.
+                </p>
+
+                <h3>Retries, workers and traces</h3>
+                <p>
+                    Each setting changes how much a green run means. RESTful Booker allows one retry in CI and runs one
+                    worker there (<a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/playwright.config.ts#L7-L8" target="_blank" rel="noopener noreferrer">playwright.config.ts, lines 7&ndash;8<span class="sr-only"> (opens in a new tab)</span></a>).
+                    Razorpay allows two retries in CI with one worker, and its CI command runs Chromium only and leaves
+                    out the live tests (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/playwright.config.js#L7-L8" target="_blank" rel="noopener noreferrer">playwright.config.js, lines 7&ndash;8<span class="sr-only"> (opens in a new tab)</span></a>;
+                    <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/package.json#L13" target="_blank" rel="noopener noreferrer">package.json, line 13<span class="sr-only"> (opens in a new tab)</span></a>).
+                    Automation Exercise allows one retry everywhere, not only in CI. All three keep a trace only on the
+                    first retry, so a run that needed no retry leaves no trace to open. A test that fails and then passes
+                    on retry still counts as passed, so I read a green run together with its retry setting.
+                </p>
+                <figure class="code-figure">
+                        <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-attr">retries</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-attr">trace</span>: <span class="hljs-string">&#x27;on-first-retry&#x27;</span>,
+  <span class="hljs-attr">screenshot</span>: <span class="hljs-string">&#x27;only-on-failure&#x27;</span>,
+  <span class="hljs-attr">video</span>: <span class="hljs-string">&#x27;retain-on-failure&#x27;</span>,</code></pre>
+                        <figcaption>Automation Exercise, retries and what is kept on failure (condensed). <a href="https://github.com/Open83/automationexercise/blob/789d413/playwright.config.js#L9-L15" target="_blank" rel="noopener noreferrer">playwright.config.js, lines 9, 13&ndash;15 @ 789d413<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                    </figure>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             5. WHAT THIS DOES NOT PROVE
+        ====================================================== -->
+        <section class="section content-section" id="limits" aria-labelledby="limits-heading">
+            <div class="container narrow">
+                <h2 id="limits-heading">What this does not prove</h2>
+                <p>All of this is true of the published code at the commits above.</p>
+                <ul>
+                    <li><strong>No schema or contract validation.</strong> Responses are checked field by field, and four assertions in RESTful Booker compare a whole booking with <code>toEqual</code>. Nothing validates a response against a schema.</li>
+                    <li><strong>No performance or load testing.</strong> None of the three repositories asserts a response time or sends load.</li>
+                    <li><strong>No role-based authorization.</strong> The only access control tested is a token being present, absent or invalid. No test uses more than one role, or one user's token on another user's data.</li>
+                    <li><strong>Cleanup is missing in most RESTful Booker tests.</strong> Only six of the 47 delete what they create, so the suite leaves bookings on a shared public service.</li>
+                    <li><strong>Some tests cannot fail.</strong> Three RESTful Booker negative tests (lines 35, 48 and 61 of <code>negative-testing.spec.ts</code>) pass whatever the API returns, and Razorpay's ORDER-001 and ORDER-003 run no assertions in CI. The counts on this page include them.</li>
+                    <li><strong>Payment verification is never accepted in CI.</strong> SIG-001 and REPLAY-001 need my original Razorpay Test Mode account, so CI only tests that payment verification rejects bad input.</li>
+                    <li><strong>Practice APIs and a sandbox only.</strong> RESTful Booker and Automation Exercise are public services that other people also use, and their behaviour and uptime are outside my control. The Razorpay tests run against my own app in Test Mode, so a defect found there is a bug in my code, not in Razorpay. None of it is a production system.</li>
+                    <li><strong>CI results are historical.</strong> The last runs were on 22 October 2026 for RESTful Booker (<a href="https://github.com/Open83/restful-booker-api-automation/actions/runs/39747765779" target="_blank" rel="noopener noreferrer">run #3<span class="sr-only"> (opens in a new tab)</span></a>; by my reading of the job log, no test was retried), 14 September 2026 for Razorpay (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/actions/runs/34838802189" target="_blank" rel="noopener noreferrer">run #3<span class="sr-only"> (opens in a new tab)</span></a>) and 29 August 2026 for Automation Exercise (<a href="https://github.com/Open83/automationexercise/actions/runs/33252150193" target="_blank" rel="noopener noreferrer">run #17<span class="sr-only"> (opens in a new tab)</span></a>, with retries on). Each passed when it ran; that says nothing about today. Job logs need a GitHub sign-in.</li>
+                    <li><strong>The categories are mine.</strong> Another tester could file some of these tests under a different risk.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             6. PROFESSIONAL WORK
+        ====================================================== -->
+        <section class="section section-light content-section" aria-labelledby="work-heading">
+            <div class="container narrow">
+                <h2 id="work-heading">Professional work</h2>
+                <p>
+                    In my job I test six client projects covering donation and payment platforms, CRM and role-based
+                    access, and logistics, with API checks in Postman. I describe that work only in general terms, on
+                    the <a href="/about/">About</a> page and the <a href="/">home page</a>, and nothing on this page comes
+                    from it. It includes role-based access control on a CRM platform, which is the kind of authorization
+                    testing these public repositories cannot show.
+                </p>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             7. NEXT STEPS
+        ====================================================== -->
+        <section class="section content-section" aria-labelledby="next-heading">
+            <div class="container">
+                <h2 id="next-heading">Next steps</h2>
+                <ul class="next-list">
+                    <li><a href="/projects/razorpay-payment-gateway-qa-automation/">Razorpay case study</a>Payment scenarios, the two defects in my own app, and how CI is kept away from real credentials.</li>
+                    <li><a href="/projects/restful-booker-api-automation/">RESTful Booker case study</a>The suite's layout, its booking lifecycle and its negative tests.</li>
+                    <li><a href="/projects/automation-exercise/">Automation Exercise case study</a>UI flows and API tests against a public demo shop.</li>
+                    <li><a href="/blog/api-testing-best-practices/">API testing lessons</a>What the RESTful Booker suite taught me about assertions, isolation and CI.</li>
+                    <li><a href="/blog/payment-gateway-testing-playwright/">Testing a payment gateway</a>Signatures, webhooks, refunds and failure scenarios, step by step.</li>
+                    <li><a href="/evidence/">Evidence</a>The defect report, the Razorpay coverage matrix and the CI runs.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2 class="cta-title">Need an API tested this way?</h2>
+                <p class="cta-desc">Describe the API and the risk you are worried about in the Services form. Nothing starts until scope and access are agreed.</p>
+                <div class="cta-buttons">
+                    <a href="/services/#contact" class="button button-primary">Describe your API</a>
+                    <a href="/proof-of-work/" class="button button-secondary">
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i>
+                        Back to Proof of Work
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+                    <p class="brand-name">Sayed<span>Asif</span></p>
+                    <p class="brand-title">Software QA Engineer</p>
+                    <p class="brand-tagline">API Testing &bull; Playwright Automation</p>
+                </div>
+
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="/proof-of-work/">Proof of Work</a>
+                    <a href="/evidence/">Evidence</a>
+                    <a href="/about/">About</a>
+                    <a href="/services/">Services</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/resume/">Resume</a>
+                </nav>
+
+                <div class="footer-contact">
+                    <a href="/contact/" class="footer-contact-link">Contact</a>
+                    <div class="social-links">
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="footer-disclaimer">Employer project work is confidential and shown only in general terms. No client names, data or system details are published.</p>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
+                <a href="/privacy/" class="privacy-link">Privacy Notice</a>
+            </div>
+
+        </div>
+
+        <!-- Floating WhatsApp button. No number here: contact-actions.js builds the link on click; without JavaScript it opens the contact page. -->
+        <a href="/contact/" class="wa-float" data-whatsapp aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+
+    </footer>
+
+    <script src="/assets/js/global-nav.js" defer></script>
+    <script src="/assets/js/contact-actions.js" defer></script>
+
+</body>
+</html>

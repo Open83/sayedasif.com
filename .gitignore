@@ -19,6 +19,10 @@ storageState.json
 auth-diagnostics/
 auth-failure-attempt-*
 
+# Unpublished drafts and research notes (some mention work that is not on GitHub yet). Files already tracked
+# under drafts/ stay tracked; new files there are not picked up by git add. Also listed in .vercelignore.
+drafts/
+
 # Internal working notes: never commit or publish (Vercel would serve them as /AUDIT.md etc.)
 /AUDIT.md
 /PROGRESS.md

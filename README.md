@@ -35,7 +35,7 @@ There is no inline JavaScript: `vercel.json` sets `script-src 'self'`.
 | Part | Source | Regenerate / check |
 |---|---|---|
 | Header and footer markup repeated in every page | `scripts/sync-site-chrome.js` | `node scripts/sync-site-chrome.js` (`--check` only reports) |
-| Project cover SVGs between `<!-- cover:... -->` markers; social images `image/og/` | `scripts/covers/` | `node scripts/covers/build.js` (`--check`; `--og` also renders the PNGs) |
+| Project cover SVGs between `<!-- cover:... -->` markers; social images `image/og/` (project covers from `projects.json`, other pages such as `/api-testing/` from `pages.json`, drawn without a test count) | `scripts/covers/` | `node scripts/covers/build.js` (`--check`; `--og` also renders the PNGs; `--og=<slug>` renders one) |
 | Code excerpts copied from the public repositories | `scripts/excerpts/refresh.js` | `node scripts/excerpts/refresh.js` (`--check`; needs network) |
 | Resume PDFs | `scripts/resume-source/resume-print.html`, `resume-ats.html` | `node scripts/build-resume-pdfs.js`, then open every page of both PDFs |
 
@@ -45,8 +45,9 @@ check 15 fails when a PDF does not contain every sentence of its source.
 ## Verifying the site
 
 The suite in `scripts/verify` serves the repository locally, drives Chromium with Playwright, and prints PASS, FAIL or
-SKIPPED with evidence for each of 20 checks (build and HTML validation, redirects, privacy of the phone number, WhatsApp
-button, forms, resume PDFs, links, axe accessibility, runtime errors and layout shift, images, and a real-host check).
+SKIPPED with evidence for each of 21 checks (build and HTML validation, redirects, privacy of the phone number, WhatsApp
+button, forms, resume PDFs, links, axe accessibility, runtime errors and layout shift, images, a real-host check, and the
+numbers, permalinks and badges on `/api-testing/`).
 
 ```
 cd scripts/verify

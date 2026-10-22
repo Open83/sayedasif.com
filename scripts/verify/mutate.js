@@ -109,6 +109,48 @@ const MUTATIONS = [
     expect: [15],
     apply: () => edit('scripts/resume-source/resume-ats.html', (t) => t.replace('fixed with regression tests.', 'fixed with regression tests and a retest.')),
   },
+  {
+    name: 'wrong number in the /api-testing/ tally',
+    detail: 'the authentication row of the tally table says 5 RESTful Booker tests instead of 4',
+    files: ['api-testing/index.html'],
+    expect: [21],
+    apply: () => edit('api-testing/index.html', (t) => t.replace('<th scope="row">authentication</th><td class="num">4</td>', '<th scope="row">authentication</th><td class="num">5</td>')),
+  },
+  {
+    name: 'badge contradicts the tagging on /api-testing/',
+    detail: '"Assertion cannot fail" on the three RESTful Booker negative tests changed to "Runs in CI"',
+    files: ['api-testing/index.html'],
+    expect: [21],
+    apply: () => edit('api-testing/index.html', (t) => t.replace('<span class="scenario-tag tag-fail">Assertion cannot fail</span> <span class="repo">RESTful Booker</span>', '<span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span>')),
+  },
+  {
+    name: 'permalink moved off the pinned commit on /api-testing/',
+    detail: 'the link to auth.spec.ts lines 14-20 cites commit 1e7f137 instead of a385240',
+    files: ['api-testing/index.html'],
+    expect: [21],
+    apply: () => edit('api-testing/index.html', (t) => t.replace('blob/a385240/tests/api/auth.spec.ts#L14-L20"', 'blob/1e7f137/tests/api/auth.spec.ts#L14-L20"')),
+  },
+  {
+    name: 'a 401 appears in the RESTful Booker status-code list',
+    detail: 'the /ping line of the case study says 401 instead of 201, a code no test asserts',
+    files: ['projects/restful-booker-api-automation/index.html'],
+    expect: [21],
+    apply: () => edit('projects/restful-booker-api-automation/index.html', (t) => t.replace('<li><code>GET /ping</code>: 201 (1 test)</li>', '<li><code>GET /ping</code>: 401 (1 test)</li>')),
+  },
+  {
+    name: 'architecture tree names a file that does not exist',
+    detail: 'booking.types.ts in the case study tree changed to booking.ts',
+    files: ['projects/restful-booker-api-automation/index.html'],
+    expect: [21],
+    apply: () => edit('projects/restful-booker-api-automation/index.html', (t) => t.replace('└── booking.types.ts', '└── booking.ts')),
+  },
+  {
+    name: 'the "fixtures" claim comes back',
+    detail: 'the Centralized Test Data bullet says "Consistent fixtures shared across all suites" again',
+    files: ['projects/restful-booker-api-automation/index.html'],
+    expect: [21],
+    apply: () => edit('projects/restful-booker-api-automation/index.html', (t) => t.replace('There are no Playwright fixtures: each test creates its own bookings.', 'Consistent fixtures shared across all suites.')),
+  },
 ];
 
 function runChecks(ids, label) {

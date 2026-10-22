@@ -609,7 +609,7 @@
                     </div>
                     <div class="meta-item">
                         <div class="meta-label">Last CI Run</div>
-                        <div class="meta-value">Passed, 4 Sep 2026</div>
+                        <div class="meta-value">Failed, 22 Oct 2026 (last green: 4 Sep)</div>
                     </div>
                     <div class="meta-item">
                         <div class="meta-label">Technology</div>
@@ -724,12 +724,13 @@
                             <li>Playwright UI automation framework</li>
                             <li>Page Object Model architecture</li>
                             <li>GitHub Actions workflow (runs on pushes and pull requests to main)</li>
-                            <li>Last successful GitHub Actions run: 4 September 2026 (commit 8990014), in which all 6 tests, including the setup test, passed. No later runs exist.</li>
-                            <li>Environment status (checked 16 October 2026; no newer commit or CI run exists): the hosted ERPNext instance that run used is no longer available, so the suite cannot currently be run. A new CI run would be expected to fail at the authentication setup step.</li>
+                            <li>Last successful GitHub Actions run: 4 September 2026 (commit 8990014), in which all 6 tests, including the setup test, passed.</li>
+                            <li>Latest run: <a href="https://github.com/Open83/ERPNext-QA-Automation/actions/runs/39761819207" target="_blank" rel="noopener noreferrer" style="color: inherit; font-weight: 700; text-decoration: underline;">#7, 22 October 2026<span class="sr-only"> (opens in a new tab)</span></a> (commit bd3846a, which only added a manual workflow trigger). It failed. By my reading of the job log, the authentication setup test failed at <code>tests/auth/auth.setup.js</code> line 54 because <code>${baseURL}/app</code> redirected to <code>cloud.frappe.io/dashboard/login</code>, so 1 test failed and the other 5 did not run. Job logs need a GitHub sign-in.</li>
+                            <li>Environment status (checked 22 October 2026): the hosted ERPNext instance the suite ran against is no longer available, so the suite cannot currently be run. Run #7 is the evidence; the only commit after 8990014 changed the workflow trigger, not the tests.</li>
                         </ul>
                     </div>
                     <p style="margin-top: 16px; color: var(--muted); font-size: 0.95rem;">
-                        <strong>Important:</strong> This recorded result refers to this automation suite only, as of 4 September 2026.
+                        <strong>Important:</strong> The recorded green result refers to this automation suite only, as of 4 September 2026.
                         It does not represent full ERPNext coverage, production validation, or zero-defect status.
                         A flaky-test count is not published here: CI is configured with retries, so a passing run
                         does not by itself show that no test needed one.
@@ -778,7 +779,7 @@
                     <h3>CI/CD Integration</h3>
                     <p>
                         The GitHub Actions workflow is configured to run the tests on every push and pull request to
-                        the main branch. Its last successful run was on 4 September 2026. The hosted ERPNext
+                        the main branch. Its last successful run was on 4 September 2026; its latest run, on 22 October 2026, failed. The hosted ERPNext
                         environment the tests ran against is no longer available, so the workflow cannot currently
                         pass until an environment is restored. The design provides:
                     </p>
@@ -855,7 +856,7 @@
                         <strong>Limits:</strong> This fix covers the item-selection step. Customer-field selection in
                         the Quotation and Sales Order page objects uses a different pattern and was not part of this
                         investigation. GitHub Actions logs are not viewable without a GitHub sign-in, and CI is
-                        configured with retries, so a passing run does not by itself show that no test needed one. The hosted ERPNext test instance the suite runs against is currently offline (checked 14 October 2026), so the suite cannot be re-run today and the last recorded result is historical.
+                        configured with retries, so a passing run does not by itself show that no test needed one. The hosted ERPNext test instance the suite runs against is no longer available (checked 22 October 2026; the latest run, #7, failed for that reason), so the suite cannot be re-run today and the last green result is historical.
                     </p>
                     <div class="box-highlight">
                         <strong>Lesson:</strong>
@@ -903,7 +904,7 @@
                         <div style="padding: 20px; border: 1px solid var(--border); border-radius: 14px; background: var(--white);">
                             <div style="font-weight: 700; color: var(--dark); margin-bottom: 8px;">CI/CD Execution</div>
                             <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 15px;">
-                                GitHub Actions run history (last successful run 4 Sep 2026). Job logs require a GitHub sign-in.
+                                GitHub Actions run history (last successful run 4 Sep 2026; latest run, 22 Oct 2026, failed). Job logs require a GitHub sign-in.
                             </p>
                             <a href="https://github.com/Open83/ERPNext-QA-Automation/actions" target="_blank" rel="noopener noreferrer" style="color: var(--primary-dark); font-weight: 700; text-decoration: none;">
                                 View CI Run History →

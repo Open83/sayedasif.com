@@ -332,7 +332,7 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
                             <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L47" target="_blank" rel="noopener noreferrer">CONFIG-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>GET /api/payments/config properly reflects configuration status</td><td>Health & configuration</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
                             <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L4" target="_blank" rel="noopener noreferrer">ORDER-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/create-order handles both success and error gracefully</td><td>Order creation & amount integrity</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
                             <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L26" target="_blank" rel="noopener noreferrer">ORDER-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>client-supplied amount/currency cannot override the backend-controlled order amount <span class="note">In CI this cannot fail: its assertions run only when order creation returns 200, and with placeholder credentials it does not.</span></td><td>Order creation & amount integrity</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L39" target="_blank" rel="noopener noreferrer">ORDER-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/create-order returns order structure (when configured)</td><td>Order creation & amount integrity</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L39" target="_blank" rel="noopener noreferrer">ORDER-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/create-order returns order structure (when configured) <span class="note">In CI this cannot fail: its assertions run only when order creation returns 200 or 503, and with placeholder credentials it returns 400, so none run.</span></td><td>Order creation & amount integrity</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
                             <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L4" target="_blank" rel="noopener noreferrer">ERR-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>Order creation error does NOT expose Razorpay API details</td><td>Error handling & message sanitization</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
                             <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L26" target="_blank" rel="noopener noreferrer">ERR-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>Payment verification error does NOT expose internal details</td><td>Error handling & message sanitization</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
                             <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L48" target="_blank" rel="noopener noreferrer">ERR-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>404 endpoint returns appropriate error</td><td>Error handling & message sanitization</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
@@ -379,7 +379,7 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
             <div class="container">
                 <h2 id="runs-heading">Test runs</h2>
                 <p class="lead">
-                    Latest GitHub Actions run of each public repository, read from GitHub on 15 Oct 2026. Run pages are public; job logs need a GitHub sign-in.
+                    Latest GitHub Actions run of each public repository, read from GitHub on 22 Oct 2026. Run pages are public; job logs need a GitHub sign-in.
                 </p>
 
                 <div class="table-wrap">
@@ -388,13 +388,13 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
                         <thead><tr><th scope="col">Project</th><th scope="col">Workflow</th><th scope="col">Date</th><th scope="col">Commit</th><th scope="col">Result</th><th scope="col">Link</th></tr></thead>
                         <tbody>
                             <tr><th scope="row">Razorpay Payment Gateway QA & Automation</th><td>Playwright CI</td><td>14 Sep 2026</td><td><code>da9e7a2</code></td><td>Success</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/actions/runs/34838802189" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">RESTful Booker TypeScript API</th><td>Playwright Tests</td><td>10 Sep 2026</td><td><code>a385240</code></td><td>Success</td><td><a href="https://github.com/Open83/restful-booker-api-automation/actions/runs/34451015772" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">ERPNext QA Automation</th><td>Playwright Tests</td><td>4 Sep 2026</td><td><code>8990014</code></td><td>Success</td><td><a href="https://github.com/Open83/ERPNext-QA-Automation/actions/runs/33863756524" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">RESTful Booker TypeScript API</th><td>Playwright Tests</td><td>22 Oct 2026</td><td><code>1e7f137</code></td><td>Success</td><td><a href="https://github.com/Open83/restful-booker-api-automation/actions/runs/39747765779" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">ERPNext QA Automation</th><td>Playwright Tests</td><td>22 Oct 2026</td><td><code>bd3846a</code></td><td>Failed <span class="note">By my reading of the job log: the hosted test instance is gone; 1 test failed, 5 did not run. Last green run: 4 Sep 2026.</span></td><td><a href="https://github.com/Open83/ERPNext-QA-Automation/actions/runs/39761819207" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
                             <tr><th scope="row">Automation Exercise</th><td>Playwright Test Suite</td><td>29 Aug 2026</td><td><code>789d413</code></td><td>Success</td><td><a href="https://github.com/Open83/automationexercise/actions/runs/33252150193" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="caption">These are historical results. ERPNext's hosted test instance is offline, so a new run there would fail at the authentication step.</p>
+                <p class="caption">These are historical results. ERPNext's latest run failed because its hosted test instance is gone: by my reading of the job log, the authentication setup test failed and the other 5 tests did not run. Its last green run was run #6 on 4 September 2026 (below).</p>
 
                 <h3>Playwright reports and traces (my own runs, 15 Oct 2026)</h3>
                 <p class="caption">
@@ -428,7 +428,7 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
                     and a report for Automation Exercise, whose setup step needs login credentials that I do not have in a clean clone.
                 </p>
 
-                <h3>Latest green GitHub Actions run, per repository</h3>
+                <h3>Green GitHub Actions run, per repository</h3>
                 <div class="figure-grid">
                     <figure class="shot">
                         <img src="/image/evidence/ci-razorpay-run.webp" alt="GitHub Actions run page for the Razorpay repository showing a successful Playwright CI run on commit da9e7a2" width="1100" height="541" loading="lazy" decoding="async">
@@ -436,11 +436,11 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
                     </figure>
                     <figure class="shot">
                         <img src="/image/evidence/ci-restful-booker-run.webp" alt="GitHub Actions run page for the RESTful Booker repository showing a successful Playwright Tests run on commit a385240" width="1100" height="541" loading="lazy" decoding="async">
-                        <figcaption>GitHub Actions, RESTful Booker repository: Playwright Tests run on commit a385240, status Success (10 Sep 2026).</figcaption>
+                        <figcaption>GitHub Actions, RESTful Booker repository: Playwright Tests run #2 on commit a385240, status Success (10 Sep 2026). A later run, #3 on commit 1e7f137 (22 Oct 2026), also succeeded and is the one in the table above; I have not screenshotted it.</figcaption>
                     </figure>
                     <figure class="shot">
                         <img src="/image/evidence/ci-erpnext-run.webp" alt="GitHub Actions run page for the ERPNext repository showing a successful Playwright Tests run on commit 8990014" width="1100" height="541" loading="lazy" decoding="async">
-                        <figcaption>GitHub Actions, ERPNext repository: Playwright Tests run #6 on commit 8990014, status Success, 6 m 57 s (4 Sep 2026). This is the last run: the hosted test instance has since gone offline.</figcaption>
+                        <figcaption>GitHub Actions, ERPNext repository: Playwright Tests run #6 on commit 8990014, status Success, 6 m 57 s (4 Sep 2026). This is the last green run; the latest run, #7 on 22 Oct 2026, failed because the hosted test instance has since gone offline (see the table above).</figcaption>
                     </figure>
                     <figure class="shot">
                         <img src="/image/evidence/ci-automation-exercise-run.webp" alt="GitHub Actions run page for the Automation Exercise repository showing a successful Playwright Test Suite run on commit 789d413" width="1100" height="541" loading="lazy" decoding="async">

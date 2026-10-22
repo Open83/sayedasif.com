@@ -58,7 +58,7 @@ const args = {
 const MODULES = [
   './checks/c01_build', './checks/c02_redirects', './checks/c03_leftovers', './checks/c04_homepage', './checks/c05_copy',
   './checks/c09_counts', './checks/c10_excerpts', './checks/c11_privacy', './checks/c13_whatsapp', './checks/c14_forms',
-  './checks/c15_pdfs', './checks/c16_links', './checks/c17_axe', './checks/c18_runtime', './checks/c19_images', './checks/c20_preview',
+  './checks/c15_pdfs', './checks/c16_links', './checks/c17_axe', './checks/c18_runtime', './checks/c19_images', './checks/c20_preview', './checks/c21_api_testing',
 ].filter((m) => fs.existsSync(path.join(__dirname, m + '.js')));
 
 (async () => {
