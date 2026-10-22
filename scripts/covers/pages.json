@@ -5,7 +5,7 @@
       "slug": "api-testing",
       "name": "API testing evidence map",
       "eyebrow": "API RISK → EVIDENCE MAP",
-      "title": ["API Testing with", "Playwright and", "TypeScript"],
+      "title": ["API Testing with", "Playwright"],
       "side": [
         { "text": "Risk → test", "cls": "big" },
         { "text": "badge, permalink, excerpt", "cls": "countl" },

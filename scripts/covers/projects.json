@@ -28,7 +28,7 @@
       "count": 47,
       "countSub": "9 spec files",
       "stack": "Playwright · TypeScript · REST API",
-      "caption": "Each step asserts the status code and the response data",
+      "caption": "Booking lifecycle, negative cases and read-back checks",
       "colors": { "accent": "#15803d", "soft": "#dcfce7", "accentDark": "#4ade80", "softDark": "#10331f" },
       "flow": [
         ["Auth", "POST /auth"],
