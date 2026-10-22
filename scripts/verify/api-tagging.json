@@ -1,0 +1,1078 @@
+{
+ "_comment": "Owner's tagging of every API test at the pinned commits (RESTful Booker a385240, Razorpay da9e7a2, Automation Exercise 789d413). One risk category per test. 'run': ci = runs in the repo's CI workflow, live = needs the original Razorpay Test Mode account, credentials = needs an existing account supplied as repo secrets. The counts and the tally on /api-testing/ are recomputed from this file by scripts/verify/checks/c21_api_testing.js.",
+ "rows": [
+  {
+   "repo": "restful-booker",
+   "file": "api/auth.spec.ts",
+   "line": 14,
+   "id": null,
+   "title": "POST /auth with valid credentials should return token",
+   "category": "authentication",
+   "run": "ci",
+   "flags": [],
+   "end": 20
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/auth.spec.ts",
+   "line": 22,
+   "id": null,
+   "title": "POST /auth token should be in valid format",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 26
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/auth.spec.ts",
+   "line": 28,
+   "id": null,
+   "title": "POST /auth with invalid credentials should return 200 but no token",
+   "category": "authentication",
+   "run": "ci",
+   "flags": [
+    "pins-quirk"
+   ],
+   "end": 35
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/auth.spec.ts",
+   "line": 37,
+   "id": null,
+   "title": "POST /auth with empty username should fail",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [
+    "pins-quirk"
+   ],
+   "end": 43
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/auth.spec.ts",
+   "line": 45,
+   "id": null,
+   "title": "Multiple auth requests should return tokens",
+   "category": "authentication",
+   "run": "ci",
+   "flags": [
+    "weak"
+   ],
+   "end": 51
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-create.spec.ts",
+   "line": 15,
+   "id": null,
+   "title": "POST /booking with valid data should create booking successfully",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 22
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-create.spec.ts",
+   "line": 24,
+   "id": null,
+   "title": "POST /booking should return booking data in response",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 32
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-create.spec.ts",
+   "line": 34,
+   "id": null,
+   "title": "POST /booking with numeric fields should maintain data types",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 40
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-create.spec.ts",
+   "line": 42,
+   "id": null,
+   "title": "POST /booking should generate unique booking IDs",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [],
+   "end": 47
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-create.spec.ts",
+   "line": 49,
+   "id": null,
+   "title": "POST /booking without additionalneeds field should succeed",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 54
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-create.spec.ts",
+   "line": 56,
+   "id": null,
+   "title": "POST /booking with missing firstname should return 500",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [
+    "pins-quirk"
+   ],
+   "end": 70
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-create.spec.ts",
+   "line": 72,
+   "id": null,
+   "title": "POST /booking with missing bookingdates should return 500",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [
+    "pins-quirk"
+   ],
+   "end": 83
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-read.spec.ts",
+   "line": 18,
+   "id": null,
+   "title": "GET /booking/{id} should retrieve created booking",
+   "category": "read-back after write",
+   "run": "ci",
+   "flags": [],
+   "end": 25
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-read.spec.ts",
+   "line": 27,
+   "id": null,
+   "title": "GET /booking/{id} should return all required fields",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 35
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-read.spec.ts",
+   "line": 37,
+   "id": null,
+   "title": "GET /booking/{id} should return correct booking dates",
+   "category": "read-back after write",
+   "run": "ci",
+   "flags": [],
+   "end": 42
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-read.spec.ts",
+   "line": 44,
+   "id": null,
+   "title": "GET /booking should return list of booking IDs",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 51
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-read.spec.ts",
+   "line": 53,
+   "id": null,
+   "title": "GET /booking/{id} with invalid ID should return error",
+   "category": "status codes",
+   "run": "ci",
+   "flags": [],
+   "end": 57
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-read.spec.ts",
+   "line": 59,
+   "id": null,
+   "title": "GET /booking/{id} with non-numeric ID should return 404",
+   "category": "status codes",
+   "run": "ci",
+   "flags": [],
+   "end": 63
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-update.spec.ts",
+   "line": 24,
+   "id": null,
+   "title": "PUT /booking/{id} with valid token should update booking",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [],
+   "end": 30
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-update.spec.ts",
+   "line": 32,
+   "id": null,
+   "title": "PUT /booking/{id} should persist updated data",
+   "category": "read-back after write",
+   "run": "ci",
+   "flags": [],
+   "end": 38
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-update.spec.ts",
+   "line": 40,
+   "id": null,
+   "title": "PUT /booking/{id} without token should return 403",
+   "category": "authorization",
+   "run": "ci",
+   "flags": [],
+   "end": 44
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-update.spec.ts",
+   "line": 46,
+   "id": null,
+   "title": "PUT /booking/{id} with invalid token should fail",
+   "category": "authorization",
+   "run": "ci",
+   "flags": [],
+   "end": 50
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-update.spec.ts",
+   "line": 52,
+   "id": null,
+   "title": "PUT /booking/{id} should update all fields completely",
+   "category": "read-back after write",
+   "run": "ci",
+   "flags": [],
+   "end": 57
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-update.spec.ts",
+   "line": 59,
+   "id": null,
+   "title": "PUT /booking/{id} on non-existent booking should return 405",
+   "category": "status codes",
+   "run": "ci",
+   "flags": [
+    "pins-quirk"
+   ],
+   "end": 63
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-partial-update.spec.ts",
+   "line": 24,
+   "id": null,
+   "title": "PATCH /booking/{id} should update only specified fields",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [],
+   "end": 34
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-partial-update.spec.ts",
+   "line": 36,
+   "id": null,
+   "title": "PATCH /booking/{id} should preserve unchanged fields",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [],
+   "end": 47
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-partial-update.spec.ts",
+   "line": 49,
+   "id": null,
+   "title": "PATCH /booking/{id} with multiple fields should update all specified fields",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [],
+   "end": 61
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-partial-update.spec.ts",
+   "line": 63,
+   "id": null,
+   "title": "PATCH /booking/{id} should persist changes",
+   "category": "read-back after write",
+   "run": "ci",
+   "flags": [],
+   "end": 72
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-partial-update.spec.ts",
+   "line": 74,
+   "id": null,
+   "title": "PATCH /booking/{id} without token should return 403",
+   "category": "authorization",
+   "run": "ci",
+   "flags": [],
+   "end": 82
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-delete.spec.ts",
+   "line": 20,
+   "id": null,
+   "title": "DELETE /booking/{id} with valid token should delete booking",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [
+    "weak"
+   ],
+   "end": 26
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-delete.spec.ts",
+   "line": 28,
+   "id": null,
+   "title": "DELETE /booking/{id} should remove booking from system",
+   "category": "read-back after write",
+   "run": "ci",
+   "flags": [],
+   "end": 36
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-delete.spec.ts",
+   "line": 38,
+   "id": null,
+   "title": "DELETE /booking/{id} without token should return 403",
+   "category": "authorization",
+   "run": "ci",
+   "flags": [],
+   "end": 44
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-delete.spec.ts",
+   "line": 46,
+   "id": null,
+   "title": "DELETE /booking/{id} with invalid token should fail",
+   "category": "authorization",
+   "run": "ci",
+   "flags": [],
+   "end": 52
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-delete.spec.ts",
+   "line": 54,
+   "id": null,
+   "title": "DELETE /booking/{id} on non-existent booking should return 405",
+   "category": "status codes",
+   "run": "ci",
+   "flags": [
+    "pins-quirk"
+   ],
+   "end": 57
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/booking-delete.spec.ts",
+   "line": 59,
+   "id": null,
+   "title": "DELETE /booking/{id} twice should return 405 on second attempt",
+   "category": "idempotency/replay",
+   "run": "ci",
+   "flags": [],
+   "end": 67
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/health-check.spec.ts",
+   "line": 5,
+   "id": null,
+   "title": "GET /ping should return healthy status",
+   "category": "status codes",
+   "run": "ci",
+   "flags": [],
+   "end": 12
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/negative-testing.spec.ts",
+   "line": 18,
+   "id": null,
+   "title": "POST /booking with zero price should be accepted",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 26
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/negative-testing.spec.ts",
+   "line": 28,
+   "id": null,
+   "title": "POST /booking with negative price is accepted by API",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [
+    "cannot-fail"
+   ],
+   "end": 36
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/negative-testing.spec.ts",
+   "line": 38,
+   "id": null,
+   "title": "POST /booking with invalid date format is accepted by API",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [
+    "cannot-fail"
+   ],
+   "end": 49
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/negative-testing.spec.ts",
+   "line": 51,
+   "id": null,
+   "title": "POST /booking with checkout before checkin is accepted by API",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [
+    "cannot-fail"
+   ],
+   "end": 62
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/negative-testing.spec.ts",
+   "line": 64,
+   "id": null,
+   "title": "PUT /booking with incomplete booking data should return 400",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 75
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/negative-testing.spec.ts",
+   "line": 77,
+   "id": null,
+   "title": "GET /booking with string ID should return 404",
+   "category": "status codes",
+   "run": "ci",
+   "flags": [],
+   "end": 80
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/negative-testing.spec.ts",
+   "line": 82,
+   "id": null,
+   "title": "POST /auth with special characters returns successful response",
+   "category": "authentication",
+   "run": "ci",
+   "flags": [
+    "pins-quirk"
+   ],
+   "end": 85
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/negative-testing.spec.ts",
+   "line": 87,
+   "id": null,
+   "title": "POST /booking with very long string fields is accepted",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 99
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/workflow.spec.ts",
+   "line": 10,
+   "id": null,
+   "title": "Complete booking workflow: Create → Read → Update → Delete → Verify",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [],
+   "end": 47
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/workflow.spec.ts",
+   "line": 49,
+   "id": null,
+   "title": "Workflow: Create multiple bookings, list them, update one, delete one",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [],
+   "end": 84
+  },
+  {
+   "repo": "restful-booker",
+   "file": "api/workflow.spec.ts",
+   "line": 86,
+   "id": null,
+   "title": "Partial update workflow: Create → Partial Update → Verify unchanged fields",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [],
+   "end": 111
+  },
+  {
+   "repo": "razorpay",
+   "file": "api/health.spec.js",
+   "line": 4,
+   "id": "HEALTH-001",
+   "title": "HEALTH-001: GET /health returns application health",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 14
+  },
+  {
+   "repo": "razorpay",
+   "file": "api/health.spec.js",
+   "line": 16,
+   "id": "CONFIG-001",
+   "title": "CONFIG-001: GET /api/payments/config returns public configuration",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 26
+  },
+  {
+   "repo": "razorpay",
+   "file": "api/health.spec.js",
+   "line": 28,
+   "id": "CONFIG-002",
+   "title": "CONFIG-002: GET /api/payments/config does NOT expose secrets",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 45
+  },
+  {
+   "repo": "razorpay",
+   "file": "api/health.spec.js",
+   "line": 47,
+   "id": "CONFIG-003",
+   "title": "CONFIG-003: GET /api/payments/config properly reflects configuration status",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 63
+  },
+  {
+   "repo": "razorpay",
+   "file": "api/orders.spec.js",
+   "line": 4,
+   "id": "ORDER-002",
+   "title": "ORDER-002: POST /api/payments/create-order handles both success and error gracefully",
+   "category": "error handling",
+   "run": "ci",
+   "flags": [],
+   "end": 24
+  },
+  {
+   "repo": "razorpay",
+   "file": "api/orders.spec.js",
+   "line": 26,
+   "id": "ORDER-003",
+   "title": "ORDER-003: client-supplied amount/currency cannot override the backend-controlled order amount",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [
+    "cannot-fail"
+   ],
+   "end": 37
+  },
+  {
+   "repo": "razorpay",
+   "file": "api/orders.spec.js",
+   "line": 39,
+   "id": "ORDER-001",
+   "title": "ORDER-001: POST /api/payments/create-order returns order structure (when configured)",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [
+    "cannot-fail"
+   ],
+   "end": 66
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/error-handling.spec.js",
+   "line": 4,
+   "id": "ERR-001",
+   "title": "ERR-001: Order creation error does NOT expose Razorpay API details",
+   "category": "error handling",
+   "run": "ci",
+   "flags": [],
+   "end": 24
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/error-handling.spec.js",
+   "line": 26,
+   "id": "ERR-002",
+   "title": "ERR-002: Payment verification error does NOT expose internal details",
+   "category": "error handling",
+   "run": "ci",
+   "flags": [],
+   "end": 46
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/error-handling.spec.js",
+   "line": 48,
+   "id": "ERR-003",
+   "title": "ERR-003: 404 endpoint returns appropriate error",
+   "category": "error handling",
+   "run": "ci",
+   "flags": [],
+   "end": 56
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/error-handling.spec.js",
+   "line": 58,
+   "id": "ERR-004",
+   "title": "ERR-004: Malformed JSON request returns 400 error",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 76
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/error-handling.spec.js",
+   "line": 82,
+   "id": "REF-001",
+   "title": "REF-001: POST /api/refunds/create requires paymentId",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 94
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/refund-error-handling.spec.js",
+   "line": 16,
+   "id": "REF-ERR-001",
+   "title": "REF-ERR-001: a Razorpay-rejected refund returns a controlled error, not a crash",
+   "category": "error handling",
+   "run": "ci",
+   "flags": [],
+   "end": 32
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/refund-error-handling.spec.js",
+   "line": 34,
+   "id": "REF-ERR-002",
+   "title": "REF-ERR-002: the server remains available immediately after a refund error",
+   "category": "error handling",
+   "run": "ci",
+   "flags": [],
+   "end": 49
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/signature-verification.spec.js",
+   "line": 37,
+   "id": "SIG-001",
+   "title": "SIG-001: POST /api/payments/verify with valid signature accepts a real captured payment @razorpay-live",
+   "category": "signature/HMAC",
+   "run": "live",
+   "flags": [],
+   "end": 56
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/signature-verification.spec.js",
+   "line": 58,
+   "id": "REPLAY-001",
+   "title": "REPLAY-001: repeated verification of the same real payment stays idempotent (no duplicate/corrupted state) @razorpay-live",
+   "category": "idempotency/replay",
+   "run": "live",
+   "flags": [],
+   "end": 80
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/signature-verification.spec.js",
+   "line": 82,
+   "id": "SIG-002",
+   "title": "SIG-002: POST /api/payments/verify with invalid signature rejects payment",
+   "category": "signature/HMAC",
+   "run": "ci",
+   "flags": [],
+   "end": 99
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/signature-verification.spec.js",
+   "line": 101,
+   "id": "SIG-003",
+   "title": "SIG-003: POST /api/payments/verify with tampered orderId rejects payment",
+   "category": "signature/HMAC",
+   "run": "ci",
+   "flags": [],
+   "end": 118
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/signature-verification.spec.js",
+   "line": 120,
+   "id": "SIG-004",
+   "title": "SIG-004: POST /api/payments/verify with missing signature field rejects request",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 133
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/signature-verification.spec.js",
+   "line": 135,
+   "id": "SIG-005",
+   "title": "SIG-005: POST /api/payments/verify with missing orderId rejects request",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 150
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/signature-verification.spec.js",
+   "line": 152,
+   "id": "SIG-006",
+   "title": "SIG-006: POST /api/payments/verify with missing paymentId rejects request",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 167
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 42,
+   "id": "WEB-001",
+   "title": "WEB-001: POST /api/webhooks/razorpay with valid signature accepts webhook",
+   "category": "signature/HMAC",
+   "run": "ci",
+   "flags": [],
+   "end": 65
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 67,
+   "id": "WEB-002",
+   "title": "WEB-002: POST /api/webhooks/razorpay with invalid signature rejects webhook",
+   "category": "signature/HMAC",
+   "run": "ci",
+   "flags": [],
+   "end": 85
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 87,
+   "id": "WEB-003",
+   "title": "WEB-003: POST /api/webhooks/razorpay with missing signature header rejects webhook",
+   "category": "signature/HMAC",
+   "run": "ci",
+   "flags": [],
+   "end": 104
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 106,
+   "id": "WEB-004",
+   "title": "WEB-004: POST /api/webhooks/razorpay with missing event ID rejects webhook",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 124
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 126,
+   "id": "WEB-005",
+   "title": "WEB-005: Same webhook event ID sent twice is processed only once (idempotency)",
+   "category": "idempotency/replay",
+   "run": "ci",
+   "flags": [],
+   "end": 158
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 160,
+   "id": "WEB-006",
+   "title": "WEB-006: Different webhook event IDs are processed independently",
+   "category": "idempotency/replay",
+   "run": "ci",
+   "flags": [],
+   "end": 199
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 201,
+   "id": "WEB-007",
+   "title": "WEB-007: Webhook with tampered payload fails signature validation",
+   "category": "signature/HMAC",
+   "run": "ci",
+   "flags": [],
+   "end": 223
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 259,
+   "id": "WEB-FIX-001",
+   "title": "WEB-FIX-001: valid signature computed over the exact raw body is accepted and updates order state",
+   "category": "signature/HMAC",
+   "run": "ci",
+   "flags": [],
+   "end": 286
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 288,
+   "id": "WEB-FIX-002",
+   "title": "WEB-FIX-002: a modified payload with the original signature is rejected",
+   "category": "signature/HMAC",
+   "run": "ci",
+   "flags": [],
+   "end": 314
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 316,
+   "id": "WEB-FIX-003",
+   "title": "WEB-FIX-003: an invalid signature is rejected",
+   "category": "signature/HMAC",
+   "run": "ci",
+   "flags": [],
+   "end": 334
+  },
+  {
+   "repo": "razorpay",
+   "file": "security/webhook-validation.spec.js",
+   "line": 336,
+   "id": "WEB-FIX-004",
+   "title": "WEB-FIX-004: a duplicate event ID is handled idempotently",
+   "category": "idempotency/replay",
+   "run": "ci",
+   "flags": [],
+   "end": 362
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/authentication.api.spec.js",
+   "line": 6,
+   "id": null,
+   "title": "POST verifyLogin should authenticate a valid user",
+   "category": "authentication",
+   "run": "credentials",
+   "flags": [],
+   "end": 44
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/authentication.api.spec.js",
+   "line": 46,
+   "id": null,
+   "title": "POST verifyLogin should reject invalid credentials",
+   "category": "authentication",
+   "run": "ci",
+   "flags": [],
+   "end": 68
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/authentication.api.spec.js",
+   "line": 69,
+   "id": null,
+   "title": "POST verifyLogin should handle missing email parameter",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 95
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/authentication.api.spec.js",
+   "line": 97,
+   "id": null,
+   "title": "POST verifyLogin should handle missing password parameter",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 123
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/authentication.api.spec.js",
+   "line": 125,
+   "id": null,
+   "title": "DELETE verifyLogin should reject unsupported HTTP method",
+   "category": "status codes",
+   "run": "ci",
+   "flags": [],
+   "end": 149
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/products.api.spec.js",
+   "line": 6,
+   "id": null,
+   "title": "GET products list should return valid products",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 28
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/products.api.spec.js",
+   "line": 30,
+   "id": null,
+   "title": "POST search product should return matching products",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 52
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/products.api.spec.js",
+   "line": 55,
+   "id": null,
+   "title": "POST search product should handle missing search_product parameter",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 79
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/products.api.spec.js",
+   "line": 81,
+   "id": null,
+   "title": "GET brands list should return valid brands",
+   "category": "response structure",
+   "run": "ci",
+   "flags": [],
+   "end": 121
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/products.api.spec.js",
+   "line": 127,
+   "id": null,
+   "title": "POST products list should reject unsupported HTTP method",
+   "category": "status codes",
+   "run": "ci",
+   "flags": [],
+   "end": 176
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/account.api.spec.js",
+   "line": 17,
+   "id": null,
+   "title": "should retrieve and verify a newly created account",
+   "category": "CRUD lifecycle",
+   "run": "ci",
+   "flags": [],
+   "end": 62
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/account.api.spec.js",
+   "line": 69,
+   "id": null,
+   "title": "should update and verify account details",
+   "category": "read-back after write",
+   "run": "ci",
+   "flags": [],
+   "end": 153
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/account.api.spec.js",
+   "line": 160,
+   "id": null,
+   "title": "should delete account and verify it no longer exists",
+   "category": "read-back after write",
+   "run": "ci",
+   "flags": [],
+   "end": 231
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/account.api.spec.js",
+   "line": 238,
+   "id": null,
+   "title": "should reject account creation when email is missing",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 315
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/account.api.spec.js",
+   "line": 321,
+   "id": null,
+   "title": "should reject account creation when password is missing",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 397
+  },
+  {
+   "repo": "automation-exercise",
+   "file": "api/account.api.spec.js",
+   "line": 402,
+   "id": null,
+   "title": "should reject account creation with an existing email",
+   "category": "invalid input",
+   "run": "ci",
+   "flags": [],
+   "end": 481
+  }
+ ]
+}

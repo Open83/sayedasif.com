@@ -62,6 +62,7 @@ shell before node sees it. Use `MSYS_NO_PATHCONV=1` or leave out the leading sla
 | 18 | No horizontal scroll at 390 (and 1280, also with the mobile menu open); no console errors/warnings, failed requests or exceptions; CLS under 0.1; the WhatsApp button causes no layout shift and takes no space | browser |
 | 19 | Images: alt, width/height, aspect, not upscaled or oversized, weight, lazy-loading; inline SVG covers (role, title/desc, viewBox, no external refs, size); no orphaned image files; Lighthouse per page with `--lighthouse` | browser, file metadata, Lighthouse |
 | 20 | Real host: every page 200, every redirect chain ends at the right page with 301 hops, `/scripts/` and `/drafts/` are not served, PDFs byte-identical, headers present, no phone number, WhatsApp button, form endpoint | only with `--preview`; otherwise SKIPPED (probes every file under `scripts/` and `drafts/` plus encoded, upper-case and doubled-slash spellings) |
+| 21 | `/api-testing/`: the API tests are counted again from the pinned repos (47 / 32 / 16); `api-tagging.json` has one row per test at its real line, title and closing line; the tally table equals the tally recomputed from it; every GitHub file link cites the pinned commit and an existing range; every test link is one whole tagged test and no badge contradicts the tagging (no "Runs in CI" on a live-only or cannot-fail test); the statements about the 8 negative tests, lines 35/48/61 and the 6 delete tests match the code; title/description limits, banned words, heading order, excerpts of at most 15 lines, one inbound link from each of four pages, no nav entry, code blocks scroll inside their own box at 375 and 1280 px | spec files at the cited commits, `api-tagging.json`, `expected.json` (`apiTesting`), rendered DOM |
 
 ## So that a check cannot pass by accident
 
@@ -78,7 +79,7 @@ A check that cannot fail proves nothing, so the risky ones prove they can fail:
   form and only then the rule from `vercel.json`, so redirects, anchors and the private-folder guard are judged where
   the chain ends, not on the first hop. Run against production on 2026-10-20 it failed only the headers sub-check,
   because production still serves the older `vercel.json`.
-- `mutate.js` injects a phone number, a duplicate cover, a wrong redirect, a 308 redirect, a removed guard rule, a missing aria-label, a stray TODO, a removed /README.md guard and a resume source edited without rebuilding its PDF into a temp copy and requires checks 11, 8, 2, 2, 2, 13+17, 3, 2 and 15 to FAIL; the unchanged copy must PASS before and after.
+- `mutate.js` injects a phone number, a duplicate cover, a wrong redirect, a 308 redirect, a removed guard rule, a missing aria-label, a stray TODO, a removed /README.md guard, a resume source edited without rebuilding its PDF, a wrong tally number, a badge that contradicts the tagging and a permalink moved off its pinned commit on /api-testing/ into a temp copy and requires checks 11, 8, 2, 2, 2, 13+17, 3, 2, 15, 21, 21 and 21 to FAIL; the unchanged copy must PASS before and after.
 - Scrolling is forced to `behavior: 'instant'` and each scroll-through asserts it reached the bottom: pages set
   `scroll-behavior: smooth`, which silently turned plain `scrollTo` loops into no-ops.
 

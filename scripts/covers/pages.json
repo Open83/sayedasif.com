@@ -1,0 +1,27 @@
+{
+  "_comment": "Social images for pages that are not project case studies. Same layout as the project covers, but with no test count drawn: text on the right side comes from 'side'. Rendered only by build.js --og.",
+  "pages": [
+    {
+      "slug": "api-testing",
+      "name": "API testing evidence map",
+      "eyebrow": "API RISK → EVIDENCE MAP",
+      "title": ["API Testing with", "Playwright and", "TypeScript"],
+      "side": [
+        { "text": "Risk → test", "cls": "big" },
+        { "text": "badge, permalink, excerpt", "cls": "countl" },
+        { "text": "and what is not tested", "cls": "sub mute" }
+      ],
+      "stack": "Playwright · TypeScript · JavaScript · REST APIs",
+      "caption": "Each API risk mapped to the tests that cover it, or marked not tested",
+      "colors": { "accent": "#6d28d9", "soft": "#ede9fe", "accentDark": "#c4b5fd", "softDark": "#2e1065" },
+      "flow": [
+        ["Auth", "who may call"],
+        ["Status", "codes returned"],
+        ["Input", "bad requests"],
+        ["Read-back", "after a write"],
+        ["HMAC", "signed bodies", "hot"]
+      ],
+      "desc": "Risks shown in the flow: authentication, status codes, invalid input, read-back after a write, and HMAC signatures."
+    }
+  ]
+}

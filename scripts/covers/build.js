@@ -6,14 +6,17 @@
  *   node scripts/covers/build.js --check   report pages whose covers differ from the source (exit 1), write nothing
  *   node scripts/covers/build.js --og      also render image/og/<slug>.png (1200x630) from the covers;
  *                                          needs Playwright and sharp: npm install in scripts/verify
+ *   node scripts/covers/build.js --og=api-testing   render only that social image
  *
  * A page opts in with a pair of comments:  <!-- cover:razorpay --> ... <!-- /cover:razorpay -->
- * The design lives in render.js, the content in projects.json. Not deployed (see .vercelignore).
+ * The design lives in render.js, the content in projects.json (project covers) and pages.json
+ * (social images for other pages, drawn without a test count). Not deployed (see .vercelignore).
  */
 const fs = require('fs');
 const path = require('path');
 const { render, renderWide } = require('./render');
 const { projects } = require('./projects.json');
+const { pages: ogPages } = require('./pages.json');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const SKIP = new Set(['.git', 'node_modules', 'scripts', 'drafts', 'design-exploration', '.backup_before_global_update']);
@@ -53,7 +56,11 @@ for (const file of pages()) {
 console.log(check ? `checked ${placements} cover placements: ${differs} page(s) differ` : `covers written: ${placements} placements, ${updated} page(s) updated`);
 if (check && differs) process.exitCode = 1;
 
-if (process.argv.includes('--og')) {
+const ogArg = process.argv.find((a) => a === '--og' || a.startsWith('--og='));
+if (ogArg) {
+  const only = ogArg.startsWith('--og=') ? ogArg.slice(5) : null;
+  const targets = [...projects, ...ogPages].filter((p) => !only || p.slug === only);
+  if (only && !targets.length) throw new Error(`--og=${only}: no project or page with that slug`);
   (async () => {
     const { createRequire } = require('module');
     const req = createRequire(path.join(ROOT, 'scripts', 'verify', 'package.json'));
@@ -63,7 +70,7 @@ if (process.argv.includes('--og')) {
     fs.mkdirSync(outDir, { recursive: true });
     const browser = await chromium.launch();
     try {
-      for (const p of projects) {
+      for (const p of targets) {
         const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
         await page.setContent(`<!doctype html><meta charset="utf-8"><body style="margin:0;background:#fff">${renderWide(p, { standalone: true })}</body>`);
         const png = await page.screenshot({ clip: { x: 0, y: 0, width: 1200, height: 630 } });
