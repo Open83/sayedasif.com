@@ -1,6 +1,7 @@
 'use strict';
 /*
- * 21. /api-testing/: every number, permalink and badge on the page is recomputed from the public repositories at the pinned commits.
+ * 21. /api-testing/ and the RESTful Booker case study: every number, permalink, badge, file name and status code is recomputed from the public
+ *     repositories at the pinned commits.
  *
  *   - the API tests are counted again from the spec files and compared with the page, expected.json and api-tagging.json
  *   - every tagged test exists at the tagged line and the tagged range ends before the next test starts
@@ -9,6 +10,9 @@
  *   - every test link on the page is exactly one tagged test, and a badge never contradicts the tagging
  *     ("Runs in CI" on a live-only or cannot-fail test, or "Assertion cannot fail" on any other test, fails the check)
  *   - the statements about negative tests, the three assertions that cannot fail and the delete tests match the code
+ *   - the RESTful Booker case study: its Framework Architecture tree equals the files at the pinned commit, its Status Code Validation list
+ *     equals the per-operation counts recomputed from the specs (no code that no test asserts), the test-data wording matches booking-data.ts,
+ *     and phrases removed for overclaiming have not come back
  *   - title and description limits, banned words, heading order, excerpt length, one inbound link from each named page,
  *     no navigation entry, and code blocks that scroll inside their own box at 375px
  *
@@ -23,7 +27,7 @@ const repos = require('../lib/repos');
 const WORDS = { 2: 'two', 6: 'six', 8: 'eight' };
 
 async function run(ctx) {
-  const r = result(21, '/api-testing/: counts, tagging, permalinks, badges and limits recomputed from the pinned repos');
+  const r = result(21, '/api-testing/ and the RESTful Booker case study: counts, layout, status codes, badges recomputed from the pinned repos');
   const { expected: ex, baseUrl, browser } = ctx;
   const cfg = ex.apiTesting;
   const page = ctx.pages.find((p) => p.url === cfg.page);
@@ -166,6 +170,87 @@ async function run(ctx) {
   const sixPhrase = `${WORDS[deleting]} of the ${counted['restful-booker']}`;
   const sixCount = (text.match(new RegExp(sixPhrase, 'g')) || []).length;
   r.expect(deleting === cfg.bookingDeleteTests && sixCount >= 2, `${deleting} RESTful Booker tests call deleteBooking, and the page says "${sixPhrase}" where it should`, `${deleting} tests; phrase found ${sixCount} times`);
+
+  // ------------------------------------------------------------------ the RESTful Booker case study: layout, status codes, test data
+  const rb = ex.restfulBookerCaseStudy;
+  const rbPage = ctx.pages.find((p) => p.url === rb.page);
+  if (!rbPage) r.fail('the RESTful Booker case study exists', rb.page);
+  else {
+    const rbHtml = readText(rbPage.file);
+    const rbText = normalizeText(rbHtml.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<style[\s\S]*?<\/style>/g, ' ').replace(/<[^>]+>/g, ' '));
+    const rbTests = tagging.filter((t) => t.repo === 'restful-booker');
+    const rbBody = (id) => { const [file, line] = id.split(':'); const row = rbTests.find((t) => t.file === file && t.line === Number(line)); return row ? repos.readRepoFile(dirs['restful-booker'], 'tests/' + file).split('\n').slice(row.line - 1, row.end).join('\n') : null; };
+    const codesOf = (body) => [...body.matchAll(/status\(\)\)\.toBe\((\d{3})\)/g)].map((m) => m[1]);
+
+    // layout: the tree on the page equals the repository at the pinned commit
+    const treeCode = /<div class="architecture-box">\s*<code>([\s\S]*?)<\/code>/.exec(rbHtml);
+    const listed = new Set();
+    const stack = [];
+    for (const line of (treeCode ? decodeEntities(treeCode[1]) : '').split('\n')) {
+      const m = /^((?:│ {3}| {4})*)(?:├── |└── )(\S+)/.exec(line);
+      if (m) { const idx = m[1].length / 4 + 1; stack.length = idx; const name = m[2]; if (name.endsWith('/')) stack[idx] = name; else listed.add(stack.join('') + name); }
+      else if (line.trim()) { const name = line.trim().split(/\s+/)[0]; stack.length = 0; if (name.endsWith('/')) stack[0] = name; else listed.add(name); }
+    }
+    const dirRb = dirs['restful-booker'];
+    const onDisk = [];
+    const walk = (rel) => { for (const e of fs.readdirSync(path.join(dirRb, rel), { withFileTypes: true })) { const p = rel + '/' + e.name; if (e.isDirectory()) walk(p); else onDisk.push(p); } };
+    for (const folder of rb.treeFolders) walk(folder);
+    const treeBad = [];
+    for (const f of listed) if (!fs.existsSync(path.join(dirRb, f))) treeBad.push(`${f}: on the page, not in the repo`);
+    for (const f of onDisk) if (!listed.has(f)) treeBad.push(`${f}: in the repo, not on the page`);
+    for (const f of rb.treeTopLevelFiles) if (!listed.has(f)) treeBad.push(`${f}: expected top-level file missing from the page`);
+    r.expect(treeCode && treeBad.length === 0, `the case study's Framework Architecture tree lists exactly the files under ${rb.treeFolders.join(' and ')} at ${ex.repos['restful-booker'].sha}, and nothing that does not exist`, treeBad.slice(0, 3).join(' | ') || `${listed.size} files`);
+
+    // status codes: per operation, recounted from the specs
+    const derived = {};
+    const claimedTests = [];
+    for (const o of rb.operations) {
+      derived[o.op] = {};
+      for (const id of o.tests) {
+        const body = rbBody(id);
+        if (body === null) { treeBad.push(`${id}: not a tagged RESTful Booker test`); continue; }
+        claimedTests.push(id);
+        for (const c of new Set(codesOf(body))) derived[o.op][c] = (derived[o.op][c] || 0) + 1;
+      }
+    }
+    const asserting = rbTests.map((t) => `${t.file}:${t.line}`).filter((id) => codesOf(rbBody(id)).length > 0);
+    const missingOps = asserting.filter((id) => !claimedTests.includes(id));
+    const extraOps = claimedTests.filter((id) => !asserting.includes(id));
+    r.expect(asserting.length === rb.statusAssertingTests && !missingOps.length && !extraOps.length && new Set(claimedTests).size === claimedTests.length,
+      `${asserting.length} RESTful Booker tests assert a status code, and every one belongs to exactly one operation in expected.json`, `${asserting.length} tests; unassigned: ${missingOps.join(',') || 'none'}; not asserting: ${extraOps.join(',') || 'none'}`);
+    const block = /<div class="strategy-item" id="status-codes"[\s\S]*?<\/div>/.exec(rbHtml);
+    const pageOps = {};
+    if (block) for (const li of block[0].matchAll(/<li><code>([^<]+)<\/code>:([^<]*)<\/li>/g)) { pageOps[li[1]] = {}; for (const c of li[2].matchAll(/(\d{3}) \((\d+) tests?\)/g)) pageOps[li[1]][c[1]] = Number(c[2]); }
+    const opBad = [];
+    for (const o of rb.operations) if (JSON.stringify(Object.entries(pageOps[o.op] || {}).sort()) !== JSON.stringify(Object.entries(derived[o.op]).sort())) opBad.push(`${o.op}: page ${JSON.stringify(pageOps[o.op] || null)}, repo ${JSON.stringify(derived[o.op])}`);
+    for (const op of Object.keys(pageOps)) if (!rb.operations.some((o) => o.op === op)) opBad.push(`${op}: on the page, not an operation the specs assert on`);
+    r.expect(block && opBad.length === 0, 'the Status Code Validation list equals the per-operation counts recomputed from the specs', opBad.slice(0, 2).join(' | ') || Object.entries(derived).map(([op, c]) => `${op} ${Object.keys(c).join('/')}`).join('; '));
+    const allCodes = new Set(Object.values(derived).flatMap((c) => Object.keys(c)));
+    const inBlock = new Set(block ? [...block[0].matchAll(/(?<![\d])([1-5]\d\d)(?![\d])/g)].map((m) => m[1]) : []);
+    const noUnreferenced = [...inBlock].filter((c) => !allCodes.has(c));
+    const no401 = !allCodes.has('401');
+    r.expect(noUnreferenced.length === 0 || (noUnreferenced.length === 1 && noUnreferenced[0] === '401' && /No test asserts a 401/.test(rbText) && no401),
+      'the status-code block names no code that no test asserts (a 401 only inside "No test asserts a 401", which the repo confirms)', noUnreferenced.join(', ') || `${[...allCodes].sort().join(', ')} only`);
+    const claim = `${asserting.length} of the ${counted['restful-booker']} tests assert a status code`;
+    r.expect(rbText.includes(claim) && rbText.includes(`Status codes (${asserting.length} of the ${counted['restful-booker']} tests)`), `the page says "${claim}" and repeats it under Assertions`, rbText.includes(claim) ? 'found' : 'NOT found');
+
+    // test data and raw requests
+    const dataFile = repos.readRepoFile(dirRb, 'src/api/test-data/booking-data.ts');
+    const exported = [...dataFile.matchAll(/export const (\w+)/g)].map((m) => m[1]);
+    const specText = onDisk.filter((f) => f.startsWith('tests/')).map((f) => repos.readRepoFile(dirRb, f)).join('\n');
+    const unused = exported.filter((n) => !new RegExp(`\\b${n}\\b`).test(specText));
+    const used = exported.filter((n) => !unused.includes(n));
+    const dataBad = [];
+    if (JSON.stringify(exported) !== JSON.stringify(rb.sampleBookings.exported) || JSON.stringify(unused) !== JSON.stringify(rb.sampleBookings.unused)) dataBad.push(`repo exports ${exported.join(',')}, unused ${unused.join(',') || 'none'}`);
+    for (const n of used) if (!rbText.includes(n)) dataBad.push(`${n} is used by the specs but not named on the page`);
+    for (const n of unused) if (!new RegExp(`${n} is not used`).test(rbText)) dataBad.push(`${n} is unused but the page does not say so`);
+    if (/fixtures/i.test(rbText) && !/no Playwright fixtures/.test(rbText)) dataBad.push('the page mentions fixtures without saying there are none');
+    r.expect(dataBad.length === 0 && !fs.existsSync(path.join(dirRb, 'tests/fixtures.ts')), `the Centralized Test Data bullet matches booking-data.ts (${exported.length} exports, ${unused.length} unused) and the repo has no fixtures`, dataBad.join(' | ') || `${used.join(', ')} used; ${unused.join(', ')} unused`);
+    const raw = (specText.match(/request\.(?:get|post|put|patch|delete)\(/g) || []).length;
+    r.expect(raw === rb.rawRequestTests && rbText.includes('Four tests send a raw request'), `${raw} tests send a raw request instead of a client method, and the page says so`, `${raw} raw calls`);
+    const forbidden = rb.forbiddenPhrases.filter((p) => rbText.toLowerCase().includes(p.toLowerCase()));
+    r.expect(forbidden.length === 0, 'the case study contains none of the phrases removed for overclaiming', forbidden.join(', ') || 'clean');
+  }
 
   // ------------------------------------------------------------------ page rules
   const models = await ctx.models();

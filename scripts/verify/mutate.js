@@ -130,6 +130,27 @@ const MUTATIONS = [
     expect: [21],
     apply: () => edit('api-testing/index.html', (t) => t.replace('blob/a385240/tests/api/auth.spec.ts#L14-L20"', 'blob/1e7f137/tests/api/auth.spec.ts#L14-L20"')),
   },
+  {
+    name: 'a 401 appears in the RESTful Booker status-code list',
+    detail: 'the /ping line of the case study says 401 instead of 201, a code no test asserts',
+    files: ['projects/restful-booker-api-automation/index.html'],
+    expect: [21],
+    apply: () => edit('projects/restful-booker-api-automation/index.html', (t) => t.replace('<li><code>GET /ping</code>: 201 (1 test)</li>', '<li><code>GET /ping</code>: 401 (1 test)</li>')),
+  },
+  {
+    name: 'architecture tree names a file that does not exist',
+    detail: 'booking.types.ts in the case study tree changed to booking.ts',
+    files: ['projects/restful-booker-api-automation/index.html'],
+    expect: [21],
+    apply: () => edit('projects/restful-booker-api-automation/index.html', (t) => t.replace('└── booking.types.ts', '└── booking.ts')),
+  },
+  {
+    name: 'the "fixtures" claim comes back',
+    detail: 'the Centralized Test Data bullet says "Consistent fixtures shared across all suites" again',
+    files: ['projects/restful-booker-api-automation/index.html'],
+    expect: [21],
+    apply: () => edit('projects/restful-booker-api-automation/index.html', (t) => t.replace('There are no Playwright fixtures: each test creates its own bookings.', 'Consistent fixtures shared across all suites.')),
+  },
 ];
 
 function runChecks(ids, label) {

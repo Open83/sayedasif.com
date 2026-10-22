@@ -80,5 +80,25 @@
     ],
     "linksTo": ["/services/", "/projects/restful-booker-api-automation/", "/blog/api-testing-best-practices/", "/proof-of-work/"],
     "bannedWords": "comprehensive|robust|seamless|industry-leading|cutting-edge|passionate|world-class|\\bexpert|best practices"
+  },
+
+  "restfulBookerCaseStudy": {
+    "_comment": "What the RESTful Booker case study says about the layout, status codes and test data, written down independently and recomputed from the repo at a385240 (check 21). Tests are file:line of the test( call, as in api-tagging.json.",
+    "page": "/projects/restful-booker-api-automation/",
+    "statusAssertingTests": 22,
+    "operations": [
+      { "op": "GET /ping", "tests": ["api/health-check.spec.ts:5"] },
+      { "op": "POST /auth", "tests": ["api/auth.spec.ts:28", "api/auth.spec.ts:37", "api/negative-testing.spec.ts:82"] },
+      { "op": "POST /booking", "tests": ["api/booking-create.spec.ts:56", "api/booking-create.spec.ts:72", "api/negative-testing.spec.ts:87"] },
+      { "op": "GET /booking/{id}", "tests": ["api/booking-read.spec.ts:53", "api/booking-read.spec.ts:59", "api/negative-testing.spec.ts:77", "api/booking-delete.spec.ts:28", "api/workflow.spec.ts:10", "api/workflow.spec.ts:49"] },
+      { "op": "PUT /booking/{id}", "tests": ["api/booking-update.spec.ts:40", "api/booking-update.spec.ts:46", "api/booking-update.spec.ts:59", "api/negative-testing.spec.ts:64"] },
+      { "op": "PATCH /booking/{id}", "tests": ["api/booking-partial-update.spec.ts:74"] },
+      { "op": "DELETE /booking/{id}", "tests": ["api/booking-delete.spec.ts:38", "api/booking-delete.spec.ts:46", "api/booking-delete.spec.ts:54", "api/booking-delete.spec.ts:59"] }
+    ],
+    "treeTopLevelFiles": ["playwright.config.ts", ".github/workflows/playwright.yml"],
+    "treeFolders": ["src/api", "tests/api"],
+    "rawRequestTests": 4,
+    "sampleBookings": { "exported": ["validBooking", "validBooking2", "updatedBooking", "bookingWithoutAdditionalNeeds"], "unused": ["validBooking2"] },
+    "forbiddenPhrases": ["proper HTTP semantics", "Meaningful Assertions", "fixtures shared", "comprehensive"]
   }
 }

@@ -961,7 +961,7 @@
             <div class="container">
                 <div class="content-section">
                     <h2>HTTP Methods Coverage</h2>
-                    <p>The framework tests all standard REST operations with proper HTTP semantics:</p>
+                    <p>The tests send GET, POST, PUT, PATCH and DELETE requests. They pin the status codes RESTful Booker actually returns, listed under Testing Strategy below. Some are not the textbook code: a PUT or DELETE on a booking that does not exist gets 405, and a failed login gets 200.</p>
                     <div class="methods-grid">
                         <div class="method-card">
                             <div class="method-name">GET</div>
@@ -994,9 +994,19 @@
                 <div class="content-section">
                     <h2>Testing Strategy</h2>
                     <div class="strategy-grid">
-                        <div class="strategy-item">
+                        <div class="strategy-item" id="status-codes" style="grid-column: 1 / -1;">
                             <strong>Status Code Validation</strong>
-                            <p>Verify correct HTTP responses (200, 201, 400, 401, 404) for each operation</p>
+                            <p>22 of the 47 tests assert a status code. These are all the codes asserted, by request, with the number of tests that assert each:</p>
+                            <ul style="list-style: none; margin: 10px 0; padding: 0; font-size: 0.85rem; line-height: 1.8; color: var(--muted);">
+                                <li><code>GET /ping</code>: 201 (1 test)</li>
+                                <li><code>POST /auth</code>: 200 (3 tests)</li>
+                                <li><code>POST /booking</code>: 200 (1 test), 500 (2 tests)</li>
+                                <li><code>GET /booking/{id}</code>: 404 (6 tests)</li>
+                                <li><code>PUT /booking/{id}</code>: 400 (1 test), 403 (2 tests), 405 (1 test)</li>
+                                <li><code>PATCH /booking/{id}</code>: 403 (1 test)</li>
+                                <li><code>DELETE /booking/{id}</code>: 403 (2 tests), 405 (2 tests)</li>
+                            </ul>
+                            <p>No test asserts a 401. The status of a successful create, update, patch or delete is not asserted either, because the client helpers that return a parsed body do not check it. The 200 on <code>POST /auth</code> is a failed login (the body carries a reason), and the 500 is a booking missing a required field.</p>
                         </div>
                         <div class="strategy-item">
                             <strong>Response Structure</strong>
@@ -1028,23 +1038,30 @@
             <div class="container">
                 <div class="content-section">
                     <h2>Framework Architecture</h2>
-                    <p>The codebase uses professional patterns for maintainability and reusability:</p>
+                    <p>The layout of the repository at the pinned commit (<code>a385240</code>): client classes, models and test data under <code>src/api</code>, and one spec file per area under <code>tests/api</code>.</p>
                     <div class="architecture-box">
-                        <code>tests/api/
-├── suites/
-│   ├── health.spec.ts
-│   ├── auth.spec.ts
-│   ├── create.spec.ts
-│   └── ... (6 more suites)
+                        <code>src/api/
 ├── clients/
-│   ├── api-client.ts (base)
+│   ├── api-client.ts        (base class)
 │   ├── auth-client.ts
 │   └── booking-client.ts
 ├── models/
-│   ├── booking.ts
-│   └── auth.ts
-└── fixtures/
-    └── test-data.ts</code>
+│   └── booking.types.ts
+├── test-data/
+│   └── booking-data.ts
+└── config.ts
+tests/api/
+├── auth.spec.ts
+├── booking-create.spec.ts
+├── booking-delete.spec.ts
+├── booking-partial-update.spec.ts
+├── booking-read.spec.ts
+├── booking-update.spec.ts
+├── health-check.spec.ts
+├── negative-testing.spec.ts
+└── workflow.spec.ts
+playwright.config.ts
+.github/workflows/playwright.yml</code>
                     </div>
                     <p style="margin-top: 20px;">
                         <strong>Key Design Principles:</strong>
@@ -1052,23 +1069,23 @@
                     <ul style="list-style: none; padding: 0; margin: 15px 0;">
                         <li style="padding: 8px 0; padding-left: 28px; position: relative; color: var(--text);">
                             <span aria-hidden="true" style="position: absolute; left: 0; color: var(--brand-accent-text); font-weight: 800;">✓</span>
-                            <strong>Reusable API Clients</strong> — Eliminates duplication across test suites
+                            <strong>Reusable API Clients</strong> — A base <code>APIClient</code> holds the HTTP calls and headers; <code>AuthClient</code> and <code>BookingClient</code> add one named method per endpoint. Four tests send a raw request instead: the health check, two malformed booking IDs and a PATCH without a token.
                         </li>
                         <li style="padding: 8px 0; padding-left: 28px; position: relative; color: var(--text);">
                             <span aria-hidden="true" style="position: absolute; left: 0; color: var(--brand-accent-text); font-weight: 800;">✓</span>
-                            <strong>TypeScript Interfaces</strong> — Type-safe test data and response validation
+                            <strong>TypeScript Interfaces</strong> — <code>booking.types.ts</code> defines interfaces for a booking and the two responses, which type the test data and the client methods. They are checked at compile time only; nothing validates a response against them at run time.
                         </li>
                         <li style="padding: 8px 0; padding-left: 28px; position: relative; color: var(--text);">
                             <span aria-hidden="true" style="position: absolute; left: 0; color: var(--brand-accent-text); font-weight: 800;">✓</span>
-                            <strong>Centralized Test Data</strong> — Consistent fixtures shared across all suites
+                            <strong>Centralized Test Data</strong> — <code>src/api/test-data/booking-data.ts</code> exports four sample bookings. The specs use three of them (<code>validBooking</code>, <code>updatedBooking</code> and <code>bookingWithoutAdditionalNeeds</code>); <code>validBooking2</code> is not used. There are no Playwright fixtures: each test creates its own bookings.
                         </li>
                         <li style="padding: 8px 0; padding-left: 28px; position: relative; color: var(--text);">
                             <span aria-hidden="true" style="position: absolute; left: 0; color: var(--brand-accent-text); font-weight: 800;">✓</span>
-                            <strong>Clean Test Organization</strong> — Each suite targets specific endpoint or workflow
+                            <strong>Clean Test Organization</strong> — One spec file per operation (create, read, update, partial update, delete), plus health check, authentication, negative cases and workflows: nine files under <code>tests/api</code>.
                         </li>
                         <li style="padding: 8px 0; padding-left: 28px; position: relative; color: var(--text);">
                             <span aria-hidden="true" style="position: absolute; left: 0; color: var(--brand-accent-text); font-weight: 800;">✓</span>
-                            <strong>Assertions</strong> — Status codes, response fields and a read-back after writes. Three negative tests cannot fail and the delete test checks only that the reply is truthy (see Negative Testing below).
+                            <strong>Assertions</strong> — Status codes (22 of the 47 tests), response fields and a read-back after writes. Three negative tests cannot fail and the delete test checks only that the reply is truthy (see Negative Testing below).
                         </li>
                     </ul>
                 </div>
@@ -1114,7 +1131,7 @@
             <div class="container">
                 <div class="content-section">
                     <h2>Evidence & Verification</h2>
-                    <p>Source code, tests and the CI workflow are public on GitHub. CI run logs require a GitHub sign-in, and the report artifacts (30-day retention) have expired.</p>
+                    <p>Source code, tests and the CI workflow are public on GitHub. CI run logs and report artifacts need a GitHub sign-in. Artifacts are kept for 30 days, so those from the 10 September runs have expired.</p>
                     <div class="evidence-grid">
                         <div class="evidence-card">
                             <div class="evidence-icon">
