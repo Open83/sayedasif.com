@@ -28,7 +28,7 @@
     <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
     <meta property="og:site_name" content="Sayed Asif">
     <meta property="article:published_time" content="2026-09-11">
-    <meta property="article:modified_time" content="2026-10-16">
+    <meta property="article:modified_time" content="2026-10-22">
     <meta property="article:author" content="Sayed Asif">
 
     <!-- Twitter -->
@@ -61,7 +61,7 @@
             "url": "https://sayedasif.com/"
         },
         "datePublished": "2026-09-11",
-        "dateModified": "2026-10-16",
+        "dateModified": "2026-10-22",
         "articleSection": "API Testing",
         "keywords": [
             "API Testing",
@@ -555,7 +555,7 @@ use: {
                     &ldquo;fix: align CI Node version with Playwright&rdquo;, passed. That commit message is my only
                     evidence for the cause, because GitHub Actions logs need a sign-in to read, so treat it as the
                     likely cause, not a documented root cause. Retries are also a reason to read a green run carefully:
-                    with one retry configured, a pass does not by itself show that no test needed it.
+                    with one retry configured, a pass does not by itself show that no test needed it. A later run on 22 October 2026 (commit 1e7f137, which only added a manual workflow trigger) passed; by my reading of its job log, no test was retried.
                 </p>
 
                 <h2>What this suite does not cover</h2>

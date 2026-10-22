@@ -732,8 +732,8 @@
                 </p>
                 <p class="hero-description">
                     An independent API test automation case study using Playwright and TypeScript to test
-                    the public RESTful Booker demo API, demonstrating API validation, comprehensive test
-                    coverage, and CI/CD integration.
+                    the public RESTful Booker demo API: authentication, booking create, read, update and
+                    delete, negative cases and multi-step workflows, run in GitHub Actions.
                 </p>
                 <div class="hero-actions">
                     <a href="https://github.com/Open83/restful-booker-api-automation" target="_blank" rel="noopener noreferrer" class="button button-primary">
@@ -788,14 +788,14 @@
                         <span class="proof-title">Test Results</span>
                         <span class="passed-badge">
                             <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-check"/></svg></i>
-                            PASSED IN CI, 10 SEP 2026
+                            PASSED IN CI, 22 OCT 2026
                         </span>
                     </div>
                     <div class="big-result">
                         <strong>47</strong>
                         <span>Automated Tests</span>
                     </div>
-                    <div class="result-label">Last CI run: <a href="https://github.com/Open83/restful-booker-api-automation/actions/runs/34451015772" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">10 Sep 2026, commit a385240</a>, passed with 0 failed. CI allows 1 retry. This is a historical result, not a current execution status.</div>
+                    <div class="result-label">Last CI run: <a href="https://github.com/Open83/restful-booker-api-automation/actions/runs/39747765779" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">22 Oct 2026, commit 1e7f137</a>, passed with 0 failed. My reading of the job log is that 47 passed and no test was retried; job logs need a GitHub sign-in, so you cannot check that part. CI allows 1 retry. That commit only added a manual workflow trigger, so the test code is the same as at a385240, the commit the code excerpts on this page are taken from. This is a historical result, not a current execution status.</div>
                     <div class="proof-grid">
                         <div class="proof-stat">
                             <strong>Playwright</strong>
@@ -825,7 +825,7 @@
                     <h2>Project Context</h2>
                     <p>
                         This is an <strong>independent, public QA automation project</strong> built to show how I structure and run API tests.
-                        It provides comprehensive testing of the RESTful Booker API—a public booking/reservation system designed for API testing practice.
+                        The target is the RESTful Booker API, a public booking system designed for API testing practice.
                     </p>
                     <p>
                         The project prioritizes code quality, maintainability, and clarity. It demonstrates how to design reusable API clients,
@@ -1121,7 +1121,7 @@
                                 <i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>
                             </div>
                             <h3>Source Code</h3>
-                            <p>Complete Playwright Test framework with API clients, fixtures, models, and comprehensive test specifications.</p>
+                            <p>The Playwright Test project: API client classes, models, test data and the 47 test definitions.</p>
                             <a href="https://github.com/Open83/restful-booker-api-automation" target="_blank" rel="noopener noreferrer" class="evidence-link">
                                 View Repository →
                             </a>
@@ -1131,7 +1131,7 @@
                                 <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#circle-play"/></svg></i>
                             </div>
                             <h3>CI/CD Execution</h3>
-                            <p>GitHub Actions workflow that runs the tests on every push and pull request to main. Its run history has 2 runs, both on 10 September 2026. Job logs require a GitHub sign-in.</p>
+                            <p>GitHub Actions workflow that runs the tests on every push and pull request to main. Its run history has 3 runs: two on 10 September 2026 (the first failed, the second passed) and one on 22 October 2026 (passed; by my reading of its job log, no retry). Job logs require a GitHub sign-in.</p>
                             <a href="https://github.com/Open83/restful-booker-api-automation/actions" target="_blank" rel="noopener noreferrer" class="evidence-link">
                                 View CI Run History →
                             </a>
