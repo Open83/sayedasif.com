@@ -4,9 +4,13 @@
  *   - a compact layout (viewBox 640x600) with larger labels, shown instead when the cover's container
  *     is narrower than 560px (CSS container query; the wrapper needs container-type:inline-size)
  *
- *  Both: role="img" with <title> and <desc>, no external fonts or assets, one accent colour per project.
+ *  Both: role="img" with <title> and <desc>, no external assets. Type follows the site (Source Serif 4 titles,
+ *  IBM Plex Sans labels, IBM Plex Mono figures; the fonts come from the page's /assets/css/site.css, and fall
+ *  back to system faces in a standalone file). One brand palette for every project (Porcelain + Deep Teal + Ink),
+ *  so a cover differs by its content, not by a colour.
  *  Colours come from CSS custom properties (--cv-*). The light palette is the default and light-dark()
- *  switches to the dark palette when the surrounding page uses a dark colour scheme.
+ *  switches to the dark palette when the surrounding page uses a dark colour scheme. Text pairs are >= 4.5:1
+ *  and arrows >= 3:1 in both palettes (scripts/verify check 17).
  */
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -20,26 +24,28 @@ function css(p, kind) {
   const cls = `cv-${p.slug}`;
   const k = `.${cls}.cv-${kind}`;
   const common = `
-:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
+:where(.cv){font-family:"IBM Plex Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif;--cv-serif:"Source Serif 4",Georgia,serif;--cv-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;--cv-bg:#eff4f0;--cv-card:#fff;--cv-line:#b5c4bd;--cv-fg:#182522;--cv-mute:#53635f;--cv-on:#fff}
 :where(.${cls}){--cv-accent:${c.accent};--cv-soft:${c.soft}}
-@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.${cls}){--cv-accent:light-dark(${c.accent},${c.accentDark});--cv-soft:light-dark(${c.soft},${c.softDark})}}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#eff4f0,#141d1a);--cv-card:light-dark(#fff,#1a2521);--cv-line:light-dark(#b5c4bd,#3e504a);--cv-fg:light-dark(#182522,#eef3f0);--cv-mute:light-dark(#53635f,#a3b3ad);--cv-on:light-dark(#fff,#0e1513)}:where(.${cls}){--cv-accent:light-dark(${c.accent},${c.accentDark});--cv-soft:light-dark(${c.soft},${c.softDark})}}
 ${k}{display:block;width:100%;height:auto}
 ${k} .bg{fill:var(--cv-bg)}${k} .stripe{fill:var(--cv-accent)}${k} .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
 ${k} .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}${k} .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
 ${k} .badge{fill:var(--cv-accent)}${k} .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}${k} .head{fill:var(--cv-accent)}
 ${k} text{fill:var(--cv-fg);font-weight:600}
-${k} .mute{fill:var(--cv-mute);font-weight:500}${k} .num{fill:var(--cv-on);font-size:18px;font-weight:800}`;
+${k} .mute{fill:var(--cv-mute);font-weight:500}${k} .num{fill:var(--cv-on);font-family:var(--cv-mono);font-size:17px;font-weight:500}
+${k} .title{font-family:var(--cv-serif);font-weight:600;letter-spacing:-0.5px}${k} .count{font-family:var(--cv-mono);font-weight:500;letter-spacing:-2px}
+${k} .countl,${k} .sub,${k} .stack,${k} .dom,${k} .ns{font-family:var(--cv-mono);font-weight:400}`;
   if (kind === 'wide') {
     return (common + `
-${k} .eyebrow{fill:var(--cv-accent);font-size:24px;font-weight:700;letter-spacing:2.4px}
-${k} .title{font-size:58px;font-weight:800}${k} .count{fill:var(--cv-accent);font-size:150px;font-weight:800}${p.side ? `${k} .big{fill:var(--cv-accent);font-size:64px;font-weight:800}` : ''}
-${k} .countl{font-size:32px}${k} .sub{font-size:26px}${k} .stack{font-size:28px}${k} .cap{font-size:26px}${k} .dom{font-size:22px}
-${k} .nl{font-size:32px;font-weight:700}${k} .ns{font-size:21px}
+${k} .eyebrow{fill:var(--cv-accent);font-family:var(--cv-mono);font-size:22px;font-weight:500;letter-spacing:2px}
+${k} .title{font-size:60px}${k} .count{fill:var(--cv-accent);font-size:148px}${p.side ? `${k} .big{fill:var(--cv-accent);font-family:var(--cv-serif);font-size:64px;font-weight:600}` : ''}
+${k} .countl{font-size:26px}${k} .sub{font-size:22px}${k} .stack{font-size:23px}${k} .cap{font-size:25px;font-weight:500}${k} .dom{font-size:20px}
+${k} .nl{font-size:31px;font-weight:600}${k} .ns{font-size:19px}
 @container (max-width:559px){${k}{display:none}}`).trim();
   }
   return (common + `
-${k} .title{font-size:54px;font-weight:800}${k} .count{fill:var(--cv-accent);font-size:100px;font-weight:800}
-${k} .countl{font-size:32px}${k} .sub{font-size:24px}${k} .stack{font-size:22px}${k} .nl{font-size:30px;font-weight:700}
+${k} .title{font-size:54px}${k} .count{fill:var(--cv-accent);font-size:100px}
+${k} .countl{font-size:26px}${k} .sub{font-size:22px}${k} .stack{font-size:20px}${k} .nl{font-size:30px;font-weight:600}
 ${k}{display:none}
 @container (max-width:559px){${k}{display:block}}`).trim();
 }
@@ -96,9 +102,9 @@ function renderNarrow(p, opts = {}) {
   o.push(`<rect class="bg" width="${NARROW.w}" height="${NARROW.h}"/><rect class="stripe" width="14" height="${NARROW.h}"/>`);
   p.title.forEach((t, i) => o.push(`<text class="title" x="40" y="${88 + i * 58}">${esc(t)}</text>`));
   const countY = 304;
-  const digits = String(p.count).length;
+  const digits = String(p.count).length; // Plex Mono digits are 0.6em wide; 100px count, -2px tracking
   o.push(`<text class="count" x="40" y="${countY}">${p.count}</text>`);
-  o.push(`<text class="countl" x="${40 + digits * 58 + 18}" y="${countY}">test definitions</text>`);
+  o.push(`<text class="countl" x="${40 + digits * 58 + 20}" y="${countY}">test definitions</text>`);
   o.push(`<text class="sub mute" x="40" y="${countY + 40}">${esc(p.countSub)}</text>`);
   o.push(`<text class="stack mute" x="40" y="${countY + 80}">${esc(p.stack)}</text>`);
   const pos = (i) => (i < 3 ? { x: NN.x0 + i * (NN.w + NN.gap), y: NN.y1 } : { x: NN.x0 + (i - 3) * (NN.w + NN.gap), y: NN.y2 });

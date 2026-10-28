@@ -68,11 +68,20 @@ if (ogArg) {
     const sharp = req('sharp');
     const outDir = path.join(ROOT, 'image', 'og');
     fs.mkdirSync(outDir, { recursive: true });
+    // the site's own fonts, inlined so the social image uses the same faces as the page
+    const font = (family, file, weight) => `@font-face{font-family:"${family}";font-weight:${weight};src:url(data:font/woff2;base64,${fs.readFileSync(path.join(ROOT, 'assets', 'fonts', file)).toString('base64')}) format("woff2")}`;
+    const fonts = [
+      font('Source Serif 4', 'source-serif-4-latin-wght.woff2', '200 900'),
+      font('IBM Plex Sans', 'ibm-plex-sans-latin-wght.woff2', '100 700'),
+      font('IBM Plex Mono', 'ibm-plex-mono-latin-400.woff2', '400'),
+      font('IBM Plex Mono', 'ibm-plex-mono-latin-500.woff2', '500 700'),
+    ].join('');
     const browser = await chromium.launch();
     try {
       for (const p of targets) {
         const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
-        await page.setContent(`<!doctype html><meta charset="utf-8"><body style="margin:0;background:#fff">${renderWide(p, { standalone: true })}</body>`);
+        await page.setContent(`<!doctype html><meta charset="utf-8"><style>${fonts}</style><body style="margin:0;background:#fff">${renderWide(p, { standalone: true })}</body>`);
+        await page.evaluate(() => document.fonts.ready);
         const png = await page.screenshot({ clip: { x: 0, y: 0, width: 1200, height: 630 } });
         const file = path.join(outDir, `${p.slug}.png`);
         await sharp(png).png({ palette: true, quality: 90, effort: 10 }).toFile(file);

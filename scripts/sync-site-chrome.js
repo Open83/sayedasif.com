@@ -29,7 +29,7 @@ const NAV = [
   { label: 'Services', href: '/services/', match: (u) => u === '/services/' },
   { label: 'Blog', href: '/blog/', match: (u) => u === '/blog/' || u.startsWith('/blog/') },
   { label: 'Resume', href: '/resume/', match: (u) => u === '/resume/' || u.startsWith('/resume/') },
-  { label: 'Contact', href: '/contact/', match: (u) => u === '/contact/' },
+  { label: 'Contact', href: '/contact/', match: (u) => u === '/contact/', cta: true },
 ];
 
 const FOOTER_NAV = [
@@ -53,7 +53,8 @@ function header(url) {
   const links = NAV.map((item) => {
     const here = item.match(url);
     const exact = item.href === url;
-    const attrs = here ? (exact ? ' class="active" aria-current="page"' : ' class="active"') : '';
+    const cls = [item.cta ? 'nav-cta' : '', here ? 'active' : ''].filter(Boolean).join(' ');
+    const attrs = (cls ? ` class="${cls}"` : '') + (exact ? ' aria-current="page"' : '');
     return `                <a href="${item.href}"${attrs}>${item.label}</a>`;
   }).join('\n');
   return `    <header class="site-header">
@@ -72,6 +73,12 @@ function header(url) {
             <div class="nav-links" id="navLinks">
 ${links}
             </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
 
         </div>
 
@@ -143,6 +150,33 @@ function withActionsScript(text, rel) {
   return { text: cleaned.replace(NAV_SCRIPT, `${NAV_SCRIPT}\n    ${ACTIONS_SCRIPT}`) };
 }
 
+// Shared <head> assets, written directly before the global-nav.css link on every page:
+// colour-scheme hint, font preloads (the two faces used above the fold), the design system and the
+// theme script. theme.js is NOT deferred: it applies a stored light/dark choice before the first paint.
+const NAV_CSS = '<link rel="stylesheet" href="/assets/css/global-nav.css">';
+const HEAD_ASSETS = [
+  '<meta name="color-scheme" content="light dark">',
+  '<meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">',
+  '<meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">',
+  '<link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>',
+  '<link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>',
+  '<link rel="stylesheet" href="/assets/css/site.css">',
+  '<script src="/assets/js/theme.js"></script>',
+];
+
+function withHeadAssets(text, rel) {
+  // drop any earlier copy (and the old single-line or multi-line color-scheme meta), then write one block
+  let t = text.replace(/^[ \t]*<meta\s+name="(?:color-scheme|theme-color)"\s+content="[^"]*"(?:\s+media="[^"]*")?\s*>\n/gm, '');
+  for (const line of HEAD_ASSETS) t = t.split(`    ${line}\n`).join('');
+  const n = t.split(NAV_CSS).length - 1;
+  if (n !== 1) return { error: `${rel}: expected exactly one global-nav.css stylesheet link, found ${n}` };
+  const head = t.slice(0, t.indexOf('</head>')).replace(/<style>[\s\S]*?<\/style>/g, '').replace(/<!--[\s\S]*?-->/g, '');
+  if (/name="(?:color-scheme|theme-color)"/.test(head)) {
+    return { error: `${rel}: a color-scheme or theme-color meta in an unexpected format is still in <head>` };
+  }
+  return { text: t.replace(NAV_CSS, HEAD_ASSETS.join('\n    ') + '\n    ' + NAV_CSS) };
+}
+
 // Pages that intentionally have no shared header/footer (standalone documents).
 // Any OTHER page without them is treated as an error, not silently skipped.
 const STANDALONE = new Set([]);
@@ -212,6 +246,9 @@ for (const file of walk(ROOT, []).sort()) {
   const withScript = withActionsScript(t, rel);
   if (withScript.error) { errors.push(withScript.error); continue; }
   t = withScript.text;
+  const withHead = withHeadAssets(t, rel);
+  if (withHead.error) { errors.push(withHead.error); continue; }
+  t = withHead.text;
   const out = crlf ? t.replace(/\n/g, '\r\n') : t;
   if (out === raw) same++;
   else plan.push({ file, rel, out });
