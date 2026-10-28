@@ -16,8 +16,6 @@
 
     <link rel="canonical" href="https://sayedasif.com/contact/">
 
-    <meta name="theme-color" content="#00baf2">
-    <meta name="color-scheme" content="light">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Contact | Sayed Asif – Software QA Engineer in Mumbai">
@@ -69,461 +67,344 @@
     </script>
 
     <!-- Global header/footer styles (single source of truth) -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="/assets/css/global-nav.css">
 
     <style>
-        /* =====================================================
-           COLOR SYSTEM
-        ===================================================== */
 
-        :root {
-            --bg-main: #ffffff;
-            --bg-secondary: #f0f4f8;
-            --bg-highlight: #e0f7ff;
+        /* =========================================================
+           CONTACT: page layout only.
+           Tokens, type, buttons, forms, status messages and the FAQ
+           disclosure live in /assets/css/site.css; header and footer in
+           global-nav.css. No colour values here: tokens only.
 
-            --brand-primary: #00baf2;
-            --brand-dark: #314259;
-            --brand-text: #314259;
+           Composition: the final conversion point.
+             1. Soft Mint band (the page's one loud moment): statement and
+                availability left, the form as the single white document
+                right, direct channels as a ruled list under the statement.
+                Mobile order: statement, form, channels.
+             2. FAQ: sticky head left, ruled disclosures right.
+        ========================================================= */
 
-            --gradient-brand: linear-gradient(135deg, #00baf2 0%, #0088cc 100%);
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 10px 25px rgba(0, 186, 242, 0.15);
-            --border-light: 1px solid #e2e8f0;
+
+        /* =========================================================
+           1. CONTACT BAND
+        ========================================================= */
+
+        .contact-band {
+            padding-top: calc(var(--header-h) + clamp(2.5rem, 1.25rem + 4vw, 5rem));
+            padding-bottom: var(--section-y);
+            background: var(--color-surface-soft);
         }
 
-        /* =====================================================
-           RESET
-        ===================================================== */
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--brand-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        img { max-width: 100%; display: block; }
-        a { color: inherit; text-decoration: none; }
-        button, a { -webkit-tap-highlight-color: transparent; }
-
-        h1, h2, h3, h4 { color: var(--brand-dark); font-weight: 700; }
-        p { color: var(--brand-text); }
-
-        ::selection { background: var(--brand-accent-text); color: #ffffff; }
-        /* :focus-visible now lives in /assets/css/global-nav.css */
-
-        /* =====================================================
-           CONTAINER
-        ===================================================== */
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-
-        /* =====================================================
-           MAIN CONTENT
-        ===================================================== */
-
-        main {
-            min-height: 100vh;
-            padding-top: 100px;
-            padding-bottom: 60px;
-        }
-
-        .contact-hero {
-            text-align: center;
-            margin-bottom: 60px;
-            padding: 40px 20px;
-        }
-
-        .contact-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-
-        .contact-hero p {
-            font-size: 1.1rem;
-            color: #5f6b79;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* =====================================================
-           CONTACT SECTION
-        ===================================================== */
-
-        .contact-wrapper {
+        .contact-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 60px;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            grid-template-areas:
+                "statement form"
+                "channels  form";
+            grid-template-rows: auto 1fr;
+            gap: var(--space-7) var(--space-9);
             align-items: start;
         }
 
-        /* Form Styling */
-        .contact-form {
-            background: var(--bg-secondary);
-            padding: 40px;
-            border-radius: 12px;
-            border: var(--border-light);
+        .contact-statement { grid-area: statement; }
+        .contact-form { grid-area: form; }
+        .contact-channels { grid-area: channels; }
+
+        .contact-statement .kicker {
+            color: var(--color-link);
         }
 
-        .form-group {
-            margin-bottom: 24px;
+        .contact-statement h1 {
+            font-size: var(--text-display);
+            line-height: 1;
         }
 
-        .form-group:last-child {
-            margin-bottom: 0;
+        .contact-lede {
+            max-width: 44ch;
+            margin-top: var(--space-5);
+            font-size: var(--text-md);
+            line-height: 1.7;
+            color: var(--color-text);
         }
 
-        label {
-            display: block;
+        .contact-lede a {
             font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--brand-dark);
-            font-size: 0.95rem;
         }
 
-        input[type="text"],
-        input[type="email"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: var(--border-light);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 1rem;
-            color: var(--brand-text);
-            background: var(--bg-main);
-            transition: 0.2s;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        select:focus,
-        textarea:focus {
-            outline: none;
-            border-color: var(--brand-accent-text);
-            box-shadow: 0 0 0 3px rgba(0, 120, 156, 0.25);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 140px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-            padding: 13px 32px;
-            border-radius: 8px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 0.95rem;
-            width: 100%;
-        }
-
-        .btn-primary {
-            background: var(--brand-accent-text);
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: #0096d9;
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .success-message {
-            display: none;
-            background: #dcfce7;
-            color: #166534;
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #22c55e;
-        }
-
-        .success-message:not([hidden]) {
-            display: block;
-        }
-
-        .error-message {
-            display: none;
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #ef4444;
-        }
-
-        .error-message:not([hidden]) {
-            display: block;
-        }
-
-        .field-error {
-            display: block;
-            color: #dc2626;
-            font-size: 0.875rem;
-            margin-top: 4px;
-            min-height: 1.25rem;
-        }
-
-        .form-group input[aria-invalid="true"],
-        .form-group select[aria-invalid="true"],
-        .form-group textarea[aria-invalid="true"] {
-            border-color: #dc2626 !important;
-            background-color: #fef2f2;
-        }
-
-        /* Contact Details Sidebar */
-        .contact-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .contact-card {
-            background: var(--bg-secondary);
-            padding: 30px;
-            border-radius: 12px;
-            border: var(--border-light);
-        }
-
-        .contact-card h2 {
-            font-size: 0.9rem;
+        /* Small mono heads for the availability and channel groups */
+        .channel-head {
+            margin-bottom: var(--space-3);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: var(--tracking-label);
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--brand-accent-text);
-            margin-bottom: 20px;
-            font-weight: 700;
+            color: var(--color-text-muted);
         }
 
-        .contact-detail {
-            margin-bottom: 16px;
+        .availability {
+            margin-top: var(--space-7);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-heading);
         }
 
-        .contact-detail:last-child {
+        .availability-note {
+            display: flex;
+            gap: 0.75em;
+            align-items: baseline;
+            max-width: 52ch;
+            font-size: var(--text-base);
+            line-height: 1.65;
+            color: var(--color-heading);
+        }
+
+        .availability-note::before {
+            content: "";
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-success);
+            box-shadow: 0 0 0 3px var(--color-success-bg);
+            transform: translateY(-2px);
+        }
+
+        .availability-note a {
+            font-weight: 600;
+        }
+
+        /* Direct channels: a ruled list */
+        .channel-group + .channel-group {
+            margin-top: var(--space-6);
+        }
+
+        .channel-list {
+            list-style: none;
+            border-top: 1px solid var(--color-heading);
+        }
+
+        .channel-list li {
+            display: grid;
+            grid-template-columns: 7.5rem minmax(0, 1fr);
+            gap: var(--space-4);
+            align-items: center;
+            min-height: 56px;
+            padding-block: var(--space-2);
+            border-bottom: 1px solid var(--color-border-strong);
+        }
+
+        .channel-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6em;
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .channel-label .ic {
+            color: var(--color-link);
+        }
+
+        .channel-list a,
+        .channel-list .reveal-phone {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            overflow-wrap: anywhere;
+            font-weight: 600;
+        }
+
+        .channel-list .reveal-phone {
+            padding-block: 0;
+        }
+
+        /* Social profiles: whole-row links */
+        .channel-list li.channel-row-link {
+            display: block;
+            padding: 0;
+        }
+
+        .channel-list .channel-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-4);
+            min-height: 56px;
+            color: var(--color-heading);
+            text-decoration: none;
+        }
+
+        .channel-link span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7em;
+        }
+
+        .channel-link .ic {
+            color: var(--color-link);
+        }
+
+        .channel-link::after {
+            content: "\2197";
+            font-family: var(--font-mono);
+            color: var(--color-link);
+            transition: transform var(--dur-fast) var(--ease);
+        }
+
+        .channel-link:hover {
+            color: var(--color-link);
+        }
+
+        .channel-link:hover span {
+            text-decoration: underline;
+            text-underline-offset: 0.25em;
+        }
+
+        .channel-link:hover::after {
+            transform: translate(2px, -2px);
+        }
+
+        /* The form: the one white document on the band */
+        .contact-form {
+            position: sticky;
+            top: calc(var(--header-h) + var(--space-5));
+            padding: clamp(1.25rem, 0.6rem + 2.4vw, 2.5rem);
+            box-shadow: var(--shadow-2);
+        }
+
+        .contact-form textarea {
+            min-height: 12rem;
+        }
+
+        #formStatus:not(:empty) {
+            margin-bottom: var(--space-5);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--space-5) var(--space-4);
+        }
+
+        .form-row > .form-group + .form-group {
+            margin-top: 0;
+        }
+
+        .form-row + .form-group {
+            margin-top: var(--space-5);
+        }
+
+        .contact-form [type="submit"] {
+            margin-top: var(--space-6);
+        }
+
+
+        /* =========================================================
+           2. FAQ: sticky head + ruled disclosures
+        ========================================================= */
+
+        .faq-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+            gap: var(--space-6) var(--space-9);
+            align-items: start;
+        }
+
+        .faq-head {
+            position: sticky;
+            top: calc(var(--header-h) + var(--space-6));
             margin-bottom: 0;
         }
 
-        .contact-detail p {
-            font-size: 0.9rem;
-            color: #5f6b79;
-            margin-bottom: 4px;
+        .faq-head .section-title {
+            font-size: var(--text-2xl);
         }
 
-        .contact-detail a {
-            color: var(--brand-accent-text);
-            font-weight: 600;
-            transition: 0.2s;
-        }
-
-        .contact-detail a:hover {
-            color: #0096d9;
-        }
-
-        .availability-box {
-            background: rgba(0, 186, 242, 0.08);
-            border-left: 4px solid var(--brand-primary);
-            padding: 16px 20px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .contact-social-icons {
-            display: flex;
-            gap: 16px;
-            margin-top: 20px;
-        }
-
-        .contact-social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 42px;
-            height: 42px;
-            background: var(--bg-main);
-            border: var(--border-light);
-            border-radius: 8px;
-            color: var(--brand-accent-text);
-            font-size: 1.2rem;
-            transition: 0.2s;
-        }
-
-        .contact-social-icon:hover {
-            background: var(--brand-accent-text);
-            color: #ffffff;
-            border-color: var(--brand-accent-text);
-        }
-
-        /* Old dead footer rules (bare footer/.footer-links/footer p) and the
-           site-footer implementation now live in /assets/css/global-nav.css. */
-
-
-        /* =====================================================
-           TABLET
-        ====================================================== */
-
-
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 768px) {
-            /* .hamburger, .nav-links, .nav-links.active, .footer-* mobile rules: see global-nav.css */
-
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .contact-form {
-                padding: 30px 20px;
-            }
-
-            .contact-hero h1 {
-                font-size: 1.8rem;
-            }
-
-            .contact-hero p {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            main {
-                padding-top: 90px;
-                padding-bottom: 40px;
-            }
-
-            .container {
-                padding: 0 16px;
-            }
-
-            .contact-form {
-                padding: 24px 16px;
-            }
-
-            .contact-card {
-                padding: 24px;
-            }
-
-            .contact-hero {
-                padding: 30px 16px;
-                margin-bottom: 40px;
-            }
-
-            .contact-hero h1 {
-                font-size: 1.5rem;
-                margin-bottom: 12px;
-            }
-
-            .contact-hero p {
-                font-size: 0.95rem;
-            }
-
-            label {
-                font-size: 0.9rem;
-            }
-
-            .btn {
-                padding: 11px 24px;
-                font-size: 0.9rem;
-            }
-        }
-
-
-        /* Duplicate footer CSS removed — now lives in /assets/css/global-nav.css. */
-
-
-        /* Footer responsive rules (768px) now live in /assets/css/global-nav.css. */
-
-        /* Respect reduced-motion preference */
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-
-            *,
-            *::before,
-            *::after {
-                transition-duration: 0.01ms !important;
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-            }
-        }
-
-        /* =====================================================
-           FAQ (native details/summary, moved from the homepage)
-        ===================================================== */
-        .faq-block {
-            max-width: 820px;
-            margin: 70px auto 0;
-        }
-
-        .faq-block h2 {
-            font-size: 1.7rem;
-            text-align: center;
-            margin-bottom: 28px;
-        }
-
-        .faq-item {
-            background: var(--bg-main);
-            border: var(--border-light);
-            border-radius: 12px;
-            margin-bottom: 14px;
+        .faq-list {
+            border-top: 1px solid var(--color-heading);
         }
 
         .faq-item summary {
-            cursor: pointer;
-            list-style: none;
-            padding: 18px 22px;
-            font-weight: 700;
-            color: var(--brand-dark);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
+            font-size: var(--text-md);
         }
-
-        .faq-item summary::-webkit-details-marker { display: none; }
-
-        .faq-item summary::after {
-            content: "+";
-            font-size: 1.4rem;
-            line-height: 1;
-            color: var(--brand-accent-text);
-            flex-shrink: 0;
-        }
-
-        .faq-item[open] summary::after { content: "\2212"; }
 
         .faq-item p {
-            padding: 0 22px 20px;
-            color: #5f6b79;
-            line-height: 1.75;
+            max-width: 62ch;
+            padding-bottom: var(--space-5);
+            line-height: 1.7;
+            color: var(--color-text);
         }
 
-</style>
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1024px) {
+            .contact-grid {
+                gap: var(--space-7) var(--space-7);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "statement"
+                    "form"
+                    "channels";
+                grid-template-rows: auto;
+            }
+
+            .availability {
+                margin-top: var(--space-6);
+            }
+
+            .contact-form {
+                position: static;
+            }
+
+            .contact-form textarea {
+                min-height: 150px;
+            }
+
+            .faq-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .faq-head {
+                position: static;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form [type="submit"] {
+                width: 100%;
+            }
+
+            .channel-list li {
+                grid-template-columns: 5.5rem minmax(0, 1fr);
+                gap: var(--space-3);
+            }
+        }
+
+    </style>
 </head>
 
 <body>
@@ -551,8 +432,14 @@
                 <a href="/services/">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/">Resume</a>
-                <a href="/contact/" class="active" aria-current="page">Contact</a>
+                <a href="/contact/" class="nav-cta active" aria-current="page">Contact</a>
             </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
 
         </div>
 
@@ -561,25 +448,38 @@
 
     <!-- Main Content -->
     <main id="main-content">
-        <div class="container">
 
-            <!-- Page Header -->
-            <div class="contact-hero">
-                <h1>Let's Talk About Quality</h1>
-                <p>For professional opportunities, QA discussions or collaboration, reach out directly. Looking for freelance testing support? See <a href="/services/" style="color: var(--brand-accent-text); font-weight: 700;">QA Services</a> first.</p>
-            </div>
+        <!-- =====================================================
+             1. CONTACT BAND (Soft Mint): statement, form, channels
+                Mobile order follows the DOM: statement, form, channels.
+        ====================================================== -->
 
-            <!-- Contact Section -->
-            <div class="contact-wrapper">
+        <section class="contact-band" aria-labelledby="contact-heading">
 
-                <!-- Contact Form -->
-                <div>
-                    <div class="contact-form">
-                        <!-- Empty live region: the success or error message is created here only after a submission -->
-                        <div id="formStatus" aria-live="polite"></div>
+            <div class="container contact-grid">
 
-                        <form id="contactForm" method="POST" action="https://formspree.io/f/xqpknrny" data-ajax-form data-status="formStatus"
-                              data-email="sayedasif83838@gmail.com">
+                <!-- Statement -->
+                <div class="contact-statement">
+                    <p class="kicker">Contact</p>
+                    <h1 id="contact-heading">Let's Talk About Quality</h1>
+                    <p class="contact-lede">For professional opportunities, QA discussions or collaboration, reach out directly. Looking for freelance testing support? See <a href="/services/">QA Services</a> first.</p>
+
+                    <div class="availability">
+                        <h2 class="channel-head">Availability</h2>
+                        <p class="availability-note">
+                            <span>Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis. Remote, hybrid and on-site opportunities considered. For freelance work, see <a href="/services/">QA Services</a>: scope and deliverables are agreed before any work begins.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Contact Form: the one white document -->
+                <div class="contact-form panel">
+                    <!-- Empty live region: the success or error message is created here only after a submission -->
+                    <div id="formStatus" aria-live="polite"></div>
+
+                    <form id="contactForm" method="POST" action="https://formspree.io/f/xqpknrny" data-ajax-form data-status="formStatus"
+                          data-email="sayedasif83838@gmail.com">
+                        <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Full Name *</label>
                                 <input
@@ -605,115 +505,125 @@
                                 >
                                 <span class="field-error" id="email-error" aria-live="polite"></span>
                             </div>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="subject">Subject *</label>
-                                <select id="subject" name="subject" required data-error="Please choose a subject." aria-describedby="subject-error">
-                                    <option value="">Select a subject...</option>
-                                    <option value="Job Opportunity">Job Opportunity</option>
-                                    <option value="Freelance Project">Freelance Project</option>
-                                    <option value="QA Collaboration">QA Collaboration</option>
-                                    <option value="General Enquiry">General Enquiry</option>
-                                </select>
-                                <span class="field-error" id="subject-error" aria-live="polite"></span>
-                            </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required data-error="Please choose a subject." aria-describedby="subject-error">
+                                <option value="">Select a subject...</option>
+                                <option value="Job Opportunity">Job Opportunity</option>
+                                <option value="Freelance Project">Freelance Project</option>
+                                <option value="QA Collaboration">QA Collaboration</option>
+                                <option value="General Enquiry">General Enquiry</option>
+                            </select>
+                            <span class="field-error" id="subject-error" aria-live="polite"></span>
+                        </div>
 
-                            <div class="form-group">
-                                <label for="message">Message *</label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    required data-error="Please enter a message."
-                                    placeholder="Tell me about your inquiry..."
-                                    aria-describedby="message-error"
-                                ></textarea>
-                                <span class="field-error" id="message-error" aria-live="polite"></span>
-                            </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                required data-error="Please enter a message."
+                                placeholder="Tell me about your inquiry..."
+                                aria-describedby="message-error"
+                            ></textarea>
+                            <span class="field-error" id="message-error" aria-live="polite"></span>
+                        </div>
 
-                            <button type="submit" class="btn btn-primary">
-                                <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#paper-plane"/></svg></i>
-                                Send Message
-                            </button>
-                        </form>
-                    </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#paper-plane"/></svg></i>
+                            Send Message
+                        </button>
+                    </form>
                 </div>
 
-                <!-- Contact Details Sidebar -->
-                <aside class="contact-sidebar">
+                <!-- Direct channels: ruled lists -->
+                <div class="contact-channels">
 
-                    <!-- Contact Info Card -->
-                    <div class="contact-card">
-                        <h2>Contact Info</h2>
-
-                        <div class="contact-detail">
-                            <p><i class="ic" aria-hidden="true" style="color: var(--brand-primary); margin-right: 8px;"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#phone"/></svg></i>Phone</p>
-                            <span class="phone-slot" aria-live="polite"><button type="button" class="reveal-phone" data-reveal-phone>Show phone number</button></span>
-                        </div>
-
-                        <div class="contact-detail">
-                            <p><i class="ic" aria-hidden="true" style="color: var(--brand-primary); margin-right: 8px;"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>Email</p>
-                            <a href="mailto:sayedasif83838@gmail.com">sayedasif83838@gmail.com</a>
-                        </div>
+                    <div class="channel-group">
+                        <h2 class="channel-head">Contact Info</h2>
+                        <ul class="channel-list">
+                            <li>
+                                <span class="channel-label"><i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>Email</span>
+                                <a href="mailto:sayedasif83838@gmail.com">sayedasif83838@gmail.com</a>
+                            </li>
+                            <li>
+                                <span class="channel-label"><i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#phone"/></svg></i>Phone</span>
+                                <span class="phone-slot" aria-live="polite"><button type="button" class="reveal-phone" data-reveal-phone>Show phone number</button></span>
+                            </li>
+                        </ul>
                     </div>
 
-                    <!-- Social Links Card -->
-                    <div class="contact-card">
-                        <h2>Connect</h2>
-                        <div class="contact-social-icons">
-                            <a
-                                href="https://www.linkedin.com/in/asifsayed83/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="contact-social-icon"
-                                aria-label="LinkedIn"
-                                title="LinkedIn"
-                            >
-                                <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i>
-                            </a>
-
-                            <a
-                                href="https://github.com/Open83"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="contact-social-icon"
-                                aria-label="GitHub"
-                                title="GitHub"
-                            >
-                                <i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>
-                            </a>
-
-                        </div>
+                    <div class="channel-group">
+                        <h2 class="channel-head">Connect</h2>
+                        <ul class="channel-list">
+                            <li class="channel-row-link">
+                                <a
+                                    href="https://www.linkedin.com/in/asifsayed83/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="channel-link"
+                                    aria-label="LinkedIn"
+                                    title="LinkedIn"
+                                >
+                                    <span><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i>LinkedIn</span>
+                                </a>
+                            </li>
+                            <li class="channel-row-link">
+                                <a
+                                    href="https://github.com/Open83"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="channel-link"
+                                    aria-label="GitHub"
+                                    title="GitHub"
+                                >
+                                    <span><i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i>GitHub</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
 
-                    <!-- Availability Card -->
-                    <div class="contact-card">
-                        <h2>Availability</h2>
-                        <div class="availability-box">
-                            Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis. Remote, hybrid and on-site opportunities considered. For freelance work, see <a href="/services/">QA Services</a>: scope and deliverables are agreed before any work begins.
-                        </div>
-                    </div>
+                </div>
 
-                </aside>
             </div>
 
-            <!-- FAQ (moved from the homepage) -->
-            <section class="faq-block" aria-labelledby="faq-heading">
-                <h2 id="faq-heading">Frequently Asked Questions</h2>
-                <details class="faq-item">
-                    <summary>Are you available for full-time roles or freelance projects?</summary>
-                    <p>Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis. For freelance work, see the Services page: scope, access and deliverables are agreed before any work begins. I'm based in Mumbai and open to remote, hybrid, or on-site roles.</p>
-                </details>
-                <details class="faq-item">
-                    <summary>Can you work with an existing QA process or team?</summary>
-                    <p>Yes. I'm comfortable joining an existing QA workflow, adapting to team tools and processes, and contributing to both manual and automated testing efforts from day one.</p>
-                </details>
-                <details class="faq-item">
-                    <summary>What is your notice period / when can you start?</summary>
-                    <p>I'm currently employed and not serving a notice period. For the right offer I can discuss joining timelines on a call.</p>
-                </details>
-            </section>
+        </section>
 
-        </div>
+
+        <!-- =====================================================
+             2. FAQ (moved from the homepage): sticky head, ruled disclosures
+        ====================================================== -->
+
+        <section class="section faq-block" aria-labelledby="faq-heading">
+
+            <div class="container faq-layout">
+
+                <header class="section-head faq-head">
+                    <p class="kicker"><span class="kicker-num">FAQ</span> Before you write</p>
+                    <h2 id="faq-heading" class="section-title">Frequently Asked Questions</h2>
+                </header>
+
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary>Are you available for full-time roles or freelance projects?</summary>
+                        <p>Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis. For freelance work, see the Services page: scope, access and deliverables are agreed before any work begins. I'm based in Mumbai and open to remote, hybrid, or on-site roles.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Can you work with an existing QA process or team?</summary>
+                        <p>Yes. I'm comfortable joining an existing QA workflow, adapting to team tools and processes, and contributing to both manual and automated testing efforts from day one.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>What is your notice period / when can you start?</summary>
+                        <p>I'm currently employed and not serving a notice period. For the right offer I can discuss joining timelines on a call.</p>
+                    </details>
+                </div>
+
+            </div>
+
+        </section>
+
     </main>
 
     <footer class="site-footer">

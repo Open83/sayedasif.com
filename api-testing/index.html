@@ -15,7 +15,6 @@
     <meta name="robots" content="index, follow, max-image-preview:large">
 
     <link rel="canonical" href="https://sayedasif.com/api-testing/">
-    <meta name="theme-color" content="#00baf2">
 
     <meta property="og:type" content="article">
     <meta property="og:title" content="Playwright API Testing: Risk to Evidence Map | Sayed Asif">
@@ -64,310 +63,696 @@
     </script>
 
     <!-- Global header/footer styles (single source of truth) -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="/assets/css/global-nav.css">
 
     <style>
-        :root {
-            --primary: #00baf2;
-            --primary-dark: #007ca1;
-            --dark: #314259;
-            --text: #314259;
-            --muted: #5f6b79;
-            --light: #f5f9fc;
-            --white: #ffffff;
-            --border: #e3ebf2;
-            --shadow: 0 18px 55px rgba(49, 66, 89, 0.10);
-            --radius: 12px;
-            --container: 1180px;
+
+        /* =========================================================
+           API TESTING EVIDENCE MAP: page layout only.
+           Tokens, type, buttons, tables, code blocks and the reset live in
+           /assets/css/site.css; header and footer in global-nav.css.
+           No colour values here: tokens only.
+        ========================================================= */
+
+
+        /* =========================================================
+           BREADCRUMB + PAGE HEAD: editorial split. Statement left,
+           a numbered contents list right.
+        ========================================================= */
+
+        .page-crumb {
+            padding-top: calc(var(--header-h) + var(--space-6));
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: var(--text);
-            background: var(--white);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        a { color: inherit; text-decoration: none; }
-        img { max-width: 100%; display: block; }
-        button, a { -webkit-tap-highlight-color: transparent; }
-        ::selection { background: var(--brand-accent-text); color: var(--white); }
-
-        .container { width: min(calc(100% - 40px), var(--container)); margin-inline: auto; }
-        .narrow { max-width: 900px; }
-        .section { padding: 32px 0; }
-        .section-light { background: var(--light); }
-
-        code {
-            padding: 2px 6px;
-            border-radius: 5px;
-            background: #e2e8f0;
-            color: var(--dark);
-            font-size: 0.88em;
-            word-break: break-word;
-        }
-
-        .project-breadcrumb { padding: 80px 20px 0; }
-        .project-breadcrumb + .hero { padding-top: 24px; }
 
         .back-link {
             display: inline-flex;
             align-items: center;
-            gap: 9px;
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--dark);
-            transition: color 0.2s ease, transform 0.2s ease;
+            gap: 0.5em;
+            min-height: 44px;
         }
 
-        .back-link:hover { color: var(--primary-dark); transform: translateX(-3px); }
-
-        /* Hero */
-        .hero {
-            position: relative;
-            overflow: hidden;
-            padding: 70px 0 50px;
-            background: radial-gradient(circle at 85% 15%, rgba(0, 186, 242, 0.14), transparent 30%), linear-gradient(135deg, #ffffff 0%, #f5faff 100%);
+        .page-head {
+            padding-top: clamp(1.5rem, 0.75rem + 2.5vw, 3.5rem);
+            padding-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+            border-bottom: 1px solid var(--color-border);
         }
 
-        .hero-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 13px;
-            border: 1px solid rgba(0, 186, 242, 0.25);
-            border-radius: 999px;
-            background: rgba(0, 186, 242, 0.07);
-            color: var(--brand-accent-on-tint);
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-bottom: 22px;
+        .head-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+            gap: var(--space-7) var(--space-9);
+            align-items: end;
         }
 
-        .hero h1 {
-            font-size: clamp(2rem, 5vw, 3.6rem);
-            line-height: 1.12;
-            letter-spacing: -0.02em;
-            color: var(--dark);
-            margin-bottom: 20px;
-            overflow-wrap: break-word;
+        .page-head .kicker {
+            color: var(--color-link);
         }
 
-        .hero h1 span { color: var(--brand-accent-text); display: block; }
+        .page-head h1 {
+            margin-bottom: var(--space-5);
+            font-size: var(--text-display);
+            line-height: 0.98;
+        }
+
+        .page-head h1 span {
+            display: block;
+            margin-top: 0.16em;
+            font-size: 0.5em;
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -0.015em;
+            color: var(--color-text-muted);
+        }
 
         .hero-subtitle {
-            max-width: 720px;
-            font-size: 1.15rem;
-            line-height: 1.55;
-            color: var(--dark);
-            margin-bottom: 18px;
-            font-weight: 600;
+            max-width: 36ch;
+            margin-bottom: var(--space-4);
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--color-heading);
         }
 
         .hero-description {
-            max-width: 730px;
-            color: var(--muted);
-            font-size: 0.97rem;
-            margin-bottom: 24px;
-            line-height: 1.75;
+            max-width: 60ch;
+            margin-bottom: var(--space-6);
+            font-size: var(--text-md);
+            line-height: 1.7;
         }
 
-        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+        .contents .kicker {
+            margin-bottom: var(--space-3);
+        }
 
-        .button {
+        .contents ol {
+            list-style: none;
+            border-top: 1px solid var(--color-heading);
+        }
+
+        .contents li {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .contents a {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-3);
+            min-height: 44px;
+            padding-block: var(--space-2);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            line-height: 1.45;
+            text-decoration: none;
+        }
+
+        .contents a:hover {
+            text-decoration: underline;
+            text-underline-offset: 0.25em;
+        }
+
+        .contents-num {
+            flex-shrink: 0;
+            width: 1.75rem;
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 400;
+            color: var(--color-text-muted);
+        }
+
+
+        /* =========================================================
+           SHARED
+        ========================================================= */
+
+        .band-muted {
+            background: var(--color-surface-muted);
+        }
+
+        .caption {
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            line-height: 1.65;
+            color: var(--color-text-muted);
+        }
+
+        /* position: the .sr-only spans inside wide tables are absolutely positioned;
+           without a positioned wrapper they escape its scroll box and widen the page. */
+        .table-wrap {
+            position: relative;
+        }
+
+        .table-wrap td.num,
+        .table-wrap th.num {
+            text-align: right;
+            font-family: var(--font-mono);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .table-wrap tfoot th,
+        .table-wrap tfoot td {
+            padding: 0.7rem 0.9rem;
+            border-top: 1px solid var(--color-heading);
+            font-weight: 600;
+            color: var(--color-heading);
+            text-align: left;
+        }
+
+        .table-wrap tfoot td.num {
+            text-align: right;
+        }
+
+        /* Badges, set as status chips: a glyph and the words, never colour alone.
+           The class names are read by scripts/verify check 21 and stay as they are. */
+        .scenario-tag {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 9px;
-            min-height: 48px;
-            padding: 0 20px;
-            border-radius: 8px;
-            font-size: 0.92rem;
-            font-weight: 800;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            gap: 0.4em;
+            padding: 0.1rem 0.55rem 0.1rem 0.45rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            line-height: 1.5;
+            white-space: nowrap;
+            vertical-align: 0.05em;
+            background: var(--color-surface-muted);
+            color: var(--color-heading);
         }
 
-        .button:hover { transform: translateY(-2px); }
-
-        .button-primary {
-            background: var(--brand-accent-text);
-            color: var(--white);
-            box-shadow: 0 10px 25px rgba(0, 186, 242, 0.22);
+        .scenario-tag::before {
+            font-weight: 700;
         }
 
-        .button-primary:hover { background: var(--primary-dark); }
+        .tag-ci { background: var(--color-success-bg); color: var(--color-success); }
+        .tag-ci::before { content: "\2713"; }
+        .tag-live { background: var(--color-warning-bg); color: var(--color-warning); }
+        .tag-live::before { content: "!"; }
+        .tag-none { background: var(--color-surface-muted); color: var(--color-heading); box-shadow: inset 0 0 0 1px var(--color-border); }
+        .tag-none::before { content: "\2013"; }
+        .tag-fail { background: var(--color-error-bg); color: var(--color-error); }
+        .tag-fail::before { content: "\2715"; }
 
-        .button-secondary {
-            background: var(--white);
-            color: var(--dark);
-            border: 1px solid var(--border);
+        .band-muted .tag-none {
+            background: var(--color-surface);
         }
 
-        .button-secondary:hover { box-shadow: var(--shadow); }
-
-        /* Text sections */
-        .content-section h2 { font-size: 1.55rem; margin-bottom: 12px; color: var(--dark); font-weight: 700; line-height: 1.3; }
-        .content-section p { color: var(--text); margin-bottom: 12px; line-height: 1.7; }
-        .content-section .lead { color: var(--muted); }
-        .content-section ul { margin: 8px 0 14px 22px; }
-        .content-section li { margin-bottom: 8px; }
-        .content-section p a, .content-section li a, .content-section td a, .caption a {
-            color: var(--primary-dark);
-            font-weight: 600;
-            text-decoration: underline;
-            text-underline-offset: 2px;
+        .repo {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--color-heading);
         }
 
-        /* Tally table */
-        .table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--white); margin: 14px 0 8px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
-        td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-        thead th { background: #eef6fb; color: var(--dark); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        tbody th { font-weight: 700; }
-        tfoot th, tfoot td { font-weight: 800; border-bottom: 0; background: var(--light); }
-        .caption { font-size: 0.85rem; color: var(--muted); margin: 6px 0 0; }
 
-        /* What I check */
-        .check-grid {
+        /* =========================================================
+           1. WHAT THIS PAGE IS: statement beside its data
+        ========================================================= */
+
+        .scope-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 16px;
-            margin: 14px 0;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            gap: var(--space-7) var(--space-9);
+            align-items: start;
+        }
+
+        .scope-text .section-title {
+            margin-bottom: var(--space-5);
+        }
+
+        .scope-text p:not(.kicker) {
+            max-width: 62ch;
+            line-height: 1.7;
+        }
+
+        .scope-text p + p {
+            margin-top: var(--space-4);
+        }
+
+        .scope-data {
+            min-width: 0;
+            padding-top: var(--space-2);
+        }
+
+        #tally tbody th,
+        #tally tfoot th {
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        #tally thead th.num {
+            white-space: normal;
+            line-height: 1.35;
+            vertical-align: bottom;
+        }
+
+        #tally tfoot th {
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           2. WHAT I CHECK: numbered two-column register
+        ========================================================= */
+
+        .check-grid {
             list-style: none;
+            counter-reset: check;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            column-gap: var(--space-8);
+            border-top: 1px solid var(--color-heading);
         }
 
         .check-grid li {
-            min-width: 0;
-            padding: 16px 18px;
-            background: var(--white);
-            border-radius: 10px;
-            border-left: 3px solid var(--primary);
-            margin: 0;
+            counter-increment: check;
+            display: grid;
+            grid-template-columns: 2.5rem minmax(0, 1fr);
+            padding-block: var(--space-5);
+            border-bottom: 1px solid var(--color-border-strong);
+            border-bottom-color: color-mix(in srgb, var(--color-border-strong) 40%, transparent);
         }
 
-        .check-grid strong { display: block; color: var(--dark); margin-bottom: 4px; font-size: 0.95rem; }
-        .check-grid strong a { color: var(--dark); font-weight: 700; }
-        .check-grid p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.6; }
+        .check-grid li::before {
+            content: counter(check, decimal-leading-zero);
+            grid-row: 1 / span 2;
+            padding-top: 0.3em;
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+        }
 
-        /* Badges: the same styles as the Razorpay case study, plus tag-fail */
-        .scenario-tag { display: inline-block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 9px; border-radius: 20px; margin-right: 6px; vertical-align: 1px; white-space: nowrap; }
-        .tag-ci { background: #dcfce7; color: #14532d; }
-        .tag-live { background: #fef3c7; color: #78350f; }
-        .tag-none { background: #e2e8f0; color: #1e293b; }
-        .tag-fail { background: #fee2e2; color: #7f1d1d; }
-
-        .badge-legend { list-style: none; margin: 10px 0 18px; display: grid; gap: 8px; }
-        .badge-legend li { margin: 0; font-size: 0.92rem; }
-
-        /* Evidence map */
-        .risk-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; margin: 22px 0; }
-        .risk { min-width: 0; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 24px 26px; box-shadow: var(--shadow); scroll-margin-top: 90px; }
-        .risk h3 { font-size: 1.15rem; color: var(--dark); margin-bottom: 8px; }
-        .risk p { margin-bottom: 10px; }
-        .risk-tests { list-style: none; margin: 10px 0 14px; padding: 0; display: grid; gap: 10px; }
-        .risk-tests li { margin: 0; padding-left: 0; font-size: 0.93rem; line-height: 1.65; }
-        .risk-tests a, .risk-gap a, .structure a {
-            color: var(--primary-dark);
+        .check-grid strong {
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
             font-weight: 600;
-            text-decoration: underline;
-            text-underline-offset: 2px;
+            line-height: 1.3;
         }
-        .repo { font-weight: 700; color: var(--dark); }
-        .risk-gap { padding: 12px 14px; background: var(--light); border-left: 3px solid var(--primary); border-radius: 8px; font-size: 0.92rem; }
 
-        /* Real code excerpts, highlighted at build time (no runtime script) */
-        .code-figure { margin: 14px 0 22px; min-width: 0; }
-        .code-block {
-            background: #0f172a;
-            color: #e2e8f0;
-            border-radius: 10px;
-            padding: 16px 18px;
-            overflow-x: auto;
-            font-size: 0.84rem;
+        .check-grid strong a {
+            display: inline-block;
+            padding-block: 0.15rem;
+            text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+        }
+
+        .check-grid p {
+            grid-column: 2;
+            max-width: 52ch;
+            margin-top: var(--space-1);
+            font-size: var(--text-sm);
             line-height: 1.6;
-            tab-size: 2;
+            color: var(--color-text-muted);
         }
-        .code-block code { background: none; color: inherit; padding: 0; font-size: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; word-break: normal; }
-        .code-figure figcaption { font-size: 0.82rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
-        .code-figure figcaption a { color: var(--primary-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
-        .code-block .hljs-comment { color: #94a3b8; font-style: italic; }
-        .code-block .hljs-keyword,
-        .code-block .hljs-literal { color: #c4b5fd; }
-        .code-block .hljs-string { color: #86efac; }
-        .code-block .hljs-number { color: #fcd34d; }
-        .code-block .hljs-title,
-        .code-block .hljs-title.function_ { color: #7dd3fc; }
-        .code-block .hljs-attr, .code-block .hljs-property, .code-block .hljs-variable { color: #fda4af; }
-        .code-block .hljs-subst, .code-block .hljs-params { color: #e2e8f0; }
-        .code-block .hljs-built_in, .code-block .hljs-type { color: #fcd34d; }
-        .code-block .hljs-regexp { color: #86efac; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-        /* How I structure suites */
-        .structure h3 { font-size: 1.1rem; color: var(--dark); margin: 24px 0 8px; }
 
-        /* Next steps */
-        .next-list { list-style: none; margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-        .next-list li { margin: 0; padding: 16px 18px; background: var(--white); border: 1px solid var(--border); border-radius: 10px; font-size: 0.9rem; color: var(--muted); }
-        .next-list li a { display: block; color: var(--primary-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; margin-bottom: 4px; }
+        /* =========================================================
+           3. EVIDENCE MAP: key, then one ruled row per risk.
+              Left: number, title, verdict (sticks while the row scrolls).
+              Right: the tests (badge in a gutter), the gap, the excerpts.
+        ========================================================= */
 
-        /* CTA */
-        .cta-section { background: var(--light); padding: 40px 0; text-align: center; }
-        .cta-title { font-size: 1.4rem; margin-bottom: 10px; color: var(--dark); font-weight: 700; }
-        .cta-desc { color: var(--muted); margin-bottom: 18px; font-size: 0.9rem; max-width: 560px; margin-inline: auto; }
-        .cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+        .legend {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 10fr);
+            gap: var(--space-3) var(--space-6);
+            margin-bottom: var(--space-9);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-border);
+        }
 
-        /* Responsive */
-        @media (max-width: 1050px) {
-            .hero { padding: 80px 0 60px; }
-            .hero h1 { font-size: 2.9rem; }
+        .badge-legend {
+            list-style: none;
+        }
+
+        .badge-legend li,
+        .risk-tests li {
+            position: relative;
+            padding-left: 12.75rem;
+        }
+
+        .badge-legend li > .scenario-tag:first-child,
+        .risk-tests li > .scenario-tag:first-child {
+            position: absolute;
+            left: 0;
+            top: var(--space-3);
+        }
+
+        .badge-legend li {
+            padding-block: var(--space-3);
+            border-bottom: 1px solid var(--color-border);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+        }
+
+        .badge-legend li:first-child {
+            padding-top: 0;
+        }
+
+        .badge-legend li:first-child > .scenario-tag:first-child {
+            top: 0;
+        }
+
+        .badge-legend li:last-child {
+            border-bottom: 0;
+        }
+
+        .risk-list {
+            counter-reset: risk;
+        }
+
+        .risk {
+            counter-increment: risk;
+            display: grid;
+            grid-template-columns: minmax(0, 4fr) minmax(0, 9fr);
+            gap: var(--space-5) var(--space-8);
+            padding-block: var(--space-7) var(--space-8);
+            border-top: 2px solid var(--color-heading);
+            scroll-margin-top: calc(var(--header-h) + var(--space-4));
+        }
+
+        .risk-head {
+            position: sticky;
+            top: calc(var(--header-h) + var(--space-5));
+            align-self: start;
+        }
+
+        .risk-head::before {
+            content: counter(risk, decimal-leading-zero);
+            display: block;
+            margin-bottom: var(--space-3);
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--color-link);
+        }
+
+        .risk-head h3 {
+            margin-bottom: var(--space-4);
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            line-height: 1.15;
+            letter-spacing: -0.018em;
+        }
+
+        .risk-head p {
+            font-size: var(--text-sm);
+            line-height: 1.65;
+            color: var(--color-text-muted);
+        }
+
+        .risk-head p .scenario-tag {
+            display: flex;
+            width: fit-content;
+            margin-bottom: var(--space-3);
+        }
+
+        .risk-head p strong {
+            display: block;
+        }
+
+        .risk-body {
+            min-width: 0;
+        }
+
+        .risk-tests {
+            list-style: none;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .risk-tests li {
+            padding-block: var(--space-3);
+            border-bottom: 1px solid var(--color-border);
+            font-size: 0.9688rem;
+            line-height: 1.65;
+        }
+
+        .risk-gap {
+            margin-top: var(--space-5);
+            padding: var(--space-3) var(--space-4);
+            border-left: 3px solid var(--color-border-strong);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            background: var(--color-surface-muted);
+            font-size: var(--text-sm);
+            line-height: 1.65;
+        }
+
+        .risk-body .code-figure {
+            margin: var(--space-5) 0 0;
+        }
+
+
+        /* =========================================================
+           4. STRUCTURE: each part with its title in the margin
+        ========================================================= */
+
+        .struct-part {
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+            gap: var(--space-3) var(--space-8);
+            padding-block: var(--space-6);
+            border-top: 1px solid var(--color-border-strong);
+            border-top-color: color-mix(in srgb, var(--color-border-strong) 40%, transparent);
+        }
+
+        .struct-part:first-of-type {
+            border-top: 1px solid var(--color-heading);
+        }
+
+        .struct-part h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            line-height: 1.3;
+        }
+
+        .struct-body {
+            min-width: 0;
+            max-width: 82ch;
+        }
+
+        .struct-body > p {
+            line-height: 1.7;
+        }
+
+        .struct-body .code-figure {
+            margin: var(--space-4) 0 0;
+        }
+
+
+        /* =========================================================
+           5. LIMITS: a warning register (glyph + words)
+        ========================================================= */
+
+        .limits-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+            gap: var(--space-6) var(--space-9);
+            align-items: start;
+        }
+
+        .limits-head {
+            position: sticky;
+            top: calc(var(--header-h) + var(--space-6));
+            margin-bottom: 0;
+        }
+
+        .limits-list {
+            list-style: none;
+            padding: var(--space-2) var(--space-6);
+            border-left: 3px solid var(--color-warning);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            background: var(--color-warning-bg);
+        }
+
+        .limits-list li {
+            position: relative;
+            padding: var(--space-4) 0 var(--space-4) var(--space-6);
+            border-bottom: 1px solid color-mix(in srgb, var(--color-warning) 22%, transparent);
+            line-height: 1.65;
+        }
+
+        .limits-list li:last-child {
+            border-bottom: 0;
+        }
+
+        .limits-list li::before {
+            content: "!";
+            position: absolute;
+            left: 0;
+            top: var(--space-4);
+            width: 1.25rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            color: var(--color-warning);
+        }
+
+        .limits-list strong {
+            display: block;
+            margin-bottom: var(--space-1);
+        }
+
+
+        /* =========================================================
+           6. PROFESSIONAL WORK: quiet split on a hairline
+        ========================================================= */
+
+        .work-section {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+            gap: var(--space-5) var(--space-9);
+            align-items: end;
+        }
+
+        .work-section .section-title {
+            font-size: var(--text-2xl);
+        }
+
+        .work-text {
+            max-width: 66ch;
+            font-size: var(--text-md);
+            line-height: 1.7;
+        }
+
+
+        /* =========================================================
+           7. NEXT STEPS: document index in ruled columns
+        ========================================================= */
+
+        .next-section {
+            padding-top: var(--space-6);
+        }
+
+        .next-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0 var(--space-6);
+            border-top: 1px solid var(--color-heading);
+        }
+
+        .next-list li {
+            padding-block: var(--space-5);
+            border-bottom: 1px solid var(--color-border);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+            color: var(--color-text-muted);
+        }
+
+        .next-list li a {
+            display: flex;
+            align-items: baseline;
+            gap: 0.45em;
+            min-height: 44px;
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            font-weight: 600;
+            line-height: 1.3;
+            text-decoration: none;
+        }
+
+        .next-list li a::after {
+            content: "\2192";
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            transition: transform var(--dur-fast) var(--ease);
+        }
+
+        .next-list li a:hover {
+            text-decoration: underline;
+            text-underline-offset: 0.2em;
+        }
+
+        .next-list li a:hover::after {
+            transform: translateX(3px);
+        }
+
+
+        /* =========================================================
+           CLOSING BAND: Soft Mint, the page's one loud moment
+        ========================================================= */
+
+        .cta-band {
+            background: var(--color-surface-soft);
+        }
+
+        .cta-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+            gap: var(--space-7) var(--space-9);
+            align-items: end;
+        }
+
+        .cta-band .section-title {
+            font-size: var(--text-display);
+            line-height: 1;
+        }
+
+        .cta-text {
+            max-width: 52ch;
+            margin-top: var(--space-5);
+            font-size: var(--text-md);
+            line-height: 1.7;
+        }
+
+        .cta-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            padding-left: var(--space-6);
+            border-left: 1px solid var(--color-border-strong);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1024px) {
+            .head-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-6); }
+            .scope-grid { grid-template-columns: 1fr; }
+            .risk { grid-template-columns: 1fr; gap: var(--space-5); }
+            .risk-head { position: static; }
+            .limits-grid { grid-template-columns: 1fr; }
+            .limits-head { position: static; }
+            .next-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 860px) {
+            .head-grid { grid-template-columns: 1fr; }
+            .struct-part { grid-template-columns: 1fr; }
+            .work-grid { grid-template-columns: 1fr; align-items: start; }
+            .cta-layout { grid-template-columns: 1fr; align-items: start; }
+            .cta-actions { padding-left: 0; padding-top: var(--space-5); border-left: 0; border-top: 1px solid var(--color-border-strong); }
         }
 
         @media (max-width: 768px) {
-            .container { width: min(calc(100% - 34px), var(--container)); }
-            .section { padding: 28px 0; }
-            .cta-section { padding: 32px 0; }
-            .hero { padding: 55px 0 40px; }
-            .hero h1 { font-size: 2.3rem; }
-            .hero-subtitle { font-size: 1rem; }
-            .hero-description { font-size: 0.9rem; }
-            .cta-buttons { flex-direction: column; }
-            .button { width: 100%; }
-            .risk { padding: 20px 18px; }
+            .check-grid { grid-template-columns: 1fr; }
+            .legend { grid-template-columns: 1fr; margin-bottom: var(--space-7); }
+            .limits-list { padding: var(--space-1) var(--space-4); }
         }
 
-        @media (max-width: 600px) {
-            .section { padding: 24px 0; }
-            .hero h1 { font-size: 2rem; }
-            .hero { padding: 50px 0 35px; }
-            .code-block { font-size: 0.78rem; padding: 14px; }
+        @media (max-width: 560px) {
+            .badge-legend li,
+            .risk-tests li { padding-left: 0; }
+            .badge-legend li > .scenario-tag:first-child,
+            .risk-tests li > .scenario-tag:first-child { position: static; display: flex; width: fit-content; margin-bottom: var(--space-2); }
+            .next-list { grid-template-columns: 1fr; }
+            .page-head .actions .btn,
+            .cta-actions .btn { width: 100%; }
+            .code-block { font-size: var(--text-xs); padding: var(--space-3) var(--space-4); }
         }
 
-        @media (max-width: 480px) {
-            .back-link { font-size: 0.85rem; }
-            .section { padding: 20px 0; }
-            .cta-section { padding: 24px 0; }
-            .hero { padding: 45px 0 30px; }
-            .hero h1 { font-size: 1.7rem; }
-            .hero-label { font-size: 0.7rem; padding: 6px 10px; }
-            .hero-subtitle { font-size: 0.9rem; margin-bottom: 12px; }
-            .hero-description { font-size: 0.85rem; margin-bottom: 16px; }
-            .content-section h2 { font-size: 1.3rem; margin-bottom: 10px; }
-            .cta-title { font-size: 1.2rem; }
-            .button { padding: 0 16px; min-height: 44px; font-size: 0.85rem; }
-            th, td { padding: 8px 10px; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            * { transition-duration: 0.01ms !important; }
-        }
     </style>
 </head>
 
@@ -399,8 +784,14 @@
                 <a href="/services/">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/">Resume</a>
-                <a href="/contact/">Contact</a>
+                <a href="/contact/" class="nav-cta">Contact</a>
             </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
 
         </div>
 
@@ -410,127 +801,162 @@
     <main id="main-content">
 
         <!-- Breadcrumb -->
-        <div class="container project-breadcrumb">
+        <nav class="container breadcrumb page-crumb" aria-label="Breadcrumb">
             <a href="/proof-of-work/" class="back-link">
                 <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i>
                 Back to Proof of Work
             </a>
-        </div>
+        </nav>
 
         <!-- =====================================================
-             HERO
+             PAGE HEAD: editorial split, statement left, contents right
         ====================================================== -->
-        <section class="hero">
-            <div class="container">
-                <p class="hero-label">Evidence map</p>
-                <h1>Playwright API testing<span>An API risk to evidence map</span></h1>
-                <p class="hero-subtitle">How I test an API, shown through tests you can open.</p>
-                <p class="hero-description">
-                    Ten risks I check on any API. For each one: the tests in my public repositories that cover it,
-                    whether they run in CI, the exact lines at a pinned commit, and where the coverage is weak or missing.
-                </p>
-                <div class="hero-actions">
-                    <a href="#evidence-map" class="button button-primary">See the evidence map</a>
-                    <a href="#limits" class="button button-secondary">What this does not prove</a>
+        <section class="page-head">
+            <div class="container head-grid">
+                <div class="head-main">
+                    <p class="kicker">Evidence map</p>
+                    <h1>Playwright API testing<span>An API risk to evidence map</span></h1>
+                    <p class="hero-subtitle">How I test an API, shown through tests you can open.</p>
+                    <p class="hero-description">
+                        Ten risks I check on any API. For each one: the tests in my public repositories that cover it,
+                        whether they run in CI, the exact lines at a pinned commit, and where the coverage is weak or missing.
+                    </p>
+                    <div class="actions">
+                        <a href="#evidence-map" class="btn btn-primary">See the evidence map</a>
+                        <a href="#limits" class="btn btn-secondary">What this does not prove</a>
+                    </div>
                 </div>
+                <nav class="contents" aria-label="On this page">
+                    <p class="kicker">Contents</p>
+                    <ol>
+                        <li><a href="#about-heading"><span class="contents-num">01</span> What this page is</a></li>
+                        <li><a href="#checks-heading"><span class="contents-num">02</span> What I check on any API</a></li>
+                        <li><a href="#map-heading"><span class="contents-num">03</span> Evidence map</a></li>
+                        <li><a href="#structure-heading"><span class="contents-num">04</span> How I structure Playwright API suites</a></li>
+                        <li><a href="#limits-heading"><span class="contents-num">05</span> What this does not prove</a></li>
+                        <li><a href="#work-heading"><span class="contents-num">06</span> Professional work</a></li>
+                        <li><a href="#next-heading"><span class="contents-num">07</span> Next steps</a></li>
+                    </ol>
+                </nav>
             </div>
         </section>
 
         <!-- =====================================================
-             1. WHAT THIS PAGE IS
+             1. WHAT THIS PAGE IS: statement beside the tally table
         ====================================================== -->
-        <section class="section content-section" aria-labelledby="about-heading">
-            <div class="container narrow">
-                <h2 id="about-heading">What this page is</h2>
-                <p>
-                    The evidence comes from three independent public projects, not from employer work: a TypeScript
-                    suite for the RESTful Booker practice API, a JavaScript suite for the Automation Exercise demo shop
-                    (API and web pages), and the API and security tests of a Razorpay Test Mode checkout app that I built
-                    as the test target. The targets are practice APIs and a payment sandbox. None of them is a client system.
-                </p>
-                <p>
-                    I gave every API test in those repositories one risk category: all 47 tests in RESTful Booker,
-                    32 of the 37 in Razorpay (the other five check the checkout page) and 16 of the 26 in Automation
-                    Exercise (the other ten drive the shop's web pages). The table shows where they sit. It is my tagging,
-                    and a count says how many tests touch a risk, not how well they test it.
-                </p>
+        <section class="section scope-section" aria-labelledby="about-heading">
+            <div class="container scope-grid">
+                <div class="scope-text">
+                    <p class="kicker"><span class="kicker-num">01</span> Scope</p>
+                    <h2 id="about-heading" class="section-title">What this page is</h2>
+                    <p>
+                        The evidence comes from three independent public projects, not from employer work: a TypeScript
+                        suite for the RESTful Booker practice API, a JavaScript suite for the Automation Exercise demo shop
+                        (API and web pages), and the API and security tests of a Razorpay Test Mode checkout app that I built
+                        as the test target. The targets are practice APIs and a payment sandbox. None of them is a client system.
+                    </p>
+                    <p>
+                        I gave every API test in those repositories one risk category: all 47 tests in RESTful Booker,
+                        32 of the 37 in Razorpay (the other five check the checkout page) and 16 of the 26 in Automation
+                        Exercise (the other ten drive the shop's web pages). The table shows where they sit. It is my tagging,
+                        and a count says how many tests touch a risk, not how well they test it.
+                    </p>
+                </div>
 
-                <div class="table-wrap" tabindex="0" role="region" aria-label="API tests by risk category and repository">
+                <div class="scope-data">
+                    <div class="table-wrap" tabindex="0" role="region" aria-label="API tests by risk category and repository">
                     <table id="tally">
-                        <caption class="sr-only">API tests by risk category and repository, as I tagged them</caption>
-                        <thead><tr><th scope="col">Risk</th><th scope="col" class="num">RESTful Booker</th><th scope="col" class="num">Razorpay</th><th scope="col" class="num">Automation Exercise</th><th scope="col" class="num">All</th></tr></thead>
-                        <tbody>
-                            <tr><th scope="row">authentication</th><td class="num">4</td><td class="num">0</td><td class="num">2</td><td class="num">6</td></tr>
-                            <tr><th scope="row">authorization</th><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">5</td></tr>
-                            <tr><th scope="row">status codes</th><td class="num">6</td><td class="num">0</td><td class="num">2</td><td class="num">8</td></tr>
-                            <tr><th scope="row">response structure</th><td class="num">7</td><td class="num">5</td><td class="num">3</td><td class="num">15</td></tr>
-                            <tr><th scope="row">invalid input</th><td class="num">9</td><td class="num">7</td><td class="num">6</td><td class="num">22</td></tr>
-                            <tr><th scope="row">CRUD lifecycle</th><td class="num">9</td><td class="num">0</td><td class="num">1</td><td class="num">10</td></tr>
-                            <tr><th scope="row">read-back after write</th><td class="num">6</td><td class="num">0</td><td class="num">2</td><td class="num">8</td></tr>
-                            <tr><th scope="row">idempotency/&#8203;replay</th><td class="num">1</td><td class="num">4</td><td class="num">0</td><td class="num">5</td></tr>
-                            <tr><th scope="row">signature/&#8203;HMAC</th><td class="num">0</td><td class="num">10</td><td class="num">0</td><td class="num">10</td></tr>
-                            <tr><th scope="row">error handling</th><td class="num">0</td><td class="num">6</td><td class="num">0</td><td class="num">6</td></tr>
-                        </tbody>
-                        <tfoot><tr><th scope="row">API tests tagged</th><td class="num">47</td><td class="num">32</td><td class="num">16</td><td class="num">95</td></tr></tfoot>
+                    <caption class="sr-only">API tests by risk category and repository, as I tagged them</caption>
+                    <thead><tr><th scope="col">Risk</th><th scope="col" class="num">RESTful Booker</th><th scope="col" class="num">Razorpay</th><th scope="col" class="num">Automation Exercise</th><th scope="col" class="num">All</th></tr></thead>
+                    <tbody>
+                    <tr><th scope="row">authentication</th><td class="num">4</td><td class="num">0</td><td class="num">2</td><td class="num">6</td></tr>
+                    <tr><th scope="row">authorization</th><td class="num">5</td><td class="num">0</td><td class="num">0</td><td class="num">5</td></tr>
+                    <tr><th scope="row">status codes</th><td class="num">6</td><td class="num">0</td><td class="num">2</td><td class="num">8</td></tr>
+                    <tr><th scope="row">response structure</th><td class="num">7</td><td class="num">5</td><td class="num">3</td><td class="num">15</td></tr>
+                    <tr><th scope="row">invalid input</th><td class="num">9</td><td class="num">7</td><td class="num">6</td><td class="num">22</td></tr>
+                    <tr><th scope="row">CRUD lifecycle</th><td class="num">9</td><td class="num">0</td><td class="num">1</td><td class="num">10</td></tr>
+                    <tr><th scope="row">read-back after write</th><td class="num">6</td><td class="num">0</td><td class="num">2</td><td class="num">8</td></tr>
+                    <tr><th scope="row">idempotency/&#8203;replay</th><td class="num">1</td><td class="num">4</td><td class="num">0</td><td class="num">5</td></tr>
+                    <tr><th scope="row">signature/&#8203;HMAC</th><td class="num">0</td><td class="num">10</td><td class="num">0</td><td class="num">10</td></tr>
+                    <tr><th scope="row">error handling</th><td class="num">0</td><td class="num">6</td><td class="num">0</td><td class="num">6</td></tr>
+                    </tbody>
+                    <tfoot><tr><th scope="row">API tests tagged</th><td class="num">47</td><td class="num">32</td><td class="num">16</td><td class="num">95</td></tr></tfoot>
                     </table>
+                    </div>
+
+                    <p class="caption">
+                        Every code link opens the file at a pinned commit: RESTful Booker <code>a385240</code>, Razorpay
+                        <code>da9e7a2</code>, Automation Exercise <code>789d413</code>. RESTful Booker's newest commit,
+                        <code>1e7f137</code>, changed only its CI workflow file, so the tests are the same as at
+                        <code>a385240</code>.
+                    </p>
                 </div>
-
-                <p class="caption">
-                    Every code link opens the file at a pinned commit: RESTful Booker <code>a385240</code>, Razorpay
-                    <code>da9e7a2</code>, Automation Exercise <code>789d413</code>. RESTful Booker's newest commit,
-                    <code>1e7f137</code>, changed only its CI workflow file, so the tests are the same as at
-                    <code>a385240</code>.
-                </p>
             </div>
         </section>
 
         <!-- =====================================================
-             2. WHAT I CHECK ON ANY API
+             2. WHAT I CHECK ON ANY API: numbered register
         ====================================================== -->
-        <section class="section section-light content-section" aria-labelledby="checks-heading">
+        <section class="section band-muted" aria-labelledby="checks-heading">
             <div class="container">
-                <h2 id="checks-heading">What I check on any API</h2>
-                <p class="lead">Each item links to its block in the evidence map below.</p>
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">02</span> Risks</p>
+                        <h2 id="checks-heading" class="section-title">What I check on any API</h2>
+                    </div>
+                    <p class="section-intro">Each item links to its block in the evidence map below.</p>
+                </header>
                 <ul class="check-grid">
-                    <li><strong><a href="#risk-authentication">Authentication</a></strong><p>Can a caller prove who it is, and does a missing or wrong credential fail in a way no client could mistake for success?</p></li>
-                    <li><strong><a href="#risk-authorization">Authorization</a></strong><p>Once a caller is known, can it reach only what it is allowed to? A valid token is not the same as permission for this record.</p></li>
-                    <li><strong><a href="#risk-status-codes">Status codes</a></strong><p>Does each outcome return the code the API documents, and does the test assert that code instead of assuming success?</p></li>
-                    <li><strong><a href="#risk-response-structure">Response structure</a></strong><p>Are the fields and types a client depends on present, and are fields that must stay private, such as secrets, absent?</p></li>
-                    <li><strong><a href="#risk-invalid-input">Invalid input</a></strong><p>What happens with missing, malformed, out-of-range or oversized input: a clear rejection, silent acceptance, or a server error?</p></li>
-                    <li><strong><a href="#risk-crud">CRUD lifecycle</a></strong><p>Do create, read, update and delete work in sequence, the way a real client would use them?</p></li>
-                    <li><strong><a href="#risk-read-back">Read-back after write</a></strong><p>After a change, does a separate read show it, rather than trusting the response to the write itself?</p></li>
-                    <li><strong><a href="#risk-idempotency">Idempotency and replay</a></strong><p>What happens when the same request arrives twice, from a retry, a double click or a redelivered webhook?</p></li>
-                    <li><strong><a href="#risk-signature">Signature and HMAC</a></strong><p>Does the server accept a correctly signed message and reject one that is unsigned, wrongly signed or changed after signing?</p></li>
-                    <li><strong><a href="#risk-errors">Error handling</a></strong><p>Do failures return a controlled message without internal details, and does the service keep working afterwards?</p></li>
+                        <li><strong><a href="#risk-authentication">Authentication</a></strong><p>Can a caller prove who it is, and does a missing or wrong credential fail in a way no client could mistake for success?</p></li>
+                        <li><strong><a href="#risk-authorization">Authorization</a></strong><p>Once a caller is known, can it reach only what it is allowed to? A valid token is not the same as permission for this record.</p></li>
+                        <li><strong><a href="#risk-status-codes">Status codes</a></strong><p>Does each outcome return the code the API documents, and does the test assert that code instead of assuming success?</p></li>
+                        <li><strong><a href="#risk-response-structure">Response structure</a></strong><p>Are the fields and types a client depends on present, and are fields that must stay private, such as secrets, absent?</p></li>
+                        <li><strong><a href="#risk-invalid-input">Invalid input</a></strong><p>What happens with missing, malformed, out-of-range or oversized input: a clear rejection, silent acceptance, or a server error?</p></li>
+                        <li><strong><a href="#risk-crud">CRUD lifecycle</a></strong><p>Do create, read, update and delete work in sequence, the way a real client would use them?</p></li>
+                        <li><strong><a href="#risk-read-back">Read-back after write</a></strong><p>After a change, does a separate read show it, rather than trusting the response to the write itself?</p></li>
+                        <li><strong><a href="#risk-idempotency">Idempotency and replay</a></strong><p>What happens when the same request arrives twice, from a retry, a double click or a redelivered webhook?</p></li>
+                        <li><strong><a href="#risk-signature">Signature and HMAC</a></strong><p>Does the server accept a correctly signed message and reject one that is unsigned, wrongly signed or changed after signing?</p></li>
+                        <li><strong><a href="#risk-errors">Error handling</a></strong><p>Do failures return a controlled message without internal details, and does the service keep working afterwards?</p></li>
                 </ul>
             </div>
         </section>
 
         <!-- =====================================================
-             3. EVIDENCE MAP
+             3. EVIDENCE MAP: one ruled row per risk
         ====================================================== -->
-        <section class="section content-section" id="evidence-map" aria-labelledby="map-heading">
-            <div class="container narrow">
-                <h2 id="map-heading">Evidence map</h2>
-                <p>
-                    One block per risk. Each names the tests that cover it, links every test to its lines at the pinned
-                    commit, shows a short excerpt copied from the repository, and says what is weak or missing. Razorpay
-                    tests are named by their IDs; the other two repositories have no IDs, so their tests are named by file
-                    and line range. A badge describes one test or one gap:
-                </p>
-                <ul class="badge-legend">
-                    <li><span class="scenario-tag tag-ci">Runs in CI</span> The repository's own GitHub Actions workflow runs it. That says nothing about how strong it is.</li>
-                    <li><span class="scenario-tag tag-live">Live gateway only</span> It needs my original Razorpay Test Mode account, so CI never runs it.</li>
-                    <li><span class="scenario-tag tag-none">Partly tested</span> Some of the risk is covered; the gap is stated next to it.</li>
-                    <li><span class="scenario-tag tag-none">Not tested</span> No test in these repositories covers it. I say what I would test instead.</li>
-                    <li><span class="scenario-tag tag-fail">Assertion cannot fail</span> The test passes whatever the API returns, so it proves nothing.</li>
-                </ul>
+        <section class="section map-section" id="evidence-map" aria-labelledby="map-heading">
+            <div class="container">
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">03</span> Evidence</p>
+                        <h2 id="map-heading" class="section-title">Evidence map</h2>
+                    </div>
+                    <p class="section-intro">
+                        One block per risk. Each names the tests that cover it, links every test to its lines at the pinned
+                        commit, shows a short excerpt copied from the repository, and says what is weak or missing. Razorpay
+                        tests are named by their IDs; the other two repositories have no IDs, so their tests are named by file
+                        and line range. A badge describes one test or one gap:
+                    </p>
+                </header>
+
+                <div class="legend">
+                    <p class="kicker">Key</p>
+                    <ul class="badge-legend">
+                        <li><span class="scenario-tag tag-ci">Runs in CI</span> The repository's own GitHub Actions workflow runs it. That says nothing about how strong it is.</li>
+                        <li><span class="scenario-tag tag-live">Live gateway only</span> It needs my original Razorpay Test Mode account, so CI never runs it.</li>
+                        <li><span class="scenario-tag tag-none">Partly tested</span> Some of the risk is covered; the gap is stated next to it.</li>
+                        <li><span class="scenario-tag tag-none">Not tested</span> No test in these repositories covers it. I say what I would test instead.</li>
+                        <li><span class="scenario-tag tag-fail">Assertion cannot fail</span> The test passes whatever the API returns, so it proves nothing.</li>
+                    </ul>
+                </div>
 
                 <div class="risk-list">
-
                     <article class="risk" id="risk-authentication">
-                        <h3>Authentication</h3>
-                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> a valid login returns a usable credential, and a failed login is reported as a failure, not as a success.</p>
+                        <div class="risk-head">
+                            <h3>Authentication</h3>
+                            <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> a valid login returns a usable credential, and a failed login is reported as a failure, not as a success.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/auth.spec.ts#L14-L20" target="_blank" rel="noopener noreferrer">auth.spec.ts:14&ndash;20<span class="sr-only"> (opens in a new tab)</span></a>: valid credentials return a token made of hex characters.</li>
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/auth.spec.ts#L28-L35" target="_blank" rel="noopener noreferrer">auth.spec.ts:28&ndash;35<span class="sr-only"> (opens in a new tab)</span></a>: wrong credentials return HTTP 200 with a <code>reason</code> field and no token. The test pins that behaviour; <a href="/blog/api-testing-best-practices/">the article</a> says why I would raise it.</li>
@@ -549,11 +975,15 @@
 });</code></pre>
                         <figcaption>RESTful Booker, valid login. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/auth.spec.ts#L14-L20" target="_blank" rel="noopener noreferrer">tests/api/auth.spec.ts, lines 14&ndash;20 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
 
                     <article class="risk" id="risk-authorization">
-                        <h3>Authorization</h3>
-                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> a caller can change only what it is allowed to change, and a missing or wrong token is refused.</p>
+                        <div class="risk-head">
+                            <h3>Authorization</h3>
+                            <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> a caller can change only what it is allowed to change, and a missing or wrong token is refused.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L40-L44" target="_blank" rel="noopener noreferrer">booking-update.spec.ts:40&ndash;44<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L46-L50" target="_blank" rel="noopener noreferrer">booking-update.spec.ts:46&ndash;50<span class="sr-only"> (opens in a new tab)</span></a>: PUT without a token, or with an invalid one, returns 403.</li>
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-partial-update.spec.ts#L74-L82" target="_blank" rel="noopener noreferrer">booking-partial-update.spec.ts:74&ndash;82<span class="sr-only"> (opens in a new tab)</span></a>: PATCH without a token returns 403.</li>
@@ -576,11 +1006,15 @@
 });</code></pre>
                         <figcaption>RESTful Booker, PUT without a token and with an invalid token. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L40-L50" target="_blank" rel="noopener noreferrer">tests/api/booking-update.spec.ts, lines 40&ndash;50 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
 
                     <article class="risk" id="risk-status-codes">
-                        <h3>Status codes</h3>
-                        <p><span class="scenario-tag tag-ci">Runs in CI</span> <strong>What I verify:</strong> each outcome returns the documented code, and the test asserts the code instead of assuming success.</p>
+                        <div class="risk-head">
+                            <h3>Status codes</h3>
+                            <p><span class="scenario-tag tag-ci">Runs in CI</span> <strong>What I verify:</strong> each outcome returns the documented code, and the test asserts the code instead of assuming success.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-read.spec.ts#L53-L57" target="_blank" rel="noopener noreferrer">booking-read.spec.ts:53&ndash;57<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-read.spec.ts#L59-L63" target="_blank" rel="noopener noreferrer">booking-read.spec.ts:59&ndash;63<span class="sr-only"> (opens in a new tab)</span></a>: an unknown ID and a non-numeric ID return 404.</li>
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/health-check.spec.ts#L5-L12" target="_blank" rel="noopener noreferrer">health-check.spec.ts:5&ndash;12<span class="sr-only"> (opens in a new tab)</span></a>: <code>GET /ping</code> returns 201 with the body &ldquo;Created&rdquo;.</li>
@@ -600,11 +1034,15 @@
 <span class="hljs-title function_">expect</span>(body.<span class="hljs-property">responseCode</span>).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">405</span>);</code></pre>
                         <figcaption>Automation Exercise, POST to a read-only list (condensed). <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/api/products.api.spec.js#L144-L162" target="_blank" rel="noopener noreferrer">tests/api/products.api.spec.js, lines 144&ndash;148, 160&ndash;162 @ 789d413<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
 
                     <article class="risk" id="risk-response-structure">
-                        <h3>Response structure</h3>
-                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> the fields and types a client relies on are present, and fields that must stay private are absent.</p>
+                        <div class="risk-head">
+                            <h3>Response structure</h3>
+                            <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> the fields and types a client relies on are present, and fields that must stay private are absent.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-create.spec.ts#L34-L40" target="_blank" rel="noopener noreferrer">booking-create.spec.ts:34&ndash;40<span class="sr-only"> (opens in a new tab)</span></a>: numeric and boolean fields keep their types.</li>
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-read.spec.ts#L27-L35" target="_blank" rel="noopener noreferrer">booking-read.spec.ts:27&ndash;35<span class="sr-only"> (opens in a new tab)</span></a>: the booking has five named fields. It checks only that they exist, not their types.</li>
@@ -637,11 +1075,15 @@
 }</code></pre>
                         <figcaption>Razorpay ORDER-001: no branch for the 400 that CI gets (condensed). <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L40-L65" target="_blank" rel="noopener noreferrer">tests/api/orders.spec.js, lines 40, 44&ndash;45, 61&ndash;65 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
 
                     <article class="risk" id="risk-invalid-input">
-                        <h3>Invalid input</h3>
-                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> bad input is rejected with a clear client error, not accepted silently or answered with a server error.</p>
+                        <div class="risk-head">
+                            <h3>Invalid input</h3>
+                            <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> bad input is rejected with a clear client error, not accepted silently or answered with a server error.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L64-L75" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:64&ndash;75<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L77-L80" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:77&ndash;80<span class="sr-only"> (opens in a new tab)</span></a>: an incomplete PUT returns 400 and a non-numeric booking ID returns 404. Only these two of the eight tests in <code>negative-testing.spec.ts</code> assert a rejection.</li>
                             <li><span class="scenario-tag tag-fail">Assertion cannot fail</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L28-L36" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:28&ndash;36<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L38-L49" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:38&ndash;49<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/negative-testing.spec.ts#L51-L62" target="_blank" rel="noopener noreferrer">negative-testing.spec.ts:51&ndash;62<span class="sr-only"> (opens in a new tab)</span></a>: a negative price, an invalid date and a checkout before check-in. Each ends with <code>expect(response.ok).toBeTruthy()</code> (lines 35, 48 and 61). <code>ok</code> is a method; without the call the assertion only checks that the method exists, so it passes whatever the API returns.</li>
@@ -676,11 +1118,15 @@
 }</code></pre>
                         <figcaption>Razorpay ORDER-003: the only assertions sit inside this branch. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L31-L36" target="_blank" rel="noopener noreferrer">tests/api/orders.spec.js, lines 31&ndash;36 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
 
                     <article class="risk" id="risk-crud">
-                        <h3>CRUD lifecycle</h3>
-                        <p><span class="scenario-tag tag-ci">Runs in CI</span> <strong>What I verify:</strong> create, read, update and delete work in sequence, as one flow a client would follow.</p>
+                        <div class="risk-head">
+                            <h3>CRUD lifecycle</h3>
+                            <p><span class="scenario-tag tag-ci">Runs in CI</span> <strong>What I verify:</strong> create, read, update and delete work in sequence, as one flow a client would follow.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/workflow.spec.ts#L10-L47" target="_blank" rel="noopener noreferrer">workflow.spec.ts:10&ndash;47<span class="sr-only"> (opens in a new tab)</span></a>: authenticate, create, read, update, read again, delete, and confirm the booking is gone.</li>
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/workflow.spec.ts#L49-L84" target="_blank" rel="noopener noreferrer">workflow.spec.ts:49&ndash;84<span class="sr-only"> (opens in a new tab)</span></a>: create two bookings, find both in the list, update and delete one, and confirm the other still exists.</li>
@@ -704,11 +1150,15 @@
 <span class="hljs-keyword">await</span> bookingClient.<span class="hljs-title function_">deleteBooking</span>(bookingId2, token);</code></pre>
                         <figcaption>RESTful Booker, end of the two-booking workflow: cleanup is the last line. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/workflow.spec.ts#L72-L83" target="_blank" rel="noopener noreferrer">tests/api/workflow.spec.ts, lines 72&ndash;83 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
 
                     <article class="risk" id="risk-read-back">
-                        <h3>Read-back after write</h3>
-                        <p><span class="scenario-tag tag-ci">Runs in CI</span> <strong>What I verify:</strong> after a write, a separate read shows the change, instead of trusting the write's own response.</p>
+                        <div class="risk-head">
+                            <h3>Read-back after write</h3>
+                            <p><span class="scenario-tag tag-ci">Runs in CI</span> <strong>What I verify:</strong> after a write, a separate read shows the change, instead of trusting the write's own response.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-update.spec.ts#L32-L38" target="_blank" rel="noopener noreferrer">booking-update.spec.ts:32&ndash;38<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-partial-update.spec.ts#L63-L72" target="_blank" rel="noopener noreferrer">booking-partial-update.spec.ts:63&ndash;72<span class="sr-only"> (opens in a new tab)</span></a>: after PUT or PATCH, a GET returns the new values.</li>
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">RESTful Booker</span> &middot; <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L28-L36" target="_blank" rel="noopener noreferrer">booking-delete.spec.ts:28&ndash;36<span class="sr-only"> (opens in a new tab)</span></a>: after DELETE, a GET returns 404.</li>
@@ -726,11 +1176,15 @@
 });</code></pre>
                         <figcaption>RESTful Booker, the delete test: a truthy body is the only check. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L20-L26" target="_blank" rel="noopener noreferrer">tests/api/booking-delete.spec.ts, lines 20&ndash;26 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
 
                     <article class="risk" id="risk-idempotency">
-                        <h3>Idempotency and replay</h3>
-                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> sending the same request twice does not create a second effect or corrupt state.</p>
+                        <div class="risk-head">
+                            <h3>Idempotency and replay</h3>
+                            <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> sending the same request twice does not create a second effect or corrupt state.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L126-L158" target="_blank" rel="noopener noreferrer">WEB-005 (webhook-validation.spec.js:126&ndash;158)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L336-L362" target="_blank" rel="noopener noreferrer">WEB-FIX-004 (webhook-validation.spec.js:336&ndash;362)<span class="sr-only"> (opens in a new tab)</span></a>: the same signed webhook event sent twice is processed once; WEB-FIX-004 also reads the order back to show the second delivery changed nothing.</li>
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L160-L199" target="_blank" rel="noopener noreferrer">WEB-006 (webhook-validation.spec.js:160&ndash;199)<span class="sr-only"> (opens in a new tab)</span></a>: two different event IDs are both processed.</li>
@@ -750,11 +1204,15 @@
 });</code></pre>
                         <figcaption>RESTful Booker, deleting the same booking twice. <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/tests/api/booking-delete.spec.ts#L59-L67" target="_blank" rel="noopener noreferrer">tests/api/booking-delete.spec.ts, lines 59&ndash;67 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
 
                     <article class="risk" id="risk-signature">
-                        <h3>Signature and HMAC</h3>
-                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> a correctly signed message is accepted, and an unsigned, wrongly signed or modified one is rejected.</p>
+                        <div class="risk-head">
+                            <h3>Signature and HMAC</h3>
+                            <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> a correctly signed message is accepted, and an unsigned, wrongly signed or modified one is rejected.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L42-L65" target="_blank" rel="noopener noreferrer">WEB-001 (webhook-validation.spec.js:42&ndash;65)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L259-L286" target="_blank" rel="noopener noreferrer">WEB-FIX-001 (webhook-validation.spec.js:259&ndash;286)<span class="sr-only"> (opens in a new tab)</span></a>: a webhook signed over its exact raw body is accepted.</li>
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L67-L85" target="_blank" rel="noopener noreferrer">WEB-002 (webhook-validation.spec.js:67&ndash;85)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L87-L104" target="_blank" rel="noopener noreferrer">WEB-003 (webhook-validation.spec.js:87&ndash;104)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L201-L223" target="_blank" rel="noopener noreferrer">WEB-007 (webhook-validation.spec.js:201&ndash;223)<span class="sr-only"> (opens in a new tab)</span></a>, <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L288-L314" target="_blank" rel="noopener noreferrer">WEB-FIX-002 (webhook-validation.spec.js:288&ndash;314)<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L316-L334" target="_blank" rel="noopener noreferrer">WEB-FIX-003 (webhook-validation.spec.js:316&ndash;334)<span class="sr-only"> (opens in a new tab)</span></a>: a wrong signature, a missing signature header, or a body changed after signing is rejected with 401.</li>
@@ -777,11 +1235,15 @@
   <span class="hljs-title function_">expect</span>(response.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);</code></pre>
                         <figcaption>Razorpay SIG-001, tagged <code>@razorpay-live</code> and left out of CI (condensed). <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L37-L48" target="_blank" rel="noopener noreferrer">tests/security/signature-verification.spec.js, lines 37&ndash;38, 40&ndash;46, 48 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
 
                     <article class="risk" id="risk-errors">
-                        <h3>Error handling</h3>
-                        <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> failures return a controlled message with no internal details, and the service keeps working afterwards.</p>
+                        <div class="risk-head">
+                            <h3>Error handling</h3>
+                            <p><span class="scenario-tag tag-none">Partly tested</span> <strong>What I verify:</strong> failures return a controlled message with no internal details, and the service keeps working afterwards.</p>
+                        </div>
+                        <div class="risk-body">
                         <ul class="risk-tests">
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L26-L46" target="_blank" rel="noopener noreferrer">ERR-002 (error-handling.spec.js:26&ndash;46)<span class="sr-only"> (opens in a new tab)</span></a>: a failed verification returns 401, and the body contains no stack-trace or file-path text.</li>
                             <li><span class="scenario-tag tag-ci">Runs in CI</span> <span class="repo">Razorpay</span> &middot; <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L48-L56" target="_blank" rel="noopener noreferrer">ERR-003 (error-handling.spec.js:48&ndash;56)<span class="sr-only"> (opens in a new tab)</span></a>: an unknown route returns a JSON 404 that names the path.</li>
@@ -803,27 +1265,32 @@
 <span class="hljs-title function_">expect</span>(responseString).<span class="hljs-property">not</span>.<span class="hljs-title function_">toContain</span>(<span class="hljs-string">&#x27;/routes/&#x27;</span>);</code></pre>
                         <figcaption>Razorpay ERR-002: status first, then what the body must not contain. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L35-L45" target="_blank" rel="noopener noreferrer">tests/security/error-handling.spec.js, lines 35&ndash;45 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                        </div>
                     </article>
-
                 </div>
             </div>
         </section>
 
         <!-- =====================================================
-             4. HOW I STRUCTURE PLAYWRIGHT API SUITES
+             4. HOW I STRUCTURE PLAYWRIGHT API SUITES: labelled parts
         ====================================================== -->
-        <section class="section section-light content-section structure" aria-labelledby="structure-heading">
-            <div class="container narrow">
-                <h2 id="structure-heading">How I structure Playwright API suites</h2>
+        <section class="section band-muted structure" aria-labelledby="structure-heading">
+            <div class="container">
+                <header class="section-head">
+                    <p class="kicker"><span class="kicker-num">04</span> Structure</p>
+                    <h2 id="structure-heading" class="section-title">How I structure Playwright API suites</h2>
+                </header>
 
-                <h3>API client classes</h3>
-                <p>
-                    Requests go through client classes, not inline calls. In RESTful Booker a base class builds the URL
-                    and headers, and one class per resource gives each call a name, so a test reads
-                    <code>bookingClient.createBooking(validBooking)</code> and a header change is made in one place.
-                    Automation Exercise uses the same idea in plain JavaScript, one class per area
-                    (<a href="https://github.com/Open83/automationexercise/blob/789d413/api/AccountApi.js#L3-L59" target="_blank" rel="noopener noreferrer">AccountApi.js<span class="sr-only"> (opens in a new tab)</span></a>).
-                </p>
+                <div class="struct-part">
+                    <h3>API client classes</h3>
+                    <div class="struct-body">
+                        <p>
+                            Requests go through client classes, not inline calls. In RESTful Booker a base class builds the URL
+                            and headers, and one class per resource gives each call a name, so a test reads
+                            <code>bookingClient.createBooking(validBooking)</code> and a header change is made in one place.
+                            Automation Exercise uses the same idea in plain JavaScript, one class per area
+                            (<a href="https://github.com/Open83/automationexercise/blob/789d413/api/AccountApi.js#L3-L59" target="_blank" rel="noopener noreferrer">AccountApi.js<span class="sr-only"> (opens in a new tab)</span></a>).
+                        </p>
                 <figure class="code-figure">
                         <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BookingClient</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">APIClient</span> {
   <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-attr">request</span>: <span class="hljs-title class_">APIRequestContext</span>, <span class="hljs-attr">baseURL</span>: <span class="hljs-built_in">string</span></span>) {
@@ -835,16 +1302,20 @@
   }</code></pre>
                         <figcaption>RESTful Booker, the booking client (condensed). <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/src/api/clients/booking-client.ts#L5-L16" target="_blank" rel="noopener noreferrer">src/api/clients/booking-client.ts, lines 5&ndash;8, 14&ndash;16 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                    </div>
+                </div>
 
-                <h3>Raw responses and parsed bodies</h3>
-                <p>
-                    Each HTTP verb has two helpers. The parsed ones return the body; the <code>&hellip;Response</code>
-                    ones return the raw response, so a test can assert the status. The weakness is that the parsed
-                    helpers never look at the status. The <code>delete</code> helper below returns the text of any reply,
-                    so a 403 comes back as the string &ldquo;Forbidden&rdquo;, and that is why the truthy check in the delete
-                    test proves nothing. <a href="/blog/api-testing-best-practices/">The article</a> walks through the same
-                    split for <code>get</code>.
-                </p>
+                <div class="struct-part">
+                    <h3>Raw responses and parsed bodies</h3>
+                    <div class="struct-body">
+                        <p>
+                            Each HTTP verb has two helpers. The parsed ones return the body; the <code>&hellip;Response</code>
+                            ones return the raw response, so a test can assert the status. The weakness is that the parsed
+                            helpers never look at the status. The <code>delete</code> helper below returns the text of any reply,
+                            so a 403 comes back as the string &ldquo;Forbidden&rdquo;, and that is why the truthy check in the delete
+                            test proves nothing. <a href="/blog/api-testing-best-practices/">The article</a> walks through the same
+                            split for <code>get</code>.
+                        </p>
                 <figure class="code-figure">
                         <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">async</span> <span class="hljs-title function_">delete</span>(<span class="hljs-attr">endpoint</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">token</span>?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; | <span class="hljs-built_in">string</span>&gt; {
   <span class="hljs-keyword">const</span> headers = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getHeaders</span>(token);
@@ -863,17 +1334,21 @@
 }</code></pre>
                         <figcaption>RESTful Booker, a parsed-body helper and its raw-response twin (condensed). <a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/src/api/clients/api-client.ts#L44-L79" target="_blank" rel="noopener noreferrer">src/api/clients/api-client.ts, lines 44&ndash;53, 76&ndash;79 @ a385240<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                    </div>
+                </div>
 
-                <h3>Data for each test</h3>
-                <p>
-                    Each test creates the data it needs instead of sharing records. In Automation Exercise a fixture
-                    generates a unique account, creates it through the API, hands it to the test and deletes it in its
-                    teardown, which Playwright runs even when the test fails. RESTful Booker creates a booking per test,
-                    but its read, update and partial-update files do it in <code>beforeEach</code> and never delete it.
-                    The Razorpay webhook tests that expect an event to be accepted build a unique event ID with <code>Date.now()</code>,
-                    because processed IDs are stored and a fixed ID would be &ldquo;already processed&rdquo; on the next run
-                    (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L43-L47" target="_blank" rel="noopener noreferrer">webhook-validation.spec.js, lines 43&ndash;47<span class="sr-only"> (opens in a new tab)</span></a>).
-                </p>
+                <div class="struct-part">
+                    <h3>Data for each test</h3>
+                    <div class="struct-body">
+                        <p>
+                            Each test creates the data it needs instead of sharing records. In Automation Exercise a fixture
+                            generates a unique account, creates it through the API, hands it to the test and deletes it in its
+                            teardown, which Playwright runs even when the test fails. RESTful Booker creates a booking per test,
+                            but its read, update and partial-update files do it in <code>beforeEach</code> and never delete it.
+                            The Razorpay webhook tests that expect an event to be accepted build a unique event ID with <code>Date.now()</code>,
+                            because processed IDs are stored and a fixed ID would be &ldquo;already processed&rdquo; on the next run
+                            (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L43-L47" target="_blank" rel="noopener noreferrer">webhook-validation.spec.js, lines 43&ndash;47<span class="sr-only"> (opens in a new tab)</span></a>).
+                        </p>
                 <figure class="code-figure">
                         <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-keyword">const</span> userData = <span class="hljs-title function_">generateAccountData</span>();
 <span class="hljs-comment">// ...</span>
@@ -891,25 +1366,33 @@
     <span class="hljs-title function_">expect</span>(deleteResponse.<span class="hljs-title function_">status</span>()).<span class="hljs-title function_">toBe</span>(<span class="hljs-number">200</span>);</code></pre>
                         <figcaption>Automation Exercise, the account fixture (condensed). <a href="https://github.com/Open83/automationexercise/blob/789d413/tests/fixtures/account.fixture.js#L20-L94" target="_blank" rel="noopener noreferrer">tests/fixtures/account.fixture.js, lines 20, 34&ndash;35, 86&ndash;94 @ 789d413<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                    </div>
+                </div>
 
-                <h3>Read back after every write</h3>
-                <p>
-                    A write's own response says what the server claims to have done; a separate GET says what it stored.
-                    I treat the second as the evidence. The <a href="#risk-read-back">read-back block</a> above lists where
-                    these repositories do it, and the delete test shows what happens when a test trusts the write alone.
-                </p>
+                <div class="struct-part">
+                    <h3>Read back after every write</h3>
+                    <div class="struct-body">
+                        <p>
+                            A write's own response says what the server claims to have done; a separate GET says what it stored.
+                            I treat the second as the evidence. The <a href="#risk-read-back">read-back block</a> above lists where
+                            these repositories do it, and the delete test shows what happens when a test trusts the write alone.
+                        </p>
+                    </div>
+                </div>
 
-                <h3>Retries, workers and traces</h3>
-                <p>
-                    Each setting changes how much a green run means. RESTful Booker allows one retry in CI and runs one
-                    worker there (<a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/playwright.config.ts#L7-L8" target="_blank" rel="noopener noreferrer">playwright.config.ts, lines 7&ndash;8<span class="sr-only"> (opens in a new tab)</span></a>).
-                    Razorpay allows two retries in CI with one worker, and its CI command runs Chromium only and leaves
-                    out the live tests (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/playwright.config.js#L7-L8" target="_blank" rel="noopener noreferrer">playwright.config.js, lines 7&ndash;8<span class="sr-only"> (opens in a new tab)</span></a>;
-                    <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/package.json#L13" target="_blank" rel="noopener noreferrer">package.json, line 13<span class="sr-only"> (opens in a new tab)</span></a>).
-                    Automation Exercise allows one retry everywhere, not only in CI. All three keep a trace only on the
-                    first retry, so a run that needed no retry leaves no trace to open. A test that fails and then passes
-                    on retry still counts as passed, so I read a green run together with its retry setting.
-                </p>
+                <div class="struct-part">
+                    <h3>Retries, workers and traces</h3>
+                    <div class="struct-body">
+                        <p>
+                            Each setting changes how much a green run means. RESTful Booker allows one retry in CI and runs one
+                            worker there (<a href="https://github.com/Open83/restful-booker-api-automation/blob/a385240/playwright.config.ts#L7-L8" target="_blank" rel="noopener noreferrer">playwright.config.ts, lines 7&ndash;8<span class="sr-only"> (opens in a new tab)</span></a>).
+                            Razorpay allows two retries in CI with one worker, and its CI command runs Chromium only and leaves
+                            out the live tests (<a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/playwright.config.js#L7-L8" target="_blank" rel="noopener noreferrer">playwright.config.js, lines 7&ndash;8<span class="sr-only"> (opens in a new tab)</span></a>;
+                            <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/package.json#L13" target="_blank" rel="noopener noreferrer">package.json, line 13<span class="sr-only"> (opens in a new tab)</span></a>).
+                            Automation Exercise allows one retry everywhere, not only in CI. All three keep a trace only on the
+                            first retry, so a run that needed no retry leaves no trace to open. A test that fails and then passes
+                            on retry still counts as passed, so I read a green run together with its retry setting.
+                        </p>
                 <figure class="code-figure">
                         <pre class="code-block" tabindex="0"><code class="hljs"><span class="hljs-attr">retries</span>: <span class="hljs-number">1</span>,
   <span class="hljs-comment">// ...</span>
@@ -918,17 +1401,22 @@
   <span class="hljs-attr">video</span>: <span class="hljs-string">&#x27;retain-on-failure&#x27;</span>,</code></pre>
                         <figcaption>Automation Exercise, retries and what is kept on failure (condensed). <a href="https://github.com/Open83/automationexercise/blob/789d413/playwright.config.js#L9-L15" target="_blank" rel="noopener noreferrer">playwright.config.js, lines 9, 13&ndash;15 @ 789d413<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
                     </figure>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- =====================================================
-             5. WHAT THIS DOES NOT PROVE
+             5. WHAT THIS DOES NOT PROVE: a warning register
         ====================================================== -->
-        <section class="section content-section" id="limits" aria-labelledby="limits-heading">
-            <div class="container narrow">
-                <h2 id="limits-heading">What this does not prove</h2>
-                <p>All of this is true of the published code at the commits above.</p>
-                <ul>
+        <section class="section limits-section" id="limits" aria-labelledby="limits-heading">
+            <div class="container limits-grid">
+                <header class="section-head limits-head">
+                    <p class="kicker"><span class="kicker-num">05</span> Limits</p>
+                    <h2 id="limits-heading" class="section-title">What this does not prove</h2>
+                    <p class="section-intro">All of this is true of the published code at the commits above.</p>
+                </header>
+                <ul class="limits-list">
                     <li><strong>No schema or contract validation.</strong> Responses are checked field by field, and four assertions in RESTful Booker compare a whole booking with <code>toEqual</code>. Nothing validates a response against a schema.</li>
                     <li><strong>No performance or load testing.</strong> None of the three repositories asserts a response time or sends load.</li>
                     <li><strong>No role-based authorization.</strong> The only access control tested is a token being present, absent or invalid. No test uses more than one role, or one user's token on another user's data.</li>
@@ -943,12 +1431,15 @@
         </section>
 
         <!-- =====================================================
-             6. PROFESSIONAL WORK
+             6. PROFESSIONAL WORK: quiet split
         ====================================================== -->
-        <section class="section section-light content-section" aria-labelledby="work-heading">
-            <div class="container narrow">
-                <h2 id="work-heading">Professional work</h2>
-                <p>
+        <section class="section-tight work-section" aria-labelledby="work-heading">
+            <div class="container work-grid">
+                <div>
+                    <p class="kicker"><span class="kicker-num">06</span> Employer work</p>
+                    <h2 id="work-heading" class="section-title">Professional work</h2>
+                </div>
+                <p class="work-text">
                     In my job I test six client projects covering donation and payment platforms, CRM and role-based
                     access, and logistics, with API checks in Postman. I describe that work only in general terms, on
                     the <a href="/about/">About</a> page and the <a href="/">home page</a>, and nothing on this page comes
@@ -959,29 +1450,37 @@
         </section>
 
         <!-- =====================================================
-             7. NEXT STEPS
+             7. NEXT STEPS: document index
         ====================================================== -->
-        <section class="section content-section" aria-labelledby="next-heading">
+        <section class="section next-section" aria-labelledby="next-heading">
             <div class="container">
-                <h2 id="next-heading">Next steps</h2>
+                <header class="section-head">
+                    <p class="kicker"><span class="kicker-num">07</span> Read next</p>
+                    <h2 id="next-heading" class="section-title">Next steps</h2>
+                </header>
                 <ul class="next-list">
-                    <li><a href="/projects/razorpay-payment-gateway-qa-automation/">Razorpay case study</a>Payment scenarios, the two defects in my own app, and how CI is kept away from real credentials.</li>
-                    <li><a href="/projects/restful-booker-api-automation/">RESTful Booker case study</a>The suite's layout, its booking lifecycle and its negative tests.</li>
-                    <li><a href="/projects/automation-exercise/">Automation Exercise case study</a>UI flows and API tests against a public demo shop.</li>
-                    <li><a href="/blog/api-testing-best-practices/">API testing lessons</a>What the RESTful Booker suite taught me about assertions, isolation and CI.</li>
-                    <li><a href="/blog/payment-gateway-testing-playwright/">Testing a payment gateway</a>Signatures, webhooks, refunds and failure scenarios, step by step.</li>
-                    <li><a href="/evidence/">Evidence</a>The defect report, the Razorpay coverage matrix and the CI runs.</li>
+                        <li><a href="/projects/razorpay-payment-gateway-qa-automation/">Razorpay case study</a>Payment scenarios, the two defects in my own app, and how CI is kept away from real credentials.</li>
+                        <li><a href="/projects/restful-booker-api-automation/">RESTful Booker case study</a>The suite's layout, its booking lifecycle and its negative tests.</li>
+                        <li><a href="/projects/automation-exercise/">Automation Exercise case study</a>UI flows and API tests against a public demo shop.</li>
+                        <li><a href="/blog/api-testing-best-practices/">API testing lessons</a>What the RESTful Booker suite taught me about assertions, isolation and CI.</li>
+                        <li><a href="/blog/payment-gateway-testing-playwright/">Testing a payment gateway</a>Signatures, webhooks, refunds and failure scenarios, step by step.</li>
+                        <li><a href="/evidence/">Evidence</a>The defect report, the Razorpay coverage matrix and the CI runs.</li>
                 </ul>
             </div>
         </section>
 
-        <section class="cta-section">
-            <div class="container">
-                <h2 class="cta-title">Need an API tested this way?</h2>
-                <p class="cta-desc">Describe the API and the risk you are worried about in the Services form. Nothing starts until scope and access are agreed.</p>
-                <div class="cta-buttons">
-                    <a href="/services/#contact" class="button button-primary">Describe your API</a>
-                    <a href="/proof-of-work/" class="button button-secondary">
+        <!-- =====================================================
+             CLOSING BAND: Soft Mint (the one loud moment)
+        ====================================================== -->
+        <section class="section cta-band" aria-labelledby="cta-heading">
+            <div class="container cta-layout">
+                <div>
+                    <h2 id="cta-heading" class="section-title">Need an API tested this way?</h2>
+                    <p class="cta-text">Describe the API and the risk you are worried about in the Services form. Nothing starts until scope and access are agreed.</p>
+                </div>
+                <div class="cta-actions">
+                    <a href="/services/#contact" class="btn btn-primary">Describe your API</a>
+                    <a href="/proof-of-work/" class="btn btn-secondary">
                         <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i>
                         Back to Proof of Work
                     </a>

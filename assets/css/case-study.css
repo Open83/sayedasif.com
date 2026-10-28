@@ -1,0 +1,1510 @@
+/* =============================================================
+   CASE-STUDY TEMPLATE
+   Shared by the four project case studies (/projects/*/). Loaded after
+   site.css and global-nav.css; written only with the design tokens.
+   Page-specific additions stay in that page's own <style>.
+   ============================================================= */
+
+/* =========================================================
+   CASE STUDY TEMPLATE: page layout only.
+   One vocabulary shared by the four /projects/ case studies
+   (Razorpay, RESTful Booker, ERPNext, Automation Exercise).
+   Tokens, type, buttons, tags, callouts, tables and code panels
+   live in /assets/css/site.css; header and footer in global-nav.css.
+   No colour values here: tokens only.
+========================================================= */
+
+
+/* =========================================================
+   1. HEADER: breadcrumb, kicker, serif title, lede, actions,
+      a facts object on the right, the cover as the figure.
+========================================================= */
+
+.cs-header {
+    padding-top: calc(var(--header-h) + clamp(1.25rem, 0.75rem + 2vw, 2.5rem));
+    padding-bottom: var(--section-y-tight);
+}
+
+.cs-header.cs-header-flush {
+    padding-bottom: 0;
+}
+
+.cs-header:not(.cs-header-flush) {
+    border-bottom: 1px solid var(--color-border);
+}
+
+.cs-header .project-breadcrumb {
+    margin-bottom: clamp(1.75rem, 1rem + 3vw, 3.75rem);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55em;
+    min-height: 44px;
+}
+
+.cs-header-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--space-7) var(--space-9);
+    align-items: end;
+}
+
+.cs-kicker {
+    color: var(--color-link);
+}
+
+.cs-header h1 {
+    margin-bottom: var(--space-5);
+    font-size: clamp(2.5rem, 1.45rem + 3.4vw, 4.5rem);
+    line-height: 1;
+}
+
+.cs-header h1 span {
+    display: block;
+    margin-top: 0.08em;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.cs-subtitle {
+    max-width: 34ch;
+    margin-bottom: var(--space-4);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--color-heading);
+}
+
+.cs-lede {
+    max-width: 62ch;
+    margin-bottom: var(--space-6);
+    font-size: var(--text-md);
+    line-height: 1.7;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+/* Facts object: a key/value register under an Ink rule */
+.cs-facts {
+    min-width: 0;
+}
+
+.cs-facts-label {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.cs-facts .meta-list {
+    border-top-color: var(--color-heading);
+}
+
+.cs-facts .meta-list > div {
+    grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr);
+}
+
+.cs-facts .meta-list dd {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.cs-facts .meta-list dd.mono {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    padding-top: 0.15em;
+}
+
+.cs-facts .status {
+    white-space: normal;
+}
+
+.cs-note {
+    margin-top: var(--space-5);
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--color-border-strong);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+}
+
+/* Run record: a CI result filed as a small document */
+.run-record {
+    padding: var(--space-5);
+}
+
+.run-record-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-heading);
+}
+
+.run-record-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.passed-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.15rem 0.55rem 0.15rem 0.45rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.big-result {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-3);
+    padding-block: var(--space-5) var(--space-3);
+}
+
+.big-result strong {
+    font-family: var(--font-mono);
+    font-size: clamp(2.75rem, 2rem + 2.4vw, 3.75rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--color-heading);
+}
+
+.big-result span {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-heading);
+}
+
+.result-label {
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+}
+
+.result-label a {
+    font-weight: 500;
+}
+
+.run-record .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+}
+
+.run-record .proof-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-3) var(--space-3) var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.run-record .proof-stat:nth-child(even) {
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--color-border);
+}
+
+.run-record .proof-stat:nth-last-child(-n + 2) {
+    border-bottom: 0;
+}
+
+.run-record .proof-stat strong {
+    font-family: var(--font-mono);
+    font-size: var(--text-base);
+    font-weight: 500;
+}
+
+.run-record .proof-stat span {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+/* The generated cover, framed full width as the header's figure */
+.cs-cover {
+    margin-top: clamp(2.5rem, 1.5rem + 3.5vw, 4.5rem);
+}
+
+.project-cover {
+    /* capped so the cover reads as the header's figure, not as a second, larger title */
+    max-width: 960px;
+    margin-inline: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-muted);
+}
+
+.cs-header-flush .project-cover {
+    border-bottom: 0;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+
+/* =========================================================
+   2. LEDGER STRIP: mono figures between hairlines
+========================================================= */
+
+.snapshot {
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.snapshot-grid {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+}
+
+.snapshot-card {
+    padding: var(--space-6) var(--space-5);
+    border-left: 1px solid var(--color-border);
+}
+
+.snapshot-card:first-child {
+    padding-left: 0;
+    border-left: 0;
+}
+
+.snapshot-number,
+.snapshot-label {
+    display: block;
+}
+
+.snapshot-number {
+    font-family: var(--font-mono);
+    font-size: clamp(2.125rem, 1.6rem + 1.6vw, 3rem);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--color-heading);
+}
+
+.snapshot-number.is-word {
+    display: flex;
+    align-items: flex-end;
+    height: clamp(2.125rem, 1.6rem + 1.6vw, 3rem);
+    font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
+    letter-spacing: -0.02em;
+}
+
+.snapshot-label {
+    max-width: 22ch;
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: 1.4;
+    color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   3. BODY: chapters in a content column, with a sticky
+      chapter list in the left margin on wide screens.
+========================================================= */
+
+.cs-layout {
+    display: grid;
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: 0 var(--space-9);
+}
+
+.cs-toc {
+    position: sticky;
+    z-index: 1;
+    top: calc(var(--header-h) + var(--space-5));
+    align-self: start;
+    max-height: calc(100vh - var(--header-h) - var(--space-6));
+    overflow-y: auto;
+    padding-block: var(--section-y-tight) var(--space-5);
+}
+
+.cs-toc-title {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.cs-toc ol {
+    list-style: none;
+    border-left: 1px solid var(--color-border);
+}
+
+.cs-toc a {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    align-items: baseline;
+    min-height: 2.25rem;
+    margin-left: -1px;
+    padding: 0.4rem 0 0.4rem var(--space-3);
+    border-left: 2px solid transparent;
+    font-size: var(--text-sm);
+    line-height: 1.35;
+    color: var(--color-text-muted);
+    text-decoration: none;
+}
+
+.cs-toc a span {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+}
+
+.cs-toc a:hover {
+    border-left-color: var(--color-brand);
+    color: var(--color-heading);
+}
+
+.cs-content {
+    min-width: 0;
+}
+
+.chapter {
+    padding-block: clamp(2.5rem, 1.75rem + 2.4vw, 4rem);
+}
+
+.cs-content > .chapter:first-child {
+    padding-top: var(--section-y-tight);
+}
+
+.cs-content > .chapter:last-child {
+    padding-bottom: var(--section-y-tight);
+}
+
+/* Inline code on a tinted band keeps its chip */
+.band :not(pre) > code,
+.band-loud :not(pre) > code {
+    background: var(--color-surface);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+}
+
+.band-loud .panel :not(pre) > code {
+    background: var(--color-code-inline-bg);
+    box-shadow: none;
+}
+
+.chapter + .chapter {
+    border-top: 1px solid var(--color-border);
+}
+
+/* Background changes only at the major chapter boundaries.
+   The band runs full width behind the margin column. */
+.band,
+.band-loud {
+    box-shadow: 0 0 0 100vmax var(--band);
+    clip-path: inset(0 -100vmax);
+    background: var(--band);
+}
+
+.band { --band: var(--color-surface-muted); }
+.band-loud { --band: var(--color-surface-soft); }
+
+.chapter:not(.band) + .band,
+.band + .chapter:not(.band),
+.chapter + .band-loud,
+.band-loud + .chapter {
+    border-top: 0;
+}
+
+.chapter .section-head {
+    margin-bottom: var(--space-6);
+}
+
+.chapter .section-title {
+    font-size: var(--text-2xl);
+}
+
+.chapter-body {
+    font-size: var(--text-md);
+    line-height: 1.75;
+}
+
+.chapter-body > * + * {
+    margin-top: var(--space-4);
+}
+
+.chapter-body > p,
+.chapter-body > ul,
+.chapter-body > ol {
+    max-width: 68ch;
+}
+
+.chapter-body > ul,
+.chapter-body > ol,
+.chapter-sub > ul {
+    padding-left: 1.2em;
+}
+
+.chapter-body li + li,
+.chapter-sub li + li {
+    margin-top: var(--space-2);
+}
+
+.chapter-body li::marker,
+.chapter-sub li::marker {
+    color: var(--color-text-muted);
+}
+
+/* Sub-chapters (h3) inside a chapter */
+.chapter-sub {
+    max-width: 68ch;
+    margin-top: var(--space-7);
+    font-size: var(--text-md);
+    line-height: 1.75;
+}
+
+.chapter-sub > * + * {
+    margin-top: var(--space-3);
+}
+
+.chapter-sub h3,
+.chapter-body > h3 {
+    font-size: var(--text-lg);
+}
+
+.chapter-sub-label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.chapter-body .table-wrap,
+.chapter-sub .table-wrap {
+    margin-top: var(--space-5);
+}
+
+/* A sentence the chapter turns on, set in the serif */
+.pull-line {
+    max-width: 40ch;
+    padding-left: var(--space-5);
+    border-left: 2px solid var(--color-brand);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--color-heading);
+}
+
+.chapter-body > .pull-line {
+    margin-block: var(--space-6);
+}
+
+/* A path written out in mono between two rules */
+.flow-line {
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--color-heading);
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1.9;
+    color: var(--color-heading);
+}
+
+.chapter-body > .flow-line {
+    margin-block: var(--space-6);
+}
+
+.flow-annotation {
+    color: var(--color-text-muted);
+}
+
+.chapter-after {
+    max-width: 68ch;
+    margin-top: var(--space-6);
+    font-size: var(--text-base);
+}
+
+.chapter-after a {
+    font-weight: 600;
+}
+
+/* Small inline ledger inside a chapter: figure first, then its label */
+.coverage-ledger {
+    margin-bottom: var(--space-6);
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    max-width: 40rem;
+    border-top: 1px solid var(--color-heading);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.coverage-ledger .coverage-card {
+    padding: var(--space-4) var(--space-4) var(--space-4) 0;
+}
+
+.coverage-ledger .coverage-card + .coverage-card {
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--color-border);
+}
+
+.coverage-ledger .coverage-count {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-heading);
+}
+
+.coverage-ledger .coverage-suite {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   4. FIGURES: diagrams (inline SVG) on a surface plate, restyled
+      with tokens; code panels come from site.css
+========================================================= */
+
+.diagram {
+    margin-block: var(--space-6);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+}
+
+.diagram figcaption {
+    margin-top: var(--space-4);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+}
+
+.dg {
+    display: block;
+    width: 100%;
+    max-width: 820px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.dg-narrow {
+    display: none;
+    max-width: 340px;
+}
+
+.dg-slim {
+    max-width: 210px;
+}
+
+.dg-node {
+    fill: var(--color-surface);
+    stroke: var(--color-border-strong);
+    stroke-width: 1.5;
+}
+
+.dg-primary {
+    fill: var(--color-surface-soft);
+    stroke: var(--color-brand);
+    stroke-width: 2;
+}
+
+.dg-terminal {
+    fill: var(--color-surface-muted);
+    stroke: var(--color-heading);
+    stroke-width: 1.5;
+}
+
+.dg-muted {
+    fill: var(--color-surface-muted);
+    stroke: var(--color-border-strong);
+    stroke-dasharray: 5 4;
+}
+
+.dg-text {
+    fill: var(--color-heading);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dg-small {
+    fill: var(--color-text-muted);
+    font-size: 12.5px;
+    font-weight: 500;
+}
+
+.dg-label {
+    fill: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.dg-arrow {
+    fill: none;
+    stroke: var(--color-brand);
+    stroke-width: 2;
+}
+
+.dg-head,
+.dg-numcircle {
+    fill: var(--color-brand);
+}
+
+.dg-numcircle {
+    stroke: var(--color-brand);
+}
+
+.dg-num {
+    fill: var(--color-on-brand);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.code-figure {
+    margin-block: var(--space-5) 0;
+}
+
+.code-figure + .code-figure {
+    margin-top: var(--space-5);
+}
+
+.chapter-body > .code-figure {
+    margin-top: var(--space-5);
+}
+
+
+/* =========================================================
+   5. RULED REGISTERS: definition rows, checklists, indexes
+========================================================= */
+
+/* Definition rows: what was tested, beside how */
+.cs-rows {
+    margin-top: var(--space-6);
+    border-top: 1px solid var(--color-heading);
+}
+
+.cs-rows > div {
+    display: grid;
+    grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+    gap: var(--space-2) var(--space-6);
+    padding-block: var(--space-5);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.cs-rows > div:last-child {
+    border-bottom: 0;
+}
+
+.cs-rows dt {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--color-heading);
+}
+
+.cs-rows dd {
+    max-width: 68ch;
+    font-size: var(--text-base);
+    line-height: 1.7;
+}
+
+.cs-rows dd > * + * {
+    margin-top: var(--space-3);
+}
+
+.cs-rows > div > h3 {
+    font-size: var(--text-base);
+    line-height: 1.5;
+}
+
+.cs-rows-desc {
+    max-width: 68ch;
+    font-size: var(--text-base);
+    line-height: 1.7;
+}
+
+.cs-rows-desc > * + * {
+    margin-top: var(--space-3);
+}
+
+.cs-rows-desc ul {
+    padding-left: 1.2em;
+}
+
+.cs-rows-desc li + li {
+    margin-top: var(--space-2);
+}
+
+/* Plain ruled list: facts, one per row */
+.rule-list {
+    list-style: none;
+    border-top: 1px solid var(--color-heading);
+}
+
+.chapter-body > .rule-list {
+    padding-left: 0;
+}
+
+.rule-list > li {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-base);
+    line-height: 1.6;
+}
+
+.chapter-body .rule-list > li + li {
+    margin-top: 0;
+}
+
+/* Numbered investigation steps: the label leads each row */
+.step-list,
+.chapter-sub > .step-list {
+    list-style: none;
+    padding-left: 0;
+    border-top: 1px solid var(--color-heading);
+}
+
+.step-list > li {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-base);
+    line-height: 1.65;
+}
+
+.chapter-sub .step-list > li + li {
+    margin-top: 0;
+}
+
+.step-list strong {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+.step-list .step-key strong {
+    color: var(--color-link);
+}
+
+/* An investigation written up as one document */
+.investigation-sheet {
+    padding: clamp(1.25rem, 0.75rem + 2.2vw, 2.75rem);
+}
+
+.investigation-sheet > .chapter-sub:first-child {
+    margin-top: 0;
+}
+
+.investigation-sheet .chapter-sub {
+    max-width: none;
+}
+
+.investigation-sheet .chapter-sub > p:not(.callout),
+.investigation-sheet .chapter-sub > ul {
+    max-width: 68ch;
+}
+
+.investigation-sheet .chapter-sub + .chapter-sub {
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+}
+
+.takeaway-pair {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: var(--space-6) var(--space-8);
+    margin-top: var(--space-8);
+}
+
+.takeaway-note > strong {
+    display: block;
+    margin-bottom: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.takeaway-note .pull-line {
+    font-size: var(--text-lg);
+}
+
+/* Short code terms read better side by side than as tall rows */
+.cs-rows-code {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    border-bottom: 1px solid var(--color-border);
+}
+
+.cs-rows-code > div {
+    display: block;
+    padding: var(--space-4) var(--space-4) var(--space-4) 0;
+    border-bottom: 0;
+}
+
+.cs-rows-code > div + div {
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--color-border);
+}
+
+.cs-rows-code dd {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+}
+
+.cs-rows-code dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+/* Counts per suite: name, then its figure, ruled */
+.coverage-rows {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-6);
+    border-top: 1px solid var(--color-heading);
+}
+
+.coverage-rows .coverage-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.coverage-rows .coverage-suite {
+    font-weight: 500;
+    color: var(--color-heading);
+}
+
+.coverage-rows .coverage-count {
+    font-family: var(--font-mono);
+    font-size: var(--text-xl);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--color-heading);
+}
+
+/* A list of request lines and the codes asserted */
+.code-list {
+    list-style: none;
+    border-top: 1px solid var(--color-border);
+}
+
+.code-list li {
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+}
+
+/* Repository tree beside its notes */
+.architecture-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: var(--space-6) var(--space-8);
+    align-items: start;
+}
+
+.tree-block {
+    padding: var(--space-5);
+    overflow-x: auto;
+    border-radius: var(--radius);
+    background: var(--color-code-bg);
+}
+
+.tree-block code {
+    display: block;
+    padding: 0;
+    background: none;
+    color: var(--color-code-fg);
+    font-size: 0.8438rem;
+    line-height: 1.7;
+    white-space: pre;
+    overflow-wrap: normal;
+}
+
+.architecture-notes .chapter-sub-label {
+    margin-bottom: var(--space-3);
+}
+
+.architecture-notes .chapter-sub-label strong {
+    font-weight: 500;
+    color: inherit;
+}
+
+.check-list > li > span + span {
+    font-size: var(--text-base);
+    line-height: 1.7;
+}
+
+/* Checklist with a mark in the margin */
+.check-list {
+    list-style: none;
+    border-top: 1px solid var(--color-heading);
+}
+
+.check-list > li {
+    display: grid;
+    grid-template-columns: 1.75rem minmax(0, 1fr);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.check-list > li + li {
+    margin-top: 0;
+}
+
+.check-mark {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--color-link);
+}
+
+/* What this demonstrates: an index of skills, not badges */
+.skill-index {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+    column-gap: var(--space-6);
+    margin-top: var(--space-6);
+    list-style: none;
+    border-top: 1px solid var(--color-heading);
+}
+
+.skill-index > li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75em;
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    font-weight: 500;
+    color: var(--color-heading);
+}
+
+.demonstrates-check {
+    font-family: var(--font-mono);
+    color: var(--color-link);
+}
+
+/* Evidence at the end: a document index, one row per artifact */
+.evidence-index {
+    margin-top: var(--space-6);
+    list-style: none;
+    border-top: 1px solid var(--color-heading);
+}
+
+.evidence-row {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr) minmax(11rem, auto);
+    gap: var(--space-2) var(--space-5);
+    align-items: baseline;
+    padding: var(--space-5) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    color: inherit;
+    text-decoration: none;
+    transition: background-color var(--dur) var(--ease);
+}
+
+a.evidence-row:hover {
+    background: var(--color-surface);
+    color: inherit;
+}
+
+.evidence-icon {
+    font-size: 1.125rem;
+    color: var(--color-text-muted);
+}
+
+.evidence-row h3,
+.evidence-row .evidence-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    transition: color var(--dur-fast) var(--ease);
+}
+
+a.evidence-row:hover h3 {
+    color: var(--color-link);
+}
+
+.evidence-row p {
+    max-width: 62ch;
+    margin-top: var(--space-2);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    color: var(--color-text-muted);
+}
+
+.evidence-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0;
+}
+
+.evidence-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    min-height: 44px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: var(--color-link);
+    text-decoration: none;
+}
+
+.evidence-link:hover,
+a.evidence-row:hover .evidence-link {
+    color: var(--color-link-hover);
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+}
+
+
+/* =========================================================
+   6. SCENARIOS: numbered ruled rows with the test figure
+========================================================= */
+
+.scenario-list {
+    margin-top: var(--space-7);
+    counter-reset: scenario;
+    border-top: 1px solid var(--color-heading);
+}
+
+.scenario {
+    counter-increment: scenario;
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    padding-block: var(--space-7);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.scenario::before {
+    content: counter(scenario, decimal-leading-zero);
+    grid-row: 1 / span 8;
+    padding-top: 0.55em;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+.scenario > * {
+    grid-column: 2;
+}
+
+.scenario h3 {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    letter-spacing: -0.015em;
+}
+
+.scenario p {
+    max-width: 68ch;
+    font-size: var(--text-base);
+    line-height: 1.7;
+}
+
+.scenario p + p {
+    margin-top: var(--space-3);
+}
+
+.scenario-check strong {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+/* Where the proof lives: a status, always a glyph and a word */
+.scenario-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-right: 0.4em;
+    padding: 0.05rem 0.5rem 0.05rem 0.4rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    line-height: 1.6;
+    white-space: nowrap;
+    vertical-align: 0.08em;
+}
+
+.scenario-tag::before { font-weight: 700; }
+.tag-ci { background: var(--color-success-bg); color: var(--color-success); }
+.tag-ci::before { content: "\2713"; }
+.tag-live { background: var(--color-warning-bg); color: var(--color-warning); }
+.tag-live::before { content: "!"; }
+.tag-none { background: var(--color-surface); color: var(--color-text-muted); box-shadow: inset 0 0 0 1px var(--color-border-strong); }
+.tag-none::before { content: "\2013"; }
+
+
+/* =========================================================
+   7. DEFECTS: formal document sheets
+========================================================= */
+
+.band-loud .section-title {
+    font-size: var(--text-3xl);
+}
+
+.band-loud .section-intro {
+    color: var(--color-text);
+}
+
+.defect-list {
+    display: grid;
+    gap: var(--space-7);
+    margin-top: var(--space-7);
+}
+
+.defect-card {
+    padding: clamp(1.25rem, 0.75rem + 2.2vw, 2.75rem);
+}
+
+.defect-head {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-2) var(--space-5);
+    align-items: baseline;
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--color-heading);
+}
+
+.defect-number {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-link);
+}
+
+.defect-title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+}
+
+.defect-meta {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.defect-meta > div {
+    padding: var(--space-3) var(--space-4);
+    border-left: 1px solid var(--color-border);
+}
+
+.defect-meta > div:first-child {
+    padding-left: 0;
+    border-left: 0;
+}
+
+.defect-meta dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.defect-meta dd {
+    margin-top: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-heading);
+}
+
+.defect-block {
+    display: grid;
+    grid-template-columns: minmax(0, 10rem) minmax(0, 1fr);
+    gap: var(--space-2) var(--space-6);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.defect-block:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.defect-block-label {
+    padding-top: 0.3em;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+.defect-block p {
+    max-width: 68ch;
+    font-size: var(--text-base);
+    line-height: 1.7;
+}
+
+.defect-block-key .defect-block-label {
+    color: var(--color-link);
+}
+
+.defect-block-key p {
+    color: var(--color-heading);
+}
+
+.defect-note {
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   8. LIMITS AND NOTES: warning callouts with a glyph and a word
+========================================================= */
+
+.limit-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+.limit-list .callout,
+.chapter .callout {
+    padding: var(--space-5) var(--space-6);
+}
+
+.callout h3,
+.callout-head {
+    display: flex;
+    gap: 0.6em;
+    align-items: baseline;
+    font-family: var(--font-sans);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-heading);
+}
+
+.callout-warn h3::before,
+.callout-warn .callout-head::before {
+    content: "!";
+    flex-shrink: 0;
+    display: inline-grid;
+    place-items: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 50%;
+    background: var(--color-warning);
+    color: var(--color-warning-bg);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    transform: translateY(-0.1em);
+}
+
+.chapter-body > .callout,
+.chapter-sub > .callout {
+    max-width: calc(68ch + 4rem);
+}
+
+p.callout {
+    font-size: var(--text-base);
+    line-height: 1.7;
+}
+
+.callout-head {
+    font-size: var(--text-base);
+}
+
+.cs-facts .project-meta dd {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+.chapter-body > .tag-list {
+    padding-left: 0;
+    list-style: none;
+}
+
+.chapter-body > .tag-list > li + li {
+    margin-top: 0;
+}
+
+.callout p,
+.callout li {
+    max-width: 68ch;
+    font-size: var(--text-base);
+    line-height: 1.7;
+}
+
+.callout ul {
+    padding-left: 1.2em;
+}
+
+.callout li + li {
+    margin-top: var(--space-2);
+}
+
+
+/* =========================================================
+   9. CLOSE: the closing statement and the action rail
+========================================================= */
+
+.cs-close {
+    padding-block: var(--section-y);
+    border-top: 1px solid var(--color-border);
+}
+
+.cs-close.surface-soft {
+    border-top: 0;
+}
+
+.cs-close-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: var(--space-7) var(--space-9);
+    align-items: end;
+}
+
+.cs-close h2 {
+    font-size: var(--text-3xl);
+}
+
+.cs-close.surface-soft h2 {
+    font-size: clamp(2.375rem, 1.5rem + 3.4vw, 4rem);
+    line-height: 1.02;
+}
+
+.cs-close-text p {
+    max-width: 56ch;
+    margin-top: var(--space-4);
+    font-size: var(--text-md);
+    line-height: 1.7;
+}
+
+.cs-close-text p a {
+    font-weight: 600;
+}
+
+.cs-close-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding-left: var(--space-6);
+    border-left: 1px solid var(--color-border-strong);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1180px) {
+    .cs-layout { grid-template-columns: minmax(0, 1fr); }
+    .cs-toc { display: none; }
+}
+
+@media (max-width: 1024px) {
+    .architecture-layout { grid-template-columns: minmax(0, 1fr); }
+    .coverage-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+    .cs-header-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-7); }
+    .cs-facts { max-width: 560px; }
+    .cs-close-grid { grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .cs-close-actions { padding-left: 0; padding-top: var(--space-5); border-left: 0; border-top: 1px solid var(--color-border-strong); }
+}
+
+@media (max-width: 768px) {
+    .snapshot-grid { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .snapshot-card { padding: var(--space-5) var(--space-4); }
+    .snapshot-card:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .snapshot-card:nth-child(n + 3) { border-top: 1px solid var(--color-border); }
+    .snapshot-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+    .cs-rows > div { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-4); }
+    .defect-block { grid-template-columns: minmax(0, 1fr); }
+    .defect-block-label { padding-top: 0; }
+    .defect-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .defect-meta > div:nth-child(odd) { padding-left: 0; border-left: 0; }
+    .defect-meta > div:nth-child(n + 3) { border-top: 1px solid var(--color-border); }
+
+    .scenario { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-6); }
+    .scenario::before { grid-row: auto; padding-top: 0; margin-bottom: var(--space-2); }
+    .scenario > * { grid-column: 1; }
+
+    .evidence-row { grid-template-columns: 2rem minmax(0, 1fr); padding-inline: 0; }
+    .evidence-links { grid-column: 2; align-items: flex-start; }
+    a.evidence-row:hover { background: transparent; }
+
+    .limit-list .callout,
+    .chapter .callout { padding: var(--space-4) var(--space-5); }
+}
+
+@media (max-width: 560px) {
+    .hero-actions .btn { width: 100%; }
+    .cs-close-actions .btn:not(.btn-quiet) { width: 100%; }
+    .defect-head { grid-template-columns: minmax(0, 1fr); }
+    .coverage-rows { grid-template-columns: minmax(0, 1fr); }
+    .cs-rows-code { grid-template-columns: minmax(0, 1fr); }
+    .cs-rows-code > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--color-border); }
+    .run-record { padding: var(--space-4); }
+    .diagram { padding: var(--space-4) var(--space-3); }
+}
+
+@media (max-width: 640px) {
+    .dg-wide { display: none; }
+    .dg-narrow { display: block; }
+}
