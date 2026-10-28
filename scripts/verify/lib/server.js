@@ -99,7 +99,7 @@ function start({ root, port = 0, log = false, config: configOverride = null, hon
     const headers = { 'Content-Type': type };
     if (COMPRESSIBLE.test(type)) {
       headers.Vary = 'Accept-Encoding';
-      if (/gzip/.test(req.headers['accept-encoding'] || '')) { body = zlib.gzipSync(body); headers['Content-Encoding'] = 'gzip'; }
+      if (/\bgzip\b/.test(req.headers['accept-encoding'] || '')) { body = zlib.gzipSync(body); headers['Content-Encoding'] = 'gzip'; }
     }
     headers['Content-Length'] = body.length;
     return send(200, headers, body);
