@@ -10,8 +10,6 @@
     <meta name="author" content="Sayed Asif">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://sayedasif.com/evidence/">
-    <meta name="theme-color" content="#00baf2">
-    <meta name="color-scheme" content="light">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Evidence Library | Sayed Asif, Software QA Engineer">
@@ -26,114 +24,537 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/png" href="/favicon.png">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="/assets/css/global-nav.css">
 
     <style>
-        :root {
-            --primary: #00baf2;
-            --primary-dark: #007ca1;
-            --dark: #314259;
-            --text: #314259;
-            --muted: #5f6b79;
-            --light: #f5f9fc;
-            --white: #ffffff;
-            --border: #e3ebf2;
-            --shadow: 0 18px 55px rgba(49, 66, 89, 0.10);
+
+        /* =========================================================
+           EVIDENCE: page layout only.
+           Tokens, type, buttons, status chips, tables, code blocks and the
+           reset live in /assets/css/site.css; header and footer in global-nav.css.
+           No colour values here: tokens only.
+        ========================================================= */
+
+
+        /* =========================================================
+           1. PAGE HEAD: editorial split. Title left; the lede and a
+              numbered contents list right.
+        ========================================================= */
+
+        .page-head {
+            padding-top: calc(var(--header-h) + clamp(2.5rem, 1.25rem + 4.5vw, 5.5rem));
+            padding-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+            border-bottom: 1px solid var(--color-border);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text); background: var(--white); line-height: 1.7; overflow-x: hidden; }
-        a { color: var(--primary-dark); }
-        code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; background: #eef3f8; padding: 1px 6px; border-radius: 4px; overflow-wrap: anywhere; }
+        .head-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+            gap: var(--space-6) var(--space-9);
+            align-items: end;
+        }
 
-        .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        .section { padding: 64px 0; }
-        .section-light { background: var(--light); }
+        .page-head .kicker {
+            color: var(--color-link);
+        }
 
-        .hero { padding: 120px 0 56px; background: radial-gradient(circle at 80% 30%, rgba(0, 186, 242, 0.09) 0%, #ffffff 60%); border-bottom: 1px solid var(--border); }
-        .eyebrow { display: inline-block; color: var(--primary-dark); text-transform: uppercase; letter-spacing: 1.6px; font-size: 0.8rem; font-weight: 800; margin-bottom: 12px; }
-        .hero h1 { font-size: 2.7rem; line-height: 1.15; color: var(--dark); margin-bottom: 14px; letter-spacing: -0.8px; }
-        .hero p { max-width: 760px; color: var(--muted); font-size: 1.08rem; }
-        .jump { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 22px; font-weight: 700; }
+        .page-head h1 {
+            max-width: 12ch;
+            font-size: var(--text-display);
+            line-height: 0.98;
+        }
 
-        h2 { font-size: 1.7rem; color: var(--dark); margin-bottom: 8px; line-height: 1.3; }
-        h3 { font-size: 1.12rem; color: var(--dark); margin: 26px 0 8px; }
-        .lead { color: var(--muted); max-width: 820px; margin-bottom: 22px; }
-        p { margin-bottom: 10px; }
+        .head-lede {
+            max-width: 58ch;
+            font-size: var(--text-md);
+            line-height: 1.7;
+        }
 
-        .report { background: var(--white); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 30px 30px 26px; margin-top: 22px; }
-        .report-meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 14px 0 6px; }
-        .report-meta div { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
-        .report-meta div:nth-last-child(-n+2) { border-bottom: 0; }
-        .report-meta div:nth-child(odd) { border-right: 1px solid var(--border); }
-        .report-meta dt, .label { display: block; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.7px; color: var(--primary-dark); margin-bottom: 2px; }
-        .report-meta dd { margin: 0; }
-        .report ol, .report ul { margin: 6px 0 12px 22px; }
-        .report li { margin-bottom: 6px; }
-        .ev-vs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 8px 0 14px; }
-        .ev-box { border-radius: 10px; padding: 14px 16px; font-size: 0.95rem; }
-        .ev-box.expected { background: #ecfdf5; border-left: 4px solid #22c55e; }
-        .ev-box.actual { background: #fef2f2; border-left: 4px solid #ef4444; }
-        .ev-box p { margin: 0; }
-        .ev-box .label { color: #314259; }
+        /* The commit hash is set in the mono face, which is not preloaded. A fixed box keeps the
+           lede from re-wrapping (a layout shift) when that font arrives. */
+        .head-lede code {
+            display: inline-block;
+            width: 4.7em;
+            padding-inline: 0;
+            text-align: center;
+        }
 
-        .table-wrap { position: relative; overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--white); margin: 14px 0 8px; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-        th, td { text-align: left; padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
-        thead th { background: #eef6fb; color: var(--dark); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
-        tbody th { font-weight: 700; white-space: nowrap; }
-        tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
-        .tag { display: inline-block; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
-        .tag-ci { background: #dcfce7; color: #14532d; }
-        .tag-live { background: #fef3c7; color: #78350f; }
-        .note { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
-        .caption { font-size: 0.85rem; color: var(--muted); margin: 6px 0 0; }
+        .jump {
+            margin-top: var(--space-6);
+        }
 
-        .figure-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; margin-top: 18px; }
-        .shot { margin: 0; background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 12px; box-shadow: var(--shadow); }
-        .shot img { width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--border); }
-        .shot figcaption { font-size: 0.84rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+        .jump ol {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            border-top: 1px solid var(--color-heading);
+        }
 
-        .cta { text-align: center; }
-        .cta .btn { display: inline-flex; align-items: center; gap: 8px; margin: 6px; padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; background: var(--primary-dark); color: #fff; border: 2px solid var(--primary-dark); }
-        .cta .btn-outline { background: transparent; color: var(--dark); border-color: var(--dark); }
+        .jump li + li {
+            border-left: 1px solid var(--color-border);
+        }
 
-        /* Real code excerpts, highlighted at build time (no runtime script) */
-        .code-figure { margin: 14px 0 22px; }
-        .code-block {
-            background: #0f172a;
-            color: #e2e8f0;
-            border-radius: 10px;
-            padding: 16px 18px;
-            overflow-x: auto;
-            font-size: 0.84rem;
+        .jump a {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-1);
+            min-height: 44px;
+            padding: var(--space-3) var(--space-3) var(--space-1);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .jump li:first-child a {
+            padding-left: 0;
+        }
+
+        .jump a:hover {
+            text-decoration: underline;
+            text-underline-offset: 0.25em;
+        }
+
+        .jump-num {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 400;
+            color: var(--color-text-muted);
+        }
+
+
+        /* =========================================================
+           SHARED SECTION RHYTHM
+        ========================================================= */
+
+        .band-muted {
+            background: var(--color-surface-muted);
+        }
+
+        .sub-head {
+            margin: var(--space-9) 0 var(--space-4);
+            padding-top: var(--space-4);
+            border-top: 2px solid var(--color-heading);
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 600;
+            letter-spacing: -0.015em;
+        }
+
+        .sub-note {
+            max-width: 72ch;
+            margin-bottom: var(--space-5);
+            font-size: var(--text-sm);
+            line-height: 1.65;
+            color: var(--color-text-muted);
+        }
+
+        .table-note {
+            max-width: 80ch;
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            line-height: 1.65;
+            color: var(--color-text-muted);
+        }
+
+        .gap-note {
+            max-width: 80ch;
+            margin-top: var(--space-5);
+            font-size: var(--text-sm);
+            line-height: 1.65;
+        }
+
+
+        /* =========================================================
+           2. DEFECT REPORT: a document sheet. Field list on top, then
+              each part of the report with its label in a margin column.
+        ========================================================= */
+
+        .report {
+            padding: clamp(1.5rem, 0.9rem + 2.4vw, 3rem);
+        }
+
+        .report-title {
+            max-width: 34ch;
+            margin-bottom: var(--space-6);
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.018em;
+        }
+
+        .report-meta {
+            border-top-color: var(--color-heading);
+        }
+
+        .report-meta > div {
+            grid-template-columns: minmax(7rem, 12rem) minmax(0, 1fr);
+        }
+
+        .report-meta dd {
+            font-size: var(--text-sm);
             line-height: 1.6;
-            tab-size: 2;
+            color: var(--color-text);
         }
-        .code-block code { background: none; color: inherit; padding: 0; font-size: inherit; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre; }
-        .code-figure figcaption { font-size: 0.82rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
-        .code-figure figcaption a { color: var(--primary-dark); font-weight: 700; }
-        .code-block .hljs-comment, .code-block .hljs-quote { color: #94a3b8; font-style: italic; }
-        .code-block .hljs-keyword, .code-block .hljs-selector-tag, .code-block .hljs-literal { color: #c4b5fd; }
-        .code-block .hljs-string, .code-block .hljs-regexp, .code-block .hljs-template-variable { color: #86efac; }
-        .code-block .hljs-number, .code-block .hljs-symbol { color: #fcd34d; }
-        .code-block .hljs-title, .code-block .hljs-title.function_, .code-block .hljs-built_in { color: #7dd3fc; }
-        .code-block .hljs-attr, .code-block .hljs-property, .code-block .hljs-variable { color: #fda4af; }
-        .code-block .hljs-subst, .code-block .hljs-params { color: #e2e8f0; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+        .report-meta dd .status {
+            margin-right: var(--space-1);
+        }
+
+        .report-part {
+            display: grid;
+            grid-template-columns: minmax(7rem, 12rem) minmax(0, 1fr);
+            gap: var(--space-3) var(--space-4);
+            padding-block: var(--space-6);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .report-part:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .report-part > h3 {
+            padding-top: 0.2em;
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            line-height: 1.5;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .report-body {
+            min-width: 0;
+            max-width: 78ch;
+        }
+
+        .report-body > * + * {
+            margin-top: var(--space-4);
+        }
+
+        .report-body .code-figure {
+            margin-block: var(--space-4);
+        }
+
+        /* Numbered steps: mono counters in a ruled list */
+        .steps {
+            list-style: none;
+            counter-reset: step;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .steps li {
+            counter-increment: step;
+            display: grid;
+            grid-template-columns: 2.25rem minmax(0, 1fr);
+            padding-block: var(--space-3);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .steps li::before {
+            content: counter(step, decimal-leading-zero);
+            padding-top: 0.15em;
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+        }
+
+        /* Expected vs actual: two columns, each labelled with a glyph and a word */
+        .compare {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--space-4);
+            margin-top: var(--space-5);
+        }
+
+        .compare-cell {
+            padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
+            border: 1px solid var(--color-border);
+            border-left-width: 3px;
+            border-radius: var(--radius);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+        }
+
+        .compare-expected {
+            border-left-color: var(--color-success);
+        }
+
+        .compare-actual {
+            border-left-color: var(--color-error);
+            background: var(--color-error-bg);
+        }
+
+        .compare-label {
+            display: block;
+            margin-bottom: var(--space-2);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+        }
+
+        .compare-expected .compare-label {
+            color: var(--color-success);
+        }
+
+        .compare-actual .compare-label {
+            color: var(--color-error);
+        }
+
+        .compare-expected .compare-label::before {
+            content: "\2713\00a0";
+            font-weight: 700;
+        }
+
+        .compare-actual .compare-label::before {
+            content: "\2715\00a0";
+            font-weight: 700;
+        }
+
+        .reg-list {
+            list-style: none;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .reg-list li {
+            padding-block: var(--space-3);
+            border-bottom: 1px solid var(--color-border);
+            line-height: 1.9;
+        }
+
+        .reg-list strong {
+            display: block;
+            font-size: var(--text-sm);
+            line-height: 1.5;
+        }
+
+
+        /* =========================================================
+           3. TABLES: mono IDs, figures right-aligned, status chips
+        ========================================================= */
+
+        /* position: the .sr-only "(opens in a new tab)" spans inside wide tables are absolutely
+           positioned; without a positioned wrapper they escape its scroll box and widen the page. */
+        .table-wrap {
+            position: relative;
+        }
+
+        .table-wrap td.num,
+        .table-wrap th.num {
+            text-align: right;
+            font-family: var(--font-mono);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .table-wrap tbody th {
+            min-width: 11rem;
+        }
+
+        .table-wrap tr.total-row > * {
+            border-top: 1px solid var(--color-heading);
+            font-weight: 600;
+            color: var(--color-heading);
+        }
+
+        .table-wrap tbody th a,
+        .table-wrap td.file a {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .table-wrap tbody th a {
+            display: inline-block;
+            padding-block: 0.15rem;
+        }
+
+        .matrix td:nth-child(5),
+        .runs td code {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            white-space: nowrap;
+        }
+
+        .matrix td:nth-child(3) {
+            color: var(--color-text-muted);
+        }
+
+        .matrix td:nth-child(2) {
+            min-width: 18rem;
+        }
+
+        .matrix td:nth-child(3) {
+            min-width: 11rem;
+        }
+
+        .runs td code {
+            padding: 0;
+            background: none;
+        }
+
+        .note {
+            display: block;
+            max-width: 48ch;
+            margin-top: var(--space-1);
+            font-size: var(--text-xs);
+            line-height: 1.5;
+            color: var(--color-text-muted);
+            white-space: normal;
+        }
+
+        /* A note that qualifies a result (cannot fail in CI, run failed) is ruled in the warning hue; the words carry the meaning */
+        .matrix .note,
+        .runs .note {
+            padding-left: var(--space-2);
+            border-left: 2px solid var(--color-warning);
+        }
+
+
+        /* =========================================================
+           4. TEST RUNS: captioned figure gallery. A mono figure
+              number on each caption; the first figure is set large
+              with its caption in the margin.
+        ========================================================= */
+
+        .figure-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--space-7) var(--space-6);
+            counter-reset: none;
+        }
+
+        .runs-section {
+            counter-reset: fig;
+        }
+
+        .shot {
+            counter-increment: fig;
+            min-width: 0;
+            margin: 0;
+        }
+
+        .shot img {
+            width: 100%;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            background: var(--color-surface);
+        }
+
+        .shot figcaption {
+            margin-top: var(--space-3);
+            padding-top: var(--space-3);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .shot figcaption::before {
+            content: "Fig. " counter(fig, decimal-leading-zero);
+            display: block;
+            margin-bottom: var(--space-1);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-heading);
+        }
+
+        .shot-lead {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+            gap: var(--space-6);
+            align-items: start;
+        }
+
+        .shot-lead figcaption {
+            margin-top: 0;
+            padding-top: var(--space-3);
+            border-top: 2px solid var(--color-heading);
+            font-size: var(--text-base);
+            line-height: 1.6;
+        }
+
+
+        /* =========================================================
+           5. CLOSING BAND: Soft Mint, the page's one loud moment
+        ========================================================= */
+
+        .cta-band {
+            background: var(--color-surface-soft);
+        }
+
+        .cta-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+            gap: var(--space-7) var(--space-9);
+            align-items: end;
+        }
+
+        .cta-band .section-title {
+            font-size: var(--text-display);
+            line-height: 1;
+        }
+
+        .cta-text {
+            max-width: 52ch;
+            margin-top: var(--space-5);
+            font-size: var(--text-md);
+            line-height: 1.7;
+        }
+
+        .cta-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-3);
+            padding-left: var(--space-6);
+            border-left: 1px solid var(--color-border-strong);
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1024px) {
+            .head-grid { grid-template-columns: 1fr; align-items: start; }
+            .shot-lead { grid-template-columns: 1fr; gap: var(--space-3); }
+            .shot-lead figcaption { font-size: var(--text-sm); }
+        }
+
+        @media (max-width: 860px) {
+            .report-part { grid-template-columns: 1fr; gap: var(--space-3); }
+            .cta-layout { grid-template-columns: 1fr; align-items: start; }
+            .cta-actions { padding-left: 0; padding-top: var(--space-5); border-left: 0; border-top: 1px solid var(--color-border-strong); }
+        }
 
         @media (max-width: 768px) {
-            .section { padding: 48px 0; }
-            .hero { padding: 100px 0 40px; }
-            .hero h1 { font-size: 2rem; }
-            h2 { font-size: 1.4rem; }
-            .report { padding: 22px 16px 18px; }
-            .report-meta, .ev-vs, .figure-grid { grid-template-columns: 1fr; }
-            .report-meta div:nth-child(odd) { border-right: 0; }
-            .report-meta div:nth-last-child(2) { border-bottom: 1px solid var(--border); }
+            .compare { grid-template-columns: 1fr; }
+            .figure-grid { grid-template-columns: 1fr; gap: var(--space-7); }
+            .report { border-radius: var(--radius); }
         }
-        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+        @media (max-width: 560px) {
+            /* Reserve the lede's final height: it re-wraps when IBM Plex Sans replaces the fallback face,
+               which moved everything below it (a layout shift of 0.14 at 390px). */
+            .head-lede { min-height: 7lh; }
+            .jump ol { grid-template-columns: 1fr; }
+            .jump li + li { border-left: 0; border-top: 1px solid var(--color-border); }
+            .jump a { flex-direction: row; align-items: baseline; gap: var(--space-3); padding-left: 0; }
+            .report-meta > div { grid-template-columns: 1fr; }
+            .cta-actions .btn { width: 100%; }
+        }
+
     </style>
 </head>
 <body>
@@ -159,8 +580,14 @@
                 <a href="/services/">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/">Resume</a>
-                <a href="/contact/">Contact</a>
+                <a href="/contact/" class="nav-cta">Contact</a>
             </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
 
         </div>
 
@@ -169,69 +596,95 @@
 
     <main id="main-content">
 
-        <section class="hero" aria-labelledby="evidence-heading">
-            <div class="container">
-                <span class="eyebrow">Evidence Library</span>
-                <h1 id="evidence-heading">Checkable QA evidence</h1>
-                <p>
-                    One defect report, one coverage matrix and the runs behind them, all from my public
-                    Razorpay payment-testing repository (Test Mode, an independent project). Every ID links to the exact
-                    file on GitHub at commit <code>da9e7a2</code>.
-                </p>
-                <p class="jump">
-                    <a href="#defect-report">Defect report</a>
-                    <a href="#coverage-matrix">Coverage matrix</a>
-                    <a href="#test-runs">Test runs</a>
-                </p>
+        <!-- =====================================================
+             PAGE HEAD: editorial split, lede and contents
+        ====================================================== -->
+
+        <section class="page-head" aria-labelledby="evidence-heading">
+            <div class="container head-grid">
+                <div>
+                    <p class="kicker">Evidence Library</p>
+                    <h1 id="evidence-heading">Checkable QA evidence</h1>
+                </div>
+                <div>
+                    <p class="head-lede">
+                        One defect report, one coverage matrix and the runs behind them, all from my public
+                        Razorpay payment-testing repository (Test Mode, an independent project). Every ID links to the exact
+                        file on GitHub at commit <code>da9e7a2</code>.
+                    </p>
+                    <nav class="jump" aria-label="On this page">
+                        <ol>
+                            <li><a href="#defect-report"><span class="jump-num">01</span> Defect report</a></li>
+                            <li><a href="#coverage-matrix"><span class="jump-num">02</span> Coverage matrix</a></li>
+                            <li><a href="#test-runs"><span class="jump-num">03</span> Test runs</a></li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
         </section>
 
 
+        <!-- =====================================================
+             01. DEFECT REPORT: a document sheet
+        ====================================================== -->
+
         <section class="section" id="defect-report" aria-labelledby="defect-heading">
             <div class="container">
-                <h2 id="defect-heading">Defect report: DEF-002</h2>
-                <p class="lead">Source: <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/docs/DEFECTS.md" target="_blank" rel="noopener noreferrer">docs/DEFECTS.md<span class="sr-only"> (opens in a new tab)</span></a> in the repository. Order and payment IDs are left out. The app is a small demo I built as the test target, so this is a defect in my own code.</p>
 
-                <article class="report">
-                    <h3 style="margin-top:0">Webhook signature validation can never succeed: the global JSON body parser consumes the body before the webhook route</h3>
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">01</span> Defect report</p>
+                        <h2 id="defect-heading" class="section-title">Defect report: DEF-002</h2>
+                    </div>
+                    <p class="section-intro">Source: <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/docs/DEFECTS.md" target="_blank" rel="noopener noreferrer">docs/DEFECTS.md<span class="sr-only"> (opens in a new tab)</span></a> in the repository. Order and payment IDs are left out. The app is a small demo I built as the test target, so this is a defect in my own code.</p>
+                </header>
 
-                    <dl class="report-meta">
+                <article class="report panel">
+                    <h3 class="report-title">Webhook signature validation can never succeed: the global JSON body parser consumes the body before the webhook route</h3>
+
+                    <dl class="meta-list report-meta">
                         <div><dt>Environment</dt><dd>Express 4.x app (4.22.2 in the lockfile) on Node.js 22.5 or later, with SQLite; Razorpay Test Mode; webhook secret configured. Found on 14 Sep 2026 during real Test Mode execution (Phase 3.3).</dd></div>
                         <div><dt>Severity / Priority</dt><dd>Severity: High. Priority: not recorded in the repository's defect log.</dd></div>
                         <div><dt>Component</dt><dd><code>src/app.js</code> (middleware order) and <code>src/routes/webhooks.js</code></dd></div>
-                        <div><dt>Status</dt><dd>Resolved 14 Sep 2026 (Phase 3.3.1); last recorded CI run passed on commit <code>da9e7a2</code></dd></div>
+                        <div><dt>Status</dt><dd><span class="status status-pass">Resolved</span> 14 Sep 2026 (Phase 3.3.1); last recorded CI run passed on commit <code>da9e7a2</code></dd></div>
                     </dl>
 
-                    <h3>Exact reproduction steps (as recorded)</h3>
-                    <ol>
-                        <li>Compute <code>hmac_sha256(rawBody, RAZORPAY_WEBHOOK_SECRET)</code> exactly as <code>validateWebhookSignature()</code> does.</li>
-                        <li>Send that exact raw body and the correct signature to <code>POST /api/webhooks/razorpay</code>, once with <code>fetch()</code> and once with <code>curl --data-binary</code> using a byte-identical file, to rule out client-side body changes.</li>
-                        <li>Observe the response.</li>
-                    </ol>
+                    <div class="report-part">
+                        <h3>Exact reproduction steps (as recorded)</h3>
+                        <div class="report-body">
+                            <ol class="steps">
+                                <li><span>Compute <code>hmac_sha256(rawBody, RAZORPAY_WEBHOOK_SECRET)</code> exactly as <code>validateWebhookSignature()</code> does.</span></li>
+                                <li><span>Send that exact raw body and the correct signature to <code>POST /api/webhooks/razorpay</code>, once with <code>fetch()</code> and once with <code>curl --data-binary</code> using a byte-identical file, to rule out client-side body changes.</span></li>
+                                <li><span>Observe the response.</span></li>
+                            </ol>
 
-                    <div class="ev-vs">
-                        <div class="ev-box expected"><span class="label">Expected</span><p>HTTP 200 with <code>{ success: true, message: 'Webhook received and validated' }</code>.</p></div>
-                        <div class="ev-box actual"><span class="label">Actual</span><p>HTTP 401 <code>Webhook signature validation failed</code>, every time, even with a provably correct signature over the provably correct bytes.</p></div>
+                            <div class="compare">
+                                <div class="compare-cell compare-expected"><span class="compare-label">Expected</span><p>HTTP 200 with <code>{ success: true, message: 'Webhook received and validated' }</code>.</p></div>
+                                <div class="compare-cell compare-actual"><span class="compare-label">Actual</span><p>HTTP 401 <code>Webhook signature validation failed</code>, every time, even with a provably correct signature over the provably correct bytes.</p></div>
+                            </div>
+                        </div>
                     </div>
 
-                    <h3>Root cause</h3>
-                    <p>
-                        <code>app.use(express.json())</code> was mounted globally before the webhook router. It consumed
-                        and parsed the request body, so the route's own <code>express.raw()</code> received an
-                        already-parsed object instead of a Buffer. <code>req.body.toString('utf-8')</code> on a plain object
-                        returns the literal string <code>"[object Object]"</code>, and the HMAC was computed over that instead of the
-                        real payload. The comparison was correct; it was hashing the wrong bytes. Fixed by mounting the webhook
-                        router <em>before</em> the global parser:
-                    </p>
-                    <figure class="code-figure">
+                    <div class="report-part">
+                        <h3>Root cause</h3>
+                        <div class="report-body">
+                            <p>
+                                <code>app.use(express.json())</code> was mounted globally before the webhook router. It consumed
+                                and parsed the request body, so the route's own <code>express.raw()</code> received an
+                                already-parsed object instead of a Buffer. <code>req.body.toString('utf-8')</code> on a plain object
+                                returns the literal string <code>"[object Object]"</code>, and the HMAC was computed over that instead of the
+                                real payload. The comparison was correct; it was hashing the wrong bytes. Fixed by mounting the webhook
+                                router <em>before</em> the global parser:
+                            </p>
+                            <figure class="code-figure">
                         <pre class="code-block" tabindex="0"><code class="hljs">app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/api/webhooks&#x27;</span>, webhooksRouter);
 
 <span class="hljs-comment">// Middleware</span>
 app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());</code></pre>
-                        <figcaption>The fixed mount order, with the repository's own comment. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/src/app.js#L16-L19" target="_blank" rel="noopener noreferrer">src/app.js, lines 16&ndash;19 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
-                    </figure>
-                    <p>The handler that depends on it, which hashes the raw body and only then parses it:</p>
-                    <figure class="code-figure">
+                            <figcaption>The fixed mount order, with the repository's own comment. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/src/app.js#L16-L19" target="_blank" rel="noopener noreferrer">src/app.js, lines 16&ndash;19 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                            </figure>
+                            <p>The handler that depends on it, which hashes the raw body and only then parses it:</p>
+                            <figure class="code-figure">
                         <pre class="code-block" tabindex="0"><code class="hljs">router.<span class="hljs-title function_">post</span>(<span class="hljs-string">&#x27;/razorpay&#x27;</span>, express.<span class="hljs-title function_">raw</span>({ <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;application/json&#x27;</span> }), <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> {
   <span class="hljs-keyword">try</span> {
     <span class="hljs-keyword">const</span> signature = req.<span class="hljs-property">headers</span>[<span class="hljs-string">&#x27;x-razorpay-signature&#x27;</span>];
@@ -266,143 +719,185 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
     <span class="hljs-comment">// Validate signature using raw body</span>
     <span class="hljs-keyword">const</span> rawBody = req.<span class="hljs-property">body</span>.<span class="hljs-title function_">toString</span>(<span class="hljs-string">&#x27;utf-8&#x27;</span>);
     <span class="hljs-keyword">const</span> isValid = <span class="hljs-title function_">validateWebhookSignature</span>(rawBody, signature);</code></pre>
-                        <figcaption>Webhook handler, excerpt. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/src/routes/webhooks.js#L55-L88" target="_blank" rel="noopener noreferrer">src/routes/webhooks.js, lines 55&ndash;88 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
-                    </figure>
+                            <figcaption>Webhook handler, excerpt. <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/src/routes/webhooks.js#L55-L88" target="_blank" rel="noopener noreferrer">src/routes/webhooks.js, lines 55&ndash;88 @ da9e7a2<span class="sr-only"> (opens in a new tab)</span></a></figcaption>
+                            </figure>
+                        </div>
+                    </div>
 
-                    <h3>Impact</h3>
-                    <p>No correctly signed webhook could be accepted. It failed safe, not open: a forged webhook could not get through either, so this was a functional defect and not a security hole. It also went unnoticed because the tests that only assert rejection (a 401 was already the expected answer) never exercised the accept path.</p>
+                    <div class="report-part">
+                        <h3>Impact</h3>
+                        <div class="report-body">
+                            <p>No correctly signed webhook could be accepted. It failed safe, not open: a forged webhook could not get through either, so this was a functional defect and not a security hole. It also went unnoticed because the tests that only assert rejection (a 401 was already the expected answer) never exercised the accept path.</p>
+                        </div>
+                    </div>
 
-                    <h3>Regression tests</h3>
-                    <p>
-                        <strong>New:</strong> <code>WEB-FIX-001</code> (valid signature over the exact raw body is accepted and moves the order from <code>created</code> to <code>paid</code>),
-                        <code>WEB-FIX-002</code> (modified payload with the original signature is rejected and the order is untouched),
-                        <code>WEB-FIX-003</code> (invalid signature rejected), <code>WEB-FIX-004</code> (duplicate event ID handled idempotently).<br>
-                        <strong>Previously failing, now passing:</strong> <code>WEB-001</code>, <code>WEB-005</code>, <code>WEB-006</code>, <code>WEB-007</code>.
-                        All are in <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js" target="_blank" rel="noopener noreferrer">tests/security/webhook-validation.spec.js<span class="sr-only"> (opens in a new tab)</span></a>
-                        and run in CI.
-                    </p>
+                    <div class="report-part">
+                        <h3>Regression tests</h3>
+                        <div class="report-body">
+                            <ul class="reg-list">
+                                <li>
+                                    <strong>New:</strong> <code>WEB-FIX-001</code> (valid signature over the exact raw body is accepted and moves the order from <code>created</code> to <code>paid</code>),
+                                    <code>WEB-FIX-002</code> (modified payload with the original signature is rejected and the order is untouched),
+                                    <code>WEB-FIX-003</code> (invalid signature rejected), <code>WEB-FIX-004</code> (duplicate event ID handled idempotently).
+                                </li>
+                                <li>
+                                    <strong>Previously failing, now passing:</strong> <code>WEB-001</code>, <code>WEB-005</code>, <code>WEB-006</code>, <code>WEB-007</code>.
+                                </li>
+                            </ul>
+                            <p>
+                                All are in <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js" target="_blank" rel="noopener noreferrer">tests/security/webhook-validation.spec.js<span class="sr-only"> (opens in a new tab)</span></a>
+                                and run in CI.
+                            </p>
+                        </div>
+                    </div>
 
-                    <h3>Reproduced again on 15 Oct 2026</h3>
-                    <p>
-                        To check the report rather than repeat it, I cloned the repository at <code>da9e7a2</code>, installed it, and ran the
-                        webhook spec with the CI placeholder configuration. With the fix in place, all 11 tests passed. With the fix reverted in a
-                        scratch copy (webhook router mounted after <code>express.json()</code>, nothing else changed), 6 of the 11 failed:
-                        <code>WEB-001</code>, <code>WEB-005</code>, <code>WEB-006</code>, <code>WEB-007</code>, <code>WEB-FIX-001</code> and <code>WEB-FIX-004</code>. The five rejection-only tests
-                        (<code>WEB-002</code>, <code>WEB-003</code>, <code>WEB-004</code>, <code>WEB-FIX-002</code>, <code>WEB-FIX-003</code>) still passed, which is why the defect hid for so long.
-                    </p>
+                    <div class="report-part">
+                        <h3>Reproduced again on 15 Oct 2026</h3>
+                        <div class="report-body">
+                            <p>
+                                To check the report rather than repeat it, I cloned the repository at <code>da9e7a2</code>, installed it, and ran the
+                                webhook spec with the CI placeholder configuration. With the fix in place, all 11 tests passed. With the fix reverted in a
+                                scratch copy (webhook router mounted after <code>express.json()</code>, nothing else changed), 6 of the 11 failed:
+                                <code>WEB-001</code>, <code>WEB-005</code>, <code>WEB-006</code>, <code>WEB-007</code>, <code>WEB-FIX-001</code> and <code>WEB-FIX-004</code>. The five rejection-only tests
+                                (<code>WEB-002</code>, <code>WEB-003</code>, <code>WEB-004</code>, <code>WEB-FIX-002</code>, <code>WEB-FIX-003</code>) still passed, which is why the defect hid for so long.
+                            </p>
+                        </div>
+                    </div>
                 </article>
+
             </div>
         </section>
 
 
-        <section class="section section-light" id="coverage-matrix" aria-labelledby="matrix-heading">
+        <!-- =====================================================
+             02. COVERAGE MATRIX: data tables with status chips
+        ====================================================== -->
+
+        <section class="section band-muted" id="coverage-matrix" aria-labelledby="matrix-heading">
             <div class="container">
-                <h2 id="matrix-heading">Test coverage matrix: Razorpay suite</h2>
-                <p class="lead">
-                    Derived from the seven spec files in the repository: 37 test definitions, 34 CI-safe and 3 that need a live Razorpay Test Mode payment
-                    (tagged <code>@razorpay-live</code> and run separately). This lists what each test checks. It is not a coverage percentage.
-                </p>
+
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">02</span> Coverage matrix</p>
+                        <h2 id="matrix-heading" class="section-title">Test coverage matrix: Razorpay suite</h2>
+                    </div>
+                    <p class="section-intro">
+                        Derived from the seven spec files in the repository: 37 test definitions, 34 CI-safe and 3 that need a live Razorpay Test Mode payment
+                        (tagged <code>@razorpay-live</code> and run separately). This lists what each test checks. It is not a coverage percentage.
+                    </p>
+                </header>
 
                 <div class="table-wrap">
                     <table>
                         <caption class="sr-only">Test counts by area</caption>
-                        <thead><tr><th scope="col">Area</th><th scope="col">CI-safe</th><th scope="col">Live gateway</th><th scope="col">Total</th><th scope="col">Spec file</th></tr></thead>
+                        <thead><tr><th scope="col">Area</th><th scope="col" class="num">CI-safe</th><th scope="col" class="num">Live gateway</th><th scope="col" class="num">Total</th><th scope="col">Spec file</th></tr></thead>
                         <tbody>
-                            <tr><th scope="row">Health & configuration</th><td>4</td><td>0</td><td>4</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js" target="_blank" rel="noopener noreferrer">health.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">Order creation & amount integrity</th><td>3</td><td>0</td><td>3</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js" target="_blank" rel="noopener noreferrer">orders.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">Error handling & message sanitization</th><td>5</td><td>0</td><td>5</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js" target="_blank" rel="noopener noreferrer">error-handling.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">Refund error handling</th><td>2</td><td>0</td><td>2</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/refund-error-handling.spec.js" target="_blank" rel="noopener noreferrer">refund-error-handling.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">Payment signature verification</th><td>5</td><td>2</td><td>7</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js" target="_blank" rel="noopener noreferrer">signature-verification.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">Webhook validation & idempotency</th><td>11</td><td>0</td><td>11</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js" target="_blank" rel="noopener noreferrer">webhook-validation.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">Checkout page (UI)</th><td>4</td><td>1</td><td>5</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js" target="_blank" rel="noopener noreferrer">frontend.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">Total</th><td>34</td><td>3</td><td>37</td><td></td></tr>
+                            <tr><th scope="row">Health & configuration</th><td class="num">4</td><td class="num">0</td><td class="num">4</td><td class="file"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js" target="_blank" rel="noopener noreferrer">health.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">Order creation & amount integrity</th><td class="num">3</td><td class="num">0</td><td class="num">3</td><td class="file"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js" target="_blank" rel="noopener noreferrer">orders.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">Error handling & message sanitization</th><td class="num">5</td><td class="num">0</td><td class="num">5</td><td class="file"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js" target="_blank" rel="noopener noreferrer">error-handling.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">Refund error handling</th><td class="num">2</td><td class="num">0</td><td class="num">2</td><td class="file"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/refund-error-handling.spec.js" target="_blank" rel="noopener noreferrer">refund-error-handling.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">Payment signature verification</th><td class="num">5</td><td class="num">2</td><td class="num">7</td><td class="file"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js" target="_blank" rel="noopener noreferrer">signature-verification.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">Webhook validation & idempotency</th><td class="num">11</td><td class="num">0</td><td class="num">11</td><td class="file"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js" target="_blank" rel="noopener noreferrer">webhook-validation.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">Checkout page (UI)</th><td class="num">4</td><td class="num">1</td><td class="num">5</td><td class="file"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js" target="_blank" rel="noopener noreferrer">frontend.spec.js<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr class="total-row"><th scope="row">Total</th><td class="num">34</td><td class="num">3</td><td class="num">37</td><td></td></tr>
                         </tbody>
                     </table>
                 </div>
 
-                <h3>Every test</h3>
+                <h3 class="sub-head">Every test</h3>
                 <div class="table-wrap">
-                    <table>
+                    <table class="matrix">
                         <caption class="sr-only">All 37 Razorpay tests with what each checks</caption>
                         <thead><tr><th scope="col">Test ID</th><th scope="col">What it checks</th><th scope="col">Area</th><th scope="col">Runs in</th><th scope="col">Defect</th></tr></thead>
                         <tbody>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L4" target="_blank" rel="noopener noreferrer">HEALTH-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>GET /health returns application health</td><td>Health & configuration</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L16" target="_blank" rel="noopener noreferrer">CONFIG-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>GET /api/payments/config returns public configuration</td><td>Health & configuration</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L28" target="_blank" rel="noopener noreferrer">CONFIG-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>GET /api/payments/config does NOT expose secrets</td><td>Health & configuration</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L47" target="_blank" rel="noopener noreferrer">CONFIG-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>GET /api/payments/config properly reflects configuration status</td><td>Health & configuration</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L4" target="_blank" rel="noopener noreferrer">ORDER-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/create-order handles both success and error gracefully</td><td>Order creation & amount integrity</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L26" target="_blank" rel="noopener noreferrer">ORDER-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>client-supplied amount/currency cannot override the backend-controlled order amount <span class="note">In CI this cannot fail: its assertions run only when order creation returns 200, and with placeholder credentials it does not.</span></td><td>Order creation & amount integrity</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L39" target="_blank" rel="noopener noreferrer">ORDER-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/create-order returns order structure (when configured) <span class="note">In CI this cannot fail: its assertions run only when order creation returns 200 or 503, and with placeholder credentials it returns 400, so none run.</span></td><td>Order creation & amount integrity</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L4" target="_blank" rel="noopener noreferrer">ERR-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>Order creation error does NOT expose Razorpay API details</td><td>Error handling & message sanitization</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L26" target="_blank" rel="noopener noreferrer">ERR-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>Payment verification error does NOT expose internal details</td><td>Error handling & message sanitization</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L48" target="_blank" rel="noopener noreferrer">ERR-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>404 endpoint returns appropriate error</td><td>Error handling & message sanitization</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L58" target="_blank" rel="noopener noreferrer">ERR-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>Malformed JSON request returns 400 error</td><td>Error handling & message sanitization</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L82" target="_blank" rel="noopener noreferrer">REF-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/refunds/create requires paymentId</td><td>Error handling & message sanitization</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/refund-error-handling.spec.js#L16" target="_blank" rel="noopener noreferrer">REF-ERR-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>a Razorpay-rejected refund returns a controlled error, not a crash</td><td>Refund error handling</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-001</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/refund-error-handling.spec.js#L34" target="_blank" rel="noopener noreferrer">REF-ERR-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>the server remains available immediately after a refund error</td><td>Refund error handling</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-001</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L37" target="_blank" rel="noopener noreferrer">SIG-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with valid signature accepts a real captured payment</td><td>Payment signature verification</td><td><span class="tag tag-live">Live gateway</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L58" target="_blank" rel="noopener noreferrer">REPLAY-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>repeated verification of the same real payment stays idempotent (no duplicate/corrupted state)</td><td>Payment signature verification</td><td><span class="tag tag-live">Live gateway</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L82" target="_blank" rel="noopener noreferrer">SIG-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with invalid signature rejects payment</td><td>Payment signature verification</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L101" target="_blank" rel="noopener noreferrer">SIG-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with tampered orderId rejects payment</td><td>Payment signature verification</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L120" target="_blank" rel="noopener noreferrer">SIG-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with missing signature field rejects request</td><td>Payment signature verification</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L135" target="_blank" rel="noopener noreferrer">SIG-005<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with missing orderId rejects request</td><td>Payment signature verification</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L152" target="_blank" rel="noopener noreferrer">SIG-006<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with missing paymentId rejects request</td><td>Payment signature verification</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L42" target="_blank" rel="noopener noreferrer">WEB-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/webhooks/razorpay with valid signature accepts webhook</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-002</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L67" target="_blank" rel="noopener noreferrer">WEB-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/webhooks/razorpay with invalid signature rejects webhook</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L87" target="_blank" rel="noopener noreferrer">WEB-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/webhooks/razorpay with missing signature header rejects webhook</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L106" target="_blank" rel="noopener noreferrer">WEB-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/webhooks/razorpay with missing event ID rejects webhook</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L126" target="_blank" rel="noopener noreferrer">WEB-005<span class="sr-only"> (opens in a new tab)</span></a></th><td>Same webhook event ID sent twice is processed only once (idempotency)</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-002</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L160" target="_blank" rel="noopener noreferrer">WEB-006<span class="sr-only"> (opens in a new tab)</span></a></th><td>Different webhook event IDs are processed independently</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-002</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L201" target="_blank" rel="noopener noreferrer">WEB-007<span class="sr-only"> (opens in a new tab)</span></a></th><td>Webhook with tampered payload fails signature validation</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-002</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L259" target="_blank" rel="noopener noreferrer">WEB-FIX-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>valid signature computed over the exact raw body is accepted and updates order state</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-002</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L288" target="_blank" rel="noopener noreferrer">WEB-FIX-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>a modified payload with the original signature is rejected</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-002</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L316" target="_blank" rel="noopener noreferrer">WEB-FIX-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>an invalid signature is rejected</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-002</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L336" target="_blank" rel="noopener noreferrer">WEB-FIX-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>a duplicate event ID is handled idempotently</td><td>Webhook validation & idempotency</td><td><span class="tag tag-ci">CI-safe</span></td><td>DEF-002</td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L4" target="_blank" rel="noopener noreferrer">UI-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>Frontend page loads and displays payment form</td><td>Checkout page (UI)</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L41" target="_blank" rel="noopener noreferrer">UI-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>Frontend amount displayed matches backend-controlled amount</td><td>Checkout page (UI)</td><td><span class="tag tag-live">Live gateway</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L66" target="_blank" rel="noopener noreferrer">UI-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>Razorpay Checkout script loaded from official CDN</td><td>Checkout page (UI)</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L86" target="_blank" rel="noopener noreferrer">UI-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>Page does NOT expose secrets in HTML</td><td>Checkout page (UI)</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
-                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L102" target="_blank" rel="noopener noreferrer">UI-005<span class="sr-only"> (opens in a new tab)</span></a></th><td>Test Mode indicator is visible on page</td><td>Checkout page (UI)</td><td><span class="tag tag-ci">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L4" target="_blank" rel="noopener noreferrer">HEALTH-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>GET /health returns application health</td><td>Health & configuration</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L16" target="_blank" rel="noopener noreferrer">CONFIG-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>GET /api/payments/config returns public configuration</td><td>Health & configuration</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L28" target="_blank" rel="noopener noreferrer">CONFIG-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>GET /api/payments/config does NOT expose secrets</td><td>Health & configuration</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/health.spec.js#L47" target="_blank" rel="noopener noreferrer">CONFIG-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>GET /api/payments/config properly reflects configuration status</td><td>Health & configuration</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L4" target="_blank" rel="noopener noreferrer">ORDER-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/create-order handles both success and error gracefully</td><td>Order creation & amount integrity</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L26" target="_blank" rel="noopener noreferrer">ORDER-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>client-supplied amount/currency cannot override the backend-controlled order amount <span class="note">In CI this cannot fail: its assertions run only when order creation returns 200, and with placeholder credentials it does not.</span></td><td>Order creation & amount integrity</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/api/orders.spec.js#L39" target="_blank" rel="noopener noreferrer">ORDER-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/create-order returns order structure (when configured) <span class="note">In CI this cannot fail: its assertions run only when order creation returns 200 or 503, and with placeholder credentials it returns 400, so none run.</span></td><td>Order creation & amount integrity</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L4" target="_blank" rel="noopener noreferrer">ERR-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>Order creation error does NOT expose Razorpay API details</td><td>Error handling & message sanitization</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L26" target="_blank" rel="noopener noreferrer">ERR-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>Payment verification error does NOT expose internal details</td><td>Error handling & message sanitization</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L48" target="_blank" rel="noopener noreferrer">ERR-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>404 endpoint returns appropriate error</td><td>Error handling & message sanitization</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L58" target="_blank" rel="noopener noreferrer">ERR-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>Malformed JSON request returns 400 error</td><td>Error handling & message sanitization</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/error-handling.spec.js#L82" target="_blank" rel="noopener noreferrer">REF-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/refunds/create requires paymentId</td><td>Error handling & message sanitization</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/refund-error-handling.spec.js#L16" target="_blank" rel="noopener noreferrer">REF-ERR-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>a Razorpay-rejected refund returns a controlled error, not a crash</td><td>Refund error handling</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-001</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/refund-error-handling.spec.js#L34" target="_blank" rel="noopener noreferrer">REF-ERR-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>the server remains available immediately after a refund error</td><td>Refund error handling</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-001</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L37" target="_blank" rel="noopener noreferrer">SIG-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with valid signature accepts a real captured payment</td><td>Payment signature verification</td><td><span class="status status-warn">Live gateway</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L58" target="_blank" rel="noopener noreferrer">REPLAY-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>repeated verification of the same real payment stays idempotent (no duplicate/corrupted state)</td><td>Payment signature verification</td><td><span class="status status-warn">Live gateway</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L82" target="_blank" rel="noopener noreferrer">SIG-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with invalid signature rejects payment</td><td>Payment signature verification</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L101" target="_blank" rel="noopener noreferrer">SIG-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with tampered orderId rejects payment</td><td>Payment signature verification</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L120" target="_blank" rel="noopener noreferrer">SIG-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with missing signature field rejects request</td><td>Payment signature verification</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L135" target="_blank" rel="noopener noreferrer">SIG-005<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with missing orderId rejects request</td><td>Payment signature verification</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/signature-verification.spec.js#L152" target="_blank" rel="noopener noreferrer">SIG-006<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/payments/verify with missing paymentId rejects request</td><td>Payment signature verification</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L42" target="_blank" rel="noopener noreferrer">WEB-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/webhooks/razorpay with valid signature accepts webhook</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-002</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L67" target="_blank" rel="noopener noreferrer">WEB-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/webhooks/razorpay with invalid signature rejects webhook</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L87" target="_blank" rel="noopener noreferrer">WEB-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/webhooks/razorpay with missing signature header rejects webhook</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L106" target="_blank" rel="noopener noreferrer">WEB-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>POST /api/webhooks/razorpay with missing event ID rejects webhook</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L126" target="_blank" rel="noopener noreferrer">WEB-005<span class="sr-only"> (opens in a new tab)</span></a></th><td>Same webhook event ID sent twice is processed only once (idempotency)</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-002</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L160" target="_blank" rel="noopener noreferrer">WEB-006<span class="sr-only"> (opens in a new tab)</span></a></th><td>Different webhook event IDs are processed independently</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-002</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L201" target="_blank" rel="noopener noreferrer">WEB-007<span class="sr-only"> (opens in a new tab)</span></a></th><td>Webhook with tampered payload fails signature validation</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-002</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L259" target="_blank" rel="noopener noreferrer">WEB-FIX-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>valid signature computed over the exact raw body is accepted and updates order state</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-002</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L288" target="_blank" rel="noopener noreferrer">WEB-FIX-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>a modified payload with the original signature is rejected</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-002</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L316" target="_blank" rel="noopener noreferrer">WEB-FIX-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>an invalid signature is rejected</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-002</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/security/webhook-validation.spec.js#L336" target="_blank" rel="noopener noreferrer">WEB-FIX-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>a duplicate event ID is handled idempotently</td><td>Webhook validation & idempotency</td><td><span class="status status-pass">CI-safe</span></td><td>DEF-002</td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L4" target="_blank" rel="noopener noreferrer">UI-001<span class="sr-only"> (opens in a new tab)</span></a></th><td>Frontend page loads and displays payment form</td><td>Checkout page (UI)</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L41" target="_blank" rel="noopener noreferrer">UI-002<span class="sr-only"> (opens in a new tab)</span></a></th><td>Frontend amount displayed matches backend-controlled amount</td><td>Checkout page (UI)</td><td><span class="status status-warn">Live gateway</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L66" target="_blank" rel="noopener noreferrer">UI-003<span class="sr-only"> (opens in a new tab)</span></a></th><td>Razorpay Checkout script loaded from official CDN</td><td>Checkout page (UI)</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L86" target="_blank" rel="noopener noreferrer">UI-004<span class="sr-only"> (opens in a new tab)</span></a></th><td>Page does NOT expose secrets in HTML</td><td>Checkout page (UI)</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
+                            <tr><th scope="row"><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/blob/da9e7a2/tests/ui/frontend.spec.js#L102" target="_blank" rel="noopener noreferrer">UI-005<span class="sr-only"> (opens in a new tab)</span></a></th><td>Test Mode indicator is visible on page</td><td>Checkout page (UI)</td><td><span class="status status-pass">CI-safe</span></td><td></td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="caption">
+                <p class="gap-note callout callout-neutral">
                     Not covered by any test: authentication and redirect flows, a real Razorpay-originated webhook, a successful refund, and the
                     <code>paid</code> &rarr; <code>refunded</code> transition. See the
                     <a href="/projects/razorpay-payment-gateway-qa-automation/#payment-scenarios">scenario map</a> on the case study.
                 </p>
+
             </div>
         </section>
 
 
-        <section class="section" id="test-runs" aria-labelledby="runs-heading">
+        <!-- =====================================================
+             03. TEST RUNS: run table, then captioned figures
+        ====================================================== -->
+
+        <section class="section runs-section" id="test-runs" aria-labelledby="runs-heading">
             <div class="container">
-                <h2 id="runs-heading">Test runs</h2>
-                <p class="lead">
-                    Latest GitHub Actions run of each public repository, read from GitHub on 22 Oct 2026. Run pages are public; job logs need a GitHub sign-in.
-                </p>
+
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">03</span> Runs</p>
+                        <h2 id="runs-heading" class="section-title">Test runs</h2>
+                    </div>
+                    <p class="section-intro">
+                        Latest GitHub Actions run of each public repository, read from GitHub on 22 Oct 2026. Run pages are public; job logs need a GitHub sign-in.
+                    </p>
+                </header>
 
                 <div class="table-wrap">
-                    <table>
+                    <table class="runs">
                         <caption class="sr-only">Latest GitHub Actions run per repository</caption>
                         <thead><tr><th scope="col">Project</th><th scope="col">Workflow</th><th scope="col">Date</th><th scope="col">Commit</th><th scope="col">Result</th><th scope="col">Link</th></tr></thead>
                         <tbody>
-                            <tr><th scope="row">Razorpay Payment Gateway QA & Automation</th><td>Playwright CI</td><td>14 Sep 2026</td><td><code>da9e7a2</code></td><td>Success</td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/actions/runs/34838802189" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">RESTful Booker TypeScript API</th><td>Playwright Tests</td><td>22 Oct 2026</td><td><code>1e7f137</code></td><td>Success</td><td><a href="https://github.com/Open83/restful-booker-api-automation/actions/runs/39747765779" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">ERPNext QA Automation</th><td>Playwright Tests</td><td>22 Oct 2026</td><td><code>bd3846a</code></td><td>Failed <span class="note">By my reading of the job log: the hosted test instance is gone; 1 test failed, 5 did not run. Last green run: 4 Sep 2026.</span></td><td><a href="https://github.com/Open83/ERPNext-QA-Automation/actions/runs/39761819207" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
-                            <tr><th scope="row">Automation Exercise</th><td>Playwright Test Suite</td><td>29 Aug 2026</td><td><code>789d413</code></td><td>Success</td><td><a href="https://github.com/Open83/automationexercise/actions/runs/33252150193" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">Razorpay Payment Gateway QA & Automation</th><td>Playwright CI</td><td>14 Sep 2026</td><td><code>da9e7a2</code></td><td><span class="status status-pass">Success</span></td><td><a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation/actions/runs/34838802189" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">RESTful Booker TypeScript API</th><td>Playwright Tests</td><td>22 Oct 2026</td><td><code>1e7f137</code></td><td><span class="status status-pass">Success</span></td><td><a href="https://github.com/Open83/restful-booker-api-automation/actions/runs/39747765779" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">ERPNext QA Automation</th><td>Playwright Tests</td><td>22 Oct 2026</td><td><code>bd3846a</code></td><td><span class="status status-fail">Failed</span> <span class="note">By my reading of the job log: the hosted test instance is gone; 1 test failed, 5 did not run. Last green run: 4 Sep 2026.</span></td><td><a href="https://github.com/Open83/ERPNext-QA-Automation/actions/runs/39761819207" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
+                            <tr><th scope="row">Automation Exercise</th><td>Playwright Test Suite</td><td>29 Aug 2026</td><td><code>789d413</code></td><td><span class="status status-pass">Success</span></td><td><a href="https://github.com/Open83/automationexercise/actions/runs/33252150193" target="_blank" rel="noopener noreferrer">Run page<span class="sr-only"> (opens in a new tab)</span></a></td></tr>
                         </tbody>
                     </table>
                 </div>
-                <p class="caption">These are historical results. ERPNext's latest run failed because its hosted test instance is gone: by my reading of the job log, the authentication setup test failed and the other 5 tests did not run. Its last green run was run #6 on 4 September 2026 (below).</p>
+                <p class="table-note">These are historical results. ERPNext's latest run failed because its hosted test instance is gone: by my reading of the job log, the authentication setup test failed and the other 5 tests did not run. Its last green run was run #6 on 4 September 2026 (below).</p>
 
-                <h3>Playwright reports and traces (my own runs, 15 Oct 2026)</h3>
-                <p class="caption">
+                <h3 class="sub-head">Playwright reports and traces (my own runs, 15 Oct 2026)</h3>
+                <p class="sub-note">
                     I cloned each public repository, installed it and ran the tests that need no secrets. The Razorpay run is the 34 CI-safe tests with the repository's own
                     CI placeholder configuration; the 3 live-gateway tests were not run and no API keys were used or requested.
                 </p>
                 <div class="figure-grid">
-                    <figure class="shot">
+                    <figure class="shot shot-lead">
                         <img src="/image/evidence/razorpay-playwright-report-34-passed.webp" alt="Playwright HTML report for the Razorpay suite showing 34 passed, 0 failed, 0 flaky and 0 skipped tests in Chromium" width="1100" height="653" loading="lazy" decoding="async">
                         <figcaption>Playwright HTML report, CI-safe Razorpay suite: 34 passed, 0 failed (npm run test:ci, commit da9e7a2, 15 Oct 2026, 21.6 s). The 3 live-gateway tests were not run.</figcaption>
                     </figure>
@@ -423,12 +918,12 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
                         <figcaption>One expanded test: the create, read, update, delete and verify workflow, showing each API call and assertion in order.</figcaption>
                     </figure>
                 </div>
-                <p class="caption">
+                <p class="gap-note callout callout-neutral">
                     <strong>Not captured:</strong> a Trace Viewer for the ERPNext autocomplete test, because its hosted test instance is offline and the suite cannot run;
                     and a report for Automation Exercise, whose setup step needs login credentials that I do not have in a clean clone.
                 </p>
 
-                <h3>Green GitHub Actions run, per repository</h3>
+                <h3 class="sub-head">Green GitHub Actions run, per repository</h3>
                 <div class="figure-grid">
                     <figure class="shot">
                         <img src="/image/evidence/ci-razorpay-run.webp" alt="GitHub Actions run page for the Razorpay repository showing a successful Playwright CI run on commit da9e7a2" width="1100" height="541" loading="lazy" decoding="async">
@@ -452,12 +947,20 @@ app.<span class="hljs-title function_">use</span>(express.<span class="hljs-titl
         </section>
 
 
-        <section class="section section-light cta" aria-labelledby="evidence-cta">
-            <div class="container">
-                <h2 id="evidence-cta">Want the full context?</h2>
-                <p class="lead" style="margin-left:auto;margin-right:auto">The case study explains the strategy, both defects and what I could not prove.</p>
-                <a class="btn" href="/projects/razorpay-payment-gateway-qa-automation/">Razorpay case study</a>
-                <a class="btn btn-outline" href="/proof-of-work/">All proof of work</a>
+        <!-- =====================================================
+             CLOSING BAND: Soft Mint (the one loud moment)
+        ====================================================== -->
+
+        <section class="section cta-band" aria-labelledby="evidence-cta">
+            <div class="container cta-layout">
+                <div>
+                    <h2 id="evidence-cta" class="section-title">Want the full context?</h2>
+                    <p class="cta-text">The case study explains the strategy, both defects and what I could not prove.</p>
+                </div>
+                <div class="cta-actions">
+                    <a class="btn btn-primary" href="/projects/razorpay-payment-gateway-qa-automation/">Razorpay case study</a>
+                    <a class="btn btn-secondary" href="/proof-of-work/">All proof of work</a>
+                </div>
             </div>
         </section>
 

@@ -183,7 +183,8 @@ async function run(ctx) {
     const codesOf = (body) => [...body.matchAll(/status\(\)\)\.toBe\((\d{3})\)/g)].map((m) => m[1]);
 
     // layout: the tree on the page equals the repository at the pinned commit
-    const treeCode = /<div class="architecture-box">\s*<code>([\s\S]*?)<\/code>/.exec(rbHtml);
+    // the wrapper may carry extra classes/attributes (styling, focusable scroll region); the tree text is what is compared
+    const treeCode = /<div class="architecture-box(?:\s[^"]*)?"[^>]*>\s*<code>([\s\S]*?)<\/code>/.exec(rbHtml);
     const listed = new Set();
     const stack = [];
     for (const line of (treeCode ? decodeEntities(treeCode[1]) : '').split('\n')) {

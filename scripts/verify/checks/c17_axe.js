@@ -3,9 +3,10 @@
  * 17. axe-core accessibility: zero violations on every page at 1280px and 390px, in light and dark colour-scheme emulation.
  *     (WCAG 2.0/2.1/2.2 A and AA rules plus axe best practices, plus the experimental Label-in-Name rule 2.5.3.)
  *
- * The site has no dark theme (pages declare color-scheme: light and have no prefers-color-scheme styles). The dark runs
- * therefore prove the pages stay readable when the visitor's system asks for dark; this is reported, not hidden.
- * The project covers DO follow the colour scheme (light-dark()), so their palettes are checked in both schemes below.
+ * The site has a light and a dark theme (tokens in /assets/css/site.css). With no stored choice the page follows the
+ * system setting, so the dark-scheme runs below test the dark theme itself; the check also proves that the dark theme
+ * reaches every page and that a choice stored by the header toggle renders exactly like the system preference.
+ * The project covers follow the colour scheme (light-dark()), so their palettes are checked in both schemes below.
  *
  * The contexts use bypassCSP because the check injects axe-core as an inline script, which the site's own
  * Content-Security-Policy (script-src 'self') blocks. Only the test harness bypasses it; check 18 loads the pages
@@ -87,14 +88,14 @@ async function run(ctx) {
         return { violations: out.violations.map((v) => ({ id: v.id, impact: v.impact, count: v.nodes.length, target: v.nodes[0].target.join(' '), help: v.help })), passes: out.passes.length, incomplete: out.incomplete.map((i) => i.id), contrastTargets: (out.incomplete.find((i) => i.id === 'color-contrast')?.nodes || []).map((n) => n.target.join(' ')), scheme: getComputedStyle(document.documentElement).colorScheme, bg: getComputedStyle(document.body).backgroundColor, fg: getComputedStyle(document.body).color };
       }, TAGS);
       res.fingerprint = await page.evaluate(colourFingerprint);
-      const sampled = combo.scheme === 'light' ? await sampleTargets(page, res.contrastTargets) : null;
+      const sampled = await sampleTargets(page, res.contrastTargets);
       await page.close();
       return { url: p.url, sampled, ...res };
     });
     for (const x of results) {
       runs++;
       if (x.sampled) {
-        const sm = x.sampled, at = `${x.url} @${combo.width}`;
+        const sm = x.sampled, at = `${x.url} @${combo.width} ${combo.scheme}`;
         pixel.checked += sm.checked;
         for (const [reason, sels] of Object.entries(sm.skippedBy)) { if (reason === 'svg') pixel.svg += sels.length; else pixel.other.push(...sels.map((t) => `${at}: ${t} (${reason})`)); }
         pixel.unjudged.push(...sm.unjudged.map((t) => `${at}: ${t}`));
@@ -111,7 +112,7 @@ async function run(ctx) {
   r.expect(failures.length === 0, `zero axe violations across ${runs} page runs (${pages.length} pages x 2 widths x 2 colour schemes; ${TAGS.join(', ')})`, failures.slice(0, 4).join(' | ') || `${runs} runs clean`);
 
   const pixelBad = [...pixel.failures, ...pixel.unjudged.map((u) => `${u} could not be judged`), ...pixel.other.map((o) => `${o} skipped`)];
-  r.expect(pixelBad.length === 0, 'text axe marks "needs review" (gradient, image or overlapping backgrounds; form fields): every one is judged and has sufficient contrast (worst pixel / typed and placeholder text)', pixelBad.length ? pixelBad.slice(0, 4).join(' | ') + (pixelBad.length > 4 ? ` (+${pixelBad.length - 4} more)` : '') : `${pixel.checked} elements judged (light scheme, 1280 and 390px), none unjudged, ${pixel.svg} skipped as SVG cover text (judged by the palette check below); worst ${pixel.worst ? pixel.worst.ratio.toFixed(2) + ':1 on ' + pixel.worst.url + ' ' + pixel.worst.target + ' (' + pixel.worst.width + 'px)' : 'n/a'}`);
+  r.expect(pixelBad.length === 0, 'text axe marks "needs review" (gradient, image or overlapping backgrounds; form fields): every one is judged and has sufficient contrast (worst pixel / typed and placeholder text)', pixelBad.length ? pixelBad.slice(0, 4).join(' | ') + (pixelBad.length > 4 ? ` (+${pixelBad.length - 4} more)` : '') : `${pixel.checked} elements judged (light and dark, 1280 and 390px), none unjudged, ${pixel.svg} skipped as SVG cover text (judged by the palette check below); worst ${pixel.worst ? pixel.worst.ratio.toFixed(2) + ':1 on ' + pixel.worst.url + ' ' + pixel.worst.target + ' (' + pixel.worst.width + 'px)' : 'n/a'}`);
 
   // the sampler must be able to fail: controls with known contrast on a gradient, plain text and gradient-clipped text
   const ctl = await browser.newContext({ bypassCSP: true, viewport: { width: 800, height: 600 } });
@@ -127,13 +128,38 @@ async function run(ctx) {
   r.expect(flagged === '#fieldlow,#gradlow,#low' && control.checked === 6, 'contrast sampler self-test: flags exactly the three known low-contrast controls (plain text, gradient-clipped text, a form field placeholder) and passes the three good ones', `flagged: ${flagged || 'none'}; checked ${control.checked}; worst ${control.worst ? control.worst.ratio.toFixed(2) + ':1 ' + control.worst.target : 'n/a'}`);
   await ctl.close();
 
-  // does asking for dark change anything a visitor sees? Compare every computed colour of every element, light run vs dark run.
+  // the dark theme reaches every page: dark emulation changes the computed colours of every page at both widths,
+  // and the root background is the dark page token
   const keys = Object.keys(fingerprints);
-  const changed = keys.filter((k) => fingerprints[k].light.hash !== fingerprints[k].dark.hash);
-  const lightBg = new Set(darkDiffers.map((d) => d.bg));
-  r.note(`dark emulation vs light, same page and width: ${keys.length - changed.length} of ${keys.length} identical in every computed colour of every element (${keys.reduce((n, k) => n + fingerprints[k].light.elements, 0)} elements hashed); root background ${[...lightBg].join(' / ')}; differing: ${changed.join(', ') || 'none'}. So no dark styling reaches a visitor: half of the 60 axe runs repeat the light ones.`);
-  const hasDarkCss = pages.filter((p) => /prefers-color-scheme\s*:\s*dark|data-theme|color-scheme\s*:\s*[^;"]*dark/.test(readText(p.file))).map((p) => p.url);
-  r.expect(changed.length === 0 && hasDarkCss.length === 0, 'there is no dark styling: no page has prefers-color-scheme: dark, data-theme or color-scheme: dark rules, and dark emulation changes no computed colour on any page at 1280 or 390px (if this ever fails, dark styling was added and the dark axe runs become meaningful)', `${keys.length - changed.length}/${keys.length} page+width combinations identical; pages with dark rules: ${hasDarkCss.join(', ') || 'none'}`);
+  const unchanged = keys.filter((k) => fingerprints[k].light.hash === fingerprints[k].dark.hash);
+  const darkBg = new Set(darkDiffers.map((d) => d.bg));
+  const DARK_PAGE = 'rgb(14, 21, 19)'; // --color-page in the dark theme (#0E1513)
+  r.note(`dark emulation vs light, same page and width: ${keys.length - unchanged.length} of ${keys.length} differ in their computed colours (${keys.reduce((n, k) => n + fingerprints[k].light.elements, 0)} elements hashed); dark root background ${[...darkBg].join(' / ')}`);
+  r.expect(unchanged.length === 0 && darkBg.size === 1 && darkBg.has(DARK_PAGE), 'the dark theme reaches every page: dark emulation changes the colours of every page at 1280 and 390px, and every dark page background is the dark page token', `unchanged: ${unchanged.join(', ') || 'none'}; dark backgrounds: ${[...darkBg].join(' / ')}`);
+
+  // the header toggle: a stored "dark" choice under a LIGHT system setting renders exactly like the dark system setting,
+  // and a stored "light" choice under a DARK system setting renders exactly like light (sampled on three pages)
+  // Both sides are fresh loads fingerprinted the same way (the axe runs above add a script element, so their hashes differ).
+  const toggleLow = [];
+  const themed = async (url, system, stored) => {
+    const c = await browser.newContext({ bypassCSP: true, viewport: { width: 1280, height: 900 }, colorScheme: system, reducedMotion: 'reduce' });
+    if (stored) await c.addInitScript((v) => { try { localStorage.setItem('theme', v); } catch (e) { /* ignore */ } }, stored);
+    const pg = await c.newPage();
+    await pg.goto(baseUrl + url, { waitUntil: 'load' });
+    await pg.addStyleTag({ content: '.section{opacity:1!important;transform:none!important}' });
+    await pg.waitForTimeout(300);
+    const fp = await pg.evaluate(colourFingerprint);
+    await c.close();
+    return fp.hash;
+  };
+  for (const url of ['/', '/contact/', '/projects/razorpay-payment-gateway-qa-automation/']) {
+    for (const [system, stored] of [['light', 'dark'], ['dark', 'light']]) {
+      const got = await themed(url, system, stored);
+      const want = await themed(url, stored, null);
+      if (got !== want) toggleLow.push(`${url}: stored ${stored} under system ${system} hashed ${got}, ${stored} system setting ${want}`);
+    }
+  }
+  r.expect(toggleLow.length === 0, 'theme toggle: a stored choice overrides the system setting and renders identically to that theme (3 pages, both directions)', toggleLow.join(' | ') || '6 combinations identical');
 
   // the fingerprint must be able to see dark styling: a synthetic page that does restyle itself for dark must hash differently
   const hashes = {};

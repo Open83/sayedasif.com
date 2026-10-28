@@ -126,6 +126,13 @@
 
 
     <!-- Global header/footer styles (single source of truth) -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="/assets/css/global-nav.css">
 
     <!-- =====================================================
@@ -134,927 +141,275 @@
 
     <style>
 
-        /* =====================================================
-           VARIABLES
-        ====================================================== */
+        /* =========================================================
+           ABOUT: page layout only.
+           Tokens, type, buttons and the reset live in /assets/css/site.css;
+           header and footer in global-nav.css. No colour values here: tokens only.
 
-        :root {
-
-            --bg-main: #ffffff;
-
-            --brand-primary: #00baf2;
-
-            --brand-dark: #314259;
-
-            --brand-text: #334155;
-
-            --brand-muted: #5f6b79;
-
-            --border-light:
-                1px solid #e2e8f0;
-
-            --gradient-brand:
-                linear-gradient(
-                    135deg,
-                    #00baf2 0%,
-                    #0088cc 100%
-                );
-
-            --shadow-soft:
-                0 4px 20px rgba(
-                    0,
-                    0,
-                    0,
-                    0.05
-                );
-
-            --shadow-hover:
-                0 12px 30px rgba(
-                    0,
-                    0,
-                    0,
-                    0.08
-                );
-
-        }
+           Composition: an essay.
+             1. split page header: serif headline left, lede right, Ink rule below
+             2. reading column (66ch) with mono margin labels on wide screens
+             3. the closing principle on an Ink panel (the one loud moment)
+             4. a quiet, ruled closing: availability and one action
+        ========================================================= */
 
 
-        /* =====================================================
-           RESET
-        ====================================================== */
-
-        * {
-
-            margin: 0;
-
-            padding: 0;
-
-            box-sizing: border-box;
-
-        }
-
-
-        html {
-
-            scroll-behavior: smooth;
-
-        }
-
-
-        body {
-
-            background:
-                var(--bg-main);
-
-            color:
-                var(--brand-text);
-
-            font-family:
-                Inter,
-                "Segoe UI",
-                Roboto,
-                Helvetica,
-                Arial,
-                sans-serif;
-
-            line-height:
-                1.75;
-
-            overflow-x:
-                hidden;
-
-        }
-
-
-        img {
-
-            max-width:
-                100%;
-
-            height:
-                auto;
-
-        }
-
-
-        a {
-
-            color:
-                inherit;
-
-            text-decoration:
-                none;
-
-        }
-
-
-        button {
-
-            font:
-                inherit;
-
-        }
-
-
-        /* .skip-link / :focus-visible now live in
-           /assets/css/global-nav.css */
-
-
-        /* =====================================================
-           CONTAINER
-        ====================================================== */
-
-        .container {
-
-            width:
-                100%;
-
-            max-width:
-                1100px;
-
-            margin:
-                0 auto;
-
-            padding-left:
-                20px;
-
-            padding-right:
-                20px;
-
-        }
-
-
-
-        /* =====================================================
-           HERO
-        ====================================================== */
+        /* =========================================================
+           1. PAGE HEADER
+        ========================================================= */
 
         .about-hero {
-
-            padding:
-                150px 0 75px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #f0f9ff 0%,
-                    #ffffff 100%
-                );
-
-            text-align:
-                center;
-
+            padding-top: calc(var(--header-h) + clamp(2.5rem, 1.25rem + 4.5vw, 5.5rem));
         }
 
-
-        .hero-label {
-
-            display:
-                inline-flex;
-
-            align-items:
-                center;
-
-            gap:
-                8px;
-
-            margin-bottom:
-                18px;
-
-            color:
-                var(--brand-accent-text);
-
-            font-size:
-                0.8rem;
-
-            font-weight:
-                800;
-
-            letter-spacing:
-                1.5px;
-
-            text-transform:
-                uppercase;
-
+        .about-hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+            gap: var(--space-6) var(--space-8);
+            align-items: end;
+            padding-bottom: var(--space-8);
+            border-bottom: 1px solid var(--color-heading);
         }
 
-
-        .hero-label::before {
-
-            content:
-                "";
-
-            width:
-                25px;
-
-            height:
-                2px;
-
-            background:
-                var(--brand-primary);
-
+        .about-hero .kicker {
+            color: var(--color-link);
         }
-
 
         .about-hero h1 {
-
-            max-width:
-                850px;
-
-            margin:
-                0 auto 20px;
-
-            color:
-                var(--brand-dark);
-
-            font-size:
-                clamp(
-                    2.2rem,
-                    5vw,
-                    3.6rem
-                );
-
-            line-height:
-                1.12;
-
-            letter-spacing:
-                -1px;
-
+            font-size: var(--text-display);
+            line-height: 0.98;
         }
-
 
         .about-hero h1 span {
-
-            color:
-                var(--brand-accent-text);
-
+            display: block;
+            margin-top: 0.08em;
+            font-weight: 500;
+            color: var(--color-text-muted);
         }
-
 
         .hero-intro {
-
-            max-width:
-                760px;
-
-            margin:
-                0 auto;
-
-            color:
-                var(--brand-muted);
-
-            font-size:
-                clamp(
-                    1rem,
-                    2vw,
-                    1.15rem
-                );
-
-        }
-
-
-        /* =====================================================
-           MAIN CONTENT
-        ====================================================== */
-
-        /* .section sets "padding: Npx 0", which removed the side padding that
-           .container provides; restore it for elements that use both classes. */
-        .container.section {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .container.section {
-                padding-left: 17px;
-                padding-right: 17px;
-            }
-        }
-
-        .section {
-
-            padding:
-                80px 0;
-
-        }
-
-
-        .content-width {
-
-            max-width:
-                850px;
-
-            margin:
-                0 auto;
-
-        }
-
-
-        .content-block {
-
-            margin-bottom:
-                55px;
-
-        }
-
-
-        .content-block:last-child {
-
-            margin-bottom:
-                0;
-
-        }
-
-
-        .content-block h2 {
-
-            color:
-                var(--brand-dark);
-
-            font-size:
-                clamp(
-                    1.65rem,
-                    4vw,
-                    2.1rem
-                );
-
-            line-height:
-                1.25;
-
-            margin-bottom:
-                18px;
-
-        }
-
-
-        .content-block h2::after {
-
-            content:
-                "";
-
-            display:
-                block;
-
-            width:
-                45px;
-
-            height:
-                3px;
-
-            margin-top:
-                12px;
-
-            background:
-                var(--brand-primary);
-
-            border-radius:
-                3px;
-
-        }
-
-
-        .content-block p {
-
-            margin-bottom:
-                18px;
-
-            color:
-                #475569;
-
-            font-size:
-                1.05rem;
-
-        }
-
-
-        .content-block p:last-child {
-
-            margin-bottom:
-                0;
-
-        }
-
-
-        .content-block a { color: var(--brand-accent-text); font-weight: 700; }
-
-        .content-block strong {
-
-            color:
-                var(--brand-dark);
-
-            font-weight:
-                700;
-
-        }
-
-
-        /* =====================================================
-           HIGHLIGHT
-        ====================================================== */
-
-
-
-
-
-
-
-
-
-
-        /* =====================================================
-           EXPERTISE GRID
-        ====================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /* =====================================================
-           WORKING APPROACH
-        ====================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /* =====================================================
-           PROFESSIONAL NOTE
-        ====================================================== */
-
-
-
-
-
-
-
-        /* =====================================================
-           CTA
-        ====================================================== */
-
-        .cta-section {
-
-            margin-top:
-                70px;
-
-            padding:
-                50px 30px;
-
-            text-align:
-                center;
-
-            background:
-                #f8fafc;
-
-            border:
-                var(--border-light);
-
-            border-radius:
-                18px;
-
-        }
-
-
-        .cta-section h2 {
-
-            color:
-                var(--brand-dark);
-
-            font-size:
-                clamp(
-                    1.6rem,
-                    4vw,
-                    2rem
-                );
-
-            margin-bottom:
-                10px;
-
-        }
-
-
-        .cta-section p {
-
-            max-width:
-                620px;
-
-            margin:
-                0 auto;
-
-            color:
-                var(--brand-muted);
-
-        }
-
-
-        .btn-cta {
-
-            display:
-                inline-flex;
-
-            align-items:
-                center;
-
-            justify-content:
-                center;
-
-            gap:
-                8px;
-
-            margin-top:
-                22px;
-
-            padding:
-                12px 26px;
-
-            border-radius:
-                8px;
-
-            background:
-                var(--brand-accent-text);
-
-            color:
-                #ffffff;
-
-            font-weight:
-                700;
-
-            box-shadow:
-                0 4px 15px
-                rgba(
-                    0,
-                    186,
-                    242,
-                    0.3
-                );
-
-            transition:
-                background 0.25s ease,
-                transform 0.25s ease;
-
-        }
-
-
-        .btn-cta:hover {
-
-            background:
-                var(--brand-accent-text-strong);
-
-            transform:
-                translateY(-2px);
-
-        }
-
-
-        /* Footer CSS now lives in /assets/css/global-nav.css. */
-
-
-        /* =====================================================
-           TABLET
-        ====================================================== */
-
-
-
-
-        /* =====================================================
-           MOBILE
-        ====================================================== */
-
-        @media (max-width: 768px) {
-
-            .container {
-
-                padding-left:
-                    18px;
-
-                padding-right:
-                    18px;
-
-            }
-
-
-
-
-            .about-hero {
-
-                padding:
-                    115px 0 55px;
-
-            }
-
-
-            .about-hero h1 {
-
-                font-size:
-                    2.2rem;
-
-                letter-spacing:
-                    -0.5px;
-
-            }
-
-
-            .hero-intro {
-
-                font-size:
-                    0.98rem;
-
-            }
-
-
-            .section {
-
-                padding:
-                    60px 0;
-
-            }
-
-
-            .content-block {
-
-                margin-bottom:
-                    45px;
-
-            }
-
-
-            .content-block p {
-
-                font-size:
-                    1rem;
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-            .cta-section {
-
-                margin-top:
-                    50px;
-
-                padding:
-                    38px 22px;
-
-            }
-
-            /* .footer-grid, .footer-heading, .brand-*, .social-links,
-               .footer-bottom, .copyright, .privacy-link mobile rules:
-               see /assets/css/global-nav.css. */
-
-        }
-
-
-        /* =====================================================
-           SMALL MOBILE
-        ====================================================== */
-
-        @media (max-width: 480px) {
-
-            .container {
-
-                padding-left:
-                    16px;
-
-                padding-right:
-                    16px;
-
-            }
-
-
-
-
-            .about-hero {
-
-                padding:
-                    105px 0 45px;
-
-            }
-
-
-            .about-hero h1 {
-
-                font-size:
-                    2rem;
-
-            }
-
-
-            .hero-intro {
-
-                font-size:
-                    0.94rem;
-
-            }
-
-
-            .section {
-
-                padding:
-                    50px 0;
-
-            }
-
-
-
-
-
-
-
-
-            .content-block h2 {
-
-                font-size:
-                    1.55rem;
-
-            }
-
-
-            .content-block p {
-
-                font-size:
-                    0.96rem;
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
-
-
-        /* =====================================================
-           VERY SMALL DEVICES
-        ====================================================== */
-
-        @media (max-width: 360px) {
-
-            .about-hero h1 {
-
-                font-size:
-                    1.8rem;
-
-            }
-
-
-            .hero-intro {
-
-                font-size:
-                    0.9rem;
-
-            }
-
-
-
-
-
-            .cta-section {
-
-                padding:
-                    32px 18px;
-
-            }
-
-        }
-
-
-        /* =====================================================
-           REDUCED MOTION
-        ====================================================== */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            html {
-
-                scroll-behavior:
-                    auto;
-
-            }
-
-
-            * {
-
-                transition:
-                    none !important;
-
-            }
-
+            max-width: 34ch;
+            padding-left: var(--space-5);
+            border-left: 2px solid var(--color-brand);
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 400;
+            line-height: 1.4;
+            color: var(--color-heading);
+            text-wrap: pretty;
         }
 
 
         /* =========================================================
-           HOW I TEST / PROFESSIONAL EXPERIENCE (moved from the homepage)
+           2. THE STORY: reading column with margin labels
         ========================================================= */
 
+        .story {
+            padding-block: var(--section-y) var(--space-9);
+        }
+
+        .story-part,
+        .story-head {
+            display: grid;
+            grid-template-columns: 11rem minmax(0, var(--measure));
+            gap: var(--space-2) var(--space-8);
+        }
+
+        .story-head {
+            margin-bottom: var(--space-6);
+        }
+
+        .story-head h2 {
+            grid-column: 2;
+            font-size: var(--text-2xl);
+        }
+
+        .story-part + .story-part {
+            margin-top: var(--space-6);
+        }
+
+        .story-label {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6em;
+            padding-top: 0.55rem;
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .story-label span {
+            color: var(--color-link);
+        }
+
+        .story-part > p:not(.story-label) {
+            font-size: var(--text-md);
+            line-height: 1.75;
+        }
+
+        /* The opening line reads as the lead of the essay */
+        .story-part-lead > p:not(.story-label) {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            line-height: 1.45;
+            color: var(--color-heading);
+        }
+
+        .story-part-lead .story-label {
+            padding-top: 0.7rem;
+        }
 
 
+        /* =========================================================
+           3. THE PRINCIPLE: one Ink panel
+        ========================================================= */
+
+        .care {
+            padding-bottom: var(--section-y);
+        }
+
+        .care-panel {
+            display: grid;
+            /* the statement starts on the same vertical line as the story column above */
+            grid-template-columns: calc(11rem - var(--space-6)) minmax(0, 1fr);
+            gap: var(--space-4) var(--space-8);
+            padding: clamp(2rem, 1.2rem + 3.5vw, 4.5rem) var(--space-6);
+        }
+
+        .care-panel .story-label {
+            padding-top: 0.9rem;
+            color: var(--color-text-inverse-muted);
+        }
+
+        .care-panel .story-label span {
+            color: var(--color-accent-inverse);
+        }
+
+        .care-statement {
+            max-width: 32ch;
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: -0.012em;
+            color: var(--color-text-inverse);
+            text-wrap: pretty;
+        }
 
 
+        /* =========================================================
+           4. CLOSING: quiet, ruled
+        ========================================================= */
+
+        .about-cta {
+            padding-bottom: var(--section-y);
+        }
+
+        .about-cta-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+            gap: var(--space-6) var(--space-8);
+            align-items: start;
+            padding-top: var(--space-7);
+            border-top: 1px solid var(--color-heading);
+        }
+
+        .about-cta h2 {
+            font-size: var(--text-3xl);
+        }
+
+        .availability-note {
+            display: flex;
+            gap: 0.75em;
+            align-items: baseline;
+            max-width: 58ch;
+            margin-bottom: var(--space-5);
+            font-size: var(--text-md);
+            line-height: 1.7;
+            color: var(--color-heading);
+        }
+
+        .availability-note::before {
+            content: "";
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-success);
+            box-shadow: 0 0 0 3px var(--color-success-bg);
+            transform: translateY(-2px);
+        }
+
+        .availability-note a {
+            font-weight: 600;
+        }
 
 
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
 
+        @media (max-width: 1024px) {
+            .story-part,
+            .story-head {
+                grid-template-columns: 8.5rem minmax(0, 1fr);
+                gap: var(--space-2) var(--space-6);
+            }
 
+            .care-panel {
+                grid-template-columns: calc(8.5rem - var(--space-6)) minmax(0, 1fr);
+                gap: var(--space-4) var(--space-6);
+            }
+        }
 
+        @media (max-width: 768px) {
+            .about-hero-grid,
+            .about-cta-grid {
+                grid-template-columns: 1fr;
+            }
 
+            .about-hero-grid {
+                padding-bottom: var(--space-7);
+            }
 
+            .story-part,
+            .story-head,
+            .care-panel {
+                grid-template-columns: 1fr;
+                gap: var(--space-2);
+            }
 
+            .story-head h2 {
+                grid-column: 1;
+            }
 
+            .story-label,
+            .story-part-lead .story-label,
+            .care-panel .story-label {
+                padding-top: 0;
+            }
 
+            .care-panel {
+                gap: var(--space-4);
+                padding-inline: var(--space-5);
+            }
+        }
 
+        @media (max-width: 560px) {
+            .hero-intro {
+                padding-left: var(--space-4);
+            }
 
+            .about-cta .btn {
+                width: 100%;
+            }
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</style>
+    </style>
 
 </head>
 
@@ -1087,8 +442,14 @@
                 <a href="/services/">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/">Resume</a>
-                <a href="/contact/">Contact</a>
+                <a href="/contact/" class="nav-cta">Contact</a>
             </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
 
         </div>
 
@@ -1104,119 +465,138 @@
 
 
         <!-- =================================================
-             HERO
+             1. PAGE HEADER: split, serif headline + lede
         ================================================== -->
 
         <header class="about-hero">
 
             <div class="container">
+                <div class="about-hero-grid">
 
-                <div class="hero-label">
-                    About Me
+                    <div>
+                        <p class="kicker">About Me</p>
+
+                        <h1>
+                            From Commerce
+                            <span>to QA Engineering</span>
+                        </h1>
+                    </div>
+
+                    <p class="hero-intro">
+                        I test software where money moves: payments,
+                        refunds, donations and the APIs behind them.
+                    </p>
+
                 </div>
-
-
-                <h1>
-
-                    From Commerce
-                    <span>to QA Engineering</span>
-
-                </h1>
-
-
-                <p class="hero-intro">
-
-                    I test software where money moves: payments,
-                    refunds, donations and the APIs behind them.
-
-                </p>
-
             </div>
 
         </header>
 
 
-
         <!-- =================================================
-             STORY
+             2. STORY: reading column, mono margin labels
         ================================================== -->
 
         <section
-            class="container section"
+            class="container story"
             aria-labelledby="story-heading"
         >
 
-            <div class="content-width">
+            <div class="story-head">
+                <h2 id="story-heading">My Story</h2>
+            </div>
 
-                <div class="content-block">
+            <div class="story-part story-part-lead">
+                <p class="story-label" aria-hidden="true"><span>01</span> Introduction</p>
+                <p>
+                    I'm <strong>Sayed Asif</strong>, a QA engineer. Before I tested software, I studied commerce.
+                </p>
+            </div>
 
-                    <h2 id="story-heading">My Story</h2>
+            <div class="story-part">
+                <p class="story-label" aria-hidden="true"><span>02</span> Commerce</p>
+                <p>
+                    I earned a Bachelor of Commerce at MVM College (2020&ndash;2022). When I test a donation
+                    flow, a refund or a payment gateway, I check two things: does every amount add up, and does
+                    every transaction end in a state that makes sense?
+                </p>
+            </div>
 
-                    <p>
-                        I'm <strong>Sayed Asif</strong>, a QA engineer. Before I tested software, I studied commerce.
-                    </p>
+            <div class="story-part">
+                <p class="story-label" aria-hidden="true"><span>03</span> Into testing</p>
+                <p>
+                    I moved into testing through QA training at SQUAD Infotech in 2023: manual testing, automation
+                    fundamentals and hands-on SQL for preparing and checking test data. Since December 2024 I have
+                    worked as a Software QA Engineer at Techno Serve Software Solutions, with a QA Lead title,
+                    across six client projects covering donation and payment platforms, CRM and role-based access,
+                    and logistics. Day to day
+                    it means functional and regression testing, API checks in Postman, defects tracked in Jira,
+                    and Playwright automation with Page Objects in GitHub Actions.
+                </p>
+            </div>
 
-                    <p>
-                        I earned a Bachelor of Commerce at MVM College (2020&ndash;2022). When I test a donation
-                        flow, a refund or a payment gateway, I check two things: does every amount add up, and does
-                        every transaction end in a state that makes sense?
-                    </p>
-
-                    <p>
-                        I moved into testing through QA training at SQUAD Infotech in 2023: manual testing, automation
-                        fundamentals and hands-on SQL for preparing and checking test data. Since December 2024 I have
-                        worked as a Software QA Engineer at Techno Serve Software Solutions, with a QA Lead title,
-                        across six client projects covering donation and payment platforms, CRM and role-based access,
-                        and logistics. Day to day
-                        it means functional and regression testing, API checks in Postman, defects tracked in Jira,
-                        and Playwright automation with Page Objects in GitHub Actions.
-                    </p>
-
-                    <p>
-                        Outside work I build public projects so my claims can be checked. The Razorpay one is closest
-                        to how I think: Playwright tests for payment signatures, webhooks, duplicate events and
-                        refunds, which turned up two high-severity defects in the demo app I built as the test target. One of them made the app reject every valid webhook. The code, tests and defect log are on GitHub, and the
-                        <a href="/evidence/">Evidence Library</a> walks through them.
-                    </p>
-
-                    <p>
-                        What I care about: a bug report someone can reproduce in two minutes, a test that fails when
-                        the product is broken, and saying plainly what I have not tested.
-                    </p>
-
-                </div>
-
+            <div class="story-part">
+                <p class="story-label" aria-hidden="true"><span>04</span> Public work</p>
+                <p>
+                    Outside work I build public projects so my claims can be checked. The Razorpay one is closest
+                    to how I think: Playwright tests for payment signatures, webhooks, duplicate events and
+                    refunds, which turned up two high-severity defects in the demo app I built as the test target. One of them made the app reject every valid webhook. The code, tests and defect log are on GitHub, and the
+                    <a href="/evidence/">Evidence Library</a> walks through them.
+                </p>
             </div>
 
         </section>
 
 
+        <!-- =================================================
+             3. THE PRINCIPLE: the page's one Ink panel
+        ================================================== -->
+
         <section
-            class="container section"
+            class="container care"
+            aria-label="What I care about"
+        >
+
+            <div class="panel-inverse care-panel">
+                <p class="story-label" aria-hidden="true"><span>05</span> Standards</p>
+                <p class="care-statement">
+                    What I care about: a bug report someone can reproduce in two minutes, a test that fails when
+                    the product is broken, and saying plainly what I have not tested.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             4. CLOSING: availability and one action
+        ================================================== -->
+
+        <section
+            class="container about-cta"
             aria-label="Contact"
         >
 
-            <div class="cta-section">
+            <div class="about-cta-grid">
 
                 <h2>
                     Let's Talk About Software Quality
                 </h2>
 
-                <p>
-                    Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA
-                    projects on a part-time basis. <a href="/services/" style="color: inherit; font-weight: 700; text-decoration: underline;">QA Services</a> explains how freelance work runs.
-                </p>
+                <div>
+                    <p class="availability-note">
+                        <span>Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA
+                        projects on a part-time basis. <a href="/services/">QA Services</a> explains how freelance work runs.</span>
+                    </p>
 
-                <a
-                    href="mailto:sayedasif83838@gmail.com"
-                    class="btn-cta"
-                >
-
-                    <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>
-
-                    Contact Me
-
-                </a>
+                    <a
+                        href="mailto:sayedasif83838@gmail.com"
+                        class="btn btn-primary"
+                    >
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>
+                        Contact Me
+                    </a>
+                </div>
 
             </div>
 

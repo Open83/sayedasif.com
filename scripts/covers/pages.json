@@ -13,7 +13,7 @@
       ],
       "stack": "Playwright · TypeScript · JavaScript · REST APIs",
       "caption": "Each API risk mapped to the tests that cover it, or marked not tested",
-      "colors": { "accent": "#6d28d9", "soft": "#ede9fe", "accentDark": "#c4b5fd", "softDark": "#2e1065" },
+      "colors": { "accent": "#075e54", "soft": "#e5f3ef", "accentDark": "#4fc7b4", "softDark": "#173029" },
       "flow": [
         ["Auth", "who may call"],
         ["Status", "codes returned"],

@@ -20,1093 +20,648 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta property="og:site_name" content="Sayed Asif">
 
-    <meta name="theme-color" content="#00baf2">
-    <meta name="color-scheme" content="light">
 
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <!-- Global header/footer styles (single source of truth) -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="/assets/css/global-nav.css">
 
     <style>
-        :root {
-            --bg-main: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f0f4f8;
-            --brand-primary: #00baf2;
-            --brand-dark: #314259;
-            --brand-text: #334155;
-            --brand-muted: #5f6b79;
-            --border-light: #e5e7eb;
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --shadow-hover: 0 8px 30px rgba(0, 186, 242, 0.12);
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* =========================================================
+           RESUME: page layout only.
+           Tokens, type, buttons, tags and the reset live in /assets/css/site.css;
+           header and footer in global-nav.css. No colour values here: tokens only
+           (the print block maps tokens to the CSS system colours Canvas/CanvasText).
 
-        html {
-            scroll-behavior: smooth;
-        }
+           Composition: a document.
+             - a white sheet on Porcelain: identity head, then ruled resume
+               sections with a mono column for dates, skill groups and numbers
+             - a sticky action rail on the right (PDF downloads, contact) that
+               becomes a compact action bar under the identity head on smaller screens
+             - quiet throughout; the current role is the one emphasised entry
+        ========================================================= */
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--brand-text);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
 
-        img {
-            max-width: 100%;
-            display: block;
-        }
+        /* =========================================================
+           1. LAYOUT: sheet (head + body) beside the rail
+        ========================================================= */
 
-        a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            color: var(--brand-dark);
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        /* .skip-link / :focus-visible now live in
-           /assets/css/global-nav.css */
-
-        .nav-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Main Resume Layout */
-        main {
-            padding-top: 70px;
-            min-height: 100vh;
-        }
-
-        .resume-container {
+        .resume-layout {
             display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 24px;
+            grid-template-columns: minmax(0, 1fr) 17.5rem;
+            grid-template-areas:
+                "head rail"
+                "body rail";
+            grid-template-rows: auto 1fr;
+            column-gap: var(--space-7);
+            padding-top: calc(var(--header-h) + clamp(1.5rem, 0.8rem + 2.5vw, 3rem));
+            padding-bottom: var(--section-y);
         }
 
-        /* Sidebar */
-        .sidebar {
-            position: sticky;
-            top: 90px;
-            height: fit-content;
+        .sheet-head { grid-area: head; }
+        .sheet-body { grid-area: body; }
+        .resume-rail { grid-area: rail; }
+
+        /* head and body read as one continuous sheet */
+        .sheet-head,
+        .sheet-body {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
         }
 
-        .profile-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 12px;
-            padding: 28px;
-            text-align: center;
-            box-shadow: var(--shadow-soft);
+        .sheet-head {
+            padding: clamp(1.5rem, 0.8rem + 2.6vw, 3.5rem) clamp(1.25rem, 0.6rem + 2.6vw, 3.5rem) 0;
+            border-bottom: 0;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+
+        .sheet-body {
+            padding: 0 clamp(1.25rem, 0.6rem + 2.6vw, 3.5rem) clamp(1.5rem, 0.8rem + 2.6vw, 3.5rem);
+            border-top: 0;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+            box-shadow: var(--shadow-1);
+        }
+
+
+        /* =========================================================
+           2. IDENTITY HEAD
+        ========================================================= */
+
+        .sheet-id {
+            display: flex;
+            align-items: flex-end;
+            gap: var(--space-5);
         }
 
         .profile-image {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 16px;
-            border-radius: 50%;
-            border: 4px solid var(--brand-primary);
-            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--border-light) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: var(--brand-accent-text);
+            flex-shrink: 0;
+            width: 104px;
+            height: 104px;
             overflow: hidden;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            background: color-mix(in srgb, var(--color-brand) 11%, var(--color-surface));
         }
 
         .profile-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 20%;
+        }
+
+        .sheet-id .kicker {
+            margin-bottom: var(--space-2);
+            color: var(--color-link);
         }
 
         .profile-name {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--brand-dark);
-            margin-bottom: 4px;
+            font-size: var(--text-3xl);
+            line-height: 1;
         }
 
         .profile-title {
-            font-size: 14px;
-            color: var(--brand-muted);
-            margin-bottom: 16px;
+            margin-top: var(--space-2);
+            font-size: var(--text-lg);
+            font-weight: 500;
+            color: var(--color-text-muted);
         }
 
-        .divider {
-            height: 1px;
-            background: var(--border-light);
-            margin: 16px 0;
+        /* Ledger strip of the three figures */
+        .sheet-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin-top: var(--space-7);
+            list-style: none;
+            border-top: 1px solid var(--color-heading);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .sheet-stats li {
+            padding: var(--space-4) var(--space-4) var(--space-4) var(--space-5);
+            border-left: 1px solid var(--color-border);
+        }
+
+        .sheet-stats li:first-child {
+            padding-left: 0;
+            border-left: 0;
+        }
+
+        .stat-value {
+            font-family: var(--font-mono);
+            font-size: clamp(1.75rem, 1.4rem + 1vw, 2.375rem);
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            color: var(--color-heading);
+        }
+
+        .stat-label {
+            max-width: 20ch;
+            margin-top: var(--space-2);
+            font-size: var(--text-sm);
+            line-height: 1.4;
+            color: var(--color-text-muted);
+        }
+
+
+        /* =========================================================
+           3. ACTION RAIL
+        ========================================================= */
+
+        .resume-rail {
+            align-self: start;
+            position: sticky;
+            top: calc(var(--header-h) + var(--space-5));
+        }
+
+        .rail-block + .rail-block {
+            margin-top: var(--space-7);
+        }
+
+        .rail-label {
+            padding-bottom: var(--space-2);
+            margin-bottom: var(--space-3);
+            border-bottom: 1px solid var(--color-heading);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .rail-downloads {
+            display: grid;
+            gap: var(--space-3);
+        }
+
+        .rail-downloads .rail-label {
+            margin-bottom: 0;
+        }
+
+        .rail-downloads .btn {
+            width: 100%;
         }
 
         .contact-list {
-            text-align: left;
-            margin-bottom: 16px;
+            list-style: none;
         }
 
         .contact-item {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
-            font-size: 13px;
-            color: var(--brand-text);
-            line-height: 1.4;
+            align-items: center;
+            gap: var(--space-3);
+            min-height: 48px;
+            border-bottom: 1px solid var(--color-border);
+            font-size: var(--text-sm);
         }
 
-        .contact-item i {
-            color: var(--brand-accent-text);
+        .contact-item .ic {
             flex-shrink: 0;
-            width: 16px;
-            text-align: center;
-            margin-top: 2px;
+            width: 1.25em;
+            color: var(--color-link);
         }
 
-        .contact-item a {
-            color: var(--brand-accent-text);
-            text-decoration: none;
-        }
-
-        .contact-item a:hover {
-            text-decoration: underline;
-        }
-
-        .stats-row {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .stat-item:last-child {
-            border-bottom: none;
-        }
-
-        .stat-value {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--brand-accent-text);
-        }
-
-        .stat-label {
-            font-size: 11px;
-            color: var(--brand-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-
-        .btn {
+        .contact-item a,
+        .contact-item .reveal-phone {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 11px 16px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 13px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            margin-bottom: 8px;
+            min-height: 44px;
+            overflow-wrap: anywhere;
         }
 
-        .btn-primary {
-            background: var(--brand-accent-text);
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3);
+        .contact-item .reveal-phone {
+            padding-block: 0;
         }
 
-        .btn-primary:hover {
-            background: var(--brand-accent-text-strong);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 186, 242, 0.4);
+
+        /* =========================================================
+           4. RESUME SECTIONS: ruled, numbered, mono left column
+        ========================================================= */
+
+        .sheet-body {
+            --rs-col: 10.5rem;
+            counter-reset: rs;
         }
 
-        .btn-outline {
-            background: transparent;
-            color: var(--brand-dark);
-            border: 1.5px solid var(--brand-dark);
+        .resume-section {
+            counter-increment: rs;
+            padding-top: var(--space-7);
         }
 
-        .btn-outline:hover {
-            background: var(--brand-dark);
-            color: #ffffff;
-        }
-
-        /* Content */
-        .content {
+        .rs-title {
             display: flex;
-            flex-direction: column;
-            gap: 36px;
+            align-items: baseline;
+            gap: var(--space-4);
+            margin-bottom: var(--space-5);
+            font-size: var(--text-xl);
+            letter-spacing: -0.015em;
         }
 
-        .section {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        .rs-title::before {
+            content: counter(rs, decimal-leading-zero);
+            flex-shrink: 0;
+            width: var(--rs-col);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
+            color: var(--color-link);
         }
 
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .rs-summary {
+            padding-left: calc(var(--rs-col) + var(--space-4));
+            font-size: var(--text-md);
+            line-height: 1.75;
+            color: var(--color-text);
         }
 
-        .section-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--brand-dark);
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--brand-primary);
-            display: inline-block;
+        .rs-list,
+        .rs-skills {
+            list-style: none;
+            border-top: 1px solid var(--color-heading);
         }
 
-        /* Summary Card */
-        .summary-card {
-            background: var(--bg-secondary);
-            border-left: 4px solid var(--brand-primary);
-            border-radius: 8px;
-            padding: 24px;
-            line-height: 1.8;
-            color: var(--brand-text);
-        }
-
-        /* Skills Section */
-        .skills-grid {
+        .rs-entry {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            grid-template-columns: var(--rs-col) minmax(0, 1fr);
+            gap: var(--space-2) var(--space-4);
+            padding-block: var(--space-5);
+            border-bottom: 1px solid var(--color-border);
         }
 
-        .skill-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.3s ease;
+        .rs-date {
+            padding-top: 0.2em;
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            line-height: 1.5;
+            color: var(--color-text-muted);
         }
 
-        .skill-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--brand-primary);
+        .rs-skills .rs-date {
+            font-size: var(--text-xs);
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
         }
 
-        .skill-card-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--brand-accent-text);
-            margin-bottom: 12px;
-        }
-
-        .skill-badges {
+        /* Inline lists: skills (sans) and project stacks (mono) */
+        .rs-inline {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: var(--space-1) 0;
+            list-style: none;
         }
 
-        .skill-badge {
-            background: rgba(0, 186, 242, 0.1);
-            border: 1px solid rgba(0, 186, 242, 0.4);
-            color: var(--brand-dark);
-            padding: 6px 11px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        .rs-inline li:not(:last-child)::after {
+            content: "\00b7";
+            padding-inline: 0.55em;
+            color: var(--color-border-strong);
         }
 
-        .skill-badge:hover {
-            background: rgba(0, 186, 242, 0.2);
-            transform: scale(1.05);
+        .rs-skills .rs-inline {
+            color: var(--color-heading);
         }
 
-        /* Proficiency Bars */
-        .proficiency-section {
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            padding: 28px;
+        .rs-stack {
+            margin-top: var(--space-3);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
         }
 
-        .proficiency-item {
-            margin-bottom: 24px;
+        /* Experience and education */
+        .experience-role,
+        .education-degree {
+            font-size: var(--text-lg);
         }
 
-        .proficiency-item:last-child {
-            margin-bottom: 0;
+        .experience-company,
+        .education-school {
+            margin-top: var(--space-1);
+            font-weight: 500;
+            color: var(--color-heading);
         }
 
-        .proficiency-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
+        .rs-current .rs-date {
+            font-weight: 500;
+            color: var(--color-link);
         }
 
-        .proficiency-name {
-            font-weight: 600;
-            color: var(--brand-dark);
-            font-size: 14px;
-        }
-
-        .proficiency-value {
-            color: var(--brand-accent-text);
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .proficiency-bar {
+        .rs-current .rs-date::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
             height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .proficiency-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--brand-primary) 0%, #0088cc 100%);
-            border-radius: 4px;
-            width: 0%;
-            transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        /* Experience Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 32px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: rgba(0, 186, 242, 0.2);
-        }
-
-        .experience-item {
-            position: relative;
-            margin-bottom: 28px;
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-
-        .experience-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .experience-item::before {
-            content: '';
-            position: absolute;
-            left: -40px;
-            top: 0;
-            width: 12px;
-            height: 12px;
-            background: var(--brand-primary);
+            margin-right: 0.6em;
             border-radius: 50%;
-            border: 3px solid var(--bg-main);
-            box-shadow: 0 0 0 2px var(--brand-primary);
+            background: var(--color-brand);
+            vertical-align: 0.05em;
         }
 
-        .experience-item.past::before {
-            background: var(--border-light);
-            box-shadow: 0 0 0 2px var(--border-light);
-        }
-
-        .experience-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .experience-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--brand-primary);
-        }
-
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-        }
-
-        .experience-role {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--brand-dark);
-        }
-
-        .experience-date {
-            background: rgba(0, 186, 242, 0.1);
-            color: var(--brand-accent-on-tint);
-            padding: 4px 10px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .experience-company {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--brand-dark);
-            margin-bottom: 4px;
+        .rs-current .experience-role {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            line-height: var(--leading-tight);
         }
 
         .experience-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .tag {
-            background: rgba(0, 186, 242, 0.15);
-            color: var(--brand-dark);
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: capitalize;
+            margin-top: var(--space-3);
         }
 
         .experience-bullets {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+            margin-top: var(--space-4);
+            padding-left: 1.2em;
+            line-height: 1.65;
         }
 
-        .experience-bullets li {
-            color: var(--brand-text);
-            font-size: 13px;
-            line-height: 1.6;
-            margin-bottom: 6px;
-            padding-left: 16px;
-            position: relative;
+        .experience-bullets li + li {
+            margin-top: var(--space-2);
         }
 
-        .experience-bullets li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: var(--brand-accent-text);
-            font-weight: 700;
+        .experience-bullets li::marker {
+            color: var(--color-text-muted);
         }
 
-        /* Education Section */
-        .education-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .education-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            padding: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .education-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--brand-primary);
-        }
-
-        .education-icon {
-            font-size: 28px;
-            margin-bottom: 12px;
-            color: var(--brand-accent-text);
-        }
-
-        .education-degree {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--brand-dark);
-            margin-bottom: 6px;
-        }
-
-        .education-school {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--brand-dark);
-            margin-bottom: 2px;
-        }
-
-        .education-year {
-            font-size: 12px;
-            color: var(--brand-muted);
-            margin-bottom: 10px;
-        }
-
-        .education-description {
-            font-size: 13px;
-            color: var(--brand-text);
-            line-height: 1.6;
-            font-style: italic;
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .project-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            padding: 20px;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--brand-primary);
+        /* Featured work */
+        .rs-intro {
+            max-width: calc(62ch + var(--rs-col) + var(--space-4));
+            padding-left: calc(var(--rs-col) + var(--space-4));
+            margin-bottom: var(--space-6);
+            color: var(--color-text-muted);
         }
 
         .project-group-title {
-            font-size: 1.05rem;
-            margin: 24px 0 12px;
-            color: var(--text-dark, #1f2937);
+            margin: var(--space-6) 0 var(--space-3);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-heading);
+        }
+
+        .rs-projects {
+            counter-reset: proj;
+        }
+
+        .rs-projects .rs-entry {
+            counter-increment: proj;
+        }
+
+        .rs-projects .rs-date::before {
+            content: counter(proj, decimal-leading-zero);
+            display: block;
+            margin-bottom: var(--space-1);
+            color: var(--color-link);
         }
 
         .project-tag {
-            display: inline-block;
-            background: rgba(0, 186, 242, 0.1);
-            color: var(--brand-accent-on-tint);
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 700;
+            display: block;
+            font-size: var(--text-xs);
+            letter-spacing: var(--tracking-label);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-            width: fit-content;
         }
 
         .project-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--brand-dark);
-            margin-bottom: 8px;
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            line-height: 1.2;
         }
 
         .project-description {
-            font-size: 13px;
-            color: var(--brand-text);
-            line-height: 1.6;
-            margin-bottom: 12px;
-            flex-grow: 1;
+            max-width: 64ch;
+            margin-top: var(--space-2);
+            line-height: 1.65;
         }
 
-        .project-skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .project-skill {
-            background: rgba(0, 186, 242, 0.1);
-            color: var(--brand-dark);
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
+        .rs-count {
+            font-family: var(--font-mono);
+            font-size: 0.92em;
+            font-weight: 500;
+            color: var(--color-heading);
         }
 
         .project-link {
-            color: var(--brand-accent-text);
-            font-weight: 600;
-            text-decoration: none;
-            margin-top: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            margin-top: var(--space-2);
         }
 
-        .project-link:hover {
-            text-decoration: underline;
-        }
 
-        /* Tools Grid */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-        }
+        /* =========================================================
+           RESPONSIVE: below 1024px the rail becomes a compact bar
+           between the identity head and the sheet body
+        ========================================================= */
 
-        .tool-item {
-            text-align: center;
-            padding: 16px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-
-        .tool-item:hover {
-            transform: translateY(-4px);
-            border-color: var(--brand-primary);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .tool-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .tool-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--brand-dark);
-        }
-
-        /* Dead pre-redesign footer rules (footer/.footer-links/.copyright)
-           removed — live footer implementation is in
-           /assets/css/global-nav.css. */
-
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .resume-container {
-                grid-template-columns: 280px 1fr;
-                gap: 32px;
-                padding: 32px 20px;
+        @media (max-width: 1024px) {
+            .resume-layout {
+                grid-template-columns: minmax(0, 1fr);
+                grid-template-areas:
+                    "head"
+                    "rail"
+                    "body";
+                grid-template-rows: auto;
             }
 
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .sheet-head {
+                padding: 0 0 var(--space-6);
+                background: transparent;
+                border: 0;
+                border-radius: 0;
             }
 
-            .projects-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .sheet-body {
+                border-top: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
             }
 
-            .tools-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .education-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .resume-container {
-                grid-template-columns: 1fr;
-                gap: 24px;
-                padding: 24px 16px;
-            }
-
-            .sidebar {
+            .resume-rail {
                 position: static;
-                top: auto;
-            }
-
-            .profile-card {
                 display: grid;
-                grid-template-columns: 120px 1fr;
-                grid-template-rows: auto auto auto auto;
-                gap: 0 20px;
-                text-align: left;
-                align-items: start;
+                grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+                gap: var(--space-5) var(--space-6);
+                margin-bottom: var(--space-6);
+                padding: var(--space-5);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg);
+                background: var(--color-surface-muted);
             }
 
-            .profile-image {
-                grid-column: 1;
-                grid-row: 1 / 4;
-                margin: 0;
-            }
-
-            .profile-name {
-                grid-column: 2;
-                grid-row: 1;
-                margin: 0;
-            }
-
-            .profile-title {
-                grid-column: 2;
-                grid-row: 2;
-                margin: 0;
-            }
-
-            .contact-list {
-                grid-column: 2;
-                grid-row: 3;
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-                margin: 0;
-            }
-
-            .divider {
-                grid-column: 1 / -1;
-                margin: 12px 0;
-            }
-
-            .stats-row {
-                grid-column: 1 / -1;
-                flex-direction: row;
-                gap: 0;
+            .rail-block + .rail-block {
                 margin-top: 0;
             }
 
-            .stat-item {
-                flex: 1;
-                border-bottom: 1px solid var(--border-light);
-                border-right: 1px solid var(--border-light);
-                padding: 12px;
+            .contact-list {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                column-gap: var(--space-5);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .resume-rail {
+                grid-template-columns: 1fr;
             }
 
-            .stat-item:last-child {
-                border-right: none;
+            .rail-downloads {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
-            .btn {
+            .rail-downloads .rail-label {
                 grid-column: 1 / -1;
             }
 
-            .skills-grid {
-                grid-template-columns: 1fr;
+            .rs-title::before {
+                width: auto;
             }
 
-            .projects-grid {
-                grid-template-columns: 1fr;
+            .rs-summary,
+            .rs-intro {
+                padding-left: 0;
             }
 
-            .education-grid {
+            .rs-entry {
                 grid-template-columns: 1fr;
+                gap: var(--space-2);
             }
 
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .rs-projects .rs-date {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0 var(--space-3);
+                align-items: baseline;
+            }
+
+            .rs-projects .rs-date::before {
+                margin-bottom: 0;
             }
         }
 
-        @media (max-width: 640px) {
-
-            /* .logo, .nav-links, .hamburger mobile rules: see global-nav.css */
-
-            .nav-inner {
-                padding: 0 16px;
-            }
-
-            main {
-                padding-top: 60px;
-            }
-
-            .resume-container {
-                padding: 20px 16px;
-                gap: 20px;
-            }
-
-            .profile-card {
-                grid-template-columns: 100px 1fr;
+        @media (max-width: 560px) {
+            .sheet-id {
+                align-items: center;
+                gap: var(--space-4);
             }
 
             .profile-image {
-                width: 100px;
-                height: 100px;
-                font-size: 40px;
+                width: 80px;
+                height: 80px;
             }
 
-            .profile-name {
-                font-size: 20px;
+            .sheet-stats li {
+                padding: var(--space-4) var(--space-2) var(--space-4) var(--space-3);
             }
 
-            .section-title {
-                font-size: 20px;
+            .stat-label {
+                font-size: var(--text-xs);
             }
 
-            .tools-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
+            .resume-rail {
+                padding: var(--space-4);
             }
 
-            .tool-item {
-                padding: 12px;
-            }
-
-            .tool-icon {
-                font-size: 28px;
-                margin-bottom: 6px;
-            }
-
-            .tool-name {
-                font-size: 12px;
-            }
-
-            .skill-badge {
-                font-size: 11px;
-                padding: 5px 9px;
-            }
-
-            .experience-header {
-                flex-direction: column;
-                gap: 6px;
-            }
-
-            .experience-date {
-                align-self: flex-start;
-            }
-
-            .contact-item {
-                word-break: break-word;
-                overflow-wrap: break-word;
-            }
-
-            .contact-item a {
-                word-break: break-word;
-                overflow-wrap: break-word;
+            .rail-downloads,
+            .contact-list {
+                grid-template-columns: 1fr;
             }
         }
 
-        @media (max-width: 480px) {
-            .tools-grid {
-                grid-template-columns: 1fr;
+
+        /* =========================================================
+           PRINT: clean black on white, whatever the screen theme.
+           Tokens are mapped to the CSS system colours so no literal is needed.
+        ========================================================= */
+
+        @media print {
+            :root:not([data-print]) {
+                color-scheme: light;
+                --color-page: Canvas;
+                --color-surface: Canvas;
+                --color-surface-muted: Canvas;
+                --color-heading: CanvasText;
+                --color-text: CanvasText;
+                --color-text-muted: CanvasText;
+                --color-link: CanvasText;
+                --color-brand: CanvasText;
+                --color-border: GrayText;
+                --color-border-strong: GrayText;
             }
 
-            .skill-badge {
-                font-size: 11px;
-            }
-        }
-
-        @media (max-width: 390px) {
-            .resume-container {
-                padding: 16px 12px;
-                gap: 16px;
-            }
-
-            .profile-card {
-                grid-template-columns: 1fr;
-                gap: 12px;
+            .skip-link,
+            .site-header,
+            .site-footer,
+            .wa-float,
+            .rail-downloads,
+            .contact-item:has(.reveal-phone),
+            .project-link {
+                display: none !important;
             }
 
-            .profile-image {
-                grid-column: 1;
-                grid-row: 1;
-                width: 90px;
-                height: 90px;
-                font-size: 36px;
-                margin: 0 auto 8px;
+            body {
+                background: Canvas;
             }
 
-            .profile-name {
-                grid-column: 1;
-                grid-row: 2;
-                font-size: 18px;
-                text-align: center;
+            .resume-layout {
+                display: block;
+                max-width: none;
+                padding: 0;
             }
 
-            .profile-title {
-                grid-column: 1;
-                grid-row: 3;
-                text-align: center;
-                margin-bottom: 8px;
+            .sheet-head,
+            .sheet-body,
+            .resume-rail {
+                padding: 0;
+                border: 0;
+                border-radius: 0;
+                box-shadow: none;
+                background: transparent;
             }
 
-            .divider {
-                grid-column: 1;
-                margin: 8px 0;
+            .resume-rail {
+                position: static;
+                display: block;
+                margin: var(--space-4) 0 0;
+            }
+
+            .rail-label {
+                display: none;
             }
 
             .contact-list {
-                grid-column: 1;
-                grid-row: auto; /* the 768px rule pins it to row 3, which the title now owns: they overlapped */
-                grid-template-columns: 1fr;
-                gap: 10px;
-                margin: 0;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0 var(--space-6);
             }
 
             .contact-item {
-                font-size: 12px;
-                gap: 8px;
-                word-break: break-word;
-                overflow-wrap: break-word;
+                min-height: 0;
+                border: 0;
             }
 
             .contact-item a {
-                word-break: break-word;
-                overflow-wrap: break-word;
+                min-height: 0;
+                text-decoration: none;
             }
 
-            .stats-row {
-                grid-column: 1;
-                flex-direction: column;
-                gap: 0;
-                margin-top: 0;
+            .rs-entry,
+            .rs-title {
+                break-inside: avoid;
             }
 
-            .stat-item {
-                border-right: none;
-                border-bottom: 1px solid var(--border-light);
-                padding: 10px 0;
-                flex: none;
-            }
-
-            .stat-item:last-child {
-                border-bottom: none;
-            }
-
-            .btn {
-                grid-column: 1;
-                padding: 10px 12px;
-                font-size: 12px;
-            }
-
-            .section-title {
-                font-size: 18px;
-                margin-bottom: 16px;
-            }
-
-            .content {
-                gap: 28px;
-            }
-
-            .summary-card {
-                padding: 16px;
-            }
-
-            .skill-card {
-                padding: 16px;
-            }
-
-            .proficiency-section {
-                padding: 20px;
-            }
-
-            .proficiency-item {
-                margin-bottom: 18px;
-            }
-
-            .proficiency-name {
-                font-size: 13px;
-            }
-
-            .proficiency-value {
-                font-size: 13px;
-            }
-
-            .experience-card {
-                padding: 16px;
-            }
-
-            .experience-role {
-                font-size: 15px;
-            }
-
-            .experience-company {
-                font-size: 13px;
-            }
-
-            .experience-bullets li {
-                font-size: 12px;
-                margin-bottom: 5px;
-            }
-
-            .education-card {
-                padding: 16px;
-            }
-
-            .education-degree {
-                font-size: 15px;
-            }
-
-            .education-school {
-                font-size: 13px;
-            }
-
-            .project-card {
-                padding: 16px;
-            }
-
-            .project-title {
-                font-size: 15px;
-            }
-
-            .project-description {
-                font-size: 12px;
-                margin-bottom: 10px;
-            }
-
-            .tools-grid {
-                gap: 10px;
-            }
-
-            .tool-item {
-                padding: 10px;
-            }
-
-            .tool-icon {
-                font-size: 24px;
-                margin-bottom: 4px;
-            }
-
-            .tool-name {
-                font-size: 11px;
-            }
-
-            /* footer/.footer-links/.copyright mobile rules removed:
-               dead pre-redesign selectors — see global-nav.css */
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-
-            .section,
-            .experience-item {
-                opacity: 1;
-                transform: none;
+            .resume-section {
+                padding-top: var(--space-5);
             }
         }
-
 
     </style>
 </head>
@@ -1135,8 +690,14 @@
                 <a href="/services/">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/" class="active" aria-current="page">Resume</a>
-                <a href="/contact/">Contact</a>
+                <a href="/contact/" class="nav-cta">Contact</a>
             </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
 
         </div>
 
@@ -1145,53 +706,40 @@
 
     <!-- Main Content -->
     <main id="main-content">
-        <div class="resume-container">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <div class="profile-card">
+        <div class="container resume-layout">
+
+            <!-- Identity: the head of the sheet -->
+            <header class="sheet-head">
+                <div class="sheet-id">
                     <div class="profile-image"><img src="/image/asif-avatar.webp" alt="Sayed Asif" width="240" height="240" decoding="async"></div>
-                    <h1 class="profile-name">Sayed Asif</h1>
-                    <p class="profile-title">Software QA Engineer</p>
-                    <div class="divider"></div>
-
-                    <div class="contact-list">
-                        <div class="contact-item">
-                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>
-                            <a href="mailto:sayedasif83838@gmail.com">sayedasif83838@gmail.com</a>
-                        </div>
-                        <div class="contact-item">
-                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#phone"/></svg></i>
-                            <span class="phone-slot" aria-live="polite"><button type="button" class="reveal-phone" data-reveal-phone>Show phone number</button></span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i>
-                            <a href="https://www.linkedin.com/in/asifsayed83/" target="_blank" rel="noopener noreferrer">linkedin.com/in/asifsayed83</a>
-                        </div>
-                        <div class="contact-item">
-                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#globe"/></svg></i>
-                            <a href="https://sayedasif.com" target="_blank" rel="noopener noreferrer">sayedasif.com</a>
-                        </div>
+                    <div>
+                        <p class="kicker">Resume</p>
+                        <h1 class="profile-name">Sayed Asif</h1>
+                        <p class="profile-title">Software QA Engineer</p>
                     </div>
+                </div>
 
-                    <div class="divider"></div>
+                <ul class="sheet-stats">
+                    <li class="stat-item">
+                        <div class="stat-value">1+</div>
+                        <div class="stat-label">Years of QA Experience</div>
+                    </li>
+                    <li class="stat-item">
+                        <div class="stat-value">6</div>
+                        <div class="stat-label">Employer QA Projects</div>
+                    </li>
+                    <li class="stat-item">
+                        <div class="stat-value">116</div>
+                        <div class="stat-label">Test Definitions in 4 Public Projects</div>
+                    </li>
+                </ul>
+            </header>
 
-                    <div class="stats-row">
-                        <div class="stat-item">
-                            <div class="stat-value">1+</div>
-                            <div class="stat-label">Years of QA Experience</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">6</div>
-                            <div class="stat-label">Employer QA Projects</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-value">116</div>
-                            <div class="stat-label">Test Definitions in 4 Public Projects</div>
-                        </div>
-                    </div>
+            <!-- Action rail: sticky beside the sheet on desktop, a compact bar on smaller screens -->
+            <aside class="resume-rail" aria-label="Resume downloads and contact details">
 
-                    <div class="divider"></div>
-
+                <div class="rail-block rail-downloads">
+                    <p class="rail-label">Download</p>
                     <a href="/resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf" class="btn btn-primary" download>
                         <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#download"/></svg></i>
                         Download Resume (PDF)
@@ -1201,80 +749,108 @@
                         Download ATS Resume (PDF)
                     </a>
                 </div>
+
+                <div class="rail-block rail-contact">
+                    <p class="rail-label">Contact</p>
+                    <ul class="contact-list">
+                        <li class="contact-item">
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>
+                            <a href="mailto:sayedasif83838@gmail.com">sayedasif83838@gmail.com</a>
+                        </li>
+                        <li class="contact-item">
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#phone"/></svg></i>
+                            <span class="phone-slot" aria-live="polite"><button type="button" class="reveal-phone" data-reveal-phone>Show phone number</button></span>
+                        </li>
+                        <li class="contact-item">
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i>
+                            <a href="https://www.linkedin.com/in/asifsayed83/" target="_blank" rel="noopener noreferrer">linkedin.com/in/asifsayed83</a>
+                        </li>
+                        <li class="contact-item">
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#globe"/></svg></i>
+                            <a href="https://sayedasif.com" target="_blank" rel="noopener noreferrer">sayedasif.com</a>
+                        </li>
+                    </ul>
+                </div>
+
             </aside>
 
-            <!-- Main Content -->
-            <section class="content">
+            <!-- The sheet: ruled resume sections -->
+            <div class="sheet-body">
+
                 <!-- Professional Summary -->
-                <section class="section">
-                    <h2 class="section-title">Professional Summary</h2>
-                    <div class="summary-card">
+                <section class="resume-section">
+                    <h2 class="rs-title">Professional Summary</h2>
+                    <p class="rs-summary">
                         Software QA Engineer with 1+ years of professional QA experience testing business-critical web applications across payment platforms, CRM systems, donation management, and logistics software. Skilled in manual testing, API validation, regression testing, and test automation with Playwright. Focused on validating workflows, identifying defects early, and helping teams understand product quality.
-                    </div>
+                    </p>
                 </section>
 
                 <!-- Core Skills -->
-                <section class="section">
-                    <h2 class="section-title">Core Skills</h2>
-                    <div class="skills-grid">
-                        <div class="skill-card">
-                            <div class="skill-card-title">Testing Types</div>
-                            <div class="skill-badges">
-                                <span class="skill-badge">Functional Testing</span>
-                                <span class="skill-badge">Regression Testing</span>
-                                <span class="skill-badge">Exploratory Testing</span>
-                                <span class="skill-badge">API Testing</span>
-                                <span class="skill-badge">Payment Testing</span>
-                                <span class="skill-badge">Cross-Platform Testing</span>
-                                <span class="skill-badge">E2E Testing</span>
-                            </div>
+                <section class="resume-section">
+                    <h2 class="rs-title">Core Skills</h2>
+                    <dl class="rs-skills">
+                        <div class="rs-entry">
+                            <dt class="rs-date">Testing Types</dt>
+                            <dd>
+                                <ul class="rs-inline">
+                                    <li>Functional Testing</li>
+                                    <li>Regression Testing</li>
+                                    <li>Exploratory Testing</li>
+                                    <li>API Testing</li>
+                                    <li>Payment Testing</li>
+                                    <li>Cross-Platform Testing</li>
+                                    <li>E2E Testing</li>
+                                </ul>
+                            </dd>
                         </div>
 
-                        <div class="skill-card">
-                            <div class="skill-card-title">Tools & Technologies</div>
-                            <div class="skill-badges">
-                                <span class="skill-badge">Playwright</span>
-                                <span class="skill-badge">Postman</span>
-                                <span class="skill-badge">Jira</span>
-                                <span class="skill-badge">GitHub Actions</span>
-                                <span class="skill-badge">Browser DevTools</span>
-                                <span class="skill-badge">REST APIs</span>
-                                <span class="skill-badge">Page Object Model</span>
-                                <span class="skill-badge">Git</span>
-                                <span class="skill-badge">Cross-Browser Testing</span>
-                                <span class="skill-badge">Responsive Testing</span>
-                                <span class="skill-badge">Bug Tracking</span>
-                            </div>
+                        <div class="rs-entry">
+                            <dt class="rs-date">Tools &amp; Technologies</dt>
+                            <dd>
+                                <ul class="rs-inline">
+                                    <li>Playwright</li>
+                                    <li>Postman</li>
+                                    <li>Jira</li>
+                                    <li>GitHub Actions</li>
+                                    <li>Browser DevTools</li>
+                                    <li>REST APIs</li>
+                                    <li>Page Object Model</li>
+                                    <li>Git</li>
+                                    <li>Cross-Browser Testing</li>
+                                    <li>Responsive Testing</li>
+                                    <li>Bug Tracking</li>
+                                </ul>
+                            </dd>
                         </div>
 
-                        <div class="skill-card">
-                            <div class="skill-card-title">Methodologies</div>
-                            <div class="skill-badges">
-                                <span class="skill-badge">Agile/Scrum</span>
-                                <span class="skill-badge">Test Case Design</span>
-                                <span class="skill-badge">Defect Management</span>
-                                <span class="skill-badge">RBAC Testing</span>
-                                <span class="skill-badge">CI/CD Integration</span>
-                                <span class="skill-badge">Requirements Analysis</span>
-                                <span class="skill-badge">Risk-Based Testing</span>
-                                <span class="skill-badge">Test Planning</span>
-                            </div>
+                        <div class="rs-entry">
+                            <dt class="rs-date">Methodologies</dt>
+                            <dd>
+                                <ul class="rs-inline">
+                                    <li>Agile/Scrum</li>
+                                    <li>Test Case Design</li>
+                                    <li>Defect Management</li>
+                                    <li>RBAC Testing</li>
+                                    <li>CI/CD Integration</li>
+                                    <li>Requirements Analysis</li>
+                                    <li>Risk-Based Testing</li>
+                                    <li>Test Planning</li>
+                                </ul>
+                            </dd>
                         </div>
-                    </div>
+                    </dl>
                 </section>
 
-<!-- Professional Experience -->
-                <section class="section">
-                    <h2 class="section-title">Professional Experience</h2>
-                    <div class="timeline">
-                        <div class="experience-item">
-                            <div class="experience-card">
-                                <div class="experience-header">
-                                    <h3 class="experience-role">Software QA Engineer / QA Lead</h3>
-                                    <span class="experience-date">Dec 2024 – Present</span>
-                                </div>
+                <!-- Professional Experience -->
+                <section class="resume-section">
+                    <h2 class="rs-title">Professional Experience</h2>
+                    <ol class="rs-list">
+                        <li class="rs-entry rs-current">
+                            <p class="rs-date">Dec 2024 – Present</p>
+                            <div>
+                                <h3 class="experience-role">Software QA Engineer / QA Lead</h3>
                                 <p class="experience-company">Techno Serve Software Solutions Pvt. Ltd.</p>
-                                <div class="experience-tags">
+                                <div class="tag-list experience-tags">
                                     <span class="tag">Payments</span>
                                     <span class="tag">CRM</span>
                                     <span class="tag">Logistics</span>
@@ -1287,14 +863,12 @@
                                     <li>Investigated defects, verified fixes, and collaborated with development teams to improve software quality.</li>
                                 </ul>
                             </div>
-                        </div>
+                        </li>
 
-                        <div class="experience-item past">
-                            <div class="experience-card">
-                                <div class="experience-header">
-                                    <h3 class="experience-role">QA Training & Certification</h3>
-                                    <span class="experience-date">2023</span>
-                                </div>
+                        <li class="rs-entry">
+                            <p class="rs-date">2023</p>
+                            <div>
+                                <h3 class="experience-role">QA Training &amp; Certification</h3>
                                 <p class="experience-company">SQUAD Infotech Pvt. Ltd.</p>
                                 <ul class="experience-bullets">
                                     <li>Completed professional training in QA fundamentals, manual testing methodologies, and automation framework concepts</li>
@@ -1302,129 +876,143 @@
                                     <li>Certificate: Manual Software Testing</li>
                                 </ul>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ol>
                 </section>
 
                 <!-- Education -->
-                <section class="section">
-                    <h2 class="section-title">Education</h2>
-                    <div class="education-grid">
-                        <div class="education-card">
-                            <h3 class="education-degree">Bachelor of Commerce (B.Com)</h3>
-                            <p class="education-school">MVM College of Commerce &amp; Science</p>
-                            <p class="education-year">2020 – 2022</p>
-                        </div>
-                    </div>
+                <section class="resume-section">
+                    <h2 class="rs-title">Education</h2>
+                    <ol class="rs-list">
+                        <li class="rs-entry">
+                            <p class="rs-date">2020 – 2022</p>
+                            <div>
+                                <h3 class="education-degree">Bachelor of Commerce (B.Com)</h3>
+                                <p class="education-school">MVM College of Commerce &amp; Science</p>
+                            </div>
+                        </li>
+                    </ol>
                 </section>
 
                 <!-- Featured Projects -->
-                <section class="section">
-                    <h2 class="section-title">Featured Work</h2>
-                    <p style="margin-bottom: 20px; font-size: 0.95rem; color: #666;">Independent projects have public source code on GitHub. Four of the six employer projects are described here, in general terms.</p>
+                <section class="resume-section">
+                    <h2 class="rs-title">Featured Work</h2>
+                    <p class="rs-intro">Independent projects have public source code on GitHub. Four of the six employer projects are described here, in general terms.</p>
+
                     <h3 class="project-group-title">Independent projects (public GitHub)</h3>
-                    <div class="projects-grid">
-                        <div class="project-card">
-                            <span class="project-tag">Independent Project</span>
-                            <h4 class="project-title">Razorpay Payment Gateway QA &amp; Automation</h4>
-                            <p class="project-description">Playwright API tests for a Razorpay Test Mode checkout app: payment and webhook signature checks, duplicate webhook events, refund errors and order state. Two high-severity defects were found in the demo app I built as the test target, then fixed and regression-tested. Sandbox only. 37 test definitions, 34 run in CI.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">Playwright Test</span>
-                                <span class="project-skill">Webhooks</span>
-                                <span class="project-skill">Node.js</span>
-                                <span class="project-skill">GitHub Actions</span>
+                    <ol class="rs-list rs-projects">
+                        <li class="rs-entry">
+                            <p class="rs-date"><span class="project-tag">Independent Project</span></p>
+                            <div>
+                                <h4 class="project-title">Razorpay Payment Gateway QA &amp; Automation</h4>
+                                <p class="project-description">Playwright API tests for a Razorpay Test Mode checkout app: payment and webhook signature checks, duplicate webhook events, refund errors and order state. Two high-severity defects were found in the demo app I built as the test target, then fixed and regression-tested. Sandbox only. <span class="rs-count">37 test definitions, 34 run in CI.</span></p>
+                                <ul class="rs-inline rs-stack">
+                                    <li>Playwright Test</li>
+                                    <li>Webhooks</li>
+                                    <li>Node.js</li>
+                                    <li>GitHub Actions</li>
+                                </ul>
+                                <a href="/projects/razorpay-payment-gateway-qa-automation/" class="arrow-link project-link">View Case Study</a>
                             </div>
-                            <a href="/projects/razorpay-payment-gateway-qa-automation/" class="project-link">
-                                View Case Study <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
-                            </a>
-                        </div>
-                        <div class="project-card">
-                            <span class="project-tag">Independent Project</span>
-                            <h4 class="project-title">RESTful Booker API Automation</h4>
-                            <p class="project-description">Playwright and TypeScript tests for the public RESTful Booker practice API: authentication, create, retrieve, full and partial update, delete, negative cases and multi-step workflows, built on reusable API client classes. 47 test definitions.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">Playwright Test</span>
-                                <span class="project-skill">TypeScript</span>
-                                <span class="project-skill">REST API</span>
-                                <span class="project-skill">GitHub Actions</span>
+                        </li>
+                        <li class="rs-entry">
+                            <p class="rs-date"><span class="project-tag">Independent Project</span></p>
+                            <div>
+                                <h4 class="project-title">RESTful Booker API Automation</h4>
+                                <p class="project-description">Playwright and TypeScript tests for the public RESTful Booker practice API: authentication, create, retrieve, full and partial update, delete, negative cases and multi-step workflows, built on reusable API client classes. <span class="rs-count">47 test definitions.</span></p>
+                                <ul class="rs-inline rs-stack">
+                                    <li>Playwright Test</li>
+                                    <li>TypeScript</li>
+                                    <li>REST API</li>
+                                    <li>GitHub Actions</li>
+                                </ul>
+                                <a href="/projects/restful-booker-api-automation/" class="arrow-link project-link">View Case Study</a>
                             </div>
-                            <a href="/projects/restful-booker-api-automation/" class="project-link">
-                                View Case Study <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
-                            </a>
-                        </div>
-                        <div class="project-card">
-                            <span class="project-tag">Independent Project</span>
-                            <h4 class="project-title">Automation Exercise</h4>
-                            <p class="project-description">Playwright UI and API tests against automationexercise.com, a public demo store built for test practice, using the Page Object Model and GitHub Actions CI. 26 test definitions.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">Playwright</span>
-                                <span class="project-skill">API Testing</span>
-                                <span class="project-skill">Page Object Model</span>
-                                <span class="project-skill">GitHub Actions</span>
+                        </li>
+                        <li class="rs-entry">
+                            <p class="rs-date"><span class="project-tag">Independent Project</span></p>
+                            <div>
+                                <h4 class="project-title">Automation Exercise</h4>
+                                <p class="project-description">Playwright UI and API tests against automationexercise.com, a public demo store built for test practice, using the Page Object Model and GitHub Actions CI. <span class="rs-count">26 test definitions.</span></p>
+                                <ul class="rs-inline rs-stack">
+                                    <li>Playwright</li>
+                                    <li>API Testing</li>
+                                    <li>Page Object Model</li>
+                                    <li>GitHub Actions</li>
+                                </ul>
+                                <a href="/projects/automation-exercise/" class="arrow-link project-link">View Case Study</a>
                             </div>
-                            <a href="/projects/automation-exercise/" class="project-link">
-                                View Case Study <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
-                            </a>
-                        </div>
-                        <div class="project-card">
-                            <span class="project-tag">Independent Project</span>
-                            <h4 class="project-title">ERPNext QA Automation</h4>
-                            <p class="project-description">Playwright UI tests for three ERPNext workflows, built with Page Objects and run in GitHub Actions. The hosted test instance is currently offline, so the suite cannot run today.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">Playwright</span>
-                                <span class="project-skill">Page Object Model</span>
-                                <span class="project-skill">GitHub Actions</span>
+                        </li>
+                        <li class="rs-entry">
+                            <p class="rs-date"><span class="project-tag">Independent Project</span></p>
+                            <div>
+                                <h4 class="project-title">ERPNext QA Automation</h4>
+                                <p class="project-description">Playwright UI tests for three ERPNext workflows, built with Page Objects and run in GitHub Actions. The hosted test instance is currently offline, so the suite cannot run today.</p>
+                                <ul class="rs-inline rs-stack">
+                                    <li>Playwright</li>
+                                    <li>Page Object Model</li>
+                                    <li>GitHub Actions</li>
+                                </ul>
+                                <a href="/projects/erpnext-qa-automation/" class="arrow-link project-link">View Case Study</a>
                             </div>
-                            <a href="/projects/erpnext-qa-automation/" class="project-link">
-                                View Case Study <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
-                            </a>
-                        </div>
-                    </div>
+                        </li>
+                    </ol>
+
                     <h3 class="project-group-title">Employer projects (general descriptions)</h3>
-                    <div class="projects-grid">
-                        <div class="project-card">
-                            <span class="project-tag">Employer Project</span>
-                            <h4 class="project-title">Donation Management Platform</h4>
-                            <p class="project-description">Tested donation and payment workflows including recurring transactions, failure scenarios and business-rule validation across donor-facing and admin interfaces.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">Payment Testing</span>
-                                <span class="project-skill">Regression</span>
-                                <span class="project-skill">API Validation</span>
+                    <ol class="rs-list rs-projects">
+                        <li class="rs-entry">
+                            <p class="rs-date"><span class="project-tag">Employer Project</span></p>
+                            <div>
+                                <h4 class="project-title">Donation Management Platform</h4>
+                                <p class="project-description">Tested donation and payment workflows including recurring transactions, failure scenarios and business-rule validation across donor-facing and admin interfaces.</p>
+                                <ul class="rs-inline rs-stack">
+                                    <li>Payment Testing</li>
+                                    <li>Regression</li>
+                                    <li>API Validation</li>
+                                </ul>
                             </div>
-                        </div>
-                        <div class="project-card">
-                            <span class="project-tag">Employer Project</span>
-                            <h4 class="project-title">Management &amp; CRM Platform</h4>
-                            <p class="project-description">Performed end-to-end QA across CRM modules, financial workflows, role-based access control, reporting, and user permission management.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">E2E Testing</span>
-                                <span class="project-skill">CRM Testing</span>
-                                <span class="project-skill">RBAC Testing</span>
+                        </li>
+                        <li class="rs-entry">
+                            <p class="rs-date"><span class="project-tag">Employer Project</span></p>
+                            <div>
+                                <h4 class="project-title">Management &amp; CRM Platform</h4>
+                                <p class="project-description">Performed end-to-end QA across CRM modules, financial workflows, role-based access control, reporting, and user permission management.</p>
+                                <ul class="rs-inline rs-stack">
+                                    <li>E2E Testing</li>
+                                    <li>CRM Testing</li>
+                                    <li>RBAC Testing</li>
+                                </ul>
                             </div>
-                        </div>
-                        <div class="project-card">
-                            <span class="project-tag">Employer Project</span>
-                            <h4 class="project-title">Logistics Management Platform</h4>
-                            <p class="project-description">Tested shipment and logistics workflows, status updates, business rules, data consistency and regression scenarios.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">Functional Testing</span>
-                                <span class="project-skill">Real-Time Data</span>
-                                <span class="project-skill">Regression</span>
+                        </li>
+                        <li class="rs-entry">
+                            <p class="rs-date"><span class="project-tag">Employer Project</span></p>
+                            <div>
+                                <h4 class="project-title">Logistics Management Platform</h4>
+                                <p class="project-description">Tested shipment and logistics workflows, status updates, business rules, data consistency and regression scenarios.</p>
+                                <ul class="rs-inline rs-stack">
+                                    <li>Functional Testing</li>
+                                    <li>Real-Time Data</li>
+                                    <li>Regression</li>
+                                </ul>
                             </div>
-                        </div>
-                        <div class="project-card">
-                            <span class="project-tag">Employer Project</span>
-                            <h4 class="project-title">Multi-Currency Donation Platform</h4>
-                            <p class="project-description">Tested donation workflows involving multi-currency scenarios, transaction behavior, validation rules and regression coverage.</p>
-                            <div class="project-skills">
-                                <span class="project-skill">Multi-Currency</span>
-                                <span class="project-skill">Payment Testing</span>
-                                <span class="project-skill">API Testing</span>
+                        </li>
+                        <li class="rs-entry">
+                            <p class="rs-date"><span class="project-tag">Employer Project</span></p>
+                            <div>
+                                <h4 class="project-title">Multi-Currency Donation Platform</h4>
+                                <p class="project-description">Tested donation workflows involving multi-currency scenarios, transaction behavior, validation rules and regression coverage.</p>
+                                <ul class="rs-inline rs-stack">
+                                    <li>Multi-Currency</li>
+                                    <li>Payment Testing</li>
+                                    <li>API Testing</li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
+                        </li>
+                    </ol>
                 </section>
-            </section>
+
+            </div>
+
         </div>
     </main>
 

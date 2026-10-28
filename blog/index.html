@@ -34,6 +34,13 @@
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <!-- Global header/footer styles (single source of truth) -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="/assets/css/global-nav.css">
 
     <script type="application/ld+json">
@@ -77,225 +84,244 @@
 
     <style>
 
-        :root {
-            --bg-main: #ffffff;
-            --bg-secondary: #f0f4f8;
-            --brand-primary: #00baf2;
-            --brand-dark: #314259;
-            --brand-text: #314259;
-            --gradient-brand: linear-gradient(135deg, #00baf2 0%, #0088cc 100%);
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 10px 25px rgba(0, 186, 242, 0.15);
-            --border-light: 1px solid #e2e8f0;
+        /* =========================================================
+           BLOG INDEX: page layout only.
+           Tokens, type and the reset live in /assets/css/site.css;
+           header and footer in global-nav.css. Tokens only.
+        ========================================================= */
+
+
+        /* =========================================================
+           1. PAGE HEADER: title left, standfirst right, closed by
+              the Ink rule that opens the article register.
+        ========================================================= */
+
+        .blog-hero {
+            padding-top: calc(var(--header-h) + clamp(2.5rem, 1.25rem + 4.5vw, 5rem));
+            padding-bottom: var(--space-7);
         }
 
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .blog-hero .kicker {
+            color: var(--color-link);
         }
 
-        html {
-            scroll-behavior: smooth;
+        .blog-hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+            gap: var(--space-5) var(--space-9);
+            align-items: end;
         }
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--brand-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        img { max-width: 100%; display: block; }
-        a { color: inherit; }
-        button, a { -webkit-tap-highlight-color: transparent; }
-        h1, h2, h3, h4 { color: var(--brand-dark); font-weight: 700; }
-        p { color: var(--brand-text); }
-
-        ::selection {
-            background: var(--brand-accent-text);
-            color: #ffffff;
-        }
-
-        /* .skip-link / :focus-visible now live in
-           /assets/css/global-nav.css */
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-padding {
-            padding: 90px 0;
-        }
-
-
-        .hero {
-            position: relative;
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            padding-top: 100px;
-            background: radial-gradient(circle at 80% 50%, rgba(0, 186, 242, 0.08) 0%, #ffffff 60%);
-            overflow: hidden;
-            border-bottom: var(--border-light);
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 3.55rem;
-            line-height: 1.15;
-            margin-bottom: 25px;
-            letter-spacing: -1.5px;
+        .blog-hero h1 {
+            font-size: var(--text-display);
+            line-height: 0.98;
         }
 
         .hero-description {
-            font-size: 1.12rem;
-            margin-bottom: 32px;
-            color: #5f6b79;
-            line-height: 1.8;
+            max-width: 56ch;
+            font-size: var(--text-md);
+            line-height: 1.7;
+            color: var(--color-text-muted);
         }
 
-        .blog-links h2 { font-size: 1.4rem; margin-bottom: 16px; }
-        .blog-links ul { list-style: none; display: grid; gap: 10px; }
-        .blog-links li { color: #5f6b79; }
-        .blog-links a { color: var(--brand-accent-text); font-weight: 700; }
 
-        .blog-grid {
+        /* =========================================================
+           2. ARTICLES: the newest set large, the rest as dated
+              index rows. Whole rows are links; no cards.
+        ========================================================= */
+
+        .posts {
+            padding-bottom: var(--section-y);
+        }
+
+        .post {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 28px;
-        }
-
-        .blog-card {
-            background: #ffffff;
-            border-radius: 16px;
-            overflow: hidden;
-            border: var(--border-light);
-            transition: 0.3s;
-            box-shadow: var(--shadow-soft);
-            display: flex;
-            flex-direction: column;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 7fr) minmax(8rem, 2fr);
+            gap: var(--space-3) var(--space-7);
+            align-items: baseline;
+            padding: var(--space-7) 0;
+            border-bottom: 1px solid var(--color-border);
+            color: inherit;
             text-decoration: none;
+            transition: background-color var(--dur) var(--ease);
         }
 
-        .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
+        .post:hover {
+            color: inherit;
         }
 
-        .blog-card-content {
-            padding: 27px;
-            flex-grow: 1;
+        .post-meta {
             display: flex;
             flex-direction: column;
+            gap: var(--space-2);
         }
 
         .blog-category {
-            font-size: 0.74rem;
-            color: var(--brand-accent-text);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
             text-transform: uppercase;
-            letter-spacing: 0.7px;
-            font-weight: 800;
-            margin-bottom: 9px;
-        }
-
-        .blog-title {
-            font-size: 1.3rem;
-            margin-bottom: 11px;
-            color: var(--brand-dark);
-            flex-grow: 1;
-        }
-
-        .blog-excerpt {
-            color: #5f6b79;
-            font-size: 0.94rem;
-            margin-bottom: 20px;
-            line-height: 1.7;
-            flex-grow: 1;
-        }
-
-        .blog-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: var(--border-light);
-            padding-top: 15px;
+            color: var(--color-link);
         }
 
         .blog-date {
-            font-size: 0.85rem;
-            color: var(--brand-accent-text);
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            line-height: 1.5;
+            color: var(--color-text-muted);
+        }
+
+        .blog-title {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
             font-weight: 600;
+            letter-spacing: -0.015em;
+            line-height: 1.22;
+            transition: color var(--dur-fast) var(--ease);
+        }
+
+        .post:hover .blog-title {
+            color: var(--color-link);
+        }
+
+        .blog-excerpt {
+            max-width: 62ch;
+            margin-top: var(--space-3);
+            line-height: 1.7;
+            color: var(--color-text-muted);
         }
 
         .blog-read-more {
-            color: var(--brand-accent-text);
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-decoration: none;
+            justify-self: end;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            transition: 0.3s;
+            gap: 0.5em;
+            min-height: 44px;
+            font-weight: 600;
+            white-space: nowrap;
+            color: var(--color-link);
         }
 
-        .blog-read-more:hover {
-            gap: 12px;
+        .blog-read-more .ic {
+            transition: transform var(--dur-fast) var(--ease);
         }
 
-        /* Dead pre-redesign footer rules (footer/.contact-box/.contact-row/
-           old .social-links/.social-icon/.footer-links/.copyright) and the
-           full footer implementation (.site-footer, .footer-grid,
-           .footer-column, .brand-*, .footer-heading, .footer-nav,
-           .footer-bottom, .privacy-link) removed — all now live in
-           /assets/css/global-nav.css. */
-
-        @media (max-width: 1050px) {
-            .hero h1 { font-size: 3rem; }
-            /* .nav-links mobile rule: see global-nav.css */
+        .post:hover .blog-read-more .ic {
+            transform: translateX(3px);
         }
 
-        @media (max-width: 900px) {
-            .hero {
-                min-height: auto;
-                padding-top: 115px;
-                padding-bottom: 60px;
+        /* The newest article: larger title and excerpt, action under the text */
+        .post-featured {
+            border-top: 1px solid var(--color-heading);
+            padding: var(--space-8) 0 var(--space-9);
+        }
+
+        .post-featured .post-body {
+            grid-column: 2 / -1;
+        }
+
+        .post-featured .blog-title {
+            max-width: 22ch;
+            font-size: var(--text-3xl);
+            line-height: 1.08;
+        }
+
+        .post-featured .blog-excerpt {
+            max-width: 60ch;
+            margin-top: var(--space-5);
+            font-size: var(--text-lg);
+            line-height: 1.6;
+            color: var(--color-text);
+        }
+
+        .post-featured .blog-read-more {
+            grid-column: 2;
+            justify-self: start;
+            margin-top: var(--space-3);
+        }
+
+
+        /* =========================================================
+           3. WHERE TO GO NEXT: closing band on Soft Mint
+              (the page's one loud moment), compact ruled list.
+        ========================================================= */
+
+        .blog-links {
+            background: var(--color-surface-soft);
+        }
+
+        .blog-links-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+            gap: var(--space-6) var(--space-9);
+            align-items: start;
+        }
+
+        .blog-links h2 {
+            font-size: var(--text-3xl);
+        }
+
+        .blog-links ul {
+            list-style: none;
+            border-top: 1px solid var(--color-heading);
+        }
+
+        .blog-links li {
+            padding-block: var(--space-4);
+            border-bottom: 1px solid var(--color-border-strong);
+            line-height: 1.6;
+            color: var(--color-text-muted);
+        }
+
+        .blog-links a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+
+        @media (max-width: 1024px) {
+            .post {
+                grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
             }
-
-            .hero h1 { font-size: 2.8rem; }
-
+            .blog-read-more {
+                grid-column: 2;
+                justify-self: start;
+            }
         }
 
         @media (max-width: 768px) {
-            .container { padding-left: 17px; padding-right: 17px; }
-            .section-padding { padding: 60px 0; }
-            .hero { padding-top: 105px; padding-bottom: 45px; }
-            .hero h1 { font-size: 2.25rem; letter-spacing: -0.7px; }
-            .hero-description { font-size: 1rem; line-height: 1.7; }
-            .blog-grid { grid-template-columns: 1fr; }
-
-        }
-
-        @media (max-width: 420px) {
-            /* .logo mobile rule: see global-nav.css */
-            .hero h1 { font-size: 2rem; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            *, *::before, *::after {
-                transition-duration: 0.01ms !important;
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
+            .blog-hero-grid,
+            .blog-links-layout {
+                grid-template-columns: 1fr;
+            }
+            .post,
+            .post-featured {
+                grid-template-columns: 1fr;
+                gap: var(--space-3);
+                padding-block: var(--space-6);
+            }
+            .post-meta {
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: baseline;
+                gap: var(--space-1) var(--space-4);
+            }
+            .post-featured .post-body {
+                grid-column: auto;
+            }
+            .blog-read-more,
+            .post-featured .blog-read-more {
+                grid-column: 1;
+                margin-top: 0;
             }
         }
 
@@ -327,8 +353,14 @@
                 <a href="/services/">Services</a>
                 <a href="/blog/" class="active" aria-current="page">Blog</a>
                 <a href="/resume/">Resume</a>
-                <a href="/contact/">Contact</a>
+                <a href="/contact/" class="nav-cta">Contact</a>
             </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
 
         </div>
 
@@ -337,10 +369,13 @@
 
     <main id="main-content">
 
-        <!-- Hero Section -->
-        <section class="hero" aria-labelledby="blog-heading">
-            <div class="container hero-content">
-                <h1 id="blog-heading">QA Engineering Blog</h1>
+        <!-- Page header: title and standfirst -->
+        <section class="blog-hero" aria-labelledby="blog-heading">
+            <div class="container blog-hero-grid">
+                <div>
+                    <p class="kicker">Blog</p>
+                    <h1 id="blog-heading">QA Engineering Blog</h1>
+                </div>
                 <p class="hero-description">
                     Practical notes on testing software: Playwright automation, API testing, payment
                     workflows and the engineering decisions behind them. Examples come from public
@@ -349,53 +384,51 @@
             </div>
         </section>
 
-        <!-- Blog Articles -->
-        <section class="section-padding" style="background: var(--bg-secondary);">
+        <!-- Articles: newest set large, then the index -->
+        <section class="posts" aria-label="Articles">
             <div class="container">
-                <div class="blog-grid">
 
-                    <!-- Article 3 (newest) -->
-                    <a href="/blog/payment-gateway-testing-playwright/" class="blog-card">
-                        <div class="blog-card-content">
-                            <span class="blog-category">Payment Testing</span>
-                            <h2 class="blog-title">How to Test a Payment Gateway with Playwright: API, Webhooks, Refunds, and Failure Scenarios</h2>
-                            <p class="blog-excerpt">
-                                Signature checks, webhook tampering and idempotency, refund errors and failure scenarios, with test code from a Razorpay Test Mode project and a plain account of what it does not prove.
-                            </p>
-                            <div class="blog-meta">
-                                <span class="blog-date">October 14, 2026</span>
-                                <span class="blog-read-more">
-                                    Read Article
-                                    <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
+                <!-- Article 3 (newest) -->
+                <a href="/blog/payment-gateway-testing-playwright/" class="post post-featured blog-card">
+                    <div class="post-meta">
+                        <span class="blog-category">Payment Testing</span>
+                        <span class="blog-date">October 14, 2026</span>
+                    </div>
+                    <div class="post-body">
+                        <h2 class="blog-title">How to Test a Payment Gateway with Playwright: API, Webhooks, Refunds, and Failure Scenarios</h2>
+                        <p class="blog-excerpt">
+                            Signature checks, webhook tampering and idempotency, refund errors and failure scenarios, with test code from a Razorpay Test Mode project and a plain account of what it does not prove.
+                        </p>
+                    </div>
+                    <div class="blog-read-more">
+                        Read Article
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
+                    </div>
+                </a>
 
-                    <!-- Article 2 -->
-                    <a href="/blog/api-testing-best-practices/" class="blog-card">
-                        <div class="blog-card-content">
-                            <span class="blog-category">API Testing</span>
-                            <h2 class="blog-title">API Testing Lessons from a Playwright and TypeScript Suite</h2>
-                            <p class="blog-excerpt">
-                                Notes from a 47-test RESTful Booker suite: asserting real API behaviour, test isolation, negative tests that cannot fail, CI retries, and what the suite does not cover.
-                            </p>
-                            <div class="blog-meta">
-                                <span class="blog-date">September 11, 2026 (rewritten October 16)</span>
-                                <span class="blog-read-more">
-                                    Read More
-                                    <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
+                <!-- Article 2 -->
+                <a href="/blog/api-testing-best-practices/" class="post blog-card">
+                    <div class="post-meta">
+                        <span class="blog-category">API Testing</span>
+                        <span class="blog-date">September 11, 2026 (rewritten October 16)</span>
+                    </div>
+                    <div class="post-body">
+                        <h2 class="blog-title">API Testing Lessons from a Playwright and TypeScript Suite</h2>
+                        <p class="blog-excerpt">
+                            Notes from a 47-test RESTful Booker suite: asserting real API behaviour, test isolation, negative tests that cannot fail, CI retries, and what the suite does not cover.
+                        </p>
+                    </div>
+                    <div class="blog-read-more">
+                        Read More
+                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i>
+                    </div>
+                </a>
 
-                </div>
             </div>
         </section>
 
         <section class="section-padding blog-links" aria-labelledby="blog-links-heading">
-            <div class="container">
+            <div class="container blog-links-layout">
                 <h2 id="blog-links-heading">Where to go next</h2>
                 <ul>
                     <li><a href="/proof-of-work/">Proof of Work</a>: the public projects these articles draw from</li>

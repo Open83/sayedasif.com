@@ -29,17 +29,6 @@
         href="https://sayedasif.com/"
     >
 
-    <!-- Theme / Browser -->
-    <meta
-        name="theme-color"
-        content="#00baf2"
-    >
-
-    <meta
-        name="color-scheme"
-        content="light"
-    >
-
     <!-- Open Graph / Social Sharing -->
     <meta
         property="og:type"
@@ -157,772 +146,754 @@
     </script>
 
     <!-- Global header/footer styles (single source of truth) -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="/assets/css/global-nav.css">
 
     <style>
 
         /* =========================================================
-           COLOR SYSTEM
-           Existing website colors intentionally preserved
+           HOME: page layout only.
+           Tokens, type, buttons, tags and the reset live in
+           /assets/css/site.css; header and footer in global-nav.css.
+           No colour values here: tokens only.
         ========================================================= */
-
-        :root {
-            --bg-main: #ffffff;
-            --bg-secondary: #f0f4f8;
-            --bg-highlight: #e0f7ff;
-
-            --brand-primary: #00baf2;
-            --brand-dark: #314259;
-            --brand-text: #314259;
-            --brand-muted: #5f6b79;
-
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --border-light: 1px solid #e2e8f0;
-        }
 
 
         /* =========================================================
-           RESET
-        ========================================================= */
-
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--brand-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        img { max-width: 100%; display: block; }
-        a { color: inherit; }
-        button, a { -webkit-tap-highlight-color: transparent; }
-
-        h1, h2, h3, h4 {
-            color: var(--brand-dark);
-            font-weight: 700;
-        }
-
-        p { color: var(--brand-text); }
-
-        ::selection {
-            background: var(--brand-accent-text);
-            color: #ffffff;
-        }
-
-        /* Skip-link, :focus-visible, and nav/footer styles live in
-           /assets/css/global-nav.css (single source of truth). */
-
-
-        /* =========================================================
-           UTILITIES
-        ========================================================= */
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-padding { padding: 90px 0; }
-
-        .text-gradient {
-            background: linear-gradient(135deg, var(--brand-accent-display) 0%, var(--brand-accent-text) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            line-height: 1.25;
-            margin-bottom: 50px;
-            text-align: center;
-            color: var(--brand-dark);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: "";
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--brand-primary);
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-
-        .section-intro {
-            max-width: 780px;
-            margin: -25px auto 45px;
-            text-align: center;
-            color: var(--brand-muted);
-            font-size: 1.05rem;
-        }
-
-
-        /* =========================================================
-           BUTTONS
-        ========================================================= */
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-            padding: 13px 28px;
-            border-radius: 8px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 0.96rem;
-            min-height: 48px;
-        }
-
-        .btn-primary {
-            background: var(--brand-accent-text);
-            color: #ffffff;
-            border: 2px solid var(--brand-accent-text);
-            box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: var(--brand-accent-text-strong);
-            border-color: var(--brand-accent-text-strong);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 186, 242, 0.4);
-        }
-
-        .btn-outline {
-            border: 2px solid var(--brand-dark);
-            color: var(--brand-dark);
-            background: transparent;
-        }
-
-        .btn-outline:hover {
-            background: var(--brand-dark);
-            color: #ffffff;
-        }
-
-
-        /* =========================================================
-           HERO
+           1. HERO: editorial split. Name set large in the serif,
+              portrait on a tinted plate that stands on the ledger strip.
         ========================================================= */
 
         .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 100px;
-            background: radial-gradient(circle at 80% 50%, rgba(0, 186, 242, 0.08) 0%, #ffffff 60%);
-            overflow: hidden;
-            border-bottom: var(--border-light);
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            border: 1px solid rgba(0, 186, 242, 0.12);
-            right: -100px;
-            top: 100px;
-            pointer-events: none;
+            padding-top: calc(var(--header-h) + clamp(2.5rem, 1.25rem + 4.5vw, 5.5rem));
         }
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            align-items: center;
-            gap: 60px;
-            width: 100%;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+            gap: var(--space-8);
+            align-items: stretch;
         }
 
         .hero-text {
-            position: relative;
-            z-index: 5;
+            padding-bottom: clamp(2.5rem, 1.5rem + 3.5vw, 5rem);
         }
 
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            color: var(--brand-accent-text);
-            letter-spacing: 1.8px;
-            text-transform: uppercase;
-            font-size: 0.82rem;
-            margin-bottom: 18px;
-            font-weight: 800;
+        .hero-kicker {
+            color: var(--color-link);
         }
 
-        .eyebrow::before {
-            content: "";
-            width: 28px;
-            height: 2px;
-            background: var(--brand-primary);
+        .hero h1 {
+            margin-bottom: var(--space-5);
+            font-size: var(--text-display);
+            line-height: 0.98;
         }
 
-        .hero-text h1 {
-            font-size: 3.55rem;
-            line-height: 1.15;
-            margin-bottom: 25px;
-            letter-spacing: -1.5px;
+        .hero-name {
+            display: block;
+        }
+
+        .hero-role {
+            display: block;
+            margin-top: 0.14em;
+            font-size: 0.52em;
+            font-weight: 500;
+            letter-spacing: -0.015em;
+            color: var(--color-text-muted);
         }
 
         .hero-tagline {
-            font-size: 1.3rem;
-            font-weight: 700;
-            line-height: 1.4;
-            color: var(--brand-dark);
-            margin-bottom: 16px;
+            max-width: 36ch;
+            text-wrap: balance;
+            margin-bottom: var(--space-4);
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--color-heading);
         }
 
-        .hero-text .hero-description {
-            font-size: 1.12rem;
-            margin-bottom: 30px;
-            max-width: 610px;
-            color: var(--brand-muted);
-            line-height: 1.8;
+        .hero-description {
+            max-width: 60ch;
+            margin-bottom: var(--space-5);
+            font-size: var(--text-md);
+            line-height: 1.7;
         }
 
-        .availability-line {
-            max-width: 610px;
-            margin: 0 0 22px;
-            padding: 12px 16px;
-            background: var(--bg-highlight);
-            border-left: 4px solid var(--brand-primary);
-            border-radius: 8px;
-            font-size: 0.97rem;
-            line-height: 1.55;
+        .hero-description strong {
             font-weight: 600;
-            color: var(--brand-dark);
-            text-align: left;
         }
 
-        /* One pathway: hiring. Freelance is a single sentence (the availability line). */
+        /* Availability: a status line, not a banner */
+        .availability-line {
+            display: flex;
+            gap: 0.7em;
+            align-items: baseline;
+            max-width: 60ch;
+            margin-bottom: var(--space-6);
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            background: var(--color-surface);
+            font-size: var(--text-sm);
+            line-height: 1.55;
+            color: var(--color-heading);
+        }
+
+        .availability-line::before {
+            content: "";
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-success);
+            box-shadow: 0 0 0 3px var(--color-success-bg);
+            transform: translateY(-1px);
+        }
+
+        /* Two routes, ranked: hiring (button) first, freelance (link) second */
         .hero-paths {
             display: grid;
-            grid-template-columns: minmax(0, 1fr);
-            gap: 14px;
-            max-width: 320px;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            max-width: 620px;
+            border-top: 1px solid var(--color-border);
         }
 
         .hero-path {
             display: flex;
             flex-direction: column;
-            background: #ffffff;
-            border: var(--border-light);
-            border-top: 4px solid var(--brand-primary);
-            border-radius: 12px;
-            padding: 18px 18px 16px;
-            box-shadow: var(--shadow-soft);
+            align-items: flex-start;
+            padding: var(--space-5) var(--space-5) 0 0;
+        }
+
+        .hero-path + .hero-path {
+            padding-left: var(--space-5);
+            border-left: 1px solid var(--color-border);
         }
 
         .hero-path h2 {
-            font-size: 1.08rem;
-            line-height: 1.3;
-            margin-bottom: 6px;
+            margin-bottom: var(--space-1);
+            font-family: var(--font-sans);
+            font-size: var(--text-base);
+            font-weight: 600;
+            letter-spacing: 0;
+            line-height: 1.35;
         }
 
         .hero-path p {
-            font-size: 0.9rem;
-            line-height: 1.55;
-            color: var(--brand-muted);
-            margin-bottom: 14px;
+            margin-bottom: var(--space-4);
+            font-size: var(--text-sm);
+            line-height: 1.5;
+            color: var(--color-text-muted);
         }
 
-        .hero-path .btn {
+        .hero-path .btn,
+        .hero-path .arrow-link {
             margin-top: auto;
-            width: 100%;
-            padding: 11px 16px;
         }
 
-        .hero-path .btn-primary { box-shadow: none; }
-
-        .hero-image-box {
+        .hero-figure {
             position: relative;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+        }
+
+        .hero-plate {
+            flex: 1;
+            display: flex;
             align-items: flex-end;
-            min-height: 580px;
-        }
-
-        .hero-image-box::before {
-            content: "";
-            position: absolute;
-            bottom: 7%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 460px;
-            aspect-ratio: 1 / 1;
-            background: linear-gradient(135deg, #e0f7ff 0%, #f0f9ff 100%);
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .hero-image-box::after {
-            content: "";
-            position: absolute;
-            width: 90px;
-            height: 90px;
-            border-radius: 18px;
-            background: #ffffff;
-            right: 2%;
-            top: 20%;
-            box-shadow: var(--shadow-soft);
-            transform: rotate(12deg);
-            z-index: 1;
+            justify-content: center;
+            padding-top: var(--space-8);
+            border: 1px solid var(--color-border);
+            border-bottom: 0;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            background: color-mix(in srgb, var(--color-brand) 11%, var(--color-surface));
+            overflow: hidden;
         }
 
         .hero-img {
-            position: relative;
-            width: 100%;
-            max-width: 480px;
-            height: auto;
-            object-fit: contain;
-            object-position: bottom;
-            filter: drop-shadow(0 15px 25px rgba(49, 66, 89, 0.15));
-            z-index: 2;
+            width: 92%;
+            max-width: 440px;
+        }
+
+        /* A small spec card over the plate: facts, set in mono */
+        .hero-spec {
+            position: absolute;
+            left: calc(-1 * var(--space-6));
+            top: var(--space-6);
+            min-width: 15.5rem;
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            background: var(--color-surface);
+            box-shadow: var(--shadow-2);
+        }
+
+        .hero-spec dl > div {
+            display: grid;
+            grid-template-columns: 6.25rem minmax(0, 1fr);
+            gap: var(--space-3);
+            padding-block: 0.4rem;
+        }
+
+        .hero-spec dl > div + div {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .hero-spec dt {
+            white-space: nowrap;
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            line-height: 1.5;
+            color: var(--color-text-muted);
+        }
+
+        .hero-spec dd {
+            font-size: var(--text-sm);
+            font-weight: 500;
+            line-height: 1.45;
+            color: var(--color-heading);
         }
 
 
         /* =========================================================
-           PROOF AT A GLANCE
+           2. PROOF AT A GLANCE: ledger strip
         ========================================================= */
 
         .stats {
-            border-bottom: var(--border-light);
-            padding: 30px 0 22px;
-            background: #ffffff;
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            text-align: center;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
         }
 
         .stat-item {
-            padding: 0 20px;
-            border-right: var(--border-light);
+            padding: var(--space-6) var(--space-5);
+            border-left: 1px solid var(--color-border);
         }
 
-        .stat-item:last-child { border-right: 0; }
+        .stat-item:first-child {
+            padding-left: 0;
+            border-left: 0;
+        }
 
         .stat-num {
-            font-size: 1.8rem;
+            font-family: var(--font-mono);
+            font-size: clamp(2.125rem, 1.6rem + 1.6vw, 3rem);
+            font-weight: 500;
             line-height: 1;
-            font-weight: 800;
-            color: var(--brand-accent-text);
+            letter-spacing: -0.04em;
+            color: var(--color-heading);
         }
 
         .stat-label {
-            font-size: 0.81rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--brand-muted);
-            font-weight: 600;
-            margin-top: 6px;
+            max-width: 18ch;
+            margin-top: var(--space-3);
+            font-size: var(--text-sm);
+            line-height: 1.4;
+            color: var(--color-text-muted);
         }
 
         .stats-note {
-            max-width: 820px;
-            margin: 20px auto 0;
-            text-align: center;
-            font-size: 0.85rem;
+            padding: var(--space-4) 0 var(--space-5);
+            border-top: 1px solid var(--color-border);
+            font-size: var(--text-sm);
             line-height: 1.6;
-            color: var(--brand-muted);
+            color: var(--color-text-muted);
         }
 
-        .stats-note a { color: var(--brand-accent-text); font-weight: 700; }
+        .stats-note a {
+            font-weight: 600;
+        }
 
 
         /* =========================================================
-           FEATURED INDEPENDENT PROJECTS
+           3. FEATURED PROOF OF WORK
+              Lead case study on an Ink panel; three supporting
+              projects in ruled newspaper columns.
         ========================================================= */
-
-        .projects-section { background: var(--bg-secondary); }
 
         .featured-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 26px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: var(--space-9) var(--space-6);
         }
 
         .featured-card {
             display: flex;
             flex-direction: column;
-            background: #ffffff;
-            border: var(--border-light);
-            border-radius: 16px;
-            padding: 28px;
-            box-shadow: var(--shadow-soft);
+            min-width: 0;
+        }
+
+        .featured-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
         .featured-cat {
-            font-size: 0.74rem;
-            font-weight: 800;
+            margin-bottom: var(--space-2);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
             text-transform: uppercase;
-            letter-spacing: 0.7px;
-            color: var(--brand-accent-text);
-            margin-bottom: 9px;
+            color: var(--color-text-muted);
         }
 
         .featured-card h3 {
-            font-size: 1.25rem;
-            line-height: 1.35;
-            margin-bottom: 12px;
+            margin-bottom: var(--space-3);
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            line-height: 1.2;
         }
 
-        /* Project cover (inline SVG built by scripts/covers/build.js) */
-        .cover-wrap { container-type: inline-size; overflow: hidden; }
-
-        .featured-card .cover-wrap {
-            margin: -28px -28px 22px;
-            border-radius: 16px 16px 0 0;
-            border-bottom: var(--border-light);
+        .featured-body > p {
+            margin-bottom: var(--space-4);
+            font-size: 0.9688rem;
+            line-height: 1.65;
         }
 
-        .featured-card > p {
-            color: var(--brand-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 14px;
-        }
-
-        .featured-card .featured-note {
-            font-size: 0.85rem;
+        .featured-body > .featured-note {
+            padding-left: var(--space-3);
+            border-left: 2px solid var(--color-border-strong);
+            font-size: var(--text-sm);
             line-height: 1.55;
-            margin-bottom: 18px;
+            color: var(--color-text-muted);
         }
 
-        .featured-meta {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--brand-dark);
-            margin-bottom: 14px;
+        .featured-body > .featured-meta {
+            margin-bottom: var(--space-3);
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--color-heading);
         }
 
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .tech-pill {
-            font-size: 0.73rem;
-            background: var(--bg-secondary);
-            padding: 6px 11px;
-            border-radius: 20px;
-            color: var(--brand-muted);
-            font-weight: 700;
+        .featured-card .tech-stack {
+            margin-bottom: var(--space-5);
         }
 
         .featured-links {
-            margin-top: auto;
             display: flex;
             flex-wrap: wrap;
-            gap: 8px 20px;
-            font-size: 0.93rem;
-            font-weight: 700;
+            align-items: center;
+            gap: var(--space-2) var(--space-5);
+            margin-top: auto;
+            font-weight: 600;
         }
 
-        .featured-links a {
-            color: var(--brand-accent-text);
-            text-decoration: none;
-            padding: 5px 0;
+        .featured-links a:not(.btn) {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
         }
 
-        .featured-links a:hover { text-decoration: underline; }
+        /* Supporting projects: a 2px Ink rule over each column */
+        .featured-card:not(.featured-lead) {
+            padding-top: var(--space-5);
+            border-top: 2px solid var(--color-heading);
+        }
+
+        .featured-card:not(.featured-lead) .cover-wrap {
+            margin-bottom: var(--space-5);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+        }
+
+        /* Lead project: full width, cover beside the story */
+        .featured-lead {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+            align-items: center;
+        }
+
+        .featured-lead .cover-wrap {
+            margin: var(--space-5);
+            border-radius: var(--radius);
+        }
+
+        .featured-lead .featured-body {
+            height: 100%;
+            padding: var(--space-7) var(--space-7) var(--space-7) var(--space-3);
+        }
+
+        .featured-lead .featured-cat {
+            color: var(--color-accent-inverse);
+        }
+
+        .featured-lead h3 {
+            font-size: var(--text-2xl);
+            color: var(--color-text-inverse);
+        }
+
+        .featured-lead .featured-body > p {
+            color: var(--color-text-inverse-muted);
+        }
+
+        .featured-lead .featured-body > .featured-note {
+            border-left-color: var(--color-accent-inverse);
+            color: var(--color-text-inverse-muted);
+        }
+
+        .featured-lead .featured-body > .featured-meta {
+            color: var(--color-text-inverse);
+        }
+
+        .projects-more {
+            margin-top: var(--space-7);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-border);
+        }
 
 
         /* =========================================================
-           PROFESSIONAL WORK IMPACT (anonymized employer work)
+           4. PROFESSIONAL WORK: sticky statement + numbered register
         ========================================================= */
 
-        .impact-grid {
+        .impact-section {
+            background: var(--color-surface-muted);
+        }
+
+        .impact-layout {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 26px;
+            grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+            gap: var(--space-6) var(--space-9);
+            align-items: start;
+        }
+
+        .impact-head {
+            position: sticky;
+            top: calc(var(--header-h) + var(--space-6));
+            margin-bottom: 0;
+        }
+
+        .impact-list {
+            list-style: none;
+            counter-reset: impact;
+            border-top: 1px solid var(--color-heading);
         }
 
         .impact-card {
-            display: flex;
-            flex-direction: column;
-            background: #ffffff;
-            border: var(--border-light);
-            border-top: 4px solid var(--brand-primary);
-            border-radius: 16px;
-            padding: 28px;
-            box-shadow: var(--shadow-soft);
+            counter-increment: impact;
+            display: grid;
+            grid-template-columns: 3.5rem minmax(0, 1fr);
+            padding-block: var(--space-6);
+            border-bottom: 1px solid var(--color-border);
         }
 
-        .impact-card h3 { font-size: 1.2rem; line-height: 1.35; margin-bottom: 12px; }
+        .impact-card::before {
+            content: counter(impact, decimal-leading-zero);
+            grid-row: 1 / span 4;
+            padding-top: 0.15em;
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+        }
+
+        .impact-card > * {
+            grid-column: 2;
+        }
+
+        .impact-card h3 {
+            margin-bottom: var(--space-2);
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            letter-spacing: -0.015em;
+        }
 
         .impact-card > p {
-            color: var(--brand-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 16px;
+            max-width: 58ch;
+            margin-bottom: var(--space-4);
         }
-
-        .impact-card .tech-stack { margin-top: auto; margin-bottom: 0; }
 
 
         /* =========================================================
-           EVIDENCE LIBRARY
+           5. EVIDENCE LIBRARY: a document index, one row per artifact
         ========================================================= */
 
-        .evidence-section { background: var(--bg-secondary); }
-
-        .evidence-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 26px;
+        .evidence-index {
+            list-style: none;
+            border-top: 1px solid var(--color-heading);
         }
 
         .evidence-card {
-            display: flex;
-            flex-direction: column;
-            background: #ffffff;
-            border: var(--border-light);
-            border-radius: 16px;
-            padding: 28px;
+            display: grid;
+            grid-template-columns: minmax(9rem, 2fr) minmax(0, 7fr) minmax(9rem, auto);
+            gap: var(--space-3) var(--space-6);
+            align-items: baseline;
+            padding: var(--space-6) var(--space-4);
+            border-bottom: 1px solid var(--color-border);
+            color: inherit;
             text-decoration: none;
-            box-shadow: var(--shadow-soft);
+            transition: background-color var(--dur) var(--ease);
         }
 
-        .evidence-card:hover { border-color: var(--brand-primary); }
-        .evidence-card h3 { font-size: 1.15rem; line-height: 1.35; margin-bottom: 10px; }
+        .evidence-card:hover {
+            background: var(--color-surface);
+            color: inherit;
+        }
 
-        .evidence-card p {
-            color: var(--brand-muted);
-            font-size: 0.94rem;
-            line-height: 1.7;
-            margin-bottom: 16px;
+        .evidence-type {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .evidence-title {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            line-height: 1.25;
+            transition: color var(--dur-fast) var(--ease);
+        }
+
+        .evidence-card:hover .evidence-title {
+            color: var(--color-link);
+        }
+
+        .evidence-desc {
+            display: block;
+            max-width: 62ch;
+            margin-top: var(--space-2);
+            color: var(--color-text-muted);
         }
 
         .evidence-more {
-            margin-top: auto;
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--brand-accent-text);
+            justify-self: end;
+            font-weight: 600;
+            white-space: nowrap;
+            color: var(--color-link);
         }
 
-        .evidence-all { text-align: center; margin-top: 30px; }
+        .evidence-more::after {
+            content: " \2192";
+            font-family: var(--font-mono);
+            display: inline-block;
+            transition: transform var(--dur-fast) var(--ease);
+        }
+
+        .evidence-card:hover .evidence-more::after {
+            transform: translateX(3px);
+        }
+
+        .evidence-all {
+            margin-top: var(--space-7);
+        }
 
 
         /* =========================================================
-           EXPERIENCE TIMELINE
+           6. EXPERIENCE: dated ledger on white, current role emphasised
         ========================================================= */
+
+        .experience-section {
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+        }
 
         .timeline {
             list-style: none;
-            max-width: 760px;
-            margin: 0 auto;
-            padding-left: 28px;
-            border-left: 3px solid var(--bg-highlight);
+            border-top: 1px solid var(--color-heading);
         }
 
-        .timeline li { position: relative; padding-bottom: 30px; }
-        .timeline li:last-child { padding-bottom: 0; }
-
-        .timeline li::before {
-            content: "";
-            position: absolute;
-            left: -37px;
-            top: 5px;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: var(--brand-primary);
-            border: 3px solid #ffffff;
-            box-shadow: 0 0 0 2px var(--brand-primary);
+        .timeline li {
+            display: grid;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 8fr);
+            gap: var(--space-3) var(--space-6);
+            padding-block: var(--space-6);
+            border-bottom: 1px solid var(--color-border);
         }
 
         .timeline .exp-date {
-            font-size: 0.82rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: var(--brand-accent-text);
-            margin-bottom: 4px;
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            line-height: 1.9;
+            color: var(--color-text-muted);
         }
 
-        .timeline h3 { font-size: 1.15rem; margin-bottom: 2px; }
-        .timeline .exp-org { font-weight: 600; color: var(--brand-muted); margin-bottom: 8px; }
-        .timeline p:not(.exp-date):not(.exp-org) { color: var(--brand-muted); line-height: 1.7; font-size: 0.97rem; }
+        .timeline-current .exp-date {
+            color: var(--color-link);
+            font-weight: 500;
+        }
+
+        .timeline-current .exp-date::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin-right: 0.6em;
+            border-radius: 50%;
+            background: var(--color-brand);
+            vertical-align: 0.05em;
+        }
+
+        .timeline h3 {
+            font-size: var(--text-lg);
+        }
+
+        .timeline-current h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            letter-spacing: -0.015em;
+        }
+
+        .timeline .exp-org {
+            margin: var(--space-1) 0 var(--space-2);
+            font-weight: 500;
+            color: var(--color-heading);
+        }
+
+        .timeline .exp-body > p:not(.exp-org) {
+            max-width: 62ch;
+            color: var(--color-text-muted);
+        }
 
         .exp-links {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px 22px;
-            margin-top: 30px;
-            font-weight: 700;
-            font-size: 0.95rem;
+            gap: var(--space-2) var(--space-7);
+            margin-top: var(--space-5);
         }
-
-        .exp-links a { color: var(--brand-accent-text); text-decoration: none; padding: 5px 0; }
-        .exp-links a:hover { text-decoration: underline; }
 
 
         /* =========================================================
-           FINAL CONTACT CTA
+           7. CLOSING CTA on Soft Mint
         ========================================================= */
 
         .cta-final {
-            text-align: center;
-            border-top: var(--border-light);
+            background: var(--color-surface-soft);
         }
 
-        .cta-final .container { max-width: 760px; }
+        .cta-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+            gap: var(--space-7) var(--space-9);
+            align-items: end;
+        }
 
-        .cta-final p.cta-text {
-            font-size: 1.08rem;
-            line-height: 1.75;
-            color: var(--brand-muted);
-            margin: -20px auto 30px;
+        .cta-final .section-title {
+            font-size: var(--text-display);
+            line-height: 1;
+        }
+
+        .cta-text {
+            max-width: 52ch;
+            margin-top: var(--space-5);
+            font-size: var(--text-md);
+            line-height: 1.7;
+        }
+
+        .cta-actions {
+            padding-left: var(--space-6);
+            border-left: 1px solid var(--color-border-strong);
         }
 
         .cta-buttons {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
-            gap: 14px;
+            gap: var(--space-3);
         }
 
         .cta-alt {
-            margin-top: 22px;
-            font-size: 0.93rem;
-            color: var(--brand-muted);
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
         }
 
-        .cta-alt a { color: var(--brand-accent-text); font-weight: 700; }
+        .cta-alt a {
+            font-weight: 600;
+        }
 
 
         /* =========================================================
            RESPONSIVE
         ========================================================= */
 
-        @media (max-width: 1050px) {
-            .hero-grid { gap: 35px; }
-            .hero-text h1 { font-size: 3rem; }
-            .hero-image-box { min-height: 520px; }
-            .impact-grid,
-            .evidence-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: var(--space-6); }
+            .hero-spec { left: calc(-1 * var(--space-4)); min-width: 13.5rem; }
+            .hero-spec dl > div { grid-template-columns: 5.25rem minmax(0, 1fr); }
+
+            .featured-lead { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+            .featured-lead .featured-body { padding: var(--space-6) var(--space-6) var(--space-6) var(--space-2); }
+
+            .featured-grid { grid-template-columns: 1fr; gap: var(--space-7); }
+            .featured-card:not(.featured-lead) {
+                display: grid;
+                grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+                gap: var(--space-6);
+                align-items: start;
+            }
+            .featured-card:not(.featured-lead) .cover-wrap { margin-bottom: 0; }
+
+            .impact-layout { grid-template-columns: 1fr; }
+            .impact-head { position: static; }
         }
 
-        @media (max-width: 900px) {
-            .hero {
-                min-height: auto;
-                padding-top: 115px;
-                padding-bottom: 60px;
-            }
+        @media (max-width: 860px) {
+            .hero-grid { grid-template-columns: 1fr; gap: 0; }
+            .hero-text { padding-bottom: var(--space-7); }
+            .hero-figure { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-5); align-items: end; }
+            .hero-plate { order: 2; padding-top: var(--space-6); }
+            .hero-img { max-width: 320px; }
+            .hero-spec { position: static; order: 1; align-self: center; min-width: 0; }
 
-            .hero-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 20px;
-            }
+            .featured-lead { grid-template-columns: 1fr; }
+            .featured-lead .cover-wrap { margin: var(--space-4) var(--space-4) 0; }
+            .featured-lead .featured-body { padding: var(--space-5); }
 
-            .hero-text { order: 1; }
-
-            .hero-image-box {
-                order: 2;
-                min-height: auto;
-                margin-top: 20px;
-            }
-
-            .hero-text h1 { font-size: 2.8rem; }
-
-            .hero-text .hero-description,
-            .hero-paths {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-path { text-align: left; }
-            .hero-img { max-width: 350px; }
-            .hero-image-box::before { width: 350px; max-width: 85%; }
-            .hero-image-box::after { right: 10%; }
+            .cta-layout { grid-template-columns: 1fr; align-items: start; }
+            .cta-actions { padding-left: 0; padding-top: var(--space-5); border-left: 0; border-top: 1px solid var(--color-border-strong); }
         }
 
         @media (max-width: 768px) {
-            .container { padding-left: 17px; padding-right: 17px; }
-            .section-padding { padding: 60px 0; }
-            .section-title { font-size: 1.85rem; margin-bottom: 40px; }
-            .section-intro { margin-top: -15px; font-size: 0.96rem; }
+            .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .stat-item { padding: var(--space-5) var(--space-4); }
+            .stat-item:nth-child(odd) { padding-left: 0; border-left: 0; }
+            .stat-item:nth-child(n + 3) { border-top: 1px solid var(--color-border); }
 
-            .hero { padding-top: 105px; padding-bottom: 45px; }
-            .hero-text h1 { font-size: 2.25rem; letter-spacing: -0.7px; }
-            .hero-tagline { font-size: 1.1rem; margin-bottom: 12px; }
-            .hero-text .hero-description { font-size: 1rem; line-height: 1.7; margin-bottom: 22px; }
+            .featured-card:not(.featured-lead) { grid-template-columns: 1fr; gap: 0; }
+            .featured-card:not(.featured-lead) .cover-wrap { margin-bottom: var(--space-4); }
 
-            .hero-image-box { margin-top: 15px; }
-            .hero-img { max-width: 290px; }
-            .hero-image-box::before { width: 290px; }
-            .hero-image-box::after { width: 55px; height: 55px; right: 6%; }
+            .evidence-card { grid-template-columns: 1fr; padding-inline: 0; gap: var(--space-2); }
+            .evidence-card:hover { background: transparent; }
+            .evidence-more { justify-self: start; margin-top: var(--space-2); }
 
-            .stats { padding: 26px 0 20px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); row-gap: 18px; }
-            .stat-item { padding: 0 10px; }
-            .stat-item:nth-child(2) { border-right: 0; }
-            .stat-num { font-size: 1.9rem; }
-
-            .featured-grid,
-            .impact-grid,
-            .evidence-grid { grid-template-columns: 1fr; }
-            .featured-card,
-            .impact-card,
-            .evidence-card { padding: 24px 20px; }
-            .featured-card .cover-wrap { margin: -24px -20px 18px; }
+            .timeline li { grid-template-columns: 1fr; gap: var(--space-2); }
         }
 
         @media (max-width: 560px) {
-            .hero-paths { grid-template-columns: 1fr; gap: 10px; }
-            /* Heading and button are self-explanatory; keep the pathway on the first phone screen */
-            .hero-path { padding: 14px 16px 14px; }
-            .hero-path h2 { margin-bottom: 10px; font-size: 1.02rem; }
-            .hero-path p { display: none; }
+            .hero-paths { grid-template-columns: 1fr; }
+            .hero-path { padding-right: 0; }
+            .hero-path + .hero-path { padding-left: 0; border-left: 0; border-top: 1px solid var(--color-border); margin-top: var(--space-5); }
+            .hero-path p { margin-bottom: var(--space-3); }
+            .hero-path-primary .btn { width: 100%; }
+            .availability-line { margin-bottom: var(--space-5); }
+
+            .hero-figure { grid-template-columns: 1fr; gap: 0; }
+            .hero-plate { order: 1; }
+            .hero-img { max-width: 300px; }
+            .hero-spec { order: 2; margin-top: calc(-1 * var(--space-6)); margin-inline: var(--space-4); }
+
+            .impact-card { grid-template-columns: 2.5rem minmax(0, 1fr); }
             .cta-buttons .btn { width: 100%; }
-        }
-
-        @media (max-width: 420px) {
-            .hero-text h1 { font-size: 2rem; }
-            .eyebrow { font-size: 0.72rem; letter-spacing: 1.3px; }
-            .hero-img { max-width: 255px; }
-            .hero-image-box::before { width: 255px; }
-            .section-title { font-size: 1.65rem; }
-            .stat-label { font-size: 0.74rem; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-
-            *,
-            *::before,
-            *::after {
-                transition-duration: 0.01ms !important;
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-            }
         }
 
     </style>
@@ -957,8 +928,14 @@
                 <a href="/services/">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/">Resume</a>
-                <a href="/contact/">Contact</a>
+                <a href="/contact/" class="nav-cta">Contact</a>
             </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
 
         </div>
 
@@ -970,7 +947,8 @@
 
 
         <!-- =====================================================
-             1. HERO: identity + two pathways
+             1. HERO: identity, then two clearly ranked routes
+                (hiring = primary; freelance = secondary)
         ====================================================== -->
 
         <section
@@ -983,20 +961,11 @@
 
                 <div class="hero-text">
 
-                    <p class="eyebrow">
-                        Software QA Engineer
-                    </p>
+                    <p class="kicker hero-kicker">API testing &middot; Playwright &middot; Payment workflows</p>
 
                     <h1 id="hero-heading">
-
-                        Sayed Asif
-
-                        <br>
-
-                        <span class="text-gradient">
-                            Software QA Engineer
-                        </span>
-
+                        <span class="hero-name">Sayed Asif</span>
+                        <span class="hero-role">Software QA Engineer</span>
                     </h1>
 
                     <p class="hero-tagline">
@@ -1013,34 +982,49 @@
 
                     </p>
 
-                    <p class="availability-line">
-                        Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis.
-                    </p>
+                    <p class="availability-line">Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis.</p>
 
                     <div class="hero-paths">
 
-                        <div class="hero-path">
+                        <div class="hero-path hero-path-primary">
                             <h2>Hiring a QA Engineer?</h2>
                             <p>See my resume and professional experience.</p>
                             <a href="/resume/" class="btn btn-primary">View Resume</a>
                         </div>
-</div>
+
+                        <div class="hero-path hero-path-secondary">
+                            <h2>Need QA on a project?</h2>
+                            <p>Manual, API, Playwright and payment workflow testing, part-time.</p>
+                            <a href="/services/" class="arrow-link">See QA services</a>
+                        </div>
+
+                    </div>
 
                 </div>
 
 
-                <div class="hero-image-box">
+                <figure class="hero-figure">
 
-                    <img
-                        src="/image/asif.webp"
-                        alt="Sayed Asif, Software QA Engineer"
-                        class="hero-img"
-                        width="480"
-                        height="580"
-                        fetchpriority="high"
-                    >
+                    <div class="hero-plate">
+                        <img
+                            src="/image/asif.webp"
+                            alt="Sayed Asif, Software QA Engineer"
+                            class="hero-img"
+                            width="480"
+                            height="580"
+                            fetchpriority="high"
+                        >
+                    </div>
 
-                </div>
+                    <figcaption class="hero-spec">
+                        <dl>
+                            <div><dt>Focus</dt><dd>API &amp; payment testing</dd></div>
+                            <div><dt>Tools</dt><dd>Playwright, Postman, Jira</dd></div>
+                            <div><dt>In QA since</dt><dd>Dec 2024</dd></div>
+                        </dl>
+                    </figcaption>
+
+                </figure>
 
             </div>
 
@@ -1048,7 +1032,7 @@
 
 
         <!-- =====================================================
-             2. PROOF AT A GLANCE
+             2. PROOF AT A GLANCE: a ledger strip fixed to the hero
         ====================================================== -->
 
         <section
@@ -1095,7 +1079,8 @@
 
 
         <!-- =====================================================
-             3. FEATURED PROOF OF WORK
+             3. FEATURED PROOF OF WORK: one lead case study on Ink,
+                three supporting projects in ruled columns
         ====================================================== -->
 
         <section
@@ -1106,209 +1091,239 @@
 
             <div class="container">
 
-                <h2
-                    id="projects-heading"
-                    class="section-title"
-                >
-                    Featured Proof of Work
-                </h2>
-
-                <p class="section-intro">
-                    Public source code, tests and CI workflows on GitHub. These are independent projects, separate from my employer work. The Razorpay project tests a small demo app that I built as the test target, so its defects are bugs in my own code.
-                </p>
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">01</span> Public projects</p>
+                        <h2
+                            id="projects-heading"
+                            class="section-title"
+                        >
+                            Featured Proof of Work
+                        </h2>
+                    </div>
+                    <p class="section-intro">
+                        Public source code, tests and CI workflows on GitHub. These are independent projects, separate from my employer work. The Razorpay project tests a small demo app that I built as the test target, so its defects are bugs in my own code.
+                    </p>
+                </header>
 
                 <div class="featured-grid">
 
-                    <article class="featured-card">
-                        <div class="cover-wrap"><!-- cover:razorpay --><svg class="cv cv-razorpay cv-wide" viewBox="0 0 1200 630" role="img" aria-labelledby="cv-razorpay-wide-t cv-razorpay-wide-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-razorpay-wide-t">Razorpay Payment Gateway QA &amp; Automation: project cover</title><desc id="cv-razorpay-wide-d">Cover for Razorpay Payment Gateway QA &amp; Automation: 37 test definitions (34 run in CI, 3 live-gateway). Flow covered by the suite: create an order, verify the payment signature, receive a webhook, check its HMAC over the raw request body, update the order state. Built with Playwright, Node.js, Express, SQLite.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
-:where(.cv-razorpay){--cv-accent:#00708f;--cv-soft:#e0f7ff}
-@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-razorpay){--cv-accent:light-dark(#00708f,#38c6f0);--cv-soft:light-dark(#e0f7ff,#103247)}}
+                    <article class="featured-card featured-lead panel-inverse">
+                        <div class="cover-wrap"><!-- cover:razorpay --><svg class="cv cv-razorpay cv-wide" viewBox="0 0 1200 630" role="img" aria-labelledby="cv-razorpay-wide-t cv-razorpay-wide-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-razorpay-wide-t">Razorpay Payment Gateway QA &amp; Automation: project cover</title><desc id="cv-razorpay-wide-d">Cover for Razorpay Payment Gateway QA &amp; Automation: 37 test definitions (34 run in CI, 3 live-gateway). Flow covered by the suite: create an order, verify the payment signature, receive a webhook, check its HMAC over the raw request body, update the order state. Built with Playwright, Node.js, Express, SQLite.</desc><style>:where(.cv){font-family:"IBM Plex Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif;--cv-serif:"Source Serif 4",Georgia,serif;--cv-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;--cv-bg:#eff4f0;--cv-card:#fff;--cv-line:#b5c4bd;--cv-fg:#182522;--cv-mute:#53635f;--cv-on:#fff}
+:where(.cv-razorpay){--cv-accent:#075e54;--cv-soft:#e5f3ef}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#eff4f0,#141d1a);--cv-card:light-dark(#fff,#1a2521);--cv-line:light-dark(#b5c4bd,#3e504a);--cv-fg:light-dark(#182522,#eef3f0);--cv-mute:light-dark(#53635f,#a3b3ad);--cv-on:light-dark(#fff,#0e1513)}:where(.cv-razorpay){--cv-accent:light-dark(#075e54,#4fc7b4);--cv-soft:light-dark(#e5f3ef,#173029)}}
 .cv-razorpay.cv-wide{display:block;width:100%;height:auto}
 .cv-razorpay.cv-wide .bg{fill:var(--cv-bg)}.cv-razorpay.cv-wide .stripe{fill:var(--cv-accent)}.cv-razorpay.cv-wide .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
 .cv-razorpay.cv-wide .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-razorpay.cv-wide .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
 .cv-razorpay.cv-wide .badge{fill:var(--cv-accent)}.cv-razorpay.cv-wide .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-razorpay.cv-wide .head{fill:var(--cv-accent)}
 .cv-razorpay.cv-wide text{fill:var(--cv-fg);font-weight:600}
-.cv-razorpay.cv-wide .mute{fill:var(--cv-mute);font-weight:500}.cv-razorpay.cv-wide .num{fill:var(--cv-on);font-size:18px;font-weight:800}
-.cv-razorpay.cv-wide .eyebrow{fill:var(--cv-accent);font-size:24px;font-weight:700;letter-spacing:2.4px}
-.cv-razorpay.cv-wide .title{font-size:58px;font-weight:800}.cv-razorpay.cv-wide .count{fill:var(--cv-accent);font-size:150px;font-weight:800}
-.cv-razorpay.cv-wide .countl{font-size:32px}.cv-razorpay.cv-wide .sub{font-size:26px}.cv-razorpay.cv-wide .stack{font-size:28px}.cv-razorpay.cv-wide .cap{font-size:26px}.cv-razorpay.cv-wide .dom{font-size:22px}
-.cv-razorpay.cv-wide .nl{font-size:32px;font-weight:700}.cv-razorpay.cv-wide .ns{font-size:21px}
-@container (max-width:559px){.cv-razorpay.cv-wide{display:none}}</style><defs><marker id="cv-razorpay-wide-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="1200" height="630"/><rect class="stripe" width="16" height="630"/><text class="eyebrow" x="64" y="76">PAYMENT WORKFLOW TESTING</text><text class="title" x="64" y="150">Razorpay</text><text class="title" x="64" y="214">Payment Gateway</text><text class="title" x="64" y="278">QA &amp; Automation</text><text class="stack mute" x="64" y="334">Playwright · Node.js · Express · SQLite</text><text class="count" x="1136" y="200" text-anchor="end">37</text><text class="countl" x="1136" y="246" text-anchor="end">test definitions</text><text class="sub mute" x="1136" y="286" text-anchor="end">34 run in CI, 3 live-gateway</text><rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/><rect class="node" x="64" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="88" cy="396" r="14"/><text class="num" x="88" y="396" text-anchor="middle" dominant-baseline="central">1</text><text class="nl" x="154" y="442" text-anchor="middle">Order</text><text class="ns mute" x="154" y="468" text-anchor="middle">create order</text><path class="arrow" d="M250 426H277" marker-end="url(#cv-razorpay-wide-a)"/><rect class="node" x="287" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="311" cy="396" r="14"/><text class="num" x="311" y="396" text-anchor="middle" dominant-baseline="central">2</text><text class="nl" x="377" y="442" text-anchor="middle">Verify</text><text class="ns mute" x="377" y="468" text-anchor="middle">pay signature</text><path class="arrow" d="M473 426H500" marker-end="url(#cv-razorpay-wide-a)"/><rect class="node" x="510" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="534" cy="396" r="14"/><text class="num" x="534" y="396" text-anchor="middle" dominant-baseline="central">3</text><text class="nl" x="600" y="442" text-anchor="middle">Webhook</text><text class="ns mute" x="600" y="468" text-anchor="middle">event ID</text><path class="arrow" d="M696 426H723" marker-end="url(#cv-razorpay-wide-a)"/><rect class="node hot" x="733" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="757" cy="396" r="14"/><text class="num" x="757" y="396" text-anchor="middle" dominant-baseline="central">4</text><text class="nl" x="823" y="442" text-anchor="middle">HMAC</text><text class="ns mute" x="823" y="468" text-anchor="middle">raw body</text><path class="arrow" d="M919 426H946" marker-end="url(#cv-razorpay-wide-a)"/><rect class="node" x="956" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="980" cy="396" r="14"/><text class="num" x="980" y="396" text-anchor="middle" dominant-baseline="central">5</text><text class="nl" x="1046" y="442" text-anchor="middle">State</text><text class="ns mute" x="1046" y="468" text-anchor="middle">SQLite state</text><text class="cap mute" x="64" y="528">Two high-severity defects found, fixed and regression-tested</text><text class="dom mute" x="1136" y="598" text-anchor="end">sayedasif.com</text></svg><svg class="cv cv-razorpay cv-narrow" viewBox="0 0 640 604" role="img" aria-labelledby="cv-razorpay-narrow-t cv-razorpay-narrow-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-razorpay-narrow-t">Razorpay Payment Gateway QA &amp; Automation: project cover</title><desc id="cv-razorpay-narrow-d">Cover for Razorpay Payment Gateway QA &amp; Automation: 37 test definitions (34 run in CI, 3 live-gateway). Flow covered by the suite: create an order, verify the payment signature, receive a webhook, check its HMAC over the raw request body, update the order state. Built with Playwright, Node.js, Express, SQLite.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
-:where(.cv-razorpay){--cv-accent:#00708f;--cv-soft:#e0f7ff}
-@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-razorpay){--cv-accent:light-dark(#00708f,#38c6f0);--cv-soft:light-dark(#e0f7ff,#103247)}}
+.cv-razorpay.cv-wide .mute{fill:var(--cv-mute);font-weight:500}.cv-razorpay.cv-wide .num{fill:var(--cv-on);font-family:var(--cv-mono);font-size:17px;font-weight:500}
+.cv-razorpay.cv-wide .title{font-family:var(--cv-serif);font-weight:600;letter-spacing:-0.5px}.cv-razorpay.cv-wide .count{font-family:var(--cv-mono);font-weight:500;letter-spacing:-2px}
+.cv-razorpay.cv-wide .countl,.cv-razorpay.cv-wide .sub,.cv-razorpay.cv-wide .stack,.cv-razorpay.cv-wide .dom,.cv-razorpay.cv-wide .ns{font-family:var(--cv-mono);font-weight:400}
+.cv-razorpay.cv-wide .eyebrow{fill:var(--cv-accent);font-family:var(--cv-mono);font-size:22px;font-weight:500;letter-spacing:2px}
+.cv-razorpay.cv-wide .title{font-size:60px}.cv-razorpay.cv-wide .count{fill:var(--cv-accent);font-size:148px}
+.cv-razorpay.cv-wide .countl{font-size:26px}.cv-razorpay.cv-wide .sub{font-size:22px}.cv-razorpay.cv-wide .stack{font-size:23px}.cv-razorpay.cv-wide .cap{font-size:25px;font-weight:500}.cv-razorpay.cv-wide .dom{font-size:20px}
+.cv-razorpay.cv-wide .nl{font-size:31px;font-weight:600}.cv-razorpay.cv-wide .ns{font-size:19px}
+@container (max-width:559px){.cv-razorpay.cv-wide{display:none}}</style><defs><marker id="cv-razorpay-wide-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="1200" height="630"/><rect class="stripe" width="16" height="630"/><text class="eyebrow" x="64" y="76">PAYMENT WORKFLOW TESTING</text><text class="title" x="64" y="150">Razorpay</text><text class="title" x="64" y="214">Payment Gateway</text><text class="title" x="64" y="278">QA &amp; Automation</text><text class="stack mute" x="64" y="334">Playwright · Node.js · Express · SQLite</text><text class="count" x="1136" y="200" text-anchor="end">37</text><text class="countl" x="1136" y="246" text-anchor="end">test definitions</text><text class="sub mute" x="1136" y="286" text-anchor="end">34 run in CI, 3 live-gateway</text><rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/><rect class="node" x="64" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="88" cy="396" r="14"/><text class="num" x="88" y="396" text-anchor="middle" dominant-baseline="central">1</text><text class="nl" x="154" y="442" text-anchor="middle">Order</text><text class="ns mute" x="154" y="468" text-anchor="middle">create order</text><path class="arrow" d="M250 426H277" marker-end="url(#cv-razorpay-wide-a)"/><rect class="node" x="287" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="311" cy="396" r="14"/><text class="num" x="311" y="396" text-anchor="middle" dominant-baseline="central">2</text><text class="nl" x="377" y="442" text-anchor="middle">Verify</text><text class="ns mute" x="377" y="468" text-anchor="middle">pay signature</text><path class="arrow" d="M473 426H500" marker-end="url(#cv-razorpay-wide-a)"/><rect class="node" x="510" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="534" cy="396" r="14"/><text class="num" x="534" y="396" text-anchor="middle" dominant-baseline="central">3</text><text class="nl" x="600" y="442" text-anchor="middle">Webhook</text><text class="ns mute" x="600" y="468" text-anchor="middle">event ID</text><path class="arrow" d="M696 426H723" marker-end="url(#cv-razorpay-wide-a)"/><rect class="node hot" x="733" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="757" cy="396" r="14"/><text class="num" x="757" y="396" text-anchor="middle" dominant-baseline="central">4</text><text class="nl" x="823" y="442" text-anchor="middle">HMAC</text><text class="ns mute" x="823" y="468" text-anchor="middle">raw body</text><path class="arrow" d="M919 426H946" marker-end="url(#cv-razorpay-wide-a)"/><rect class="node" x="956" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="980" cy="396" r="14"/><text class="num" x="980" y="396" text-anchor="middle" dominant-baseline="central">5</text><text class="nl" x="1046" y="442" text-anchor="middle">State</text><text class="ns mute" x="1046" y="468" text-anchor="middle">SQLite state</text><text class="cap mute" x="64" y="528">Two high-severity defects found, fixed and regression-tested</text><text class="dom mute" x="1136" y="598" text-anchor="end">sayedasif.com</text></svg><svg class="cv cv-razorpay cv-narrow" viewBox="0 0 640 604" role="img" aria-labelledby="cv-razorpay-narrow-t cv-razorpay-narrow-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-razorpay-narrow-t">Razorpay Payment Gateway QA &amp; Automation: project cover</title><desc id="cv-razorpay-narrow-d">Cover for Razorpay Payment Gateway QA &amp; Automation: 37 test definitions (34 run in CI, 3 live-gateway). Flow covered by the suite: create an order, verify the payment signature, receive a webhook, check its HMAC over the raw request body, update the order state. Built with Playwright, Node.js, Express, SQLite.</desc><style>:where(.cv){font-family:"IBM Plex Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif;--cv-serif:"Source Serif 4",Georgia,serif;--cv-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;--cv-bg:#eff4f0;--cv-card:#fff;--cv-line:#b5c4bd;--cv-fg:#182522;--cv-mute:#53635f;--cv-on:#fff}
+:where(.cv-razorpay){--cv-accent:#075e54;--cv-soft:#e5f3ef}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#eff4f0,#141d1a);--cv-card:light-dark(#fff,#1a2521);--cv-line:light-dark(#b5c4bd,#3e504a);--cv-fg:light-dark(#182522,#eef3f0);--cv-mute:light-dark(#53635f,#a3b3ad);--cv-on:light-dark(#fff,#0e1513)}:where(.cv-razorpay){--cv-accent:light-dark(#075e54,#4fc7b4);--cv-soft:light-dark(#e5f3ef,#173029)}}
 .cv-razorpay.cv-narrow{display:block;width:100%;height:auto}
 .cv-razorpay.cv-narrow .bg{fill:var(--cv-bg)}.cv-razorpay.cv-narrow .stripe{fill:var(--cv-accent)}.cv-razorpay.cv-narrow .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
 .cv-razorpay.cv-narrow .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-razorpay.cv-narrow .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
 .cv-razorpay.cv-narrow .badge{fill:var(--cv-accent)}.cv-razorpay.cv-narrow .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-razorpay.cv-narrow .head{fill:var(--cv-accent)}
 .cv-razorpay.cv-narrow text{fill:var(--cv-fg);font-weight:600}
-.cv-razorpay.cv-narrow .mute{fill:var(--cv-mute);font-weight:500}.cv-razorpay.cv-narrow .num{fill:var(--cv-on);font-size:18px;font-weight:800}
-.cv-razorpay.cv-narrow .title{font-size:54px;font-weight:800}.cv-razorpay.cv-narrow .count{fill:var(--cv-accent);font-size:100px;font-weight:800}
-.cv-razorpay.cv-narrow .countl{font-size:32px}.cv-razorpay.cv-narrow .sub{font-size:24px}.cv-razorpay.cv-narrow .stack{font-size:22px}.cv-razorpay.cv-narrow .nl{font-size:30px;font-weight:700}
+.cv-razorpay.cv-narrow .mute{fill:var(--cv-mute);font-weight:500}.cv-razorpay.cv-narrow .num{fill:var(--cv-on);font-family:var(--cv-mono);font-size:17px;font-weight:500}
+.cv-razorpay.cv-narrow .title{font-family:var(--cv-serif);font-weight:600;letter-spacing:-0.5px}.cv-razorpay.cv-narrow .count{font-family:var(--cv-mono);font-weight:500;letter-spacing:-2px}
+.cv-razorpay.cv-narrow .countl,.cv-razorpay.cv-narrow .sub,.cv-razorpay.cv-narrow .stack,.cv-razorpay.cv-narrow .dom,.cv-razorpay.cv-narrow .ns{font-family:var(--cv-mono);font-weight:400}
+.cv-razorpay.cv-narrow .title{font-size:54px}.cv-razorpay.cv-narrow .count{fill:var(--cv-accent);font-size:100px}
+.cv-razorpay.cv-narrow .countl{font-size:26px}.cv-razorpay.cv-narrow .sub{font-size:22px}.cv-razorpay.cv-narrow .stack{font-size:20px}.cv-razorpay.cv-narrow .nl{font-size:30px;font-weight:600}
 .cv-razorpay.cv-narrow{display:none}
-@container (max-width:559px){.cv-razorpay.cv-narrow{display:block}}</style><defs><marker id="cv-razorpay-narrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="640" height="604"/><rect class="stripe" width="14" height="604"/><text class="title" x="40" y="88">Razorpay</text><text class="title" x="40" y="146">Payment Gateway</text><text class="title" x="40" y="204">QA &amp; Automation</text><text class="count" x="40" y="304">37</text><text class="countl" x="174" y="304">test definitions</text><text class="sub mute" x="40" y="344">34 run in CI, 3 live-gateway</text><text class="stack mute" x="40" y="384">Playwright · Node.js · Express · SQLite</text><rect class="node" x="40" y="414" width="168" height="72" rx="12"/><text class="nl" x="124" y="461" text-anchor="middle">Order</text><path class="arrow" d="M211 450H238" marker-end="url(#cv-razorpay-narrow-a)"/><rect class="node" x="242" y="414" width="168" height="72" rx="12"/><text class="nl" x="326" y="461" text-anchor="middle">Verify</text><path class="arrow" d="M413 450H440" marker-end="url(#cv-razorpay-narrow-a)"/><rect class="node" x="444" y="414" width="168" height="72" rx="12"/><text class="nl" x="528" y="461" text-anchor="middle">Webhook</text><rect class="node hot" x="40" y="508" width="168" height="72" rx="12"/><text class="nl" x="124" y="555" text-anchor="middle">HMAC</text><path class="arrow" d="M211 544H238" marker-end="url(#cv-razorpay-narrow-a)"/><rect class="node" x="242" y="508" width="168" height="72" rx="12"/><text class="nl" x="326" y="555" text-anchor="middle">State</text><path class="arrow" d="M528 488V498H124V506" marker-end="url(#cv-razorpay-narrow-a)"/></svg><!-- /cover:razorpay --></div>
-                        <span class="featured-cat">Payment Workflow Testing</span>
-                        <h3>Razorpay Payment Gateway QA &amp; Automation</h3>
-                        <p>
-                            Playwright API tests for a Razorpay Test Mode checkout app: payment and webhook
-                            signature checks, duplicate webhook events, refund errors and order state. Two high-severity defects were found in the demo app I built as the test target, then fixed and regression-tested.
-                        </p>
-                        <p class="featured-note">
-                            Sandbox only. No webhook sent by Razorpay itself and no successful live refund were observed.
-                        </p>
-                        <p class="featured-meta">37 test definitions &middot; 34 run in CI</p>
-                        <div class="tech-stack">
-                            <span class="tech-pill">Playwright Test</span>
-                            <span class="tech-pill">Webhooks</span>
-                            <span class="tech-pill">Node.js</span>
-                        </div>
-                        <div class="featured-links">
-                            <a href="/projects/razorpay-payment-gateway-qa-automation/">Case study</a>
-                            <a href="/evidence/">Defect report &amp; coverage matrix</a>
+@container (max-width:559px){.cv-razorpay.cv-narrow{display:block}}</style><defs><marker id="cv-razorpay-narrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="640" height="604"/><rect class="stripe" width="14" height="604"/><text class="title" x="40" y="88">Razorpay</text><text class="title" x="40" y="146">Payment Gateway</text><text class="title" x="40" y="204">QA &amp; Automation</text><text class="count" x="40" y="304">37</text><text class="countl" x="176" y="304">test definitions</text><text class="sub mute" x="40" y="344">34 run in CI, 3 live-gateway</text><text class="stack mute" x="40" y="384">Playwright · Node.js · Express · SQLite</text><rect class="node" x="40" y="414" width="168" height="72" rx="12"/><text class="nl" x="124" y="461" text-anchor="middle">Order</text><path class="arrow" d="M211 450H238" marker-end="url(#cv-razorpay-narrow-a)"/><rect class="node" x="242" y="414" width="168" height="72" rx="12"/><text class="nl" x="326" y="461" text-anchor="middle">Verify</text><path class="arrow" d="M413 450H440" marker-end="url(#cv-razorpay-narrow-a)"/><rect class="node" x="444" y="414" width="168" height="72" rx="12"/><text class="nl" x="528" y="461" text-anchor="middle">Webhook</text><rect class="node hot" x="40" y="508" width="168" height="72" rx="12"/><text class="nl" x="124" y="555" text-anchor="middle">HMAC</text><path class="arrow" d="M211 544H238" marker-end="url(#cv-razorpay-narrow-a)"/><rect class="node" x="242" y="508" width="168" height="72" rx="12"/><text class="nl" x="326" y="555" text-anchor="middle">State</text><path class="arrow" d="M528 488V498H124V506" marker-end="url(#cv-razorpay-narrow-a)"/></svg><!-- /cover:razorpay --></div>
+                        <div class="featured-body">
+                            <span class="featured-cat">Payment Workflow Testing</span>
+                            <h3>Razorpay Payment Gateway QA &amp; Automation</h3>
+                            <p>
+                                Playwright API tests for a Razorpay Test Mode checkout app: payment and webhook
+                                signature checks, duplicate webhook events, refund errors and order state. Two high-severity defects were found in the demo app I built as the test target, then fixed and regression-tested.
+                            </p>
+                            <p class="featured-note">
+                                Sandbox only. No webhook sent by Razorpay itself and no successful live refund were observed.
+                            </p>
+                            <p class="featured-meta">37 test definitions &middot; 34 run in CI</p>
+                            <div class="tech-stack">
+                                <span class="tech-pill">Playwright Test</span>
+                                <span class="tech-pill">Webhooks</span>
+                                <span class="tech-pill">Node.js</span>
+                            </div>
+                            <div class="featured-links">
+                                <a href="/projects/razorpay-payment-gateway-qa-automation/" class="btn btn-inverse">Case study</a>
+                                <a href="/evidence/">Defect report &amp; coverage matrix</a>
+                            </div>
                         </div>
                     </article>
 
                     <article class="featured-card">
-                        <div class="cover-wrap"><!-- cover:restful-booker --><svg class="cv cv-restful-booker cv-wide" viewBox="0 0 1200 630" role="img" aria-labelledby="cv-restful-booker-wide-t cv-restful-booker-wide-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-restful-booker-wide-t">RESTful Booker TypeScript API Automation: project cover</title><desc id="cv-restful-booker-wide-d">Cover for RESTful Booker TypeScript API Automation: 47 test definitions (9 spec files). Booking lifecycle covered by the suite: authenticate, create, read, update with PUT and PATCH, delete. Built with Playwright, TypeScript, REST API.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
-:where(.cv-restful-booker){--cv-accent:#15803d;--cv-soft:#dcfce7}
-@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-restful-booker){--cv-accent:light-dark(#15803d,#4ade80);--cv-soft:light-dark(#dcfce7,#10331f)}}
+                        <div class="cover-wrap"><!-- cover:restful-booker --><svg class="cv cv-restful-booker cv-wide" viewBox="0 0 1200 630" role="img" aria-labelledby="cv-restful-booker-wide-t cv-restful-booker-wide-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-restful-booker-wide-t">RESTful Booker TypeScript API Automation: project cover</title><desc id="cv-restful-booker-wide-d">Cover for RESTful Booker TypeScript API Automation: 47 test definitions (9 spec files). Booking lifecycle covered by the suite: authenticate, create, read, update with PUT and PATCH, delete. Built with Playwright, TypeScript, REST API.</desc><style>:where(.cv){font-family:"IBM Plex Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif;--cv-serif:"Source Serif 4",Georgia,serif;--cv-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;--cv-bg:#eff4f0;--cv-card:#fff;--cv-line:#b5c4bd;--cv-fg:#182522;--cv-mute:#53635f;--cv-on:#fff}
+:where(.cv-restful-booker){--cv-accent:#075e54;--cv-soft:#e5f3ef}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#eff4f0,#141d1a);--cv-card:light-dark(#fff,#1a2521);--cv-line:light-dark(#b5c4bd,#3e504a);--cv-fg:light-dark(#182522,#eef3f0);--cv-mute:light-dark(#53635f,#a3b3ad);--cv-on:light-dark(#fff,#0e1513)}:where(.cv-restful-booker){--cv-accent:light-dark(#075e54,#4fc7b4);--cv-soft:light-dark(#e5f3ef,#173029)}}
 .cv-restful-booker.cv-wide{display:block;width:100%;height:auto}
 .cv-restful-booker.cv-wide .bg{fill:var(--cv-bg)}.cv-restful-booker.cv-wide .stripe{fill:var(--cv-accent)}.cv-restful-booker.cv-wide .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
 .cv-restful-booker.cv-wide .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-restful-booker.cv-wide .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
 .cv-restful-booker.cv-wide .badge{fill:var(--cv-accent)}.cv-restful-booker.cv-wide .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-restful-booker.cv-wide .head{fill:var(--cv-accent)}
 .cv-restful-booker.cv-wide text{fill:var(--cv-fg);font-weight:600}
-.cv-restful-booker.cv-wide .mute{fill:var(--cv-mute);font-weight:500}.cv-restful-booker.cv-wide .num{fill:var(--cv-on);font-size:18px;font-weight:800}
-.cv-restful-booker.cv-wide .eyebrow{fill:var(--cv-accent);font-size:24px;font-weight:700;letter-spacing:2.4px}
-.cv-restful-booker.cv-wide .title{font-size:58px;font-weight:800}.cv-restful-booker.cv-wide .count{fill:var(--cv-accent);font-size:150px;font-weight:800}
-.cv-restful-booker.cv-wide .countl{font-size:32px}.cv-restful-booker.cv-wide .sub{font-size:26px}.cv-restful-booker.cv-wide .stack{font-size:28px}.cv-restful-booker.cv-wide .cap{font-size:26px}.cv-restful-booker.cv-wide .dom{font-size:22px}
-.cv-restful-booker.cv-wide .nl{font-size:32px;font-weight:700}.cv-restful-booker.cv-wide .ns{font-size:21px}
-@container (max-width:559px){.cv-restful-booker.cv-wide{display:none}}</style><defs><marker id="cv-restful-booker-wide-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="1200" height="630"/><rect class="stripe" width="16" height="630"/><text class="eyebrow" x="64" y="76">API AUTOMATION</text><text class="title" x="64" y="150">RESTful Booker</text><text class="title" x="64" y="214">TypeScript API</text><text class="title" x="64" y="278">Automation</text><text class="stack mute" x="64" y="334">Playwright · TypeScript · REST API</text><text class="count" x="1136" y="200" text-anchor="end">47</text><text class="countl" x="1136" y="246" text-anchor="end">test definitions</text><text class="sub mute" x="1136" y="286" text-anchor="end">9 spec files</text><rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/><rect class="node" x="64" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="88" cy="396" r="14"/><text class="num" x="88" y="396" text-anchor="middle" dominant-baseline="central">1</text><text class="nl" x="154" y="442" text-anchor="middle">Auth</text><text class="ns mute" x="154" y="468" text-anchor="middle">POST /auth</text><path class="arrow" d="M250 426H277" marker-end="url(#cv-restful-booker-wide-a)"/><rect class="node" x="287" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="311" cy="396" r="14"/><text class="num" x="311" y="396" text-anchor="middle" dominant-baseline="central">2</text><text class="nl" x="377" y="442" text-anchor="middle">Create</text><text class="ns mute" x="377" y="468" text-anchor="middle">POST</text><path class="arrow" d="M473 426H500" marker-end="url(#cv-restful-booker-wide-a)"/><rect class="node" x="510" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="534" cy="396" r="14"/><text class="num" x="534" y="396" text-anchor="middle" dominant-baseline="central">3</text><text class="nl" x="600" y="442" text-anchor="middle">Read</text><text class="ns mute" x="600" y="468" text-anchor="middle">GET</text><path class="arrow" d="M696 426H723" marker-end="url(#cv-restful-booker-wide-a)"/><rect class="node" x="733" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="757" cy="396" r="14"/><text class="num" x="757" y="396" text-anchor="middle" dominant-baseline="central">4</text><text class="nl" x="823" y="442" text-anchor="middle">Update</text><text class="ns mute" x="823" y="468" text-anchor="middle">PUT · PATCH</text><path class="arrow" d="M919 426H946" marker-end="url(#cv-restful-booker-wide-a)"/><rect class="node" x="956" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="980" cy="396" r="14"/><text class="num" x="980" y="396" text-anchor="middle" dominant-baseline="central">5</text><text class="nl" x="1046" y="442" text-anchor="middle">Delete</text><text class="ns mute" x="1046" y="468" text-anchor="middle">DELETE</text><text class="cap mute" x="64" y="528">Booking lifecycle, negative cases and read-back checks</text><text class="dom mute" x="1136" y="598" text-anchor="end">sayedasif.com</text></svg><svg class="cv cv-restful-booker cv-narrow" viewBox="0 0 640 604" role="img" aria-labelledby="cv-restful-booker-narrow-t cv-restful-booker-narrow-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-restful-booker-narrow-t">RESTful Booker TypeScript API Automation: project cover</title><desc id="cv-restful-booker-narrow-d">Cover for RESTful Booker TypeScript API Automation: 47 test definitions (9 spec files). Booking lifecycle covered by the suite: authenticate, create, read, update with PUT and PATCH, delete. Built with Playwright, TypeScript, REST API.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
-:where(.cv-restful-booker){--cv-accent:#15803d;--cv-soft:#dcfce7}
-@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-restful-booker){--cv-accent:light-dark(#15803d,#4ade80);--cv-soft:light-dark(#dcfce7,#10331f)}}
+.cv-restful-booker.cv-wide .mute{fill:var(--cv-mute);font-weight:500}.cv-restful-booker.cv-wide .num{fill:var(--cv-on);font-family:var(--cv-mono);font-size:17px;font-weight:500}
+.cv-restful-booker.cv-wide .title{font-family:var(--cv-serif);font-weight:600;letter-spacing:-0.5px}.cv-restful-booker.cv-wide .count{font-family:var(--cv-mono);font-weight:500;letter-spacing:-2px}
+.cv-restful-booker.cv-wide .countl,.cv-restful-booker.cv-wide .sub,.cv-restful-booker.cv-wide .stack,.cv-restful-booker.cv-wide .dom,.cv-restful-booker.cv-wide .ns{font-family:var(--cv-mono);font-weight:400}
+.cv-restful-booker.cv-wide .eyebrow{fill:var(--cv-accent);font-family:var(--cv-mono);font-size:22px;font-weight:500;letter-spacing:2px}
+.cv-restful-booker.cv-wide .title{font-size:60px}.cv-restful-booker.cv-wide .count{fill:var(--cv-accent);font-size:148px}
+.cv-restful-booker.cv-wide .countl{font-size:26px}.cv-restful-booker.cv-wide .sub{font-size:22px}.cv-restful-booker.cv-wide .stack{font-size:23px}.cv-restful-booker.cv-wide .cap{font-size:25px;font-weight:500}.cv-restful-booker.cv-wide .dom{font-size:20px}
+.cv-restful-booker.cv-wide .nl{font-size:31px;font-weight:600}.cv-restful-booker.cv-wide .ns{font-size:19px}
+@container (max-width:559px){.cv-restful-booker.cv-wide{display:none}}</style><defs><marker id="cv-restful-booker-wide-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="1200" height="630"/><rect class="stripe" width="16" height="630"/><text class="eyebrow" x="64" y="76">API AUTOMATION</text><text class="title" x="64" y="150">RESTful Booker</text><text class="title" x="64" y="214">TypeScript API</text><text class="title" x="64" y="278">Automation</text><text class="stack mute" x="64" y="334">Playwright · TypeScript · REST API</text><text class="count" x="1136" y="200" text-anchor="end">47</text><text class="countl" x="1136" y="246" text-anchor="end">test definitions</text><text class="sub mute" x="1136" y="286" text-anchor="end">9 spec files</text><rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/><rect class="node" x="64" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="88" cy="396" r="14"/><text class="num" x="88" y="396" text-anchor="middle" dominant-baseline="central">1</text><text class="nl" x="154" y="442" text-anchor="middle">Auth</text><text class="ns mute" x="154" y="468" text-anchor="middle">POST /auth</text><path class="arrow" d="M250 426H277" marker-end="url(#cv-restful-booker-wide-a)"/><rect class="node" x="287" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="311" cy="396" r="14"/><text class="num" x="311" y="396" text-anchor="middle" dominant-baseline="central">2</text><text class="nl" x="377" y="442" text-anchor="middle">Create</text><text class="ns mute" x="377" y="468" text-anchor="middle">POST</text><path class="arrow" d="M473 426H500" marker-end="url(#cv-restful-booker-wide-a)"/><rect class="node" x="510" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="534" cy="396" r="14"/><text class="num" x="534" y="396" text-anchor="middle" dominant-baseline="central">3</text><text class="nl" x="600" y="442" text-anchor="middle">Read</text><text class="ns mute" x="600" y="468" text-anchor="middle">GET</text><path class="arrow" d="M696 426H723" marker-end="url(#cv-restful-booker-wide-a)"/><rect class="node" x="733" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="757" cy="396" r="14"/><text class="num" x="757" y="396" text-anchor="middle" dominant-baseline="central">4</text><text class="nl" x="823" y="442" text-anchor="middle">Update</text><text class="ns mute" x="823" y="468" text-anchor="middle">PUT · PATCH</text><path class="arrow" d="M919 426H946" marker-end="url(#cv-restful-booker-wide-a)"/><rect class="node" x="956" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="980" cy="396" r="14"/><text class="num" x="980" y="396" text-anchor="middle" dominant-baseline="central">5</text><text class="nl" x="1046" y="442" text-anchor="middle">Delete</text><text class="ns mute" x="1046" y="468" text-anchor="middle">DELETE</text><text class="cap mute" x="64" y="528">Booking lifecycle, negative cases and read-back checks</text><text class="dom mute" x="1136" y="598" text-anchor="end">sayedasif.com</text></svg><svg class="cv cv-restful-booker cv-narrow" viewBox="0 0 640 604" role="img" aria-labelledby="cv-restful-booker-narrow-t cv-restful-booker-narrow-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-restful-booker-narrow-t">RESTful Booker TypeScript API Automation: project cover</title><desc id="cv-restful-booker-narrow-d">Cover for RESTful Booker TypeScript API Automation: 47 test definitions (9 spec files). Booking lifecycle covered by the suite: authenticate, create, read, update with PUT and PATCH, delete. Built with Playwright, TypeScript, REST API.</desc><style>:where(.cv){font-family:"IBM Plex Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif;--cv-serif:"Source Serif 4",Georgia,serif;--cv-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;--cv-bg:#eff4f0;--cv-card:#fff;--cv-line:#b5c4bd;--cv-fg:#182522;--cv-mute:#53635f;--cv-on:#fff}
+:where(.cv-restful-booker){--cv-accent:#075e54;--cv-soft:#e5f3ef}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#eff4f0,#141d1a);--cv-card:light-dark(#fff,#1a2521);--cv-line:light-dark(#b5c4bd,#3e504a);--cv-fg:light-dark(#182522,#eef3f0);--cv-mute:light-dark(#53635f,#a3b3ad);--cv-on:light-dark(#fff,#0e1513)}:where(.cv-restful-booker){--cv-accent:light-dark(#075e54,#4fc7b4);--cv-soft:light-dark(#e5f3ef,#173029)}}
 .cv-restful-booker.cv-narrow{display:block;width:100%;height:auto}
 .cv-restful-booker.cv-narrow .bg{fill:var(--cv-bg)}.cv-restful-booker.cv-narrow .stripe{fill:var(--cv-accent)}.cv-restful-booker.cv-narrow .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
 .cv-restful-booker.cv-narrow .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-restful-booker.cv-narrow .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
 .cv-restful-booker.cv-narrow .badge{fill:var(--cv-accent)}.cv-restful-booker.cv-narrow .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-restful-booker.cv-narrow .head{fill:var(--cv-accent)}
 .cv-restful-booker.cv-narrow text{fill:var(--cv-fg);font-weight:600}
-.cv-restful-booker.cv-narrow .mute{fill:var(--cv-mute);font-weight:500}.cv-restful-booker.cv-narrow .num{fill:var(--cv-on);font-size:18px;font-weight:800}
-.cv-restful-booker.cv-narrow .title{font-size:54px;font-weight:800}.cv-restful-booker.cv-narrow .count{fill:var(--cv-accent);font-size:100px;font-weight:800}
-.cv-restful-booker.cv-narrow .countl{font-size:32px}.cv-restful-booker.cv-narrow .sub{font-size:24px}.cv-restful-booker.cv-narrow .stack{font-size:22px}.cv-restful-booker.cv-narrow .nl{font-size:30px;font-weight:700}
+.cv-restful-booker.cv-narrow .mute{fill:var(--cv-mute);font-weight:500}.cv-restful-booker.cv-narrow .num{fill:var(--cv-on);font-family:var(--cv-mono);font-size:17px;font-weight:500}
+.cv-restful-booker.cv-narrow .title{font-family:var(--cv-serif);font-weight:600;letter-spacing:-0.5px}.cv-restful-booker.cv-narrow .count{font-family:var(--cv-mono);font-weight:500;letter-spacing:-2px}
+.cv-restful-booker.cv-narrow .countl,.cv-restful-booker.cv-narrow .sub,.cv-restful-booker.cv-narrow .stack,.cv-restful-booker.cv-narrow .dom,.cv-restful-booker.cv-narrow .ns{font-family:var(--cv-mono);font-weight:400}
+.cv-restful-booker.cv-narrow .title{font-size:54px}.cv-restful-booker.cv-narrow .count{fill:var(--cv-accent);font-size:100px}
+.cv-restful-booker.cv-narrow .countl{font-size:26px}.cv-restful-booker.cv-narrow .sub{font-size:22px}.cv-restful-booker.cv-narrow .stack{font-size:20px}.cv-restful-booker.cv-narrow .nl{font-size:30px;font-weight:600}
 .cv-restful-booker.cv-narrow{display:none}
-@container (max-width:559px){.cv-restful-booker.cv-narrow{display:block}}</style><defs><marker id="cv-restful-booker-narrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="640" height="604"/><rect class="stripe" width="14" height="604"/><text class="title" x="40" y="88">RESTful Booker</text><text class="title" x="40" y="146">TypeScript API</text><text class="title" x="40" y="204">Automation</text><text class="count" x="40" y="304">47</text><text class="countl" x="174" y="304">test definitions</text><text class="sub mute" x="40" y="344">9 spec files</text><text class="stack mute" x="40" y="384">Playwright · TypeScript · REST API</text><rect class="node" x="40" y="414" width="168" height="72" rx="12"/><text class="nl" x="124" y="461" text-anchor="middle">Auth</text><path class="arrow" d="M211 450H238" marker-end="url(#cv-restful-booker-narrow-a)"/><rect class="node" x="242" y="414" width="168" height="72" rx="12"/><text class="nl" x="326" y="461" text-anchor="middle">Create</text><path class="arrow" d="M413 450H440" marker-end="url(#cv-restful-booker-narrow-a)"/><rect class="node" x="444" y="414" width="168" height="72" rx="12"/><text class="nl" x="528" y="461" text-anchor="middle">Read</text><rect class="node" x="40" y="508" width="168" height="72" rx="12"/><text class="nl" x="124" y="555" text-anchor="middle">Update</text><path class="arrow" d="M211 544H238" marker-end="url(#cv-restful-booker-narrow-a)"/><rect class="node" x="242" y="508" width="168" height="72" rx="12"/><text class="nl" x="326" y="555" text-anchor="middle">Delete</text><path class="arrow" d="M528 488V498H124V506" marker-end="url(#cv-restful-booker-narrow-a)"/></svg><!-- /cover:restful-booker --></div>
-                        <span class="featured-cat">API Automation</span>
-                        <h3>RESTful Booker TypeScript API Automation</h3>
-                        <p>
-                            Playwright and TypeScript tests for a public booking API: authentication, create,
-                            retrieve, full and partial update, delete, negative cases and multi-step workflows,
-                            built on reusable API client classes.
-                        </p>
-                        <p class="featured-meta">47 test definitions</p>
-                        <div class="tech-stack">
-                            <span class="tech-pill">Playwright Test</span>
-                            <span class="tech-pill">TypeScript</span>
-                            <span class="tech-pill">REST API</span>
-                        </div>
-                        <div class="featured-links">
-                            <a href="/projects/restful-booker-api-automation/">Case study</a>
-                            <a href="https://github.com/Open83/restful-booker-api-automation" target="_blank" rel="noopener noreferrer">GitHub</a>
+@container (max-width:559px){.cv-restful-booker.cv-narrow{display:block}}</style><defs><marker id="cv-restful-booker-narrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="640" height="604"/><rect class="stripe" width="14" height="604"/><text class="title" x="40" y="88">RESTful Booker</text><text class="title" x="40" y="146">TypeScript API</text><text class="title" x="40" y="204">Automation</text><text class="count" x="40" y="304">47</text><text class="countl" x="176" y="304">test definitions</text><text class="sub mute" x="40" y="344">9 spec files</text><text class="stack mute" x="40" y="384">Playwright · TypeScript · REST API</text><rect class="node" x="40" y="414" width="168" height="72" rx="12"/><text class="nl" x="124" y="461" text-anchor="middle">Auth</text><path class="arrow" d="M211 450H238" marker-end="url(#cv-restful-booker-narrow-a)"/><rect class="node" x="242" y="414" width="168" height="72" rx="12"/><text class="nl" x="326" y="461" text-anchor="middle">Create</text><path class="arrow" d="M413 450H440" marker-end="url(#cv-restful-booker-narrow-a)"/><rect class="node" x="444" y="414" width="168" height="72" rx="12"/><text class="nl" x="528" y="461" text-anchor="middle">Read</text><rect class="node" x="40" y="508" width="168" height="72" rx="12"/><text class="nl" x="124" y="555" text-anchor="middle">Update</text><path class="arrow" d="M211 544H238" marker-end="url(#cv-restful-booker-narrow-a)"/><rect class="node" x="242" y="508" width="168" height="72" rx="12"/><text class="nl" x="326" y="555" text-anchor="middle">Delete</text><path class="arrow" d="M528 488V498H124V506" marker-end="url(#cv-restful-booker-narrow-a)"/></svg><!-- /cover:restful-booker --></div>
+                        <div class="featured-body">
+                            <span class="featured-cat">API Automation</span>
+                            <h3>RESTful Booker TypeScript API Automation</h3>
+                            <p>
+                                Playwright and TypeScript tests for a public booking API: authentication, create,
+                                retrieve, full and partial update, delete, negative cases and multi-step workflows,
+                                built on reusable API client classes.
+                            </p>
+                            <p class="featured-meta">47 test definitions</p>
+                            <div class="tech-stack">
+                                <span class="tech-pill">Playwright Test</span>
+                                <span class="tech-pill">TypeScript</span>
+                                <span class="tech-pill">REST API</span>
+                            </div>
+                            <div class="featured-links">
+                                <a href="/projects/restful-booker-api-automation/">Case study</a>
+                                <a href="https://github.com/Open83/restful-booker-api-automation" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            </div>
                         </div>
                     </article>
 
                     <article class="featured-card">
-                        <div class="cover-wrap"><!-- cover:erpnext --><svg class="cv cv-erpnext cv-wide" viewBox="0 0 1200 630" role="img" aria-labelledby="cv-erpnext-wide-t cv-erpnext-wide-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-erpnext-wide-t">ERPNext QA Automation: project cover</title><desc id="cv-erpnext-wide-d">Cover for ERPNext QA Automation: 6 test definitions (5 UI + 1 auth setup). Workflow covered by the suite: reuse the saved login, open a new document, select an item through the autocomplete, set quantity and rate, save and verify. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
-:where(.cv-erpnext){--cv-accent:#b45309;--cv-soft:#fef3c7}
-@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-erpnext){--cv-accent:light-dark(#b45309,#fbbf24);--cv-soft:light-dark(#fef3c7,#3a2a0c)}}
+                        <div class="cover-wrap"><!-- cover:erpnext --><svg class="cv cv-erpnext cv-wide" viewBox="0 0 1200 630" role="img" aria-labelledby="cv-erpnext-wide-t cv-erpnext-wide-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-erpnext-wide-t">ERPNext QA Automation: project cover</title><desc id="cv-erpnext-wide-d">Cover for ERPNext QA Automation: 6 test definitions (5 UI + 1 auth setup). Workflow covered by the suite: reuse the saved login, open a new document, select an item through the autocomplete, set quantity and rate, save and verify. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:"IBM Plex Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif;--cv-serif:"Source Serif 4",Georgia,serif;--cv-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;--cv-bg:#eff4f0;--cv-card:#fff;--cv-line:#b5c4bd;--cv-fg:#182522;--cv-mute:#53635f;--cv-on:#fff}
+:where(.cv-erpnext){--cv-accent:#075e54;--cv-soft:#e5f3ef}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#eff4f0,#141d1a);--cv-card:light-dark(#fff,#1a2521);--cv-line:light-dark(#b5c4bd,#3e504a);--cv-fg:light-dark(#182522,#eef3f0);--cv-mute:light-dark(#53635f,#a3b3ad);--cv-on:light-dark(#fff,#0e1513)}:where(.cv-erpnext){--cv-accent:light-dark(#075e54,#4fc7b4);--cv-soft:light-dark(#e5f3ef,#173029)}}
 .cv-erpnext.cv-wide{display:block;width:100%;height:auto}
 .cv-erpnext.cv-wide .bg{fill:var(--cv-bg)}.cv-erpnext.cv-wide .stripe{fill:var(--cv-accent)}.cv-erpnext.cv-wide .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
 .cv-erpnext.cv-wide .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-erpnext.cv-wide .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
 .cv-erpnext.cv-wide .badge{fill:var(--cv-accent)}.cv-erpnext.cv-wide .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-erpnext.cv-wide .head{fill:var(--cv-accent)}
 .cv-erpnext.cv-wide text{fill:var(--cv-fg);font-weight:600}
-.cv-erpnext.cv-wide .mute{fill:var(--cv-mute);font-weight:500}.cv-erpnext.cv-wide .num{fill:var(--cv-on);font-size:18px;font-weight:800}
-.cv-erpnext.cv-wide .eyebrow{fill:var(--cv-accent);font-size:24px;font-weight:700;letter-spacing:2.4px}
-.cv-erpnext.cv-wide .title{font-size:58px;font-weight:800}.cv-erpnext.cv-wide .count{fill:var(--cv-accent);font-size:150px;font-weight:800}
-.cv-erpnext.cv-wide .countl{font-size:32px}.cv-erpnext.cv-wide .sub{font-size:26px}.cv-erpnext.cv-wide .stack{font-size:28px}.cv-erpnext.cv-wide .cap{font-size:26px}.cv-erpnext.cv-wide .dom{font-size:22px}
-.cv-erpnext.cv-wide .nl{font-size:32px;font-weight:700}.cv-erpnext.cv-wide .ns{font-size:21px}
-@container (max-width:559px){.cv-erpnext.cv-wide{display:none}}</style><defs><marker id="cv-erpnext-wide-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="1200" height="630"/><rect class="stripe" width="16" height="630"/><text class="eyebrow" x="64" y="76">UI TEST AUTOMATION · ERP</text><text class="title" x="64" y="150">ERPNext</text><text class="title" x="64" y="214">QA Automation</text><text class="stack mute" x="64" y="270">Playwright · Page Object Model · GitHub Actions</text><text class="count" x="1136" y="200" text-anchor="end">6</text><text class="countl" x="1136" y="246" text-anchor="end">test definitions</text><text class="sub mute" x="1136" y="286" text-anchor="end">5 UI + 1 auth setup</text><rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/><rect class="node" x="64" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="88" cy="396" r="14"/><text class="num" x="88" y="396" text-anchor="middle" dominant-baseline="central">1</text><text class="nl" x="154" y="442" text-anchor="middle">Auth</text><text class="ns mute" x="154" y="468" text-anchor="middle">saved login</text><path class="arrow" d="M250 426H277" marker-end="url(#cv-erpnext-wide-a)"/><rect class="node" x="287" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="311" cy="396" r="14"/><text class="num" x="311" y="396" text-anchor="middle" dominant-baseline="central">2</text><text class="nl" x="377" y="442" text-anchor="middle">Form</text><text class="ns mute" x="377" y="468" text-anchor="middle">new document</text><path class="arrow" d="M473 426H500" marker-end="url(#cv-erpnext-wide-a)"/><rect class="node hot" x="510" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="534" cy="396" r="14"/><text class="num" x="534" y="396" text-anchor="middle" dominant-baseline="central">3</text><text class="nl" x="600" y="442" text-anchor="middle">Item</text><text class="ns mute" x="600" y="468" text-anchor="middle">autocomplete</text><path class="arrow" d="M696 426H723" marker-end="url(#cv-erpnext-wide-a)"/><rect class="node" x="733" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="757" cy="396" r="14"/><text class="num" x="757" y="396" text-anchor="middle" dominant-baseline="central">4</text><text class="nl" x="823" y="442" text-anchor="middle">Qty</text><text class="ns mute" x="823" y="468" text-anchor="middle">and rate</text><path class="arrow" d="M919 426H946" marker-end="url(#cv-erpnext-wide-a)"/><rect class="node" x="956" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="980" cy="396" r="14"/><text class="num" x="980" y="396" text-anchor="middle" dominant-baseline="central">5</text><text class="nl" x="1046" y="442" text-anchor="middle">Save</text><text class="ns mute" x="1046" y="468" text-anchor="middle">then verify</text><text class="cap mute" x="64" y="528">Material Request · Quotation · Sales Order</text><text class="dom mute" x="1136" y="598" text-anchor="end">sayedasif.com</text></svg><svg class="cv cv-erpnext cv-narrow" viewBox="0 0 640 604" role="img" aria-labelledby="cv-erpnext-narrow-t cv-erpnext-narrow-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-erpnext-narrow-t">ERPNext QA Automation: project cover</title><desc id="cv-erpnext-narrow-d">Cover for ERPNext QA Automation: 6 test definitions (5 UI + 1 auth setup). Workflow covered by the suite: reuse the saved login, open a new document, select an item through the autocomplete, set quantity and rate, save and verify. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
-:where(.cv-erpnext){--cv-accent:#b45309;--cv-soft:#fef3c7}
-@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-erpnext){--cv-accent:light-dark(#b45309,#fbbf24);--cv-soft:light-dark(#fef3c7,#3a2a0c)}}
+.cv-erpnext.cv-wide .mute{fill:var(--cv-mute);font-weight:500}.cv-erpnext.cv-wide .num{fill:var(--cv-on);font-family:var(--cv-mono);font-size:17px;font-weight:500}
+.cv-erpnext.cv-wide .title{font-family:var(--cv-serif);font-weight:600;letter-spacing:-0.5px}.cv-erpnext.cv-wide .count{font-family:var(--cv-mono);font-weight:500;letter-spacing:-2px}
+.cv-erpnext.cv-wide .countl,.cv-erpnext.cv-wide .sub,.cv-erpnext.cv-wide .stack,.cv-erpnext.cv-wide .dom,.cv-erpnext.cv-wide .ns{font-family:var(--cv-mono);font-weight:400}
+.cv-erpnext.cv-wide .eyebrow{fill:var(--cv-accent);font-family:var(--cv-mono);font-size:22px;font-weight:500;letter-spacing:2px}
+.cv-erpnext.cv-wide .title{font-size:60px}.cv-erpnext.cv-wide .count{fill:var(--cv-accent);font-size:148px}
+.cv-erpnext.cv-wide .countl{font-size:26px}.cv-erpnext.cv-wide .sub{font-size:22px}.cv-erpnext.cv-wide .stack{font-size:23px}.cv-erpnext.cv-wide .cap{font-size:25px;font-weight:500}.cv-erpnext.cv-wide .dom{font-size:20px}
+.cv-erpnext.cv-wide .nl{font-size:31px;font-weight:600}.cv-erpnext.cv-wide .ns{font-size:19px}
+@container (max-width:559px){.cv-erpnext.cv-wide{display:none}}</style><defs><marker id="cv-erpnext-wide-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="1200" height="630"/><rect class="stripe" width="16" height="630"/><text class="eyebrow" x="64" y="76">UI TEST AUTOMATION · ERP</text><text class="title" x="64" y="150">ERPNext</text><text class="title" x="64" y="214">QA Automation</text><text class="stack mute" x="64" y="270">Playwright · Page Object Model · GitHub Actions</text><text class="count" x="1136" y="200" text-anchor="end">6</text><text class="countl" x="1136" y="246" text-anchor="end">test definitions</text><text class="sub mute" x="1136" y="286" text-anchor="end">5 UI + 1 auth setup</text><rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/><rect class="node" x="64" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="88" cy="396" r="14"/><text class="num" x="88" y="396" text-anchor="middle" dominant-baseline="central">1</text><text class="nl" x="154" y="442" text-anchor="middle">Auth</text><text class="ns mute" x="154" y="468" text-anchor="middle">saved login</text><path class="arrow" d="M250 426H277" marker-end="url(#cv-erpnext-wide-a)"/><rect class="node" x="287" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="311" cy="396" r="14"/><text class="num" x="311" y="396" text-anchor="middle" dominant-baseline="central">2</text><text class="nl" x="377" y="442" text-anchor="middle">Form</text><text class="ns mute" x="377" y="468" text-anchor="middle">new document</text><path class="arrow" d="M473 426H500" marker-end="url(#cv-erpnext-wide-a)"/><rect class="node hot" x="510" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="534" cy="396" r="14"/><text class="num" x="534" y="396" text-anchor="middle" dominant-baseline="central">3</text><text class="nl" x="600" y="442" text-anchor="middle">Item</text><text class="ns mute" x="600" y="468" text-anchor="middle">autocomplete</text><path class="arrow" d="M696 426H723" marker-end="url(#cv-erpnext-wide-a)"/><rect class="node" x="733" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="757" cy="396" r="14"/><text class="num" x="757" y="396" text-anchor="middle" dominant-baseline="central">4</text><text class="nl" x="823" y="442" text-anchor="middle">Qty</text><text class="ns mute" x="823" y="468" text-anchor="middle">and rate</text><path class="arrow" d="M919 426H946" marker-end="url(#cv-erpnext-wide-a)"/><rect class="node" x="956" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="980" cy="396" r="14"/><text class="num" x="980" y="396" text-anchor="middle" dominant-baseline="central">5</text><text class="nl" x="1046" y="442" text-anchor="middle">Save</text><text class="ns mute" x="1046" y="468" text-anchor="middle">then verify</text><text class="cap mute" x="64" y="528">Material Request · Quotation · Sales Order</text><text class="dom mute" x="1136" y="598" text-anchor="end">sayedasif.com</text></svg><svg class="cv cv-erpnext cv-narrow" viewBox="0 0 640 604" role="img" aria-labelledby="cv-erpnext-narrow-t cv-erpnext-narrow-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-erpnext-narrow-t">ERPNext QA Automation: project cover</title><desc id="cv-erpnext-narrow-d">Cover for ERPNext QA Automation: 6 test definitions (5 UI + 1 auth setup). Workflow covered by the suite: reuse the saved login, open a new document, select an item through the autocomplete, set quantity and rate, save and verify. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:"IBM Plex Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif;--cv-serif:"Source Serif 4",Georgia,serif;--cv-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;--cv-bg:#eff4f0;--cv-card:#fff;--cv-line:#b5c4bd;--cv-fg:#182522;--cv-mute:#53635f;--cv-on:#fff}
+:where(.cv-erpnext){--cv-accent:#075e54;--cv-soft:#e5f3ef}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#eff4f0,#141d1a);--cv-card:light-dark(#fff,#1a2521);--cv-line:light-dark(#b5c4bd,#3e504a);--cv-fg:light-dark(#182522,#eef3f0);--cv-mute:light-dark(#53635f,#a3b3ad);--cv-on:light-dark(#fff,#0e1513)}:where(.cv-erpnext){--cv-accent:light-dark(#075e54,#4fc7b4);--cv-soft:light-dark(#e5f3ef,#173029)}}
 .cv-erpnext.cv-narrow{display:block;width:100%;height:auto}
 .cv-erpnext.cv-narrow .bg{fill:var(--cv-bg)}.cv-erpnext.cv-narrow .stripe{fill:var(--cv-accent)}.cv-erpnext.cv-narrow .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
 .cv-erpnext.cv-narrow .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-erpnext.cv-narrow .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
 .cv-erpnext.cv-narrow .badge{fill:var(--cv-accent)}.cv-erpnext.cv-narrow .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-erpnext.cv-narrow .head{fill:var(--cv-accent)}
 .cv-erpnext.cv-narrow text{fill:var(--cv-fg);font-weight:600}
-.cv-erpnext.cv-narrow .mute{fill:var(--cv-mute);font-weight:500}.cv-erpnext.cv-narrow .num{fill:var(--cv-on);font-size:18px;font-weight:800}
-.cv-erpnext.cv-narrow .title{font-size:54px;font-weight:800}.cv-erpnext.cv-narrow .count{fill:var(--cv-accent);font-size:100px;font-weight:800}
-.cv-erpnext.cv-narrow .countl{font-size:32px}.cv-erpnext.cv-narrow .sub{font-size:24px}.cv-erpnext.cv-narrow .stack{font-size:22px}.cv-erpnext.cv-narrow .nl{font-size:30px;font-weight:700}
+.cv-erpnext.cv-narrow .mute{fill:var(--cv-mute);font-weight:500}.cv-erpnext.cv-narrow .num{fill:var(--cv-on);font-family:var(--cv-mono);font-size:17px;font-weight:500}
+.cv-erpnext.cv-narrow .title{font-family:var(--cv-serif);font-weight:600;letter-spacing:-0.5px}.cv-erpnext.cv-narrow .count{font-family:var(--cv-mono);font-weight:500;letter-spacing:-2px}
+.cv-erpnext.cv-narrow .countl,.cv-erpnext.cv-narrow .sub,.cv-erpnext.cv-narrow .stack,.cv-erpnext.cv-narrow .dom,.cv-erpnext.cv-narrow .ns{font-family:var(--cv-mono);font-weight:400}
+.cv-erpnext.cv-narrow .title{font-size:54px}.cv-erpnext.cv-narrow .count{fill:var(--cv-accent);font-size:100px}
+.cv-erpnext.cv-narrow .countl{font-size:26px}.cv-erpnext.cv-narrow .sub{font-size:22px}.cv-erpnext.cv-narrow .stack{font-size:20px}.cv-erpnext.cv-narrow .nl{font-size:30px;font-weight:600}
 .cv-erpnext.cv-narrow{display:none}
-@container (max-width:559px){.cv-erpnext.cv-narrow{display:block}}</style><defs><marker id="cv-erpnext-narrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="640" height="604"/><rect class="stripe" width="14" height="604"/><text class="title" x="40" y="88">ERPNext</text><text class="title" x="40" y="146">QA Automation</text><text class="count" x="40" y="304">6</text><text class="countl" x="116" y="304">test definitions</text><text class="sub mute" x="40" y="344">5 UI + 1 auth setup</text><text class="stack mute" x="40" y="384">Playwright · Page Object Model · GitHub Actions</text><rect class="node" x="40" y="414" width="168" height="72" rx="12"/><text class="nl" x="124" y="461" text-anchor="middle">Auth</text><path class="arrow" d="M211 450H238" marker-end="url(#cv-erpnext-narrow-a)"/><rect class="node" x="242" y="414" width="168" height="72" rx="12"/><text class="nl" x="326" y="461" text-anchor="middle">Form</text><path class="arrow" d="M413 450H440" marker-end="url(#cv-erpnext-narrow-a)"/><rect class="node hot" x="444" y="414" width="168" height="72" rx="12"/><text class="nl" x="528" y="461" text-anchor="middle">Item</text><rect class="node" x="40" y="508" width="168" height="72" rx="12"/><text class="nl" x="124" y="555" text-anchor="middle">Qty</text><path class="arrow" d="M211 544H238" marker-end="url(#cv-erpnext-narrow-a)"/><rect class="node" x="242" y="508" width="168" height="72" rx="12"/><text class="nl" x="326" y="555" text-anchor="middle">Save</text><path class="arrow" d="M528 488V498H124V506" marker-end="url(#cv-erpnext-narrow-a)"/></svg><!-- /cover:erpnext --></div>
-                        <span class="featured-cat">UI Test Automation &middot; ERP</span>
-                        <h3>ERPNext QA Automation</h3>
-                        <p>
-                            Playwright UI tests for three ERPNext workflows (Material Request, Quotation and
-                            Sales Order), built with Page Objects and run in GitHub Actions. Includes an
-                            investigation into unreliable autocomplete selection.
-                        </p>
-                        <p class="featured-note">
-                            The hosted test instance is offline, so the suite cannot run today. Last green CI run: 4 September 2026.
-                        </p>
-                        <p class="featured-meta">6 test definitions &middot; 5 UI, 1 auth setup</p>
-                        <div class="tech-stack">
-                            <span class="tech-pill">Playwright</span>
-                            <span class="tech-pill">Page Object Model</span>
-                            <span class="tech-pill">GitHub Actions</span>
-                        </div>
-                        <div class="featured-links">
-                            <a href="/projects/erpnext-qa-automation/">Case study</a>
-                            <a href="https://github.com/Open83/ERPNext-QA-Automation" target="_blank" rel="noopener noreferrer">GitHub</a>
+@container (max-width:559px){.cv-erpnext.cv-narrow{display:block}}</style><defs><marker id="cv-erpnext-narrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="640" height="604"/><rect class="stripe" width="14" height="604"/><text class="title" x="40" y="88">ERPNext</text><text class="title" x="40" y="146">QA Automation</text><text class="count" x="40" y="304">6</text><text class="countl" x="118" y="304">test definitions</text><text class="sub mute" x="40" y="344">5 UI + 1 auth setup</text><text class="stack mute" x="40" y="384">Playwright · Page Object Model · GitHub Actions</text><rect class="node" x="40" y="414" width="168" height="72" rx="12"/><text class="nl" x="124" y="461" text-anchor="middle">Auth</text><path class="arrow" d="M211 450H238" marker-end="url(#cv-erpnext-narrow-a)"/><rect class="node" x="242" y="414" width="168" height="72" rx="12"/><text class="nl" x="326" y="461" text-anchor="middle">Form</text><path class="arrow" d="M413 450H440" marker-end="url(#cv-erpnext-narrow-a)"/><rect class="node hot" x="444" y="414" width="168" height="72" rx="12"/><text class="nl" x="528" y="461" text-anchor="middle">Item</text><rect class="node" x="40" y="508" width="168" height="72" rx="12"/><text class="nl" x="124" y="555" text-anchor="middle">Qty</text><path class="arrow" d="M211 544H238" marker-end="url(#cv-erpnext-narrow-a)"/><rect class="node" x="242" y="508" width="168" height="72" rx="12"/><text class="nl" x="326" y="555" text-anchor="middle">Save</text><path class="arrow" d="M528 488V498H124V506" marker-end="url(#cv-erpnext-narrow-a)"/></svg><!-- /cover:erpnext --></div>
+                        <div class="featured-body">
+                            <span class="featured-cat">UI Test Automation &middot; ERP</span>
+                            <h3>ERPNext QA Automation</h3>
+                            <p>
+                                Playwright UI tests for three ERPNext workflows (Material Request, Quotation and
+                                Sales Order), built with Page Objects and run in GitHub Actions. Includes an
+                                investigation into unreliable autocomplete selection.
+                            </p>
+                            <p class="featured-note">
+                                The hosted test instance is offline, so the suite cannot run today. Last green CI run: 4 September 2026.
+                            </p>
+                            <p class="featured-meta">6 test definitions &middot; 5 UI, 1 auth setup</p>
+                            <div class="tech-stack">
+                                <span class="tech-pill">Playwright</span>
+                                <span class="tech-pill">Page Object Model</span>
+                                <span class="tech-pill">GitHub Actions</span>
+                            </div>
+                            <div class="featured-links">
+                                <a href="/projects/erpnext-qa-automation/">Case study</a>
+                                <a href="https://github.com/Open83/ERPNext-QA-Automation" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            </div>
                         </div>
                     </article>
 
                     <article class="featured-card">
-                        <div class="cover-wrap"><!-- cover:automation-exercise --><svg class="cv cv-automation-exercise cv-wide" viewBox="0 0 1200 630" role="img" aria-labelledby="cv-automation-exercise-wide-t cv-automation-exercise-wide-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-automation-exercise-wide-t">Automation Exercise: project cover</title><desc id="cv-automation-exercise-wide-d">Cover for Automation Exercise: 26 test definitions (16 API + 10 UI). Shopping flow covered by the suite: log in or sign up, browse products, add to and remove from the cart, review the order items, check out. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
-:where(.cv-automation-exercise){--cv-accent:#314259;--cv-soft:#e8eef5}
-@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-automation-exercise){--cv-accent:light-dark(#314259,#9db4d3);--cv-soft:light-dark(#e8eef5,#22344b)}}
+                        <div class="cover-wrap"><!-- cover:automation-exercise --><svg class="cv cv-automation-exercise cv-wide" viewBox="0 0 1200 630" role="img" aria-labelledby="cv-automation-exercise-wide-t cv-automation-exercise-wide-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-automation-exercise-wide-t">Automation Exercise: project cover</title><desc id="cv-automation-exercise-wide-d">Cover for Automation Exercise: 26 test definitions (16 API + 10 UI). Shopping flow covered by the suite: log in or sign up, browse products, add to and remove from the cart, review the order items, check out. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:"IBM Plex Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif;--cv-serif:"Source Serif 4",Georgia,serif;--cv-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;--cv-bg:#eff4f0;--cv-card:#fff;--cv-line:#b5c4bd;--cv-fg:#182522;--cv-mute:#53635f;--cv-on:#fff}
+:where(.cv-automation-exercise){--cv-accent:#075e54;--cv-soft:#e5f3ef}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#eff4f0,#141d1a);--cv-card:light-dark(#fff,#1a2521);--cv-line:light-dark(#b5c4bd,#3e504a);--cv-fg:light-dark(#182522,#eef3f0);--cv-mute:light-dark(#53635f,#a3b3ad);--cv-on:light-dark(#fff,#0e1513)}:where(.cv-automation-exercise){--cv-accent:light-dark(#075e54,#4fc7b4);--cv-soft:light-dark(#e5f3ef,#173029)}}
 .cv-automation-exercise.cv-wide{display:block;width:100%;height:auto}
 .cv-automation-exercise.cv-wide .bg{fill:var(--cv-bg)}.cv-automation-exercise.cv-wide .stripe{fill:var(--cv-accent)}.cv-automation-exercise.cv-wide .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
 .cv-automation-exercise.cv-wide .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-automation-exercise.cv-wide .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
 .cv-automation-exercise.cv-wide .badge{fill:var(--cv-accent)}.cv-automation-exercise.cv-wide .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-automation-exercise.cv-wide .head{fill:var(--cv-accent)}
 .cv-automation-exercise.cv-wide text{fill:var(--cv-fg);font-weight:600}
-.cv-automation-exercise.cv-wide .mute{fill:var(--cv-mute);font-weight:500}.cv-automation-exercise.cv-wide .num{fill:var(--cv-on);font-size:18px;font-weight:800}
-.cv-automation-exercise.cv-wide .eyebrow{fill:var(--cv-accent);font-size:24px;font-weight:700;letter-spacing:2.4px}
-.cv-automation-exercise.cv-wide .title{font-size:58px;font-weight:800}.cv-automation-exercise.cv-wide .count{fill:var(--cv-accent);font-size:150px;font-weight:800}
-.cv-automation-exercise.cv-wide .countl{font-size:32px}.cv-automation-exercise.cv-wide .sub{font-size:26px}.cv-automation-exercise.cv-wide .stack{font-size:28px}.cv-automation-exercise.cv-wide .cap{font-size:26px}.cv-automation-exercise.cv-wide .dom{font-size:22px}
-.cv-automation-exercise.cv-wide .nl{font-size:32px;font-weight:700}.cv-automation-exercise.cv-wide .ns{font-size:21px}
-@container (max-width:559px){.cv-automation-exercise.cv-wide{display:none}}</style><defs><marker id="cv-automation-exercise-wide-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="1200" height="630"/><rect class="stripe" width="16" height="630"/><text class="eyebrow" x="64" y="76">PRACTICE-SITE PROJECT</text><text class="title" x="64" y="150">Automation</text><text class="title" x="64" y="214">Exercise</text><text class="stack mute" x="64" y="270">Playwright · Page Object Model · GitHub Actions</text><text class="count" x="1136" y="200" text-anchor="end">26</text><text class="countl" x="1136" y="246" text-anchor="end">test definitions</text><text class="sub mute" x="1136" y="286" text-anchor="end">16 API + 10 UI</text><rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/><rect class="node" x="64" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="88" cy="396" r="14"/><text class="num" x="88" y="396" text-anchor="middle" dominant-baseline="central">1</text><text class="nl" x="154" y="442" text-anchor="middle">Login</text><text class="ns mute" x="154" y="468" text-anchor="middle">or sign up</text><path class="arrow" d="M250 426H277" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="287" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="311" cy="396" r="14"/><text class="num" x="311" y="396" text-anchor="middle" dominant-baseline="central">2</text><text class="nl" x="377" y="442" text-anchor="middle">Browse</text><text class="ns mute" x="377" y="468" text-anchor="middle">products</text><path class="arrow" d="M473 426H500" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="510" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="534" cy="396" r="14"/><text class="num" x="534" y="396" text-anchor="middle" dominant-baseline="central">3</text><text class="nl" x="600" y="442" text-anchor="middle">Cart</text><text class="ns mute" x="600" y="468" text-anchor="middle">add, remove</text><path class="arrow" d="M696 426H723" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="733" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="757" cy="396" r="14"/><text class="num" x="757" y="396" text-anchor="middle" dominant-baseline="central">4</text><text class="nl" x="823" y="442" text-anchor="middle">Review</text><text class="ns mute" x="823" y="468" text-anchor="middle">order items</text><path class="arrow" d="M919 426H946" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="956" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="980" cy="396" r="14"/><text class="num" x="980" y="396" text-anchor="middle" dominant-baseline="central">5</text><text class="nl" x="1046" y="442" text-anchor="middle">Checkout</text><text class="ns mute" x="1046" y="468" text-anchor="middle">place order</text><text class="cap mute" x="64" y="528">UI flows plus API tests for account, authentication and products</text><text class="dom mute" x="1136" y="598" text-anchor="end">sayedasif.com</text></svg><svg class="cv cv-automation-exercise cv-narrow" viewBox="0 0 640 604" role="img" aria-labelledby="cv-automation-exercise-narrow-t cv-automation-exercise-narrow-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-automation-exercise-narrow-t">Automation Exercise: project cover</title><desc id="cv-automation-exercise-narrow-d">Cover for Automation Exercise: 26 test definitions (16 API + 10 UI). Shopping flow covered by the suite: log in or sign up, browse products, add to and remove from the cart, review the order items, check out. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:Inter,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--cv-bg:#f5f9fc;--cv-card:#fff;--cv-line:#9fb4c7;--cv-fg:#314259;--cv-mute:#5f6b79;--cv-on:#fff}
-:where(.cv-automation-exercise){--cv-accent:#314259;--cv-soft:#e8eef5}
-@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#f5f9fc,#0f1b2d);--cv-card:light-dark(#fff,#17263b);--cv-line:light-dark(#9fb4c7,#5a7596);--cv-fg:light-dark(#314259,#e8eef5);--cv-mute:light-dark(#5f6b79,#a9b8c9);--cv-on:light-dark(#fff,#0f1b2d)}:where(.cv-automation-exercise){--cv-accent:light-dark(#314259,#9db4d3);--cv-soft:light-dark(#e8eef5,#22344b)}}
+.cv-automation-exercise.cv-wide .mute{fill:var(--cv-mute);font-weight:500}.cv-automation-exercise.cv-wide .num{fill:var(--cv-on);font-family:var(--cv-mono);font-size:17px;font-weight:500}
+.cv-automation-exercise.cv-wide .title{font-family:var(--cv-serif);font-weight:600;letter-spacing:-0.5px}.cv-automation-exercise.cv-wide .count{font-family:var(--cv-mono);font-weight:500;letter-spacing:-2px}
+.cv-automation-exercise.cv-wide .countl,.cv-automation-exercise.cv-wide .sub,.cv-automation-exercise.cv-wide .stack,.cv-automation-exercise.cv-wide .dom,.cv-automation-exercise.cv-wide .ns{font-family:var(--cv-mono);font-weight:400}
+.cv-automation-exercise.cv-wide .eyebrow{fill:var(--cv-accent);font-family:var(--cv-mono);font-size:22px;font-weight:500;letter-spacing:2px}
+.cv-automation-exercise.cv-wide .title{font-size:60px}.cv-automation-exercise.cv-wide .count{fill:var(--cv-accent);font-size:148px}
+.cv-automation-exercise.cv-wide .countl{font-size:26px}.cv-automation-exercise.cv-wide .sub{font-size:22px}.cv-automation-exercise.cv-wide .stack{font-size:23px}.cv-automation-exercise.cv-wide .cap{font-size:25px;font-weight:500}.cv-automation-exercise.cv-wide .dom{font-size:20px}
+.cv-automation-exercise.cv-wide .nl{font-size:31px;font-weight:600}.cv-automation-exercise.cv-wide .ns{font-size:19px}
+@container (max-width:559px){.cv-automation-exercise.cv-wide{display:none}}</style><defs><marker id="cv-automation-exercise-wide-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="1200" height="630"/><rect class="stripe" width="16" height="630"/><text class="eyebrow" x="64" y="76">PRACTICE-SITE PROJECT</text><text class="title" x="64" y="150">Automation</text><text class="title" x="64" y="214">Exercise</text><text class="stack mute" x="64" y="270">Playwright · Page Object Model · GitHub Actions</text><text class="count" x="1136" y="200" text-anchor="end">26</text><text class="countl" x="1136" y="246" text-anchor="end">test definitions</text><text class="sub mute" x="1136" y="286" text-anchor="end">16 API + 10 UI</text><rect class="panel" x="40" y="348" width="1120" height="206" rx="20"/><rect class="node" x="64" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="88" cy="396" r="14"/><text class="num" x="88" y="396" text-anchor="middle" dominant-baseline="central">1</text><text class="nl" x="154" y="442" text-anchor="middle">Login</text><text class="ns mute" x="154" y="468" text-anchor="middle">or sign up</text><path class="arrow" d="M250 426H277" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="287" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="311" cy="396" r="14"/><text class="num" x="311" y="396" text-anchor="middle" dominant-baseline="central">2</text><text class="nl" x="377" y="442" text-anchor="middle">Browse</text><text class="ns mute" x="377" y="468" text-anchor="middle">products</text><path class="arrow" d="M473 426H500" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="510" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="534" cy="396" r="14"/><text class="num" x="534" y="396" text-anchor="middle" dominant-baseline="central">3</text><text class="nl" x="600" y="442" text-anchor="middle">Cart</text><text class="ns mute" x="600" y="468" text-anchor="middle">add, remove</text><path class="arrow" d="M696 426H723" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="733" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="757" cy="396" r="14"/><text class="num" x="757" y="396" text-anchor="middle" dominant-baseline="central">4</text><text class="nl" x="823" y="442" text-anchor="middle">Review</text><text class="ns mute" x="823" y="468" text-anchor="middle">order items</text><path class="arrow" d="M919 426H946" marker-end="url(#cv-automation-exercise-wide-a)"/><rect class="node" x="956" y="372" width="180" height="108" rx="12"/><circle class="badge" cx="980" cy="396" r="14"/><text class="num" x="980" y="396" text-anchor="middle" dominant-baseline="central">5</text><text class="nl" x="1046" y="442" text-anchor="middle">Checkout</text><text class="ns mute" x="1046" y="468" text-anchor="middle">place order</text><text class="cap mute" x="64" y="528">UI flows plus API tests for account, authentication and products</text><text class="dom mute" x="1136" y="598" text-anchor="end">sayedasif.com</text></svg><svg class="cv cv-automation-exercise cv-narrow" viewBox="0 0 640 604" role="img" aria-labelledby="cv-automation-exercise-narrow-t cv-automation-exercise-narrow-d" xmlns="http://www.w3.org/2000/svg" focusable="false"><title id="cv-automation-exercise-narrow-t">Automation Exercise: project cover</title><desc id="cv-automation-exercise-narrow-d">Cover for Automation Exercise: 26 test definitions (16 API + 10 UI). Shopping flow covered by the suite: log in or sign up, browse products, add to and remove from the cart, review the order items, check out. Built with Playwright, Page Object Model, GitHub Actions.</desc><style>:where(.cv){font-family:"IBM Plex Sans","Segoe UI",system-ui,Roboto,Arial,sans-serif;--cv-serif:"Source Serif 4",Georgia,serif;--cv-mono:"IBM Plex Mono",Consolas,ui-monospace,monospace;--cv-bg:#eff4f0;--cv-card:#fff;--cv-line:#b5c4bd;--cv-fg:#182522;--cv-mute:#53635f;--cv-on:#fff}
+:where(.cv-automation-exercise){--cv-accent:#075e54;--cv-soft:#e5f3ef}
+@supports (color:light-dark(#000,#fff)){:where(.cv){--cv-bg:light-dark(#eff4f0,#141d1a);--cv-card:light-dark(#fff,#1a2521);--cv-line:light-dark(#b5c4bd,#3e504a);--cv-fg:light-dark(#182522,#eef3f0);--cv-mute:light-dark(#53635f,#a3b3ad);--cv-on:light-dark(#fff,#0e1513)}:where(.cv-automation-exercise){--cv-accent:light-dark(#075e54,#4fc7b4);--cv-soft:light-dark(#e5f3ef,#173029)}}
 .cv-automation-exercise.cv-narrow{display:block;width:100%;height:auto}
 .cv-automation-exercise.cv-narrow .bg{fill:var(--cv-bg)}.cv-automation-exercise.cv-narrow .stripe{fill:var(--cv-accent)}.cv-automation-exercise.cv-narrow .panel{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}
 .cv-automation-exercise.cv-narrow .node{fill:var(--cv-card);stroke:var(--cv-line);stroke-width:2}.cv-automation-exercise.cv-narrow .hot{fill:var(--cv-soft);stroke:var(--cv-accent);stroke-width:3}
 .cv-automation-exercise.cv-narrow .badge{fill:var(--cv-accent)}.cv-automation-exercise.cv-narrow .arrow{stroke:var(--cv-accent);stroke-width:3;fill:none}.cv-automation-exercise.cv-narrow .head{fill:var(--cv-accent)}
 .cv-automation-exercise.cv-narrow text{fill:var(--cv-fg);font-weight:600}
-.cv-automation-exercise.cv-narrow .mute{fill:var(--cv-mute);font-weight:500}.cv-automation-exercise.cv-narrow .num{fill:var(--cv-on);font-size:18px;font-weight:800}
-.cv-automation-exercise.cv-narrow .title{font-size:54px;font-weight:800}.cv-automation-exercise.cv-narrow .count{fill:var(--cv-accent);font-size:100px;font-weight:800}
-.cv-automation-exercise.cv-narrow .countl{font-size:32px}.cv-automation-exercise.cv-narrow .sub{font-size:24px}.cv-automation-exercise.cv-narrow .stack{font-size:22px}.cv-automation-exercise.cv-narrow .nl{font-size:30px;font-weight:700}
+.cv-automation-exercise.cv-narrow .mute{fill:var(--cv-mute);font-weight:500}.cv-automation-exercise.cv-narrow .num{fill:var(--cv-on);font-family:var(--cv-mono);font-size:17px;font-weight:500}
+.cv-automation-exercise.cv-narrow .title{font-family:var(--cv-serif);font-weight:600;letter-spacing:-0.5px}.cv-automation-exercise.cv-narrow .count{font-family:var(--cv-mono);font-weight:500;letter-spacing:-2px}
+.cv-automation-exercise.cv-narrow .countl,.cv-automation-exercise.cv-narrow .sub,.cv-automation-exercise.cv-narrow .stack,.cv-automation-exercise.cv-narrow .dom,.cv-automation-exercise.cv-narrow .ns{font-family:var(--cv-mono);font-weight:400}
+.cv-automation-exercise.cv-narrow .title{font-size:54px}.cv-automation-exercise.cv-narrow .count{fill:var(--cv-accent);font-size:100px}
+.cv-automation-exercise.cv-narrow .countl{font-size:26px}.cv-automation-exercise.cv-narrow .sub{font-size:22px}.cv-automation-exercise.cv-narrow .stack{font-size:20px}.cv-automation-exercise.cv-narrow .nl{font-size:30px;font-weight:600}
 .cv-automation-exercise.cv-narrow{display:none}
-@container (max-width:559px){.cv-automation-exercise.cv-narrow{display:block}}</style><defs><marker id="cv-automation-exercise-narrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="640" height="604"/><rect class="stripe" width="14" height="604"/><text class="title" x="40" y="88">Automation</text><text class="title" x="40" y="146">Exercise</text><text class="count" x="40" y="304">26</text><text class="countl" x="174" y="304">test definitions</text><text class="sub mute" x="40" y="344">16 API + 10 UI</text><text class="stack mute" x="40" y="384">Playwright · Page Object Model · GitHub Actions</text><rect class="node" x="40" y="414" width="168" height="72" rx="12"/><text class="nl" x="124" y="461" text-anchor="middle">Login</text><path class="arrow" d="M211 450H238" marker-end="url(#cv-automation-exercise-narrow-a)"/><rect class="node" x="242" y="414" width="168" height="72" rx="12"/><text class="nl" x="326" y="461" text-anchor="middle">Browse</text><path class="arrow" d="M413 450H440" marker-end="url(#cv-automation-exercise-narrow-a)"/><rect class="node" x="444" y="414" width="168" height="72" rx="12"/><text class="nl" x="528" y="461" text-anchor="middle">Cart</text><rect class="node" x="40" y="508" width="168" height="72" rx="12"/><text class="nl" x="124" y="555" text-anchor="middle">Review</text><path class="arrow" d="M211 544H238" marker-end="url(#cv-automation-exercise-narrow-a)"/><rect class="node" x="242" y="508" width="168" height="72" rx="12"/><text class="nl" x="326" y="555" text-anchor="middle">Checkout</text><path class="arrow" d="M528 488V498H124V506" marker-end="url(#cv-automation-exercise-narrow-a)"/></svg><!-- /cover:automation-exercise --></div>
-                        <span class="featured-cat">Practice-Site Project &middot; UI &amp; API</span>
-                        <h3>Automation Exercise</h3>
-                        <p>
-                            Playwright UI and API tests against automationexercise.com, a public demo store built
-                            for test practice. Structured with the Page Object Model and run in GitHub Actions,
-                            backed by a test plan and a manual test case log.
-                        </p>
-                        <p class="featured-meta">26 test definitions &middot; 16 API, 10 UI</p>
-                        <div class="tech-stack">
-                            <span class="tech-pill">Playwright</span>
-                            <span class="tech-pill">Page Object Model</span>
-                            <span class="tech-pill">GitHub Actions</span>
-                        </div>
-                        <div class="featured-links">
-                            <a href="/projects/automation-exercise/">Case study</a>
-                            <a href="https://github.com/Open83/automationexercise" target="_blank" rel="noopener noreferrer">GitHub</a>
+@container (max-width:559px){.cv-automation-exercise.cv-narrow{display:block}}</style><defs><marker id="cv-automation-exercise-narrow-a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path class="head" d="M0 0L10 5L0 10z"/></marker></defs><rect class="bg" width="640" height="604"/><rect class="stripe" width="14" height="604"/><text class="title" x="40" y="88">Automation</text><text class="title" x="40" y="146">Exercise</text><text class="count" x="40" y="304">26</text><text class="countl" x="176" y="304">test definitions</text><text class="sub mute" x="40" y="344">16 API + 10 UI</text><text class="stack mute" x="40" y="384">Playwright · Page Object Model · GitHub Actions</text><rect class="node" x="40" y="414" width="168" height="72" rx="12"/><text class="nl" x="124" y="461" text-anchor="middle">Login</text><path class="arrow" d="M211 450H238" marker-end="url(#cv-automation-exercise-narrow-a)"/><rect class="node" x="242" y="414" width="168" height="72" rx="12"/><text class="nl" x="326" y="461" text-anchor="middle">Browse</text><path class="arrow" d="M413 450H440" marker-end="url(#cv-automation-exercise-narrow-a)"/><rect class="node" x="444" y="414" width="168" height="72" rx="12"/><text class="nl" x="528" y="461" text-anchor="middle">Cart</text><rect class="node" x="40" y="508" width="168" height="72" rx="12"/><text class="nl" x="124" y="555" text-anchor="middle">Review</text><path class="arrow" d="M211 544H238" marker-end="url(#cv-automation-exercise-narrow-a)"/><rect class="node" x="242" y="508" width="168" height="72" rx="12"/><text class="nl" x="326" y="555" text-anchor="middle">Checkout</text><path class="arrow" d="M528 488V498H124V506" marker-end="url(#cv-automation-exercise-narrow-a)"/></svg><!-- /cover:automation-exercise --></div>
+                        <div class="featured-body">
+                            <span class="featured-cat">Practice-Site Project &middot; UI &amp; API</span>
+                            <h3>Automation Exercise</h3>
+                            <p>
+                                Playwright UI and API tests against automationexercise.com, a public demo store built
+                                for test practice. Structured with the Page Object Model and run in GitHub Actions,
+                                backed by a test plan and a manual test case log.
+                            </p>
+                            <p class="featured-meta">26 test definitions &middot; 16 API, 10 UI</p>
+                            <div class="tech-stack">
+                                <span class="tech-pill">Playwright</span>
+                                <span class="tech-pill">Page Object Model</span>
+                                <span class="tech-pill">GitHub Actions</span>
+                            </div>
+                            <div class="featured-links">
+                                <a href="/projects/automation-exercise/">Case study</a>
+                                <a href="https://github.com/Open83/automationexercise" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            </div>
                         </div>
                     </article>
 
                 </div>
+
+                <p class="projects-more"><a href="/proof-of-work/" class="arrow-link">All projects, counts and CI status on Proof of Work</a></p>
 
             </div>
 
@@ -1316,31 +1331,34 @@
 
 
         <!-- =====================================================
-             4. PROFESSIONAL WORK IMPACT (anonymized)
+             4. PROFESSIONAL WORK (anonymized): sticky statement
+                on the left, a ruled register of projects on the right
         ====================================================== -->
 
         <section
             id="impact"
-            class="section-padding"
+            class="section-padding impact-section"
             aria-labelledby="impact-heading"
         >
 
-            <div class="container">
+            <div class="container impact-layout">
 
-                <h2
-                    id="impact-heading"
-                    class="section-title"
-                >
-                    Professional Work
-                </h2>
+                <header class="section-head impact-head">
+                    <p class="kicker"><span class="kicker-num">02</span> Employer work</p>
+                    <h2
+                        id="impact-heading"
+                        class="section-title"
+                    >
+                        Professional Work
+                    </h2>
+                    <p class="section-intro">
+                        Three of the six employer projects I have tested, in general terms.
+                    </p>
+                </header>
 
-                <p class="section-intro">
-                    Three of the six employer projects I have tested, in general terms.
-                </p>
+                <ol class="impact-list">
 
-                <div class="impact-grid">
-
-                    <article class="impact-card">
+                    <li class="impact-card">
                         <span class="featured-cat">Non-Profit &middot; International</span>
                         <h3>Multi-Currency Donation Platform</h3>
                         <p>
@@ -1353,9 +1371,9 @@
                             <span class="tech-pill">API Validation</span>
                             <span class="tech-pill">Regression</span>
                         </div>
-                    </article>
+                    </li>
 
-                    <article class="impact-card">
+                    <li class="impact-card">
                         <span class="featured-cat">Business Management</span>
                         <h3>Management &amp; CRM Platform</h3>
                         <p>
@@ -1368,9 +1386,9 @@
                             <span class="tech-pill">RBAC</span>
                             <span class="tech-pill">Data Validation</span>
                         </div>
-                    </article>
+                    </li>
 
-                    <article class="impact-card">
+                    <li class="impact-card">
                         <span class="featured-cat">Logistics &amp; Supply Chain</span>
                         <h3>Logistics Management Platform</h3>
                         <p>
@@ -1382,9 +1400,9 @@
                             <span class="tech-pill">Real-Time Data</span>
                             <span class="tech-pill">Regression</span>
                         </div>
-                    </article>
+                    </li>
 
-                </div>
+                </ol>
 
             </div>
 
@@ -1392,7 +1410,7 @@
 
 
         <!-- =====================================================
-             5. EVIDENCE LIBRARY
+             5. EVIDENCE LIBRARY: an index of checkable documents
         ====================================================== -->
 
         <section
@@ -1403,43 +1421,59 @@
 
             <div class="container">
 
-                <h2
-                    id="evidence-heading"
-                    class="section-title"
-                >
-                    Evidence Library
-                </h2>
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">03</span> Artifacts</p>
+                        <h2
+                            id="evidence-heading"
+                            class="section-title"
+                        >
+                            Evidence Library
+                        </h2>
+                    </div>
+                    <p class="section-intro">
+                        Checkable artifacts from my public repositories, not descriptions of them.
+                    </p>
+                </header>
 
-                <p class="section-intro">
-                    Checkable artifacts from my public repositories, not descriptions of them.
-                </p>
+                <ul class="evidence-index">
 
-                <div class="evidence-grid">
+                    <li>
+                        <a href="/evidence/#defect-report" class="evidence-card">
+                            <span class="evidence-type">Defect Report</span>
+                            <div class="evidence-main">
+                                <h3 class="evidence-title">DEF-002: valid webhooks were rejected by the HMAC check</h3>
+                                <span class="evidence-desc">Environment, reproduction steps, expected vs. actual, root cause and the regression tests that now guard it.</span>
+                            </div>
+                            <span class="evidence-more">Read the report</span>
+                        </a>
+                    </li>
 
-                    <a href="/evidence/#defect-report" class="evidence-card">
-                        <span class="featured-cat">Defect Report</span>
-                        <h3>DEF-002: valid webhooks were rejected by the HMAC check</h3>
-                        <p>Environment, reproduction steps, expected vs. actual, root cause and the regression tests that now guard it.</p>
-                        <span class="evidence-more">Read the report <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i></span>
-                    </a>
+                    <li>
+                        <a href="/evidence/#coverage-matrix" class="evidence-card">
+                            <span class="evidence-type">Coverage Matrix</span>
+                            <div class="evidence-main">
+                                <h3 class="evidence-title">37 Razorpay tests mapped to what they check</h3>
+                                <span class="evidence-desc">Every test ID by area, with whether it runs in CI or needs the live gateway.</span>
+                            </div>
+                            <span class="evidence-more">See the matrix</span>
+                        </a>
+                    </li>
 
-                    <a href="/evidence/#coverage-matrix" class="evidence-card">
-                        <span class="featured-cat">Coverage Matrix</span>
-                        <h3>37 Razorpay tests mapped to what they check</h3>
-                        <p>Every test ID by area, with whether it runs in CI or needs the live gateway.</p>
-                        <span class="evidence-more">See the matrix <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i></span>
-                    </a>
+                    <li>
+                        <a href="/evidence/#test-runs" class="evidence-card">
+                            <span class="evidence-type">Real Test Runs</span>
+                            <div class="evidence-main">
+                                <h3 class="evidence-title">Playwright reports, traces and CI runs</h3>
+                                <span class="evidence-desc">Screenshots taken from my own runs of the public repositories, with the commit each came from.</span>
+                            </div>
+                            <span class="evidence-more">View the runs</span>
+                        </a>
+                    </li>
 
-                    <a href="/evidence/#test-runs" class="evidence-card">
-                        <span class="featured-cat">Real Test Runs</span>
-                        <h3>Playwright reports, traces and CI runs</h3>
-                        <p>Screenshots taken from my own runs of the public repositories, with the commit each came from.</p>
-                        <span class="evidence-more">View the runs <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-right"/></svg></i></span>
-                    </a>
+                </ul>
 
-                </div>
-
-                <p class="evidence-all"><a href="/evidence/" class="btn btn-outline">Open the Evidence Library</a></p>
+                <p class="evidence-all"><a href="/evidence/" class="btn btn-secondary">Open the Evidence Library</a></p>
 
             </div>
 
@@ -1447,52 +1481,61 @@
 
 
         <!-- =====================================================
-             6. EXPERIENCE TIMELINE + CTA
+             6. EXPERIENCE: a dated ledger, current role first
         ====================================================== -->
 
         <section
             id="experience"
-            class="section-padding"
+            class="section-padding experience-section"
             aria-labelledby="experience-heading"
         >
 
             <div class="container">
 
-                <h2
-                    id="experience-heading"
-                    class="section-title"
-                >
-                    Experience at a Glance
-                </h2>
+                <header class="section-head">
+                    <p class="kicker"><span class="kicker-num">04</span> Career</p>
+                    <h2
+                        id="experience-heading"
+                        class="section-title"
+                    >
+                        Experience at a Glance
+                    </h2>
+                </header>
 
                 <ol class="timeline">
 
-                    <li>
+                    <li class="timeline-current">
                         <p class="exp-date">Dec 2024 &ndash; Present</p>
-                        <h3>Software QA Engineer / QA Lead</h3>
-                        <p class="exp-org">Techno Serve Software Solutions Pvt. Ltd.</p>
-                        <p>Functional, regression, API and payment-workflow testing, defect management and automation across six client projects.</p>
+                        <div class="exp-body">
+                            <h3>Software QA Engineer / QA Lead</h3>
+                            <p class="exp-org">Techno Serve Software Solutions Pvt. Ltd.</p>
+                            <p>Functional, regression, API and payment-workflow testing, defect management and automation across six client projects.</p>
+                        </div>
                     </li>
 
                     <li>
                         <p class="exp-date">2023</p>
-                        <h3>QA Training &amp; Certification</h3>
-                        <p class="exp-org">SQUAD Infotech Pvt. Ltd.</p>
-                        <p>Manual testing, automation fundamentals and hands-on SQL for test data.</p>
+                        <div class="exp-body">
+                            <h3>QA Training &amp; Certification</h3>
+                            <p class="exp-org">SQUAD Infotech Pvt. Ltd.</p>
+                            <p>Manual testing, automation fundamentals and hands-on SQL for test data.</p>
+                        </div>
                     </li>
 
                     <li>
                         <p class="exp-date">2020 &ndash; 2022</p>
-                        <h3>Bachelor of Commerce</h3>
-                        <p class="exp-org">MVM College</p>
-                        <p>Commerce degree. My testing work centres on payment and financial workflows.</p>
+                        <div class="exp-body">
+                            <h3>Bachelor of Commerce</h3>
+                            <p class="exp-org">MVM College</p>
+                            <p>Commerce degree. My testing work centres on payment and financial workflows.</p>
+                        </div>
                     </li>
 
                 </ol>
 
                 <div class="exp-links">
-                    <a href="/about/">About me</a>
-                    <a href="/resume/">Full resume</a>
+                    <a href="/about/" class="arrow-link">About me</a>
+                    <a href="/resume/" class="arrow-link">Full resume</a>
                 </div>
 
             </div>
@@ -1500,36 +1543,45 @@
         </section>
 
 
+        <!-- =====================================================
+             7. CONTACT: the closing statement on Soft Mint
+        ====================================================== -->
+
         <section
             id="contact"
             class="section-padding cta-final"
             aria-labelledby="contact-heading"
         >
 
-            <div class="container">
+            <div class="container cta-layout">
 
-                <h2
-                    id="contact-heading"
-                    class="section-title"
-                >
-                    Let&rsquo;s Talk
-                </h2>
+                <div class="cta-copy">
+                    <p class="kicker"><span class="kicker-num">05</span> Contact</p>
+                    <h2
+                        id="contact-heading"
+                        class="section-title"
+                    >
+                        Let&rsquo;s Talk
+                    </h2>
 
-                <p class="cta-text">
-                    The quickest way to reach me is the contact form or email. My resume has the full
-                    experience and the Evidence Library has the checkable work.
-                </p>
+                    <p class="cta-text">
+                        The quickest way to reach me is the contact form or email. My resume has the full
+                        experience and the Evidence Library has the checkable work.
+                    </p>
+                </div>
 
-                <div class="cta-buttons">
-                    <a href="/contact/" class="btn btn-primary">
-                        <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>
-                        Contact Me
-                    </a></div>
+                <div class="cta-actions">
+                    <div class="cta-buttons">
+                        <a href="/contact/" class="btn btn-primary">
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#envelope"/></svg></i>
+                            Contact Me
+                        </a></div>
 
-                <p class="cta-alt">
-                    Prefer a document?
-                    <a href="/resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf" download>Download my resume (PDF)</a>.
-                </p>
+                    <p class="cta-alt">
+                        Prefer a document?
+                        <a href="/resume/Sayed-Asif-Software-QA-Engineer-Resume.pdf" download>Download my resume (PDF)</a>.
+                    </p>
+                </div>
 
             </div>
 

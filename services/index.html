@@ -81,657 +81,685 @@
     </script>
 
     <!-- Global header/footer styles (single source of truth) -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/theme.js"></script>
     <link rel="stylesheet" href="/assets/css/global-nav.css">
     <style>
 
         /* =========================================================
-           COLOR SYSTEM — same tokens as the rest of the site
+           SERVICES: page layout only.
+           Tokens, type, buttons, forms, tables, callouts and the
+           reset live in /assets/css/site.css; header and footer in
+           global-nav.css. No colour values here: tokens only.
         ========================================================= */
-
-        :root {
-            --bg-main: #ffffff;
-            --bg-secondary: #f0f4f8;
-            --bg-highlight: #e0f7ff;
-
-            --brand-primary: #00baf2;
-            --brand-dark: #314259;
-            --brand-text: #314259;
-            --brand-muted: #5f6b79;
-
-            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --border-light: 1px solid #e2e8f0;
-        }
 
 
         /* =========================================================
-           RESET
+           1. PAGE HEADER: editorial split. Problem-first statement
+              and actions on the left; a white brief on the right
+              (availability, scope rule, index of the four services).
         ========================================================= */
 
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .svc-hero {
+            padding-top: calc(var(--header-h) + clamp(2.5rem, 1.25rem + 4.5vw, 5rem));
+            padding-bottom: var(--section-y-tight);
+            border-bottom: 1px solid var(--color-border);
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--brand-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        img { max-width: 100%; display: block; }
-        a { color: inherit; }
-        button, a { -webkit-tap-highlight-color: transparent; }
-
-        h1, h2, h3, h4 {
-            color: var(--brand-dark);
-            font-weight: 700;
-        }
-
-        p { color: var(--brand-text); }
-
-        ::selection {
-            background: var(--brand-accent-text);
-            color: #ffffff;
-        }
-
-        /* .skip-link and :focus-visible live in /assets/css/global-nav.css */
-
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            margin: -1px;
-            padding: 0;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-
-        /* =========================================================
-           UTILITIES
-        ========================================================= */
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-padding { padding: 90px 0; }
-        .section-alt { background: var(--bg-secondary); }
-
-        .section-title {
-            font-size: 2.2rem;
-            line-height: 1.25;
-            margin-bottom: 50px;
-            text-align: center;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: "";
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--brand-primary);
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-
-        .section-intro {
-            max-width: 780px;
-            margin: -25px auto 45px;
-            text-align: center;
-            color: var(--brand-muted);
-            font-size: 1.05rem;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            color: var(--brand-accent-text);
-            letter-spacing: 1.8px;
-            text-transform: uppercase;
-            font-size: 0.82rem;
-            margin-bottom: 18px;
-            font-weight: 800;
-        }
-
-        .eyebrow::before {
-            content: "";
-            width: 28px;
-            height: 2px;
-            background: var(--brand-primary);
-        }
-
-
-        /* =========================================================
-           BUTTONS (same as homepage)
-        ========================================================= */
-
-        .btn-group {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-            padding: 13px 28px;
-            border-radius: 8px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 0.96rem;
-            min-height: 48px;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        .btn-primary {
-            background: var(--brand-accent-text);
-            color: #ffffff;
-            border: 2px solid var(--brand-accent-text);
-            box-shadow: 0 4px 15px rgba(0, 186, 242, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: var(--brand-accent-text-strong);
-            border-color: var(--brand-accent-text-strong);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            border: 2px solid var(--brand-dark);
-            color: var(--brand-dark);
-            background: transparent;
-        }
-
-        .btn-outline:hover {
-            background: var(--brand-dark);
-            color: #ffffff;
-        }
-
-        .btn[disabled] {
-            opacity: 0.65;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-
-        /* =========================================================
-           HERO
-        ========================================================= */
-
-        .hero {
-            padding: 130px 0 70px;
-            text-align: center;
-            background: radial-gradient(circle at 80% 50%, rgba(0, 186, 242, 0.08) 0%, #ffffff 60%);
-            border-bottom: var(--border-light);
-        }
-
-        .hero h1 {
-            font-size: 3.2rem;
-            line-height: 1.15;
-            letter-spacing: -1.5px;
-            max-width: 900px;
-            margin: 0 auto 25px;
-        }
-
-        .hero-description {
-            max-width: 720px;
-            margin: 0 auto 18px;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--brand-muted);
-        }
-
-        .hero-note {
-            max-width: 640px;
-            margin: 0 auto 32px;
-            font-size: 0.95rem;
-            color: var(--brand-muted);
-        }
-
-
-        /* =========================================================
-           SERVICES
-        ========================================================= */
-
-        .service-grid {
+        .svc-hero-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 28px;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+            gap: var(--space-8) var(--space-9);
+            align-items: end;
         }
 
-        .service-card {
-            background: #ffffff;
-            border: var(--border-light);
-            border-radius: 14px;
-            padding: 32px;
-            box-shadow: var(--shadow-soft);
+        .svc-hero .kicker {
+            color: var(--color-link);
+        }
+
+        .svc-hero h1 {
+            max-width: 15ch;
+            font-size: clamp(2.375rem, 1.45rem + 3.5vw, 4.25rem);
+            line-height: 1.02;
+        }
+
+        .svc-statement {
+            max-width: 34ch;
+            margin-top: var(--space-5);
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            font-weight: 500;
+            line-height: 1.35;
+            color: var(--color-heading);
+        }
+
+        .svc-hero .btn-group {
+            margin-top: var(--space-7);
+        }
+
+        .svc-brief {
+            padding: var(--space-6);
+        }
+
+        .svc-status {
             display: flex;
-            flex-direction: column;
+            gap: 0.7em;
+            align-items: baseline;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            line-height: 1.55;
+            color: var(--color-heading);
         }
 
-        .service-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 52px;
-            height: 52px;
+        .svc-status::before {
+            content: "";
+            flex-shrink: 0;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: var(--bg-highlight);
-            color: var(--brand-accent-text);
-            font-size: 1.3rem;
-            margin-bottom: 18px;
+            background: var(--color-success);
+            box-shadow: 0 0 0 3px var(--color-success-bg);
+            transform: translateY(-1px);
         }
 
-        .service-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 18px;
+        .svc-scope {
+            margin-top: var(--space-3);
+            padding-left: calc(8px + 0.7em);
+            font-size: var(--text-sm);
+            line-height: 1.55;
+            color: var(--color-text-muted);
         }
 
-        .service-card h4 {
-            font-size: 0.78rem;
+        .svc-index {
+            margin-top: var(--space-6);
+        }
+
+        .svc-index-label {
+            padding-bottom: var(--space-2);
+            border-bottom: 1px solid var(--color-heading);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--brand-accent-text);
-            margin: 0 0 10px;
+            color: var(--color-text-muted);
         }
 
-        .service-card ul {
+        .svc-index ol {
             list-style: none;
-            margin-bottom: 22px;
         }
 
-        .service-card li {
-            position: relative;
-            padding-left: 22px;
-            margin-bottom: 7px;
-            font-size: 0.96rem;
-            line-height: 1.55;
-        }
-
-        .service-card li::before {
-            content: "";
-            position: absolute;
-            left: 2px;
-            top: 0.62em;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--brand-primary);
-        }
-
-        .service-card .service-link {
-            margin-top: auto;
-            font-weight: 700;
-            font-size: 0.93rem;
-            color: var(--brand-accent-text);
+        .svc-index a {
+            display: grid;
+            grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+            align-items: baseline;
+            min-height: 48px;
+            padding-block: var(--space-3);
+            border-bottom: 1px solid var(--color-border);
+            font-weight: 600;
+            color: var(--color-heading);
             text-decoration: none;
         }
 
-        .service-card .service-link:hover { text-decoration: underline; }
-
-        .service-note {
-            background: #fff8e6;
-            border-left: 4px solid #d9a400;
-            border-radius: 6px;
-            padding: 12px 14px;
-            font-size: 0.9rem;
-            margin-bottom: 22px;
-            line-height: 1.55;
+        .svc-index a::after {
+            content: "\2193";
+            font-family: var(--font-mono);
+            font-weight: 400;
+            color: var(--color-link);
+            transition: transform var(--dur-fast) var(--ease);
         }
 
-        .service-note p { color: #5a4500; }
+        .svc-index a:hover {
+            color: var(--color-link);
+        }
+
+        .svc-index a:hover::after {
+            transform: translateY(2px);
+        }
+
+        .svc-num {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--color-link);
+        }
 
 
         /* =========================================================
-           PROOF OF WORK
+           2. SERVICES: comparison rows. Name | covered | deliverables
+              | proof, one ruled row per service on a 1px Ink rule.
         ========================================================= */
 
-        .proof-grid {
+        .svc-rows {
+            list-style: none;
+            border-top: 1px solid var(--color-heading);
+        }
+
+        .svc-row {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 28px;
+            grid-template-columns: minmax(0, 3fr) minmax(0, 3.6fr) minmax(0, 3.2fr) minmax(0, 1.9fr);
+            gap: var(--space-5) var(--space-6);
+            padding-block: var(--space-7);
+            border-bottom: 1px solid var(--color-border);
         }
 
-        .proof-card {
-            background: #ffffff;
-            border: var(--border-light);
-            border-radius: 14px;
-            padding: 30px;
-            box-shadow: var(--shadow-soft);
+        .svc-name {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: var(--space-4) var(--space-3);
+            align-items: center;
+            align-content: start;
         }
 
-        .proof-tag {
-            display: inline-block;
-            font-size: 0.74rem;
-            font-weight: 800;
+        .svc-name h3 {
+            grid-column: 1 / -1;
+        }
+
+        .svc-name .svc-num {
+            font-size: var(--text-sm);
+        }
+
+        .svc-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius);
+            background: var(--color-surface);
+            font-size: 1.05rem;
+            color: var(--color-heading);
+        }
+
+        .svc-name h3 {
+            max-width: 14ch;
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            letter-spacing: -0.015em;
+            line-height: 1.2;
+        }
+
+        .svc-col h4 {
+            margin-bottom: var(--space-3);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
             text-transform: uppercase;
-            letter-spacing: 0.7px;
-            color: var(--brand-accent-on-tint);
-            background: #ddf3fb;
-            padding: 5px 12px;
-            border-radius: 20px;
-            margin-bottom: 14px;
+            color: var(--color-text-muted);
         }
 
-        .proof-card h3 { font-size: 1.25rem; margin-bottom: 16px; }
-
-        .proof-card dl { margin: 0 0 20px; }
-
-        .proof-card dt {
-            font-size: 0.78rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 800;
-            color: var(--brand-muted);
-            margin-top: 12px;
+        .svc-col ul {
+            list-style: none;
         }
 
-        .proof-card dd {
-            font-size: 0.95rem;
+        .svc-col li {
+            position: relative;
+            padding-left: 1.1rem;
+            font-size: 0.9688rem;
+            line-height: 1.55;
+        }
+
+        .svc-col li + li {
+            margin-top: var(--space-2);
+        }
+
+        .svc-col li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.72em;
+            width: 0.5rem;
+            height: 1px;
+            background: var(--color-border-strong);
+        }
+
+        .svc-col .callout {
+            font-size: var(--text-sm);
             line-height: 1.6;
-            margin: 2px 0 0;
+        }
+
+        .svc-proof {
+            justify-self: end;
+            align-self: start;
+        }
+
+        .svc-proof a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+
+        /* =========================================================
+           3. PROOF: service -> evidence pairings on a white band.
+              Service label and project on the left, the evidence
+              register (dl) on the right.
+        ========================================================= */
+
+        .proof-section {
+            background: var(--color-surface);
+            border-block: 1px solid var(--color-border);
+        }
+
+        .proof-list {
+            border-top: 1px solid var(--color-heading);
+        }
+
+        .proof-pair {
+            display: grid;
+            grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+            gap: var(--space-5) var(--space-9);
+            padding-block: var(--space-7);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .proof-pair-head {
+            position: sticky;
+            top: calc(var(--header-h) + var(--space-5));
+            align-self: start;
+        }
+
+        .proof-pair .kicker {
+            margin-bottom: var(--space-3);
+        }
+
+        .proof-pair h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-2xl);
+            letter-spacing: -0.015em;
+            line-height: 1.15;
         }
 
         .proof-links {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px 20px;
-            font-weight: 700;
-            font-size: 0.93rem;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: var(--space-5);
         }
 
-        .proof-links a {
-            color: var(--brand-accent-text);
-            text-decoration: none;
+        .proof-links .arrow-link {
+            font-size: var(--text-sm);
         }
 
-        .proof-links a:hover { text-decoration: underline; }
+        .proof-facts {
+            border-top: 0;
+        }
+
+        .proof-facts > div {
+            grid-template-columns: minmax(8rem, 10rem) minmax(0, 1fr);
+        }
+
+        .proof-facts > div:first-child {
+            padding-top: 0.15rem;
+        }
+
+        .proof-facts > div:last-child {
+            border-bottom: 0;
+        }
+
+        .proof-facts dd {
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .proof-facts .proof-limit dt {
+            color: var(--color-warning);
+        }
 
         .proof-disclaimer {
-            max-width: 820px;
-            margin: 36px auto 0;
-            text-align: center;
-            font-size: 0.93rem;
-            color: var(--brand-muted);
+            max-width: 72ch;
+            margin-top: var(--space-6);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+            color: var(--color-text-muted);
         }
 
 
         /* =========================================================
-           PROCESS
+           4. PROCESS: numbered steps on a connecting rule
+              (horizontal on wide screens, vertical on phones).
         ========================================================= */
 
-        .process-list {
+        .process-steps {
+            position: relative;
             list-style: none;
             counter-reset: step;
             display: grid;
             grid-template-columns: repeat(5, minmax(0, 1fr));
-            gap: 20px;
+            gap: var(--space-6);
         }
 
-        .process-list li {
-            counter-increment: step;
-            background: #ffffff;
-            border: var(--border-light);
-            border-radius: 14px;
-            padding: 26px 20px;
-            box-shadow: var(--shadow-soft);
-        }
-
-        .process-list li::before {
-            content: counter(step);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: var(--brand-accent-text);
-            color: #ffffff;
-            font-weight: 800;
-            margin-bottom: 14px;
-        }
-
-        .process-list h3 { font-size: 1.02rem; margin-bottom: 8px; }
-        .process-list p { font-size: 0.92rem; line-height: 1.6; color: var(--brand-muted); }
-
-        .scope-callout {
-            max-width: 820px;
-            margin: 36px auto 0;
-            background: var(--bg-highlight);
-            border-left: 4px solid var(--brand-primary);
-            border-radius: 8px;
-            padding: 18px 22px;
-        }
-
-        .scope-callout p { color: var(--brand-dark); }
-
-
-        /* =========================================================
-           EXPECTATIONS
-        ========================================================= */
-
-        .sample-report {
-            max-width: 820px;
-            margin: 28px auto 0;
-            border: var(--border-light);
-            border-radius: 14px;
-            background: #ffffff;
-            padding: 26px 30px;
-        }
-        .sample-report h3 { margin-bottom: 6px; }
-        .sample-report .sample-note { color: var(--brand-muted); font-size: 0.92rem; margin-bottom: 18px; }
-        .sample-report dl { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 10px 18px; }
-        .sample-report dt { font-weight: 700; color: var(--brand-dark); }
-        .sample-report dd { margin: 0; color: var(--brand-text); line-height: 1.7; }
-        .sample-report ol { margin: 0 0 0 20px; }
-        .scenario-matrix { max-width: 960px; }
-        .scenario-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
-        .scenario-table th, .scenario-table td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: var(--border-light); line-height: 1.55; color: var(--brand-text); }
-        .scenario-table thead th { background: #eef6fb; color: var(--brand-dark); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .scenario-table tbody th { font-weight: 700; color: var(--brand-dark); }
-        .scenario-table tbody tr:last-child th, .scenario-table tbody tr:last-child td { border-bottom: 0; }
-        .scenario-gaps { margin: 16px 0 0; }
-        @media (max-width: 640px) {
-            .sample-report { padding: 22px 18px; }
-            .sample-report dl { grid-template-columns: 1fr; gap: 2px; }
-            .sample-report dd { margin-bottom: 12px; }
-            .scenario-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-            .scenario-table tr { display: block; padding: 10px 0; border-bottom: var(--border-light); }
-            .scenario-table tbody tr:last-child { border-bottom: 0; }
-            .scenario-table th, .scenario-table td { display: block; padding: 2px 0; border-bottom: 0; }
-            .scenario-table td::before { content: attr(data-label) ": "; font-weight: 700; color: var(--brand-dark); }
-        }
-        .expect-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 28px;
-        }
-
-        .expect-card {
-            border: var(--border-light);
-            border-radius: 14px;
-            padding: 30px;
-            background: #ffffff;
-        }
-
-        .expect-card h3 { font-size: 1.2rem; margin-bottom: 14px; }
-        .expect-card ul { list-style: none; }
-
-        .expect-card li {
-            position: relative;
-            padding-left: 22px;
-            margin-bottom: 8px;
-            font-size: 0.96rem;
-            line-height: 1.55;
-        }
-
-        .expect-card li::before {
+        .process-steps::before {
             content: "";
             position: absolute;
-            left: 2px;
-            top: 0.62em;
-            width: 7px;
-            height: 7px;
+            top: 7px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--color-border-strong);
+        }
+
+        .process-step {
+            counter-increment: step;
+            position: relative;
+            padding-top: var(--space-7);
+        }
+
+        .process-step::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--color-brand);
             border-radius: 50%;
-            background: var(--brand-primary);
+            background: var(--color-page);
+        }
+
+        .process-step h3::before {
+            content: counter(step, decimal-leading-zero);
+            display: block;
+            margin-bottom: var(--space-2);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            color: var(--color-link);
+        }
+
+        .process-step h3 {
+            margin-bottom: var(--space-2);
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            letter-spacing: -0.01em;
+        }
+
+        .process-step p {
+            max-width: 30ch;
+            font-size: var(--text-sm);
+            line-height: 1.6;
+            color: var(--color-text-muted);
+        }
+
+        .scope-note {
+            max-width: 64ch;
+            margin-top: var(--space-8);
+            padding-left: var(--space-5);
+            border-left: 2px solid var(--color-brand);
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            line-height: 1.5;
+            color: var(--color-heading);
         }
 
 
         /* =========================================================
-           CONTACT / INQUIRY FORM
+           5 + 6. PILOT and BEFORE WE START: two-column compares,
+              then the samples as a document sheet and a real table.
         ========================================================= */
 
-        .contact-wrapper {
+        .pilot-section {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .compare {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 50px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--space-6) var(--space-9);
+        }
+
+        .compare-col {
+            padding-top: var(--space-5);
+            border-top: 2px solid var(--color-heading);
+        }
+
+        .compare-col h3 {
+            margin-bottom: var(--space-4);
+            font-size: var(--text-lg);
+        }
+
+        .compare-col ul {
+            list-style: none;
+        }
+
+        .compare-col li {
+            display: grid;
+            grid-template-columns: 1.5rem minmax(0, 1fr);
+            padding-block: var(--space-3);
+            border-bottom: 1px solid var(--color-border);
+            line-height: 1.6;
+        }
+
+        .compare-col li::before {
+            content: "\2192";
+            font-family: var(--font-mono);
+            color: var(--color-link);
+        }
+
+        .compare-col.compare-not li::before {
+            content: "\2715";
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+        }
+
+        .samples {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--space-8);
+            margin-top: var(--space-9);
+        }
+
+        .sample-head h3 {
+            font-family: var(--font-display);
+            font-size: var(--text-xl);
+            letter-spacing: -0.015em;
+        }
+
+        .sample-note {
+            max-width: 72ch;
+            margin-top: var(--space-2);
+            font-size: var(--text-sm);
+            line-height: 1.6;
+            color: var(--color-text-muted);
+        }
+
+        .sample-note a {
+            font-weight: 600;
+        }
+
+        /* The defect report: caption on the left, a white document sheet on the right */
+        .sample-defect {
+            display: grid;
+            grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+            gap: var(--space-5) var(--space-9);
+            align-items: start;
+        }
+
+        .sample-defect .sample-head {
+            position: sticky;
+            top: calc(var(--header-h) + var(--space-5));
+        }
+
+        .sample-report {
+            padding: var(--space-6) var(--space-7);
+            box-shadow: var(--shadow-1);
+        }
+
+        .sample-report .meta-list {
+            border-top: 0;
+        }
+
+        .sample-report .meta-list > div:last-child {
+            border-bottom: 0;
+        }
+
+        .sample-report .meta-list dd {
+            color: var(--color-text);
+            line-height: 1.65;
+        }
+
+        .sample-report .meta-list dd ol {
+            padding-left: 1.2em;
+        }
+
+        .sample-report .meta-list dd li + li {
+            margin-top: var(--space-1);
+        }
+
+        .scenario-matrix .table-wrap {
+            margin-top: var(--space-5);
+        }
+
+        .scenario-table {
+            min-width: 54rem;
+        }
+
+        .scenario-table td:last-child {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            color: var(--color-heading);
+            white-space: nowrap;
+        }
+
+        .scenario-gaps {
+            margin-top: var(--space-4);
+        }
+
+        /* Before we start: heading on the left, the two lists as a ledger on the right */
+        .expect-section {
+            border-top: 1px solid var(--color-border);
+        }
+
+        .expect-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+            gap: var(--space-6) var(--space-9);
+            align-items: start;
+        }
+
+        .expect-head {
+            margin-bottom: 0;
+        }
+
+        .compare-ledger {
+            gap: var(--space-6) var(--space-7);
+        }
+
+        .compare-ledger .compare-col {
+            border-top-width: 1px;
+        }
+
+
+        /* =========================================================
+           7. ENQUIRY: the one loud moment. Soft Mint band, the form
+              as a white document, contact options beside it.
+        ========================================================= */
+
+        .enquiry {
+            background: var(--color-surface-soft);
+        }
+
+        .enquiry .section-title {
+            font-size: clamp(2.25rem, 1.5rem + 2.9vw, 3.75rem);
+            line-height: 1.04;
+        }
+
+        .enquiry-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+            gap: var(--space-7) var(--space-9);
             align-items: start;
         }
 
         .inquiry-form {
-            background: var(--bg-secondary);
-            padding: 36px;
-            border-radius: 12px;
-            border: var(--border-light);
+            padding: var(--space-7);
+            box-shadow: var(--shadow-2);
         }
 
-        .form-group { margin-bottom: 22px; }
-
-        .inquiry-form label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--brand-dark);
-            font-size: 0.95rem;
+        #formStatus:not(:empty) {
+            margin-bottom: var(--space-5);
         }
 
-        .inquiry-form input[type="text"],
-        .inquiry-form input[type="email"],
-        .inquiry-form select,
-        .inquiry-form textarea {
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--space-5);
+            align-items: start;
+        }
+
+        .form-row .form-group + .form-group {
+            margin-top: 0;
+        }
+
+        .form-row + .form-group {
+            margin-top: var(--space-5);
+        }
+
+        .req {
+            color: var(--color-error);
+        }
+
+        .inquiry-form .btn {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #94a3b8;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 1rem;
-            color: var(--brand-text);
-            background: var(--bg-main);
+            margin-top: var(--space-6);
         }
 
-        .inquiry-form input:focus,
-        .inquiry-form select:focus,
-        .inquiry-form textarea:focus {
-            outline: none;
-            border-color: var(--brand-accent-text);
-            box-shadow: 0 0 0 3px rgba(0, 120, 156, 0.25);
+        .form-privacy {
+            margin-top: var(--space-4);
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
         }
-
-        .inquiry-form textarea { resize: vertical; min-height: 150px; }
-
-        .inquiry-form [aria-invalid="true"] {
-            border-color: #b91c1c;
-            background-color: #fef2f2;
-        }
-
-        .field-error {
-            display: block;
-            color: #b91c1c;
-            font-size: 0.875rem;
-            margin-top: 4px;
-            min-height: 1.25rem;
-        }
-
-        .field-hint {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--brand-muted);
-            margin-top: 4px;
-        }
-
-        .req { color: #b91c1c; }
-
-        /* Honeypot: off-screen, not display:none, so naive bots still fill it */
-        .hp-field {
-            position: absolute;
-            left: -10000px;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-        }
-
-        .inquiry-form .btn { width: 100%; }
-
-        .success-message,
-        .error-message {
-            display: none;
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .success-message { background: #dcfce7; color: #14532d; border-left: 4px solid #22c55e; }
-        .error-message { background: #fee2e2; color: #7f1d1d; border-left: 4px solid #ef4444; }
-        .success-message:not([hidden]),
-        .error-message:not([hidden]) { display: block; }
 
         .contact-sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
+            border-top: 1px solid var(--color-heading);
         }
 
         .contact-card {
-            background: var(--bg-secondary);
-            padding: 28px;
-            border-radius: 12px;
-            border: var(--border-light);
+            padding-block: var(--space-5);
+            border-bottom: 1px solid var(--color-border-strong);
         }
 
         .contact-card h3 {
-            font-size: 0.9rem;
+            margin-bottom: var(--space-2);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
             text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--brand-accent-text);
-            margin-bottom: 16px;
+            color: var(--color-text-muted);
         }
 
-        .contact-card p { font-size: 0.95rem; margin-bottom: 10px; }
-        .contact-card p:last-child { margin-bottom: 0; }
+        .contact-card p {
+            font-size: 0.9688rem;
+            line-height: 1.6;
+        }
+
+        .contact-card p + p {
+            margin-top: var(--space-1);
+        }
 
         .contact-card a {
-            color: var(--brand-accent-text);
             font-weight: 600;
             overflow-wrap: anywhere;
         }
 
-        .form-privacy {
-            font-size: 0.85rem;
-            color: var(--brand-muted);
-            margin-top: 14px;
-            text-align: center;
+        /* Stand-alone links get a full 44px target */
+        .contact-card p > a:only-child {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
         }
 
 
@@ -739,50 +767,141 @@
            RESPONSIVE
         ========================================================= */
 
-        @media (max-width: 1050px) {
-            .process-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        @media (max-width: 1100px) {
+            .svc-row {
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            }
+            .svc-name {
+                grid-column: 1 / -1;
+                grid-template-columns: auto auto minmax(0, 1fr);
+                gap: var(--space-4);
+            }
+            .svc-name h3 {
+                grid-column: auto;
+                max-width: none;
+            }
+            .svc-proof {
+                grid-column: 1 / -1;
+                justify-self: start;
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                row-gap: var(--space-7);
+            }
+            .process-steps::before {
+                display: none;
+            }
+            .process-step {
+                border-top: 1px solid var(--color-border-strong);
+                padding-top: var(--space-6);
+            }
+            .process-step::before {
+                top: -8px;
+            }
         }
 
-        @media (max-width: 900px) {
-            .hero { padding: 115px 0 55px; }
-            .hero h1 { font-size: 2.5rem; }
-            .service-grid,
-            .proof-grid,
-            .expect-grid,
-            .contact-wrapper { grid-template-columns: 1fr; }
-            .process-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        @media (max-width: 1024px) {
+            .svc-hero-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-7);
+                align-items: start;
+            }
+            .svc-brief {
+                max-width: 560px;
+            }
+            .proof-pair,
+            .sample-defect,
+            .expect-layout {
+                grid-template-columns: 1fr;
+                gap: var(--space-5);
+            }
+            .proof-pair-head,
+            .sample-defect .sample-head {
+                position: static;
+            }
+            .expect-layout {
+                gap: var(--space-7);
+            }
+            .proof-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0 var(--space-5);
+                margin-top: var(--space-3);
+            }
+            .enquiry-layout {
+                grid-template-columns: 1fr;
+            }
+            .contact-sidebar {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0 var(--space-6);
+            }
         }
 
         @media (max-width: 768px) {
-            .container { padding-left: 17px; padding-right: 17px; }
-            .section-padding { padding: 60px 0; }
-            .section-title { font-size: 1.85rem; margin-bottom: 40px; }
-            .section-intro { margin-top: -15px; font-size: 0.96rem; }
-            .hero h1 { font-size: 2.1rem; letter-spacing: -0.8px; }
-            .hero-description { font-size: 1rem; }
-            .service-card,
-            .proof-card,
-            .expect-card { padding: 24px 20px; }
-            .inquiry-form { padding: 24px 18px; }
+            .compare {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .process-steps::before {
+                display: block;
+                top: 4px;
+                bottom: 0;
+                left: 7px;
+                right: auto;
+                width: 1px;
+                height: auto;
+            }
+            .process-step {
+                padding: 0 0 var(--space-6) var(--space-7);
+                border-top: 0;
+            }
+            .process-step::before {
+                top: 4px;
+            }
+            .process-step:last-child {
+                padding-bottom: 0;
+            }
+            .process-step p {
+                max-width: none;
+            }
+
+            .sample-report,
+            .inquiry-form {
+                padding: var(--space-5);
+            }
+            .contact-sidebar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .svc-row {
+                grid-template-columns: 1fr;
+                padding-block: var(--space-6);
+            }
+            .svc-name {
+                gap: var(--space-3);
+            }
+            .proof-facts > div {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 560px) {
-            .process-list { grid-template-columns: 1fr; }
-            .btn-group .btn { width: 100%; }
-        }
-
-        @media (max-width: 420px) {
-            .hero h1 { font-size: 1.8rem; }
-            .eyebrow { font-size: 0.72rem; letter-spacing: 1.3px; }
-            .section-title { font-size: 1.55rem; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            *, *::before, *::after {
-                transition-duration: 0.01ms !important;
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
+            .svc-hero .btn-group .btn {
+                width: 100%;
+            }
+            .svc-brief {
+                padding: var(--space-5);
             }
         }
 
@@ -813,8 +932,14 @@
                 <a href="/services/" class="active" aria-current="page">Services</a>
                 <a href="/blog/">Blog</a>
                 <a href="/resume/">Resume</a>
-                <a href="/contact/">Contact</a>
+                <a href="/contact/" class="nav-cta">Contact</a>
             </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
 
         </div>
 
@@ -824,36 +949,53 @@
     <main id="main-content">
 
         <!-- =====================================================
-             HERO
+             1. PAGE HEADER: problem-first statement and actions;
+                availability, scope rule and service index beside it
         ====================================================== -->
 
-        <section class="hero" aria-labelledby="services-heading">
-            <div class="container">
+        <section class="svc-hero" aria-labelledby="services-heading">
+            <div class="container svc-hero-grid">
 
-                <p class="eyebrow">QA Services</p>
+                <div class="svc-hero-text">
 
-                <h1 id="services-heading">Software Testing &amp; QA Automation Services</h1>
+                    <p class="kicker">QA Services</p>
 
-                <p class="hero-description">
-                    Practical testing support for teams that need to validate features,
-                    investigate defects, improve regression coverage, or automate
-                    repeatable workflows.
-                </p>
+                    <h1 id="services-heading">Software Testing &amp; QA Automation Services</h1>
 
-                <p class="hero-note">
-                    Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis.
-                    Scope, access and deliverables are agreed before any work begins.
-                </p>
+                    <p class="svc-statement">
+                        Practical testing support for teams that need to validate features,
+                        investigate defects, improve regression coverage, or automate
+                        repeatable workflows.
+                    </p>
 
-                <div class="btn-group">
-                    <a href="#contact" class="btn btn-primary">
-                        <i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#comments"/></svg></i>
-                        Discuss a Testing Project
-                    </a>
-                    <a href="#proof" class="btn btn-outline">
-                        <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#code-branch"/></svg></i>
-                        See Proof of Work
-                    </a>
+                    <div class="btn-group">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#comments"/></svg></i>
+                            Discuss a Testing Project
+                        </a>
+                        <a href="#proof" class="btn btn-secondary">
+                            <i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#code-branch"/></svg></i>
+                            See Proof of Work
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="svc-brief panel">
+
+                    <p class="svc-status">Currently employed. Open to strong full-time QA Engineer offers and available for freelance QA projects on a part-time basis.</p>
+                    <p class="svc-scope">Scope, access and deliverables are agreed before any work begins.</p>
+
+                    <nav class="svc-index" aria-labelledby="svc-index-label">
+                        <p class="svc-index-label" id="svc-index-label">Services</p>
+                        <ol>
+                            <li><a href="#svc-manual"><span class="svc-num">01</span> Manual &amp; Functional Testing</a></li>
+                            <li><a href="#svc-api"><span class="svc-num">02</span> API Testing</a></li>
+                            <li><a href="#svc-automation"><span class="svc-num">03</span> Playwright Test Automation</a></li>
+                            <li><a href="#svc-payments"><span class="svc-num">04</span> Payment Workflow Testing</a></li>
+                        </ol>
+                    </nav>
+
                 </div>
 
             </div>
@@ -861,224 +1003,257 @@
 
 
         <!-- =====================================================
-             CORE SERVICES
+             2. CORE SERVICES: comparison rows
         ====================================================== -->
 
         <section id="services" class="section-padding" aria-labelledby="core-services-heading">
             <div class="container">
 
-                <h2 id="core-services-heading" class="section-title">What I Can Test For You</h2>
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">01</span> Services</p>
+                        <h2 id="core-services-heading" class="section-title">What I Can Test For You</h2>
+                    </div>
+                    <p class="section-intro">
+                        Four focused services. Each engagement is scoped to your application
+                        and agreed up front, so you know what is covered and what you will receive.
+                    </p>
+                </header>
 
-                <p class="section-intro">
-                    Four focused services. Each engagement is scoped to your application
-                    and agreed up front, so you know what is covered and what you will receive.
-                </p>
+                <ol class="svc-rows">
 
-                <div class="service-grid">
-
-                    <article class="service-card">
-                        <span class="service-icon" aria-hidden="true"><i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#vial"/></svg></i></span>
-                        <h3>Manual &amp; Functional Testing</h3>
-
-                        <h4>What is covered</h4>
-                        <ul>
-                            <li>Functional and exploratory testing</li>
-                            <li>Regression testing after changes</li>
-                            <li>Business-rule validation</li>
-                            <li>Boundary and negative scenarios</li>
-                            <li>Defect reproduction and documentation</li>
-                        </ul>
-
-                        <h4>Typical deliverables</h4>
-                        <ul>
-                            <li>Agreed test scope</li>
-                            <li>Test scenarios or test cases</li>
-                            <li>Execution results</li>
-                            <li>Reproducible defect reports with evidence</li>
-                        </ul>
-
-                        <a class="service-link" href="#proof-functional">Related proof of work &darr;</a>
-                    </article>
-
-                    <article class="service-card">
-                        <span class="service-icon" aria-hidden="true"><i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#network-wired"/></svg></i></span>
-                        <h3>API Testing</h3>
-
-                        <h4>What is covered</h4>
-                        <ul>
-                            <li>Request and response validation</li>
-                            <li>Status codes and response structure</li>
-                            <li>Authentication and authorization scenarios</li>
-                            <li>Negative cases and invalid inputs</li>
-                            <li>Business-rule validation and integration checks where appropriate</li>
-                        </ul>
-
-                        <h4>Typical deliverables</h4>
-                        <ul>
-                            <li>API test scenarios</li>
-                            <li>Execution evidence</li>
-                            <li>Documented findings</li>
-                            <li>Automation code, when explicitly included in scope</li>
-                        </ul>
-
-                        <a class="service-link" href="#proof-api">Related proof of work &darr;</a>
-                    </article>
-
-                    <article class="service-card">
-                        <span class="service-icon" aria-hidden="true"><i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#robot"/></svg></i></span>
-                        <h3>Playwright Test Automation</h3>
-
-                        <h4>What is covered</h4>
-                        <ul>
-                            <li>Automation of suitable UI workflows</li>
-                            <li>API automation</li>
-                            <li>Regression suites with a maintainable structure</li>
-                            <li>Test reporting</li>
-                            <li>CI integration where appropriate</li>
-                        </ul>
-
-                        <h4>Typical deliverables</h4>
-                        <ul>
-                            <li>An agreed automated test suite</li>
-                            <li>Source code</li>
-                            <li>Execution reports</li>
-                            <li>Setup and execution documentation</li>
-                        </ul>
-
-                        <a class="service-link" href="#proof-automation">Related proof of work &darr;</a>
-                    </article>
-
-                    <article class="service-card">
-                        <span class="service-icon" aria-hidden="true"><i class="ic" aria-hidden="true"><svg focusable="false" width="1.125em" height="1em"><use href="/assets/icons.svg#credit-card"/></svg></i></span>
-                        <h3>Payment Workflow Testing</h3>
-
-                        <h4>What is covered</h4>
-                        <ul>
-                            <li>Successful and failed payments</li>
-                            <li>Cancellation scenarios</li>
-                            <li>Duplicate submissions</li>
-                            <li>Refund workflows</li>
-                            <li>Transaction-state validation</li>
-                            <li>Webhook scenarios and idempotency, where the integration supports them</li>
-                        </ul>
-
-                        <div class="service-note">
-                            <p>
-                                <strong>Sandbox, not production.</strong> My public payment work runs against
-                                Razorpay Test Mode. It shows method; it does not show that a production
-                                payment integration has been validated.
-                            </p>
+                    <li class="svc-row" id="svc-manual">
+                        <div class="svc-name">
+                            <span class="svc-num">01</span>
+                            <span class="svc-icon" aria-hidden="true"><i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#vial"/></svg></i></span>
+                            <h3>Manual &amp; Functional Testing</h3>
                         </div>
 
-                        <a class="service-link" href="#proof-payments">Related proof of work &darr;</a>
-                    </article>
+                        <div class="svc-col">
+                            <h4>What is covered</h4>
+                            <ul>
+                                <li>Functional and exploratory testing</li>
+                                <li>Regression testing after changes</li>
+                                <li>Business-rule validation</li>
+                                <li>Boundary and negative scenarios</li>
+                                <li>Defect reproduction and documentation</li>
+                            </ul>
+                        </div>
 
-                </div>
+                        <div class="svc-col">
+                            <h4>Typical deliverables</h4>
+                            <ul>
+                                <li>Agreed test scope</li>
+                                <li>Test scenarios or test cases</li>
+                                <li>Execution results</li>
+                                <li>Reproducible defect reports with evidence</li>
+                            </ul>
+                        </div>
+
+                        <div class="svc-proof">
+                            <a class="service-link" href="#proof-functional">Related proof of work &darr;</a>
+                        </div>
+                    </li>
+
+                    <li class="svc-row" id="svc-api">
+                        <div class="svc-name">
+                            <span class="svc-num">02</span>
+                            <span class="svc-icon" aria-hidden="true"><i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#network-wired"/></svg></i></span>
+                            <h3>API Testing</h3>
+                        </div>
+
+                        <div class="svc-col">
+                            <h4>What is covered</h4>
+                            <ul>
+                                <li>Request and response validation</li>
+                                <li>Status codes and response structure</li>
+                                <li>Authentication and authorization scenarios</li>
+                                <li>Negative cases and invalid inputs</li>
+                                <li>Business-rule validation and integration checks where appropriate</li>
+                            </ul>
+                        </div>
+
+                        <div class="svc-col">
+                            <h4>Typical deliverables</h4>
+                            <ul>
+                                <li>API test scenarios</li>
+                                <li>Execution evidence</li>
+                                <li>Documented findings</li>
+                                <li>Automation code, when explicitly included in scope</li>
+                            </ul>
+                        </div>
+
+                        <div class="svc-proof">
+                            <a class="service-link" href="#proof-api">Related proof of work &darr;</a>
+                        </div>
+                    </li>
+
+                    <li class="svc-row" id="svc-automation">
+                        <div class="svc-name">
+                            <span class="svc-num">03</span>
+                            <span class="svc-icon" aria-hidden="true"><i class="ic" aria-hidden="true"><svg focusable="false" width="1.25em" height="1em"><use href="/assets/icons.svg#robot"/></svg></i></span>
+                            <h3>Playwright Test Automation</h3>
+                        </div>
+
+                        <div class="svc-col">
+                            <h4>What is covered</h4>
+                            <ul>
+                                <li>Automation of suitable UI workflows</li>
+                                <li>API automation</li>
+                                <li>Regression suites with a maintainable structure</li>
+                                <li>Test reporting</li>
+                                <li>CI integration where appropriate</li>
+                            </ul>
+                        </div>
+
+                        <div class="svc-col">
+                            <h4>Typical deliverables</h4>
+                            <ul>
+                                <li>An agreed automated test suite</li>
+                                <li>Source code</li>
+                                <li>Execution reports</li>
+                                <li>Setup and execution documentation</li>
+                            </ul>
+                        </div>
+
+                        <div class="svc-proof">
+                            <a class="service-link" href="#proof-automation">Related proof of work &darr;</a>
+                        </div>
+                    </li>
+
+                    <li class="svc-row" id="svc-payments">
+                        <div class="svc-name">
+                            <span class="svc-num">04</span>
+                            <span class="svc-icon" aria-hidden="true"><i class="ic" aria-hidden="true"><svg focusable="false" width="1.125em" height="1em"><use href="/assets/icons.svg#credit-card"/></svg></i></span>
+                            <h3>Payment Workflow Testing</h3>
+                        </div>
+
+                        <div class="svc-col">
+                            <h4>What is covered</h4>
+                            <ul>
+                                <li>Successful and failed payments</li>
+                                <li>Cancellation scenarios</li>
+                                <li>Duplicate submissions</li>
+                                <li>Refund workflows</li>
+                                <li>Transaction-state validation</li>
+                                <li>Webhook scenarios and idempotency, where the integration supports them</li>
+                            </ul>
+                        </div>
+
+                        <div class="svc-col">
+                            <div class="service-note callout callout-warn">
+                                <p>
+                                    <strong>Sandbox, not production.</strong> My public payment work runs against
+                                    Razorpay Test Mode. It shows method; it does not show that a production
+                                    payment integration has been validated.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="svc-proof">
+                            <a class="service-link" href="#proof-payments">Related proof of work &darr;</a>
+                        </div>
+                    </li>
+
+                </ol>
 
             </div>
         </section>
 
 
         <!-- =====================================================
-             PROOF OF WORK
+             3. PROOF OF WORK: one service -> evidence pairing per row
         ====================================================== -->
 
-        <section id="proof" class="section-padding section-alt" aria-labelledby="proof-heading">
+        <section id="proof" class="section-padding proof-section" aria-labelledby="proof-heading">
             <div class="container">
 
-                <h2 id="proof-heading" class="section-title">Proof of Work You Can Inspect</h2>
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">02</span> Evidence</p>
+                        <h2 id="proof-heading" class="section-title">Proof of Work You Can Inspect</h2>
+                    </div>
+                    <p class="section-intro">
+                        Each service links to an independent public project. Source code and
+                        documentation are on GitHub, including what each project does not prove.
+                    </p>
+                </header>
 
-                <p class="section-intro">
-                    Each service links to an independent public project. Source code and
-                    documentation are on GitHub, including what each project does not prove.
-                </p>
+                <div class="proof-list">
 
-                <div class="proof-grid">
-
-                    <article class="proof-card" id="proof-payments">
-                        <span class="proof-tag">Payment Workflow Testing</span>
-                        <h3>Razorpay Payment Gateway QA &amp; Automation</h3>
-                        <dl>
-                            <dt>What was tested</dt>
-                            <dd>A small Razorpay Test Mode checkout app: order creation, payment signature verification, amount integrity, webhook signature validation and idempotency, refund error handling, and the order state machine.</dd>
-                            <dt>Why it matters</dt>
-                            <dd>Payments cross the UI, the app, the gateway and asynchronous webhooks, and each can disagree with the others. Testing found two High-severity defects in the demo app I built as the test target, both fixed and regression-tested.</dd>
-                            <dt>Tools</dt>
-                            <dd>Playwright Test (API and UI), Express, SQLite, GitHub Actions.</dd>
-                            <dt>What was automated</dt>
-                            <dd>37 test definitions; 34 run in CI, 3 need live Test Mode credentials and are run manually.</dd>
-                            <dt>Limitations</dt>
-                            <dd>Sandbox only. Playwright drove a real Checkout payment in one documented session, but that session is not a committed, repeatable test. No webhook from Razorpay itself was observed arriving, and no successful live refund was completed.</dd>
-                        </dl>
-                        <div class="proof-links">
-                            <a href="/projects/razorpay-payment-gateway-qa-automation/">Project page</a>
-                            <a href="/blog/payment-gateway-testing-playwright/">Read the article</a>
-                            <a href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation" target="_blank" rel="noopener noreferrer">GitHub repository<span class="sr-only"> (opens in a new tab)</span></a>
+                    <article class="proof-pair" id="proof-functional">
+                        <div class="proof-pair-head">
+                            <p class="kicker"><span class="kicker-num">01</span> <span class="proof-tag">Manual &amp; Functional Testing</span></p>
+                            <h3>Automation Exercise: the manual layer</h3>
+                            <div class="proof-links">
+                                <a class="arrow-link" href="https://docs.google.com/document/d/1TurtuoFSXjmA95otdRhSaLQDjXxTNbr6mjD70V_bbGQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Test plan<span class="sr-only"> (opens in a new tab)</span></a>
+                                <a class="arrow-link" href="https://docs.google.com/document/d/1lvmT0Q68B_rJPLB0VB7HmDYBQp1iXm-utrJX7t7-r08/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Manual test case log<span class="sr-only"> (opens in a new tab)</span></a>
+                                <a class="arrow-link" href="/projects/automation-exercise/">Project page</a>
+                            </div>
                         </div>
+                        <dl class="meta-list proof-facts">
+                            <div><dt>What was tested</dt><dd>The same e-commerce demo, planned and tested manually first: a test plan, a manual test case log, exploratory testing using boundary-value analysis and state-transition heuristics, and a summary execution report.</dd></div>
+                            <div><dt>Why it matters</dt><dd>Automation only covers what someone decided was worth checking. These documents show that decision step: scope, scenarios, execution results and a release assessment.</dd></div>
+                            <div><dt>Tools</dt><dd>Manual and exploratory testing, documented in Google Docs; Playwright for the repeatable parts.</dd></div>
+                            <div class="proof-limit"><dt>Limitations</dt><dd>A public demo site and an independent project.</dd></div>
+                        </dl>
                     </article>
 
-                    <article class="proof-card" id="proof-api">
-                        <span class="proof-tag">API Testing</span>
-                        <h3>RESTful Booker API Automation</h3>
-                        <dl>
-                            <dt>What was tested</dt>
-                            <dd>The public RESTful Booker demo API across authentication, create, retrieve, full and partial update and delete, plus negative cases and multi-step workflows.</dd>
-                            <dt>Why it matters</dt>
-                            <dd>It shows how I structure API checks: status codes, response structure, data persistence across requests and how the API responds to invalid input.</dd>
-                            <dt>Tools</dt>
-                            <dd>Playwright Test, TypeScript, reusable API client classes, GitHub Actions.</dd>
-                            <dt>What was automated</dt>
-                            <dd>47 test definitions in 9 suites, including 8 negative tests.</dd>
-                            <dt>Limitations</dt>
-                            <dd>A public practice API, not a client system. Three of the eight negative tests contain an assertion that cannot fail (see the article). The last recorded CI run is 22 October 2026 and is a historical result.</dd>
-                        </dl>
-                        <div class="proof-links">
-                            <a href="/projects/restful-booker-api-automation/">Project page</a>
-                            <a href="/blog/api-testing-best-practices/">Related article</a>
-                            <a href="/api-testing/">API testing evidence map</a>
-                            <a href="https://github.com/Open83/restful-booker-api-automation" target="_blank" rel="noopener noreferrer">GitHub repository<span class="sr-only"> (opens in a new tab)</span></a>
+                    <article class="proof-pair" id="proof-api">
+                        <div class="proof-pair-head">
+                            <p class="kicker"><span class="kicker-num">02</span> <span class="proof-tag">API Testing</span></p>
+                            <h3>RESTful Booker API Automation</h3>
+                            <div class="proof-links">
+                                <a class="arrow-link" href="/projects/restful-booker-api-automation/">Project page</a>
+                                <a class="arrow-link" href="/blog/api-testing-best-practices/">Related article</a>
+                                <a class="arrow-link" href="/api-testing/">API testing evidence map</a>
+                                <a class="arrow-link" href="https://github.com/Open83/restful-booker-api-automation" target="_blank" rel="noopener noreferrer">GitHub repository<span class="sr-only"> (opens in a new tab)</span></a>
+                            </div>
                         </div>
+                        <dl class="meta-list proof-facts">
+                            <div><dt>What was tested</dt><dd>The public RESTful Booker demo API across authentication, create, retrieve, full and partial update and delete, plus negative cases and multi-step workflows.</dd></div>
+                            <div><dt>Why it matters</dt><dd>It shows how I structure API checks: status codes, response structure, data persistence across requests and how the API responds to invalid input.</dd></div>
+                            <div><dt>Tools</dt><dd>Playwright Test, TypeScript, reusable API client classes, GitHub Actions.</dd></div>
+                            <div><dt>What was automated</dt><dd>47 test definitions in 9 suites, including 8 negative tests.</dd></div>
+                            <div class="proof-limit"><dt>Limitations</dt><dd>A public practice API, not a client system. Three of the eight negative tests contain an assertion that cannot fail (see the article). The last recorded CI run is 22 October 2026 and is a historical result.</dd></div>
+                        </dl>
                     </article>
 
-                    <article class="proof-card" id="proof-automation">
-                        <span class="proof-tag">Playwright Test Automation</span>
-                        <h3>Automation Exercise</h3>
-                        <dl>
-                            <dt>What was tested</dt>
-                            <dd>The Automation Exercise e-commerce demo: core customer journeys through the UI and selected REST endpoints.</dd>
-                            <dt>Why it matters</dt>
-                            <dd>It shows a maintainable UI and API regression suite built with page objects and run in CI, not a set of one-off scripts.</dd>
-                            <dt>Tools</dt>
-                            <dd>Playwright Test, Page Object Model, GitHub Actions.</dd>
-                            <dt>What was automated</dt>
-                            <dd>26 test definitions: 16 API and 10 UI.</dd>
-                            <dt>Limitations</dt>
-                            <dd>A public demo site. The last recorded CI result is 29 August 2026 with retries enabled and is a historical result.</dd>
-                        </dl>
-                        <div class="proof-links">
-                            <a href="/projects/automation-exercise/">Project page</a>
-                            <a href="https://github.com/Open83/automationexercise" target="_blank" rel="noopener noreferrer">GitHub repository<span class="sr-only"> (opens in a new tab)</span></a>
+                    <article class="proof-pair" id="proof-automation">
+                        <div class="proof-pair-head">
+                            <p class="kicker"><span class="kicker-num">03</span> <span class="proof-tag">Playwright Test Automation</span></p>
+                            <h3>Automation Exercise</h3>
+                            <div class="proof-links">
+                                <a class="arrow-link" href="/projects/automation-exercise/">Project page</a>
+                                <a class="arrow-link" href="https://github.com/Open83/automationexercise" target="_blank" rel="noopener noreferrer">GitHub repository<span class="sr-only"> (opens in a new tab)</span></a>
+                            </div>
                         </div>
+                        <dl class="meta-list proof-facts">
+                            <div><dt>What was tested</dt><dd>The Automation Exercise e-commerce demo: core customer journeys through the UI and selected REST endpoints.</dd></div>
+                            <div><dt>Why it matters</dt><dd>It shows a maintainable UI and API regression suite built with page objects and run in CI, not a set of one-off scripts.</dd></div>
+                            <div><dt>Tools</dt><dd>Playwright Test, Page Object Model, GitHub Actions.</dd></div>
+                            <div><dt>What was automated</dt><dd>26 test definitions: 16 API and 10 UI.</dd></div>
+                            <div class="proof-limit"><dt>Limitations</dt><dd>A public demo site. The last recorded CI result is 29 August 2026 with retries enabled and is a historical result.</dd></div>
+                        </dl>
                     </article>
 
-                    <article class="proof-card" id="proof-functional">
-                        <span class="proof-tag">Manual &amp; Functional Testing</span>
-                        <h3>Automation Exercise: the manual layer</h3>
-                        <dl>
-                            <dt>What was tested</dt>
-                            <dd>The same e-commerce demo, planned and tested manually first: a test plan, a manual test case log, exploratory testing using boundary-value analysis and state-transition heuristics, and a summary execution report.</dd>
-                            <dt>Why it matters</dt>
-                            <dd>Automation only covers what someone decided was worth checking. These documents show that decision step: scope, scenarios, execution results and a release assessment.</dd>
-                            <dt>Tools</dt>
-                            <dd>Manual and exploratory testing, documented in Google Docs; Playwright for the repeatable parts.</dd>
-                            <dt>Limitations</dt>
-                            <dd>A public demo site and an independent project.</dd>
-                        </dl>
-                        <div class="proof-links">
-                            <a href="https://docs.google.com/document/d/1TurtuoFSXjmA95otdRhSaLQDjXxTNbr6mjD70V_bbGQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Test plan<span class="sr-only"> (opens in a new tab)</span></a>
-                            <a href="https://docs.google.com/document/d/1lvmT0Q68B_rJPLB0VB7HmDYBQp1iXm-utrJX7t7-r08/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Manual test case log<span class="sr-only"> (opens in a new tab)</span></a>
-                            <a href="/projects/automation-exercise/">Project page</a>
+                    <article class="proof-pair" id="proof-payments">
+                        <div class="proof-pair-head">
+                            <p class="kicker"><span class="kicker-num">04</span> <span class="proof-tag">Payment Workflow Testing</span></p>
+                            <h3>Razorpay Payment Gateway QA &amp; Automation</h3>
+                            <div class="proof-links">
+                                <a class="arrow-link" href="/projects/razorpay-payment-gateway-qa-automation/">Project page</a>
+                                <a class="arrow-link" href="/blog/payment-gateway-testing-playwright/">Read the article</a>
+                                <a class="arrow-link" href="https://github.com/Open83/Razorpay-Payment-Gateway---QA---Automation" target="_blank" rel="noopener noreferrer">GitHub repository<span class="sr-only"> (opens in a new tab)</span></a>
+                            </div>
                         </div>
+                        <dl class="meta-list proof-facts">
+                            <div><dt>What was tested</dt><dd>A small Razorpay Test Mode checkout app: order creation, payment signature verification, amount integrity, webhook signature validation and idempotency, refund error handling, and the order state machine.</dd></div>
+                            <div><dt>Why it matters</dt><dd>Payments cross the UI, the app, the gateway and asynchronous webhooks, and each can disagree with the others. Testing found two High-severity defects in the demo app I built as the test target, both fixed and regression-tested.</dd></div>
+                            <div><dt>Tools</dt><dd>Playwright Test (API and UI), Express, SQLite, GitHub Actions.</dd></div>
+                            <div><dt>What was automated</dt><dd>37 test definitions; 34 run in CI, 3 need live Test Mode credentials and are run manually.</dd></div>
+                            <div class="proof-limit"><dt>Limitations</dt><dd>Sandbox only. Playwright drove a real Checkout payment in one documented session, but that session is not a committed, repeatable test. No webhook from Razorpay itself was observed arriving, and no successful live refund was completed.</dd></div>
+                        </dl>
                     </article>
 
                 </div>
@@ -1093,38 +1268,41 @@
 
 
         <!-- =====================================================
-             PROCESS
+             4. PROCESS: numbered steps on a connecting rule
         ====================================================== -->
 
         <section id="process" class="section-padding" aria-labelledby="process-heading">
             <div class="container">
 
-                <h2 id="process-heading" class="section-title">How an Engagement Works</h2>
+                <header class="section-head">
+                    <p class="kicker"><span class="kicker-num">03</span> Process</p>
+                    <h2 id="process-heading" class="section-title">How an Engagement Works</h2>
+                </header>
 
-                <ol class="process-list">
-                    <li>
+                <ol class="process-steps">
+                    <li class="process-step">
                         <h3>Discuss</h3>
                         <p>We talk through the application, the requirements and the testing problem you want solved.</p>
                     </li>
-                    <li>
+                    <li class="process-step">
                         <h3>Define scope</h3>
                         <p>We agree what is in scope, what access I need, the timeline and the deliverables.</p>
                     </li>
-                    <li>
+                    <li class="process-step">
                         <h3>Execute</h3>
                         <p>I carry out the agreed testing work.</p>
                     </li>
-                    <li>
+                    <li class="process-step">
                         <h3>Report</h3>
                         <p>I share findings and, if included in scope, verify the fixes.</p>
                     </li>
-                    <li>
+                    <li class="process-step">
                         <h3>Hand over</h3>
                         <p>When automation is in scope, I deliver the code and setup and execution documentation.</p>
                     </li>
                 </ol>
 
-                <div class="scope-callout">
+                <div class="scope-callout scope-note">
                     <p><strong>Scope is agreed before work begins.</strong> If something falls outside it, we discuss it first. It is not added silently.</p>
                 </div>
 
@@ -1133,22 +1311,26 @@
 
 
         <!-- =====================================================
-             SMALL FIRST ENGAGEMENT + SAMPLE DELIVERABLE
+             5. SMALL FIRST ENGAGEMENT + SAMPLE DELIVERABLES
         ====================================================== -->
 
-        <section id="pilot" class="section-padding" aria-labelledby="pilot-heading">
+        <section id="pilot" class="section-padding pilot-section" aria-labelledby="pilot-heading">
             <div class="container">
 
-                <h2 id="pilot-heading" class="section-title">A Small First Engagement</h2>
+                <header class="section-head section-head-split">
+                    <div>
+                        <p class="kicker"><span class="kicker-num">04</span> First engagement</p>
+                        <h2 id="pilot-heading" class="section-title">A Small First Engagement</h2>
+                    </div>
+                    <p class="section-intro">
+                        If you are not sure how much testing you need, start with a fixed-scope pilot: one limited piece of
+                        work, so you can see how I work on your product before committing to more.
+                    </p>
+                </header>
 
-                <p style="max-width: 820px; margin: 0 auto 28px; text-align: center;">
-                    If you are not sure how much testing you need, start with a fixed-scope pilot: one limited piece of
-                    work, so you can see how I work on your product before committing to more.
-                </p>
+                <div class="compare">
 
-                <div class="expect-grid">
-
-                    <div class="expect-card">
+                    <div class="compare-col">
                         <h3>What a pilot could look like</h3>
                         <ul>
                             <li>One feature, one API area or one user journey, with the scope and exclusions written down first</li>
@@ -1158,7 +1340,7 @@
                         </ul>
                     </div>
 
-                    <div class="expect-card">
+                    <div class="compare-col">
                         <h3>How to ask for one</h3>
                         <ul>
                             <li>Use the form below and describe the application and the area you are worried about</li>
@@ -1170,102 +1352,108 @@
 
                 </div>
 
-                <div class="sample-report">
-                    <h3>What a defect report looks like</h3>
-                    <p class="sample-note">
-                        A sample: condensed from DEF-002 in my own Razorpay Test Mode project, not client work.
-                        The <a href="/evidence/#defect-report">full report</a> has the code and the regression tests.
-                    </p>
-                    <dl>
-                        <dt>Title</dt>
-                        <dd>Webhook signature validation can never succeed: the global JSON body parser consumes the body before the webhook route</dd>
-                        <dt>Environment</dt>
-                        <dd>Express 4.x app on Node.js with SQLite, Razorpay Test Mode, webhook secret configured</dd>
-                        <dt>Severity</dt>
-                        <dd>High. Priority not recorded in the repository's defect log.</dd>
-                        <dt>Steps</dt>
-                        <dd>
-                            <ol>
-                                <li>Compute the HMAC-SHA256 of the raw body with the webhook secret, as the app's validator does.</li>
-                                <li>Send that exact body and the correct signature to the webhook endpoint, once with <code>fetch()</code> and once with <code>curl --data-binary</code>, to rule out client-side changes.</li>
-                                <li>Observe the response.</li>
-                            </ol>
-                        </dd>
-                        <dt>Expected</dt>
-                        <dd>HTTP 200 and a success message.</dd>
-                        <dt>Actual</dt>
-                        <dd>HTTP 401, every time, even with a provably correct signature over the correct bytes.</dd>
-                        <dt>Root cause</dt>
-                        <dd>The global body parser ran first, so the signature was computed over the string &ldquo;[object Object]&rdquo; instead of the real payload.</dd>
-                        <dt>Impact</dt>
-                        <dd>No correctly signed webhook could be accepted. It failed safe: a forged webhook could not get through either.</dd>
-                        <dt>Status</dt>
-                        <dd>Resolved by mounting the webhook router before the global parser, with regression tests.</dd>
-                    </dl>
-                </div>
+                <div class="samples">
 
-                <div class="sample-report scenario-matrix" id="sample-matrix">
-                    <h3>What a test-scenario matrix looks like</h3>
-                    <p class="sample-note">
-                        A sample: six rows condensed from the 37-test coverage matrix of my own Razorpay Test Mode project, not client work.
-                        All 37 tests are listed on the <a href="/evidence/#coverage-matrix">Evidence page</a>. The IDs below are the CI-safe tests among them.
-                    </p>
-                    <table class="scenario-table">
-                        <caption class="sr-only">Sample test scenarios with expected results and test IDs</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col">Area</th>
-                                <th scope="col">Scenario</th>
-                                <th scope="col">Expected result</th>
-                                <th scope="col">Test IDs</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">Payment signature</th>
-                                <td data-label="Scenario">Wrong signature, tampered order ID, or missing signature field on payment verification</td>
-                                <td data-label="Expected result">The payment is rejected</td>
-                                <td data-label="Test IDs">SIG-002, SIG-003, SIG-004</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Webhook signature</th>
-                                <td data-label="Scenario">Correctly signed event, invalid signature, missing signature header</td>
-                                <td data-label="Expected result">The signed event is accepted and updates the order; the other two are rejected</td>
-                                <td data-label="Test IDs">WEB-001, WEB-FIX-001, WEB-002, WEB-003</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Webhook idempotency</th>
-                                <td data-label="Scenario">The same event ID sent twice; two different event IDs</td>
-                                <td data-label="Expected result">The duplicate is processed once; different IDs are processed independently</td>
-                                <td data-label="Test IDs">WEB-005, WEB-006</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Error handling</th>
-                                <td data-label="Scenario">Order creation fails; a request body is malformed JSON</td>
-                                <td data-label="Expected result">No gateway details in the error message; HTTP 400 for the malformed body</td>
-                                <td data-label="Test IDs">ERR-001, ERR-004</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Refund errors</th>
-                                <td data-label="Scenario">The gateway rejects a refund</td>
-                                <td data-label="Expected result">A controlled error, and the server stays available</td>
-                                <td data-label="Test IDs">REF-ERR-001, REF-ERR-002</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Checkout page</th>
-                                <td data-label="Scenario">Page source and the Test Mode banner</td>
-                                <td data-label="Expected result">No secrets in the HTML; the Test Mode indicator is visible</td>
-                                <td data-label="Test IDs">UI-004, UI-005</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="sample-note scenario-gaps">
-                        Not covered by any test in that project: authentication and redirect flows, a real Razorpay-originated webhook,
-                        a successful refund, and the paid to refunded transition. The tests listed run against my own demo app in Razorpay Test Mode,
-                        and the CI-safe ones use placeholder credentials, so they do not process a real payment. They do not show that live-mode
-                        payments, real card networks, settlement or a production system work; testing those would need your environment and access.
-                        A matrix for your product would state its own gaps the same way.
-                    </p>
+                    <article class="sample-defect">
+                        <header class="sample-head">
+                            <h3>What a defect report looks like</h3>
+                            <p class="sample-note">
+                                A sample: condensed from DEF-002 in my own Razorpay Test Mode project, not client work.
+                                The <a href="/evidence/#defect-report">full report</a> has the code and the regression tests.
+                            </p>
+                        </header>
+                        <div class="sample-report panel">
+                        <dl class="meta-list">
+                            <div><dt>Title</dt><dd>Webhook signature validation can never succeed: the global JSON body parser consumes the body before the webhook route</dd></div>
+                            <div><dt>Environment</dt><dd>Express 4.x app on Node.js with SQLite, Razorpay Test Mode, webhook secret configured</dd></div>
+                            <div><dt>Severity</dt><dd>High. Priority not recorded in the repository's defect log.</dd></div>
+                            <div>
+                                <dt>Steps</dt>
+                                <dd>
+                                    <ol>
+                                        <li>Compute the HMAC-SHA256 of the raw body with the webhook secret, as the app's validator does.</li>
+                                        <li>Send that exact body and the correct signature to the webhook endpoint, once with <code>fetch()</code> and once with <code>curl --data-binary</code>, to rule out client-side changes.</li>
+                                        <li>Observe the response.</li>
+                                    </ol>
+                                </dd>
+                            </div>
+                            <div><dt>Expected</dt><dd>HTTP 200 and a success message.</dd></div>
+                            <div><dt>Actual</dt><dd>HTTP 401, every time, even with a provably correct signature over the correct bytes.</dd></div>
+                            <div><dt>Root cause</dt><dd>The global body parser ran first, so the signature was computed over the string &ldquo;[object Object]&rdquo; instead of the real payload.</dd></div>
+                            <div><dt>Impact</dt><dd>No correctly signed webhook could be accepted. It failed safe: a forged webhook could not get through either.</dd></div>
+                            <div><dt>Status</dt><dd>Resolved by mounting the webhook router before the global parser, with regression tests.</dd></div>
+                        </dl>
+                        </div>
+                    </article>
+
+                    <div class="sample-report-matrix scenario-matrix" id="sample-matrix">
+                        <div class="sample-head">
+                            <h3>What a test-scenario matrix looks like</h3>
+                            <p class="sample-note">
+                                A sample: six rows condensed from the 37-test coverage matrix of my own Razorpay Test Mode project, not client work.
+                                All 37 tests are listed on the <a href="/evidence/#coverage-matrix">Evidence page</a>. The IDs below are the CI-safe tests among them.
+                            </p>
+                        </div>
+                        <div class="table-wrap" role="region" aria-labelledby="sample-matrix-caption" tabindex="0">
+                            <table class="scenario-table">
+                                <caption class="sr-only" id="sample-matrix-caption">Sample test scenarios with expected results and test IDs</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Area</th>
+                                        <th scope="col">Scenario</th>
+                                        <th scope="col">Expected result</th>
+                                        <th scope="col">Test IDs</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Payment signature</th>
+                                        <td data-label="Scenario">Wrong signature, tampered order ID, or missing signature field on payment verification</td>
+                                        <td data-label="Expected result">The payment is rejected</td>
+                                        <td data-label="Test IDs">SIG-002, SIG-003, SIG-004</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Webhook signature</th>
+                                        <td data-label="Scenario">Correctly signed event, invalid signature, missing signature header</td>
+                                        <td data-label="Expected result">The signed event is accepted and updates the order; the other two are rejected</td>
+                                        <td data-label="Test IDs">WEB-001, WEB-FIX-001, WEB-002, WEB-003</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Webhook idempotency</th>
+                                        <td data-label="Scenario">The same event ID sent twice; two different event IDs</td>
+                                        <td data-label="Expected result">The duplicate is processed once; different IDs are processed independently</td>
+                                        <td data-label="Test IDs">WEB-005, WEB-006</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Error handling</th>
+                                        <td data-label="Scenario">Order creation fails; a request body is malformed JSON</td>
+                                        <td data-label="Expected result">No gateway details in the error message; HTTP 400 for the malformed body</td>
+                                        <td data-label="Test IDs">ERR-001, ERR-004</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Refund errors</th>
+                                        <td data-label="Scenario">The gateway rejects a refund</td>
+                                        <td data-label="Expected result">A controlled error, and the server stays available</td>
+                                        <td data-label="Test IDs">REF-ERR-001, REF-ERR-002</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Checkout page</th>
+                                        <td data-label="Scenario">Page source and the Test Mode banner</td>
+                                        <td data-label="Expected result">No secrets in the HTML; the Test Mode indicator is visible</td>
+                                        <td data-label="Test IDs">UI-004, UI-005</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="sample-note scenario-gaps">
+                            Not covered by any test in that project: authentication and redirect flows, a real Razorpay-originated webhook,
+                            a successful refund, and the paid to refunded transition. The tests listed run against my own demo app in Razorpay Test Mode,
+                            and the CI-safe ones use placeholder credentials, so they do not process a real payment. They do not show that live-mode
+                            payments, real card networks, settlement or a production system work; testing those would need your environment and access.
+                            A matrix for your product would state its own gaps the same way.
+                        </p>
+                    </div>
+
                 </div>
 
             </div>
@@ -1273,17 +1461,20 @@
 
 
         <!-- =====================================================
-             EXPECTATIONS
+             6. EXPECTATIONS: what I need / what I will not promise
         ====================================================== -->
 
-        <section class="section-padding section-alt" aria-labelledby="expect-heading">
-            <div class="container">
+        <section class="section-padding expect-section" aria-labelledby="expect-heading">
+            <div class="container expect-layout">
 
-                <h2 id="expect-heading" class="section-title">Before We Start</h2>
+                <header class="section-head expect-head">
+                    <p class="kicker"><span class="kicker-num">05</span> Expectations</p>
+                    <h2 id="expect-heading" class="section-title">Before We Start</h2>
+                </header>
 
-                <div class="expect-grid">
+                <div class="compare compare-ledger">
 
-                    <div class="expect-card">
+                    <div class="compare-col">
                         <h3>What I will need from you</h3>
                         <ul>
                             <li>A description of the application, feature or API to be tested</li>
@@ -1293,7 +1484,7 @@
                         </ul>
                     </div>
 
-                    <div class="expect-card">
+                    <div class="compare-col compare-not">
                         <h3>What I will not promise</h3>
                         <ul>
                             <li>A bug-free release. Testing reduces risk; it cannot prove defects are absent</li>
@@ -1310,22 +1501,24 @@
 
 
         <!-- =====================================================
-             CONTACT
+             7. ENQUIRY: Soft Mint band (the one loud moment)
         ====================================================== -->
 
-        <section id="contact" class="section-padding" aria-labelledby="contact-heading">
+        <section id="contact" class="section-padding enquiry" aria-labelledby="contact-heading">
             <div class="container">
 
-                <h2 id="contact-heading" class="section-title">Let&rsquo;s Discuss What Needs Testing</h2>
+                <header class="section-head">
+                    <p class="kicker"><span class="kicker-num">06</span> Enquiry</p>
+                    <h2 id="contact-heading" class="section-title">Let&rsquo;s Discuss What Needs Testing</h2>
+                    <p class="section-intro">
+                        Tell me what you are building and what worries you about it. I will reply
+                        to talk through scope before anything is agreed.
+                    </p>
+                </header>
 
-                <p class="section-intro">
-                    Tell me what you are building and what worries you about it. I will reply
-                    to talk through scope before anything is agreed.
-                </p>
+                <div class="enquiry-layout contact-wrapper">
 
-                <div class="contact-wrapper">
-
-                    <div class="inquiry-form">
+                    <div class="inquiry-form panel">
 
                         <!-- Empty live region: the success or error message is created here only after a submission -->
                         <div id="formStatus" aria-live="polite"></div>
@@ -1336,18 +1529,22 @@
                             <input type="hidden" name="_subject" value="Freelance QA inquiry from sayedasif.com/services/">
                             <input type="hidden" name="source" value="services-page">
 
-                            <div class="form-group">
-                                <label for="svc-name">Full name <span class="req" aria-hidden="true">*</span></label>
-                                <input type="text" id="svc-name" name="name" autocomplete="name" required data-error="Please enter your name."
-                                       aria-describedby="svc-name-error">
-                                <span class="field-error" id="svc-name-error" aria-live="polite"></span>
-                            </div>
+                            <div class="form-row">
 
-                            <div class="form-group">
-                                <label for="svc-email">Email address <span class="req" aria-hidden="true">*</span></label>
-                                <input type="email" id="svc-email" name="email" autocomplete="email" required data-error="Please enter a valid email address, for example name@company.com."
-                                       aria-describedby="svc-email-error">
-                                <span class="field-error" id="svc-email-error" aria-live="polite"></span>
+                                <div class="form-group">
+                                    <label for="svc-name">Full name <span class="req" aria-hidden="true">*</span></label>
+                                    <input type="text" id="svc-name" name="name" autocomplete="name" required data-error="Please enter your name."
+                                           aria-describedby="svc-name-error">
+                                    <span class="field-error" id="svc-name-error" aria-live="polite"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="svc-email">Email address <span class="req" aria-hidden="true">*</span></label>
+                                    <input type="email" id="svc-email" name="email" autocomplete="email" required data-error="Please enter a valid email address, for example name@company.com."
+                                           aria-describedby="svc-email-error">
+                                    <span class="field-error" id="svc-email-error" aria-live="polite"></span>
+                                </div>
+
                             </div>
 
                             <div class="form-group">

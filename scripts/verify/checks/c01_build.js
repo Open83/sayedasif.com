@@ -47,6 +47,26 @@ async function runCheck(ctx) {
   for (const f of jsonFiles) { try { JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8')); } catch (e) { jsonBad.push(`${f}: ${e.message}`); } }
   r.expect(jsonBad.length === 0, `JSON syntax on ${jsonFiles.length} files`, jsonBad.length ? jsonBad.join('; ') : jsonFiles.join(', '));
 
+  // Design tokens: page CSS (head <style> blocks and style="" attributes) uses the --color-* tokens from
+  // /assets/css/site.css, never a colour literal. Project-cover SVGs carry their own palette and are excluded.
+  const COLOUR = /#[0-9a-f]{3,8}\b|\b(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch)\(|\b(?:white|black)\b(?![\w-])/i;
+  const literals = [];
+  for (const f of ctx.files.filter((x) => x.endsWith('.html'))) {
+    const html = fs.readFileSync(path.join(ROOT, f), 'utf8').replace(/<svg\b[\s\S]*?<\/svg>/g, '');
+    const blocks = [...html.matchAll(/<style>([\s\S]*?)<\/style>/g)].map((m) => m[1].replace(/\/\*[\s\S]*?\*\//g, ''));
+    const attrs = [...html.matchAll(/\sstyle="([^"]*)"/g)].map((m) => m[1]);
+    for (const css of [...blocks, ...attrs]) {
+      for (const line of css.split('\n')) if (COLOUR.test(line)) literals.push(`${f}: ${line.trim().slice(0, 90)}`);
+    }
+  }
+  // shared page-template stylesheets follow the same rule (site.css defines the tokens and global-nav.css holds the
+  // documented WhatsApp-green exception, so those two are not scanned)
+  for (const f of ['assets/css/case-study.css']) {
+    const css = fs.readFileSync(path.join(ROOT, f), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '');
+    for (const line of css.split('\n')) if (COLOUR.test(line)) literals.push(`${f}: ${line.trim().slice(0, 90)}`);
+  }
+  r.expect(literals.length === 0, 'page CSS uses design tokens only: no colour literal in any page <style> block, style attribute or assets/css/case-study.css (covers excluded)', literals.length ? `${literals.length} literal(s): ${literals.slice(0, 4).join(' | ')}` : 'no colour literals');
+
   // HTML validator
   if (!fs.existsSync(VNU)) {
     r.note('HTML validator skipped: vnu-jar is not installed (run npm install in scripts/verify)');
