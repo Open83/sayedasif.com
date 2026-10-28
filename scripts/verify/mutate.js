@@ -32,7 +32,10 @@ const repoState = () => git(['status', '--porcelain'], REPO) + git(['rev-parse',
 
 const TEMP = fs.mkdtempSync(path.join(os.tmpdir(), 'verify-mutation-'));
 const skipDirs = new Set(['.git', 'node_modules', 'out', 'out-mutation', '.cache']);
-fs.cpSync(REPO, TEMP, { recursive: true, filter: (src) => !skipDirs.has(path.basename(src)) });
+// Nested repositories (the git-ignored local clones of the QA repos) are left out: without their own .git folder
+// in the copy they would look like part of the site to the tooling, which skips them in the real tree.
+const nestedRepo = (src) => src !== REPO && fs.existsSync(path.join(src, '.git'));
+fs.cpSync(REPO, TEMP, { recursive: true, filter: (src) => !skipDirs.has(path.basename(src)) && !nestedRepo(src) });
 git(['init', '-q'], TEMP);
 git(['-c', 'core.autocrlf=false', 'add', '-A'], TEMP);
 
@@ -87,6 +90,28 @@ const MUTATIONS = [
     files: ['about/index.html'],
     expect: [13, 17],
     apply: () => edit('about/index.html', (t) => t.replace(/(<a\b[^>]*data-whatsapp[^>]*?)\s+aria-label="Chat on WhatsApp"/, '$1')),
+  },
+  {
+    name: 'hard-coded colour in a page',
+    detail: 'a rule with a hex colour added to the page <style> on /about/ instead of a design token',
+    files: ['about/index.html'],
+    expect: [1],
+    // same line endings as the page, so only the colour-literal scan (not the chrome sync check) can notice it
+    apply: () => edit('about/index.html', (t) => t.replace(/<\/style>/, `        .mutation-probe { color: #00baf2; }${t.includes('\r\n') ? '\r\n' : '\n'}    </style>`)),
+  },
+  {
+    name: 'theme toggle choice ignored',
+    detail: 'theme.js no longer applies the stored light/dark choice before the first paint',
+    files: ['assets/js/theme.js'],
+    expect: [17],
+    apply: () => edit('assets/js/theme.js', (t) => t.replace("if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);", '')),
+  },
+  {
+    name: 'low-contrast muted text token',
+    detail: '--color-text-muted lightened to #9aa6a2 (about 2.5:1 on Porcelain) in the light theme',
+    files: ['assets/css/site.css'],
+    expect: [17],
+    apply: () => edit('assets/css/site.css', (t) => t.replace('--color-text-muted: #53635F;', '--color-text-muted: #9aa6a2;')),
   },
   {
     name: 'new TODO comment',
