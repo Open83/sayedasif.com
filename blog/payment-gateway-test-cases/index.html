@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment Gateway Test Cases: A QA Checklist | Sayed Asif</title>
+
+    <meta
+        name="description"
+        content="Payment gateway test cases for QA engineers: what to check, why it matters and what failure looks like in production, plus the limits of my own testing."
+    >
+
+    <meta name="author" content="Sayed Asif">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <link rel="canonical" href="https://sayedasif.com/blog/payment-gateway-test-cases/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Payment Gateway Test Cases: A QA Checklist | Sayed Asif">
+    <meta property="og:description" content="A payment gateway testing checklist organised by risk: webhooks, duplicates, refunds, rounding and reconciliation, with a CSV and a plain account of what I did and did not automate.">
+    <meta property="og:url" content="https://sayedasif.com/blog/payment-gateway-test-cases/">
+    <meta property="og:image" content="https://sayedasif.com/image/og-share.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:alt" content="Sayed Asif, Software QA Engineer: Playwright, API Testing, Payment Testing">
+    <meta property="og:site_name" content="Sayed Asif">
+    <meta property="article:published_time" content="2026-10-29">
+    <meta property="article:modified_time" content="2026-10-29">
+    <meta property="article:author" content="Sayed Asif">
+    <meta property="article:section" content="Payment Testing">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Payment Gateway Test Cases: A QA Checklist | Sayed Asif">
+    <meta name="twitter:description" content="Payment gateway test cases with the reason for each and what failure looks like, marked by what I automated, what I only recommend and what a sandbox cannot show.">
+    <meta name="twitter:image" content="https://sayedasif.com/image/og-share.jpg">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "BlogPosting",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://sayedasif.com/blog/payment-gateway-test-cases/"
+                },
+                "headline": "Payment Gateway Test Cases: A Practical Checklist for QA Engineers",
+                "description": "Payment gateway test cases for QA engineers: what to check, why it matters and what failure looks like in production, plus the limits of my own testing.",
+                "image": "https://sayedasif.com/image/og-share.jpg",
+                "author": {
+                    "@type": "Person",
+                    "name": "Sayed Asif",
+                    "url": "https://sayedasif.com/about/"
+                },
+                "publisher": {
+                    "@type": "Person",
+                    "name": "Sayed Asif",
+                    "url": "https://sayedasif.com/"
+                },
+                "datePublished": "2026-10-29",
+                "dateModified": "2026-10-29",
+                "articleSection": "Payment Testing",
+                "keywords": [
+                    "payment gateway test cases",
+                    "payment gateway testing checklist",
+                    "webhook testing",
+                    "idempotency",
+                    "refund testing",
+                    "payment reconciliation testing"
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://sayedasif.com/" },
+                    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://sayedasif.com/blog/" },
+                    { "@type": "ListItem", "position": 3, "name": "Payment Gateway Test Cases", "item": "https://sayedasif.com/blog/payment-gateway-test-cases/" }
+                ]
+            }
+        ]
+    }
+    </script>
+
+    <!-- Global header/footer styles (single source of truth) -->
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#F8F8F5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E1513" media="(prefers-color-scheme: dark)">
+    <link rel="preload" href="/assets/fonts/source-serif-4-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-wght.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/site.css">
+    <script src="/assets/js/theme.js"></script>
+    <link rel="stylesheet" href="/assets/css/global-nav.css">
+    <style>
+
+        /* =========================================================
+           ARTICLE TEMPLATE: page layout only. Shared, unchanged, by
+           every article in /blog/ (keep the copies identical).
+           Tokens, type, .prose, .code-block, .table-wrap, .callout,
+           .status and .breadcrumb live in /assets/css/site.css.
+           Tokens only, no colour values.
+        ========================================================= */
+
+
+        /* =========================================================
+           1. ARTICLE HEADER: back link, topic, serif title, mono meta
+        ========================================================= */
+
+        .article-hero {
+            padding-top: calc(var(--header-h) + clamp(2rem, 1rem + 3vw, 3.5rem));
+        }
+
+        .article-hero .breadcrumb {
+            margin-bottom: var(--space-6);
+        }
+
+        .article-head {
+            max-width: 52rem;
+            padding-bottom: var(--space-6);
+            border-bottom: 1px solid var(--color-heading);
+        }
+
+        .article-category {
+            display: inline-block;
+            margin-bottom: var(--space-4);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-link);
+        }
+
+        .article-title {
+            font-size: clamp(2.125rem, 1.45rem + 2.6vw, 3.5rem);
+            line-height: 1.06;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-2) var(--space-5);
+            margin-top: var(--space-5);
+            font-family: var(--font-mono);
+            font-size: var(--text-sm);
+            line-height: 1.5;
+            color: var(--color-text-muted);
+        }
+
+        .article-meta > * {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 0.5em;
+        }
+
+        .article-meta .ic {
+            align-self: center;
+            font-size: var(--text-xs);
+        }
+
+        .article-meta a {
+            font-weight: 500;
+        }
+
+
+        /* =========================================================
+           2. READING LAYOUT: a ~68ch prose column; the contents list
+              is an inline block on small screens and a sticky
+              margin column from 1100px.
+        ========================================================= */
+
+        .article-shell {
+            display: grid;
+            grid-template-columns: minmax(0, 44rem);
+            gap: 0 var(--space-9);
+            padding-top: var(--space-2);
+            padding-bottom: var(--section-y);
+        }
+
+        .article-shell > * {
+            min-width: 0;
+        }
+
+        .article-body {
+            font-size: var(--text-md);
+        }
+
+        .article-body .article-lede {
+            font-size: var(--text-lg);
+            line-height: 1.65;
+            color: var(--color-heading);
+        }
+
+        .article-body h2 {
+            scroll-margin-top: calc(var(--header-h) + var(--space-5));
+            margin-top: 2.4em;
+            line-height: 1.15;
+        }
+
+        .article-body h3 {
+            margin-top: 2em;
+        }
+
+        .article-body a:not(.btn) {
+            font-weight: 500;
+        }
+
+        .article-body strong {
+            color: var(--color-heading);
+        }
+
+        /* code panels: dark in both themes, scroll inside */
+        .article-body pre.code-block {
+            margin-top: 1.6em;
+        }
+
+        .article-body > pre.code-block + .code-caption {
+            margin-top: var(--space-2);
+        }
+
+        .code-caption {
+            font-size: var(--text-sm);
+            line-height: 1.55;
+            color: var(--color-text-muted);
+        }
+
+        .article-body > pre.code-block + .code-caption + * {
+            margin-top: 1.6em;
+        }
+
+        /* tables */
+        .article-body .table-wrap {
+            margin-top: 1.6em;
+        }
+
+        .article-body .table-wrap table {
+            min-width: 40rem;
+        }
+
+        .article-body .table-wrap td .status {
+            white-space: normal;
+            align-items: baseline;
+        }
+
+        .article-body .table-wrap caption {
+            font-size: var(--text-sm);
+        }
+
+        .article-body .callout {
+            margin-top: 1.6em;
+            font-size: var(--text-base);
+        }
+
+        .article-body .callout + * {
+            margin-top: 1.6em;
+        }
+
+        /* contents */
+        .toc {
+            margin-bottom: var(--space-7);
+            padding-block: var(--space-5);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .toc h2 {
+            margin-bottom: var(--space-3);
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
+            line-height: 1.4;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .toc ol {
+            list-style: none;
+            counter-reset: toc;
+            border-left: 1px solid var(--color-border);
+        }
+
+        .toc li {
+            counter-increment: toc;
+        }
+
+        .toc a {
+            display: flex;
+            gap: 0.75em;
+            min-height: 44px;
+            align-items: center;
+            margin-left: -1px;
+            padding: var(--space-1) 0 var(--space-1) var(--space-4);
+            border-left: 2px solid transparent;
+            font-size: var(--text-sm);
+            line-height: 1.4;
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .toc-numbered a::before {
+            content: counter(toc, decimal-leading-zero);
+            flex-shrink: 0;
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            color: var(--color-text-muted);
+        }
+
+        .toc a:hover {
+            border-left-color: var(--color-brand);
+            color: var(--color-link);
+        }
+
+        @media (min-width: 1100px) {
+            .article-shell {
+                grid-template-columns: minmax(0, 44rem) minmax(15rem, 19rem);
+                justify-content: space-between;
+                padding-top: var(--space-7);
+            }
+            .article-shell > * {
+                grid-column: 1;
+            }
+            .article-shell > .toc {
+                grid-column: 2;
+                grid-row: 1;
+                position: sticky;
+                top: calc(var(--header-h) + var(--space-6));
+                align-self: start;
+                max-height: calc(100vh - var(--header-h) - var(--space-8));
+                overflow-y: auto;
+                margin: 0;
+                padding: 0 var(--space-8) 0 0;
+                border: 0;
+            }
+            .article-shell > .article-body {
+                grid-row: 1;
+            }
+            .toc a {
+                min-height: 36px;
+            }
+        }
+
+
+        /* =========================================================
+           3. AFTER THE ARTICLE: related as a ruled list, a quiet
+              CTA, the way back
+        ========================================================= */
+
+        .related {
+            margin-top: var(--space-9);
+        }
+
+        .related h2 {
+            margin-bottom: var(--space-4);
+            font-size: var(--text-2xl);
+        }
+
+        .related-list {
+            list-style: none;
+            border-top: 1px solid var(--color-heading);
+        }
+
+        .related-card {
+            display: grid;
+            grid-template-columns: 8.5rem minmax(0, 1fr) auto;
+            gap: var(--space-1) var(--space-5);
+            align-items: baseline;
+            padding-block: var(--space-4);
+            border-bottom: 1px solid var(--color-border);
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .related-card > span:first-child {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            letter-spacing: var(--tracking-label);
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        .related-card strong {
+            font-weight: 600;
+            line-height: 1.45;
+            color: var(--color-heading);
+            transition: color var(--dur-fast) var(--ease);
+        }
+
+        .related-card::after {
+            content: "\2192";
+            font-family: var(--font-mono);
+            color: var(--color-link);
+            transition: transform var(--dur-fast) var(--ease);
+        }
+
+        .related-card:hover strong {
+            color: var(--color-link);
+        }
+
+        .related-card:hover::after {
+            transform: translateX(3px);
+        }
+
+        .article-cta {
+            margin-top: var(--space-8);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            background: var(--color-surface-soft);
+        }
+
+        .article-cta h2 {
+            font-size: var(--text-xl);
+        }
+
+        .article-cta p {
+            max-width: 58ch;
+            margin: var(--space-3) 0 var(--space-5);
+        }
+
+        .back-to-blog {
+            margin-top: var(--space-8);
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .back-to-blog a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5em;
+            min-height: 44px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-to-blog a:hover {
+            text-decoration: underline;
+        }
+
+        .back-to-blog .ic {
+            transition: transform var(--dur-fast) var(--ease);
+        }
+
+        .back-to-blog a:hover .ic {
+            transform: translateX(-3px);
+        }
+
+        @media (max-width: 560px) {
+            .related-card {
+                grid-template-columns: minmax(0, 1fr) auto;
+            }
+            .related-card > span:first-child {
+                grid-column: 1 / -1;
+            }
+            .article-cta {
+                padding: var(--space-5);
+            }
+            .article-cta .btn {
+                width: 100%;
+            }
+        }
+
+
+
+        /* =========================================================
+           4. THIS PAGE ONLY: a wider reading column for the checklist
+              tables, one card per case on narrow screens, the coverage
+              legend and the author note. Tokens only, no colour values.
+        ========================================================= */
+
+        .article-body > * {
+            max-width: 44rem;
+        }
+
+        .article-body > .table-wrap {
+            max-width: none;
+        }
+
+        .article-shell > .related,
+        .article-shell > .article-cta,
+        .article-shell > .author-note,
+        .article-shell > .back-to-blog {
+            max-width: 44rem;
+        }
+
+        @media (min-width: 1100px) {
+            .article-shell {
+                grid-template-columns: minmax(0, 1fr) 13.5rem;
+                column-gap: var(--space-7);
+            }
+            .article-shell > .toc {
+                padding-right: 0;
+            }
+        }
+
+        .article-body .table-wrap .num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .article-body .table-wrap .total-row > * {
+            font-weight: 600;
+            color: var(--color-heading);
+            border-top: 1px solid var(--color-heading);
+        }
+
+        /* checklist tables: six columns from 860px, cards below */
+        .article-body .table-wrap.checklist table {
+            min-width: 52rem;
+        }
+
+        .checklist tbody th {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            white-space: nowrap;
+        }
+
+        .checklist th:nth-child(1) { width: 6.5rem; }
+        .checklist th:nth-child(5) { width: 5.5rem; }
+        .checklist td:nth-child(2) { min-width: 11rem; }
+        .checklist td:nth-child(3) { min-width: 11rem; }
+        .checklist td:nth-child(4) { min-width: 12rem; }
+        .checklist td:nth-child(6) { min-width: 12.5rem; }
+
+        .checklist .sev {
+            font-family: var(--font-mono);
+            font-size: var(--text-xs);
+            font-weight: 500;
+            color: var(--color-heading);
+        }
+
+        .checklist .cov-tests,
+        .checklist .cov-note {
+            margin-top: var(--space-2);
+            font-size: var(--text-xs);
+            line-height: 1.5;
+            color: var(--color-text-muted);
+        }
+
+        .checklist tbody tr:target > * {
+            background: var(--color-surface-soft);
+        }
+
+        @media (max-width: 859px) {
+            .article-body .table-wrap.checklist {
+                overflow: visible;
+                border: 0;
+                background: none;
+            }
+            .article-body .table-wrap.checklist table {
+                min-width: 0;
+            }
+            .checklist table,
+            .checklist tbody,
+            .checklist tr,
+            .checklist th,
+            .checklist td {
+                display: block;
+                width: auto;
+                min-width: 0;
+            }
+            .checklist th:nth-child(1),
+            .checklist th:nth-child(5) {
+                width: auto;
+            }
+            .checklist td:nth-child(n) {
+                min-width: 0;
+            }
+            .checklist thead {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+                clip-path: inset(50%);
+            }
+            .checklist tbody tr {
+                margin-top: var(--space-4);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius);
+                background: var(--color-surface);
+                overflow: hidden;
+            }
+            .checklist tbody th {
+                background: var(--color-surface-muted);
+            }
+            .checklist td::before {
+                content: attr(data-label);
+                display: block;
+                margin-bottom: var(--space-1);
+                font-family: var(--font-mono);
+                font-size: var(--text-xs);
+                font-weight: 500;
+                letter-spacing: var(--tracking-label);
+                text-transform: uppercase;
+                color: var(--color-text-muted);
+            }
+            .checklist tbody tr > :last-child {
+                border-bottom: 0;
+            }
+        }
+
+        /* coverage legend */
+        .legend {
+            display: grid;
+            grid-template-columns: max-content minmax(0, 1fr);
+            gap: var(--space-3) var(--space-5);
+            align-items: baseline;
+            font-size: var(--text-base);
+        }
+
+        .legend dt {
+            margin: 0;
+        }
+
+        .legend dd {
+            margin: 0;
+        }
+
+        .legend .status {
+            white-space: normal;
+        }
+
+        @media (max-width: 640px) {
+            .legend {
+                grid-template-columns: minmax(0, 1fr);
+                gap: var(--space-1);
+            }
+            .legend dd {
+                margin-bottom: var(--space-3);
+            }
+        }
+
+        /* author note, last thing in the article */
+        .author-note {
+            margin-top: var(--space-8);
+            padding-top: var(--space-5);
+            border-top: 1px solid var(--color-border);
+            font-size: var(--text-base);
+        }
+
+        .author-note h2 {
+            margin-bottom: var(--space-2);
+            font-size: var(--text-lg);
+        }
+
+        .author-note p {
+            max-width: 58ch;
+        }
+
+        .author-note a {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
+    <header class="site-header">
+    <nav aria-label="Main navigation">
+
+        <div class="container nav-inner">
+
+            <a href="/" class="logo" aria-label="SayedAsif home">Sayed<span>Asif</span></a>
+
+            <!-- The button comes BEFORE the links in the DOM so keyboard focus moves into the opened menu. -->
+            <button class="hamburger" id="menuButton" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+                <svg class="icon-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                <svg class="icon-close" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/">Home</a>
+                <a href="/proof-of-work/">Proof of Work</a>
+                <a href="/about/">About</a>
+                <a href="/services/">Services</a>
+                <a href="/blog/" class="active">Blog</a>
+                <a href="/resume/">Resume</a>
+                <a href="/contact/" class="nav-cta">Contact</a>
+            </div>
+
+            <!-- After the links so keyboard order matches the desktop layout. Hidden until /assets/js/theme.js runs (it cannot work without JavaScript). -->
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Dark theme" aria-pressed="false" hidden>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            </button>
+
+        </div>
+
+    </nav>
+    </header>
+
+    <main id="main-content">
+
+        <header class="container article-hero">
+
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Home</a> / <a href="/blog/">Blog</a> / Payment gateway test cases
+            </nav>
+
+            <div class="article-head">
+                <span class="article-category">Payment Testing</span>
+                <h1 class="article-title">Payment Gateway Test Cases: A Practical Checklist for QA Engineers</h1>
+
+                <div class="article-meta">
+                    <span><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#calendar"/></svg></i><time datetime="2026-10-29">October 29, 2026</time></span>
+                    <span><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#user"/></svg></i>By <a href="/about/">Sayed Asif</a></span>
+                    <span><i class="ic" aria-hidden="true"><svg focusable="false" width="1em" height="1em"><use href="/assets/icons.svg#clock"/></svg></i>30 min read</span>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="container article-shell">
+
+            <nav class="toc" aria-labelledby="toc-heading">
+                <h2 id="toc-heading">In this article</h2>
+                <ol class="toc-numbered">
+                    <li><a href="#why-generic">Why generic checklists miss payment bugs</a></li>
+                    <li><a href="#how-to-read">How to read the checklist</a></li>
+                    <li><a href="#successful">Successful payments</a></li>
+                    <li><a href="#declines">Declines and failures</a></li>
+                    <li><a href="#signatures">Signature and webhook validation</a></li>
+                    <li><a href="#duplicates">Duplicates and idempotency</a></li>
+                    <li><a href="#refunds">Refunds</a></li>
+                    <li><a href="#currency">Currency and rounding</a></li>
+                    <li><a href="#timeouts">Timeouts and retries</a></li>
+                    <li><a href="#reconciliation">Reconciliation</a></li>
+                    <li><a href="#security">Basic security checks</a></li>
+                    <li><a href="#def-002">Worked example: DEF-002</a></li>
+                    <li><a href="#not-covered">What this checklist does not cover</a></li>
+                    <li><a href="#download">Download the checklist</a></li>
+                </ol>
+            </nav>
+
+            <article class="article-body prose">
+
+                <p class="article-lede">
+                    A payment bug rarely looks like a bug. It looks like a customer charged twice, an
+                    order stuck on &ldquo;failed&rdquo; after the money arrived, or a refund total that
+                    does not match the gateway. Each one is cheap to test for and expensive to find in
+                    production.
+                </p>
+
+                <p>
+                    This is a checklist of <!--cl:total-->62<!--/cl--> payment gateway test cases in
+                    <!--cl:areas-->9<!--/cl--> areas. Every case says what to check, what should happen,
+                    why it matters and how severe a failure would be. It also says how much of it I have
+                    actually automated, because a checklist that blurs &ldquo;I recommend this&rdquo; with
+                    &ldquo;I tested this&rdquo; is worth less than it looks.
+                </p>
+
+                <div class="callout callout-warn">
+                    <p><strong>Read this first.</strong> Everything marked <em>automated</em> comes from one
+                    project: <a href="/projects/razorpay-payment-gateway-qa-automation/">an independent Razorpay
+                    Test Mode QA project</a> whose demo app I built as the test target. It ran in Test Mode only.
+                    No webhook sent by Razorpay itself was observed, and no successful refund was completed
+                    against the gateway.</p>
+                    <p>No employer work is described here. Where a case is general, for
+                    example currencies with different decimal places, I say so and do not tie it to any
+                    project of mine.</p>
+                </div>
+
+
+                <h2 id="why-generic">1. Why generic checklists miss payment bugs</h2>
+
+                <p>
+                    A typical payment test list is a list of inputs: a valid card, an expired card, a wrong
+                    CVV, a declined bank. Those are worth running, and they all test the same moment, the
+                    customer pressing Pay.
+                </p>
+
+                <p>
+                    The expensive failures happen afterwards, between four things that each keep their own
+                    record of the payment: the browser, your server, the gateway and your order table. Two
+                    independent routes update that record, the browser&rsquo;s callback and the
+                    gateway&rsquo;s webhook, and either can repeat, arrive late, arrive in the wrong order or
+                    never arrive. Almost every serious case below is a way for those records to disagree.
+                </p>
+
+                <p>Three habits shaped the list:</p>
+
+                <ul>
+                    <li><strong>Assert state, not status codes.</strong> A 200 from a webhook handler says little. The order&rsquo;s status, amount and payment ID afterwards say a lot.</li>
+                    <li><strong>Pair every rejection with an acceptance.</strong> A handler that rejects everything passes every &ldquo;bad input is rejected&rdquo; test. The <a href="#def-002">worked example</a> shows this happening.</li>
+                    <li><strong>Test the money arithmetic on its own.</strong> Rounding and minor-unit mistakes are invisible in a screenshot of a successful payment.</li>
+                </ul>
+
+                <p>
+                    My earlier article, <a href="/blog/payment-gateway-testing-playwright/">How to Test a
+                    Payment Gateway with Playwright</a>, shows the test code behind several of these cases.
+                    This page does not repeat it. It is the wider list, with the reasoning.
+                </p>
+
+
+                <h2 id="how-to-read">2. How to read the checklist</h2>
+
+                <h3>Coverage labels</h3>
+
+                <p>The last column of every table says which of these a case is:</p>
+
+                <dl class="legend">
+                    <dt><span class="status status-pass">Automated, runs in CI</span></dt>
+                    <dd>A test in the public Razorpay project, in the CI-safe suite, cited by its real ID.</dd>
+                    <dt><span class="status status-warn">Automated, cannot fail in CI</span></dt>
+                    <dd>The test exists, but its assertions only run when order creation succeeds, and the CI placeholder credentials never allow that. Real Test Mode credentials make it run.</dd>
+                    <dt><span class="status status-warn">Automated, live gateway only</span></dt>
+                    <dd>Tagged <code>@razorpay-live</code>. It needs one real captured Test Mode payment, so it is not in CI.</dd>
+                    <dt><span class="status status-info">Recommended, not automated</span></dt>
+                    <dd>No committed test. Where I ran the case once by hand or in a scratch copy of the app, the row says so and says what happened.</dd>
+                    <dt><span class="status status-fail">Beyond sandbox</span></dt>
+                    <dd>Test Mode cannot prove it. It needs the live gateway, a real bank or real settlement.</dd>
+                </dl>
+
+                <p>
+                    Test IDs such as <code>WEB-FIX-001</code> are tests in the repository, as listed in the
+                    <a href="/evidence/#coverage-matrix">coverage matrix on the Evidence page</a> at commit
+                    <code>da9e7a2</code>. The <code>PG-</code> IDs are this checklist&rsquo;s own. Of the
+                    <!--cl:tests-total-->37<!--/cl--> repository tests, <!--cl:tests-used-->33<!--/cl--> are cited in the
+                    tables. The rest check plumbing such as the health endpoint, page load and unknown routes,
+                    or are mentioned only in a note.
+                </p>
+
+                <h3>Severity</h3>
+
+                <p>
+                    Severity is my own judgement of business impact, not an industry scale.
+                    <strong>Critical</strong>: money is lost or wrongly kept, or an attacker&rsquo;s input is
+                    accepted as true. <strong>High</strong>: an order or refund ends in the wrong state, or a
+                    customer sees an error where money is involved. <strong>Medium</strong>: confusing or degraded
+                    behaviour with limited money impact. <strong>Low</strong>: hardening, or an information leak
+                    with no state change.
+                </p>
+
+                <h3>Cases at a glance</h3>
+
+                <!-- checklist:summary:start -->
+                <div class="table-wrap summary" role="region" aria-label="Cases per area and coverage" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Number of cases in each area, split by coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Area</th>
+                                <th scope="col" class="num">Cases</th>
+                                <th scope="col" class="num">Automated</th>
+                                <th scope="col" class="num">Recommended, not automated</th>
+                                <th scope="col" class="num">Beyond sandbox</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Successful payments</th>
+                                <td class="num">5</td>
+                                <td class="num">3</td>
+                                <td class="num">2</td>
+                                <td class="num">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Declines and failures</th>
+                                <td class="num">5</td>
+                                <td class="num">0</td>
+                                <td class="num">4</td>
+                                <td class="num">1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Signature and webhook validation</th>
+                                <td class="num">12</td>
+                                <td class="num">9</td>
+                                <td class="num">2</td>
+                                <td class="num">1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Duplicates and idempotency</th>
+                                <td class="num">8</td>
+                                <td class="num">3</td>
+                                <td class="num">5</td>
+                                <td class="num">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Refunds</th>
+                                <td class="num">9</td>
+                                <td class="num">2</td>
+                                <td class="num">6</td>
+                                <td class="num">1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Currency and rounding</th>
+                                <td class="num">6</td>
+                                <td class="num">1</td>
+                                <td class="num">5</td>
+                                <td class="num">0</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Timeouts and retries</th>
+                                <td class="num">5</td>
+                                <td class="num">0</td>
+                                <td class="num">4</td>
+                                <td class="num">1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Reconciliation</th>
+                                <td class="num">5</td>
+                                <td class="num">0</td>
+                                <td class="num">4</td>
+                                <td class="num">1</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Basic security checks</th>
+                                <td class="num">7</td>
+                                <td class="num">4</td>
+                                <td class="num">3</td>
+                                <td class="num">0</td>
+                            </tr>
+                            <tr class="total-row">
+                                <th scope="row">All areas</th>
+                                <td class="num">62</td>
+                                <td class="num">22</td>
+                                <td class="num">35</td>
+                                <td class="num">5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:summary:end -->
+
+                <p>
+                    <!--cl:automated-->22<!--/cl--> of <!--cl:total-->62<!--/cl--> cases are automated, and
+                    <!--cl:rec-->35<!--/cl--> are recommendations I have not automated. That ratio is the honest
+                    shape of this project: a small, deliberately scoped suite, and a longer list of things a
+                    payment integration needs.
+                </p>
+
+
+                <h2 id="successful">3. Successful payments</h2>
+
+                <p>
+                    These cases check that the amount, the money and the order agree after a payment that
+                    works. The valuable ones ask who decides the amount, and what happens when the browser and
+                    the gateway both report success.
+                </p>
+
+                <!-- checklist:SUC:start -->
+                <div class="table-wrap checklist" role="region" aria-label="Successful payments: 5 cases" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Successful payments: 5 cases with expected result, why it matters, severity and my coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Why it matters</th>
+                                <th scope="col">Severity</th>
+                                <th scope="col">My coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pg-suc-01">
+                                <th scope="row" data-label="ID">PG-SUC-01</th>
+                                <td data-label="Scenario">Happy path: the order is created on the server, Checkout is completed and the payment is verified server-side.</td>
+                                <td data-label="Expected result">The order ends <code>paid</code> once, with the payment ID stored and the amount equal to the server's own order amount.</td>
+                                <td data-label="Why it matters">The baseline, and the least informative case on this list: nearly every payment bug passes the happy path. Run it to prove the environment works, then move on.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-warn">Automated, live gateway only</span>
+                                        <p class="cov-tests">Tests: <code>SIG-001</code></p>
+                                        <p class="cov-note">SIG-001 verifies one real captured Test Mode payment through the app. The Checkout steps were driven once in a separate Playwright session (Phase 3.3 report) and are not a committed test.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-suc-02">
+                                <th scope="row" data-label="ID">PG-SUC-02</th>
+                                <td data-label="Scenario">The client sends its own amount or currency when the order is created.</td>
+                                <td data-label="Expected result">The server ignores both and builds the order from its own configuration.</td>
+                                <td data-label="Why it matters">If the amount comes from the browser, anyone can pay 1 instead of 500. The payment succeeds, nothing errors and the shop ships.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-warn">Automated, cannot fail in CI</span>
+                                        <p class="cov-tests">Tests: <code>ORDER-003</code>, <code>ORDER-001</code></p>
+                                        <p class="cov-note">Both tests assert only when order creation returns 200, which the CI placeholder credentials never produce, so CI cannot fail on this. They run for real with working Test Mode credentials; the Phase 3.3 report records ORDER-003 passing.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-suc-03">
+                                <th scope="row" data-label="ID">PG-SUC-03</th>
+                                <td data-label="Scenario">The amount shown on the page versus the amount charged.</td>
+                                <td data-label="Expected result">The displayed amount, the order amount and the amount the gateway reports are the same figure in the same currency.</td>
+                                <td data-label="Why it matters">Display and charge are computed in different places. A mismatch means the customer approves one price and is charged another, which becomes a dispute, not a bug report.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-warn">Automated, live gateway only</span>
+                                        <p class="cov-tests">Tests: <code>UI-002</code></p>
+                                        <p class="cov-note">UI-002 checks that the page shows the app's fixed amount (500.00 INR). It needs the live Test Mode setup, so it does not run in CI.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-suc-04">
+                                <th scope="row" data-label="ID">PG-SUC-04</th>
+                                <td data-label="Scenario">The customer refreshes or re-opens the success page after paying.</td>
+                                <td data-label="Expected result">No second order, no second payment record and no second confirmation; the page shows the existing paid order.</td>
+                                <td data-label="Why it matters">Refresh and back-button resubmits are normal behaviour. Without a guard they create duplicate orders or repeat fulfilment.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                </td>
+                            </tr>
+                            <tr id="pg-suc-05">
+                                <th scope="row" data-label="ID">PG-SUC-05</th>
+                                <td data-label="Scenario">The gateway's webhook reaches the server before the browser's verify call, or the other way round.</td>
+                                <td data-label="Expected result">The order ends <code>paid</code> whichever path wins. The second arrival changes nothing, and the customer sees a paid order, not an error.</td>
+                                <td data-label="Why it matters">Two independent paths write the same order. If the late one treats <code>already paid</code> as a failure, a successful payment shows an error page and the customer pays again.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">In the public project I could only send self-signed webhooks (no webhook from Razorpay itself was ever observed), so the ordering of the two real paths is untested.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:SUC:end -->
+
+                <p>
+                    Two rows carry the label <em>cannot fail in CI</em>. Their assertions sit inside
+                    <code>if (response.status() === 200)</code>, and the CI placeholder credentials never produce
+                    a 200, so CI passes without checking the amount. I wrote up how I found this in
+                    <a href="/blog/payment-gateway-testing-playwright/#lessons">lesson 5 of the earlier article</a>.
+                    The rows stay because the behaviour matters. The label says how much my CI protects it.
+                </p>
+
+
+                <h2 id="declines">4. Declines and failures</h2>
+
+                <p>
+                    A decline is easy to test: the gateway says no and the page shows a message. What the
+                    <em>order</em> does next is where the bugs are, and it depends on how the gateway models a
+                    failed attempt. Read your gateway&rsquo;s order lifecycle before writing these cases. My own
+                    app&rsquo;s model contradicted the gateway&rsquo;s documentation, as the
+                    <a href="/blog/payment-gateway-testing-playwright/#failures">earlier article</a> explains.
+                </p>
+
+                <!-- checklist:DEC:start -->
+                <div class="table-wrap checklist" role="region" aria-label="Declines and failures: 5 cases" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Declines and failures: 5 cases with expected result, why it matters, severity and my coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Why it matters</th>
+                                <th scope="col">Severity</th>
+                                <th scope="col">My coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pg-dec-01">
+                                <th scope="row" data-label="ID">PG-DEC-01</th>
+                                <td data-label="Scenario">A payment attempt is declined (card, UPI or bank failure) and the customer tries again on the same order.</td>
+                                <td data-label="Expected result">The failed attempt is recorded, the order stays open for another attempt and the customer sees a plain-language message.</td>
+                                <td data-label="Why it matters">Razorpay's order documentation has no order-level failed status: an order stays open until a payment is captured. An app that closes the order on the first failure forces a restart and loses sales that would have completed.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">A real decline was seen once in Test Mode Checkout (Phase 3.3 report). There is no committed test.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dec-02">
+                                <th scope="row" data-label="ID">PG-DEC-02</th>
+                                <td data-label="Scenario">A failed attempt is followed by a successful one for the same order (<code>payment.failed</code>, then <code>payment.captured</code>).</td>
+                                <td data-label="Expected result">The order ends <code>paid</code>.</td>
+                                <td data-label="Why it matters">Money has been captured. If the order stays <code>failed</code>, the customer is charged and the shop records no sale: the worst kind of mismatch, found only when the customer complains.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">This case failed in my scratch copy on 14 October 2026: the app answered 200 to the late <code>payment.captured</code> and left the order <code>failed</code>. The scratch test is not in the repository and I have not changed the public code.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dec-03">
+                                <th scope="row" data-label="ID">PG-DEC-03</th>
+                                <td data-label="Scenario">The customer closes Checkout without paying.</td>
+                                <td data-label="Expected result">The order stays <code>created</code>, no payment is recorded and the customer can retry with no stale state.</td>
+                                <td data-label="Why it matters">Abandonment is common. Bugs here leave half-open orders, or make the retry reuse state from the abandoned attempt.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">Close-and-retry was run once by hand in Test Mode Checkout (Phase 3.3 report). The page has no dismiss handler and there is no committed test.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dec-04">
+                                <th scope="row" data-label="ID">PG-DEC-04</th>
+                                <td data-label="Scenario">The payment is pending or processing when the customer returns (asynchronous payment methods).</td>
+                                <td data-label="Expected result">The app shows a pending state, marks the order neither paid nor failed, and updates when the final event arrives.</td>
+                                <td data-label="Why it matters">Treating pending as failed invites a second payment. Treating it as paid ships goods before the money exists.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">I have not tested an asynchronous payment method.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dec-05">
+                                <th scope="row" data-label="ID">PG-DEC-05</th>
+                                <td data-label="Scenario">Issuer-side declines: insufficient funds, expired card, wrong CVV, bank downtime, risk blocks.</td>
+                                <td data-label="Expected result">Each maps to a message the customer can act on, with no raw gateway text shown.</td>
+                                <td data-label="Why it matters">A generic 'payment failed' drives abandonment. Raw gateway codes confuse customers and help anyone probing the checkout.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-fail">Beyond sandbox</span>
+                                        <p class="cov-note">Test Mode can simulate some failures, but how real issuers and banks respond cannot be proven in a sandbox. I observed one decline.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:DEC:end -->
+
+                <p>
+                    PG-DEC-02 is the case I would run first on a new integration. It is also the one my own
+                    app failed in a scratch check on 14 October 2026: the retry&rsquo;s
+                    <code>payment.captured</code> was acknowledged with a 200 and then ignored, so the order stayed
+                    <code>failed</code> while the money was captured.
+                </p>
+
+
+                <h2 id="signatures">5. Signature and webhook validation</h2>
+
+                <p>
+                    Signatures are where an integration decides whether to believe a message. Two habits cover
+                    most of this area. Verify the exact bytes that arrived, not a rebuilt copy of them. And
+                    check the signature before doing anything else with the request, including looking up
+                    whether you have seen it before.
+                </p>
+
+                <!-- checklist:SIG:start -->
+                <div class="table-wrap checklist" role="region" aria-label="Signature and webhook validation: 12 cases" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Signature and webhook validation: 12 cases with expected result, why it matters, severity and my coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Why it matters</th>
+                                <th scope="col">Severity</th>
+                                <th scope="col">My coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pg-sig-01">
+                                <th scope="row" data-label="ID">PG-SIG-01</th>
+                                <td data-label="Scenario">Payment verification with a valid signature for a real captured payment.</td>
+                                <td data-label="Expected result">Accepted (200, <code>verified: true</code>), with order, payment, amount and status taken from the gateway.</td>
+                                <td data-label="Why it matters">Proves the accept path works against the real gateway, not only that bad input is rejected.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-warn">Automated, live gateway only</span>
+                                        <p class="cov-tests">Tests: <code>SIG-001</code></p>
+                                        <p class="cov-note">Needs one real Test Mode payment, so it is excluded from CI.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-02">
+                                <th scope="row" data-label="ID">PG-SIG-02</th>
+                                <td data-label="Scenario">Payment verification with an invalid signature, including an upper-case or truncated copy of a valid one.</td>
+                                <td data-label="Expected result">Rejected with 401 and the order unchanged.</td>
+                                <td data-label="Why it matters">The signature is the only proof that the browser's success message is real. Accepting a near-match lets anyone mark their own order paid.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>SIG-002</code></p>
+                                        <p class="cov-note">SIG-002 covers a wrong signature. The upper-case and truncated variants were run once in my scratch copy and rejected; they are not committed.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-03">
+                                <th scope="row" data-label="ID">PG-SIG-03</th>
+                                <td data-label="Scenario">A valid signature replayed against a different order ID.</td>
+                                <td data-label="Expected result">Rejected with 401.</td>
+                                <td data-label="Why it matters">Proves the signature is bound to the order and payment pair. Without that binding, one cheap paid order could confirm a more expensive one.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>SIG-003</code></p>
+                                        <p class="cov-note">The test computes a genuinely valid signature first, then changes the order ID.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-04">
+                                <th scope="row" data-label="ID">PG-SIG-04</th>
+                                <td data-label="Scenario">Verification request with a missing field, or a malformed JSON body.</td>
+                                <td data-label="Expected result">400 with a clear error; never a 500 or a hang.</td>
+                                <td data-label="Why it matters">Bad input from a client or a proxy should be a clean refusal. A crash on missing fields is an outage waiting for a retry loop.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>SIG-004</code>, <code>SIG-005</code>, <code>SIG-006</code>, <code>ERR-004</code></p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-05">
+                                <th scope="row" data-label="ID">PG-SIG-05</th>
+                                <td data-label="Scenario">Webhook with a correct signature computed over the exact raw body.</td>
+                                <td data-label="Expected result">Accepted (200), and the order moves from <code>created</code> to <code>paid</code>.</td>
+                                <td data-label="Why it matters">This is the case DEF-002 broke: every genuine webhook was rejected while the rejection tests kept passing. See the worked example below.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>WEB-001</code>, <code>WEB-FIX-001</code></p>
+                                        <p class="cov-note">WEB-FIX-001 fails when the DEF-002 fix is reverted (see the Evidence page).</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-06">
+                                <th scope="row" data-label="ID">PG-SIG-06</th>
+                                <td data-label="Scenario">Webhook with a wrong signature.</td>
+                                <td data-label="Expected result">401, and the order is untouched.</td>
+                                <td data-label="Why it matters">Rejection is the security control, but it proves nothing alone: a handler that rejects everything also passes this case. Pair it with the accept path above.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>WEB-002</code>, <code>WEB-FIX-003</code></p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-07">
+                                <th scope="row" data-label="ID">PG-SIG-07</th>
+                                <td data-label="Scenario">Webhook with the signature header missing.</td>
+                                <td data-label="Expected result">401 naming the missing header.</td>
+                                <td data-label="Why it matters">A request that omits the header must not skip verification. A handler that verifies only when a signature is present fails open.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>WEB-003</code></p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-08">
+                                <th scope="row" data-label="ID">PG-SIG-08</th>
+                                <td data-label="Scenario">Webhook payload changed after signing (one character appended, or the amount edited).</td>
+                                <td data-label="Expected result">401, and the order stays as it was.</td>
+                                <td data-label="Why it matters">Proves the HMAC covers the body, amount included, and not only the headers. A tampered amount that gets through is a free-goods bug.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>WEB-007</code>, <code>WEB-FIX-002</code></p>
+                                        <p class="cov-note">WEB-FIX-002 also asserts the order status is unchanged afterwards.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-09">
+                                <th scope="row" data-label="ID">PG-SIG-09</th>
+                                <td data-label="Scenario">Webhook signed over bytes that differ from what JSON re-serialisation would produce (pretty-printed body, different key order, escaped characters).</td>
+                                <td data-label="Expected result">Accepted, because the signature is checked against the exact bytes received and never against parsed-and-re-serialised JSON.</td>
+                                <td data-label="Why it matters">A handler that verifies <code>JSON.stringify(req.body)</code> passes tests that build their payload with <code>JSON.stringify</code> and rejects real traffic whose formatting differs. It looks fine in staging and refuses genuine webhooks in production.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">A gap in my own suite: its webhook tests all build the body with <code>JSON.stringify</code>, so they cannot tell raw-body verification from re-serialised verification.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-10">
+                                <th scope="row" data-label="ID">PG-SIG-10</th>
+                                <td data-label="Scenario">Webhook with the event ID header missing.</td>
+                                <td data-label="Expected result">400 naming the missing header.</td>
+                                <td data-label="Why it matters">Deduplication depends on that ID. Accepting events without it makes duplicates undetectable.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>WEB-004</code></p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-11">
+                                <th scope="row" data-label="ID">PG-SIG-11</th>
+                                <td data-label="Scenario">Replay of an already-processed event ID with a bad signature.</td>
+                                <td data-label="Expected result">401, the same as any other badly signed request.</td>
+                                <td data-label="Why it matters">If the duplicate check runs before the signature check, anyone who knows or guesses an event ID gets a 200 and learns the ID exists. Verify first, then deduplicate.</td>
+                                <td data-label="Severity"><span class="sev">Low</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">Found in my scratch copy on 14 October 2026: the handler returns 200. Not committed; I have not changed the public code.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sig-12">
+                                <th scope="row" data-label="ID">PG-SIG-12</th>
+                                <td data-label="Scenario">The webhook secret is configured per environment: production differs from test and matches the dashboard.</td>
+                                <td data-label="Expected result">Genuine webhooks verify in each environment.</td>
+                                <td data-label="Why it matters">A secret copied from the wrong environment rejects every genuine webhook. Nothing errors loudly; events are quietly refused until reconciliation notices.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-fail">Beyond sandbox</span>
+                                        <p class="cov-note">Needs the real dashboard webhook configuration. No webhook ever arrived from Razorpay in this project, so this was not exercised.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:SIG:end -->
+
+                <p>
+                    Read these rows as pairs. PG-SIG-05 (accept a genuine webhook) is the partner of PG-SIG-06 to
+                    PG-SIG-08 (reject bad ones). Without the first, the other three prove nothing.
+                    PG-SIG-09 is where my own suite is weakest: its payloads are all produced by
+                    <code>JSON.stringify</code>, which is also what a re-serialising handler would produce, so
+                    the suite cannot tell the two implementations apart.
+                </p>
+
+
+                <h2 id="duplicates">6. Duplicates and idempotency</h2>
+
+                <p>
+                    Treat duplicates and reordering as normal operating conditions. Gateways redeliver, browsers
+                    resubmit and people double-click, and Razorpay&rsquo;s webhook documentation says an
+                    endpoint might receive the same event more than once and that events may not arrive in order.
+                </p>
+
+                <!-- checklist:DUP:start -->
+                <div class="table-wrap checklist" role="region" aria-label="Duplicates and idempotency: 8 cases" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Duplicates and idempotency: 8 cases with expected result, why it matters, severity and my coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Why it matters</th>
+                                <th scope="col">Severity</th>
+                                <th scope="col">My coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pg-dup-01">
+                                <th scope="row" data-label="ID">PG-DUP-01</th>
+                                <td data-label="Scenario">The same webhook event ID is delivered twice.</td>
+                                <td data-label="Expected result">Applied once. The second delivery gets 200 <code>already processed</code> and the order is unchanged.</td>
+                                <td data-label="Why it matters">Gateways redeliver when an acknowledgement is slow or lost, and Razorpay's webhook documentation says an endpoint might receive the same event more than once. A non-idempotent handler repeats fulfilment, emails or ledger entries.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>WEB-005</code>, <code>WEB-FIX-004</code></p>
+                                        <p class="cov-note">The test sends both deliveries itself, one after the other. No redelivery from Razorpay was observed.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dup-02">
+                                <th scope="row" data-label="ID">PG-DUP-02</th>
+                                <td data-label="Scenario">Different event IDs for different events.</td>
+                                <td data-label="Expected result">Each is processed independently.</td>
+                                <td data-label="Why it matters">Deduplication keyed too coarsely (on order or payment ID) silently drops genuine events, for example the refund that follows the payment.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>WEB-006</code></p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dup-03">
+                                <th scope="row" data-label="ID">PG-DUP-03</th>
+                                <td data-label="Scenario">Client-side verification is called twice for the same payment.</td>
+                                <td data-label="Expected result">Both calls succeed, the order stays <code>paid</code> with the same payment ID and nothing is duplicated.</td>
+                                <td data-label="Why it matters">Browsers retry and users double-submit. The second call must be harmless: not an error and not a second state change.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-warn">Automated, live gateway only</span>
+                                        <p class="cov-tests">Tests: <code>REPLAY-001</code></p>
+                                        <p class="cov-note">Needs the one real captured payment, so it is excluded from CI.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dup-04">
+                                <th scope="row" data-label="ID">PG-DUP-04</th>
+                                <td data-label="Scenario">Double-click on Pay, or the create-order request is sent twice.</td>
+                                <td data-label="Expected result">One order, or a defined rule for reusing the open order.</td>
+                                <td data-label="Why it matters">Which of two orders the customer ends up paying decides what the reconciliation shows. Duplicate orders turn one purchase into two records that finance must match by hand.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">In my app, create-order builds a new order on every call (read in the source; I did not run a double-click test), so this probably exposes a real question.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dup-05">
+                                <th scope="row" data-label="ID">PG-DUP-05</th>
+                                <td data-label="Scenario">The verify path and the webhook path both report the same payment.</td>
+                                <td data-label="Expected result">Side effects (confirmation email, fulfilment, ledger entry) happen once in total, not once per path.</td>
+                                <td data-label="Why it matters">Event-ID deduplication does not help here: the browser callback has no event ID, and the two paths carry different identifiers. Customers get two emails, or two shipments.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                </td>
+                            </tr>
+                            <tr id="pg-dup-06">
+                                <th scope="row" data-label="ID">PG-DUP-06</th>
+                                <td data-label="Scenario">Deduplication state after a restart, a deploy or a second server instance.</td>
+                                <td data-label="Expected result">Already-processed event IDs are still recognised.</td>
+                                <td data-label="Why it matters">An in-memory set forgets on deploy and is not shared between instances, so redeliveries after a deploy are applied a second time.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">My app stores processed event IDs in SQLite, so they should survive a restart, but no test restarts the server.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dup-07">
+                                <th scope="row" data-label="ID">PG-DUP-07</th>
+                                <td data-label="Scenario">Out-of-order events: <code>payment.authorized</code> arrives after <code>payment.captured</code>.</td>
+                                <td data-label="Expected result">A paid order does not move backwards.</td>
+                                <td data-label="Why it matters">Razorpay's documentation says events may not arrive in order. A late, older event must not overwrite a more advanced state.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">Behaved as intended in my scratch checks on 14 October 2026. The state machine implements it, but no committed test covers it.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-dup-08">
+                                <th scope="row" data-label="ID">PG-DUP-08</th>
+                                <td data-label="Scenario">Several copies of the same event arrive at the same moment.</td>
+                                <td data-label="Expected result">Applied once, with no error and no second record.</td>
+                                <td data-label="Why it matters">Check-then-insert deduplication is correct when requests arrive one after another and can fail when they arrive together, which is how gateway retries often arrive.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">WEB-005 sends its two deliveries one after the other, so it cannot expose a race. Not covered.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:DUP:end -->
+
+                <p>
+                    Event-ID deduplication answers one question: have I seen this exact event before? It does not
+                    answer whether two <em>different</em> messages mean the same thing, which is what PG-DUP-05 and
+                    PG-DUP-07 ask, and it does not help when copies arrive together (PG-DUP-08).
+                </p>
+
+
+                <h2 id="refunds">7. Refunds</h2>
+
+                <p>
+                    Refunds run the payment machinery in reverse and add arithmetic: the order&rsquo;s refunded
+                    total has to be right after one refund, several refunds, repeated events and rejected attempts.
+                </p>
+
+                <!-- checklist:REF:start -->
+                <div class="table-wrap checklist" role="region" aria-label="Refunds: 9 cases" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Refunds: 9 cases with expected result, why it matters, severity and my coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Why it matters</th>
+                                <th scope="col">Severity</th>
+                                <th scope="col">My coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pg-ref-01">
+                                <th scope="row" data-label="ID">PG-REF-01</th>
+                                <td data-label="Scenario">Refund request without a payment ID.</td>
+                                <td data-label="Expected result">400 <code>Missing required field</code>, naming <code>paymentId</code>.</td>
+                                <td data-label="Why it matters">A missing ID should be refused by the app, not discovered by a failing gateway call.</td>
+                                <td data-label="Severity"><span class="sev">Low</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>REF-001</code></p>
+                                </td>
+                            </tr>
+                            <tr id="pg-ref-02">
+                                <th scope="row" data-label="ID">PG-REF-02</th>
+                                <td data-label="Scenario">The gateway rejects a refund (unknown payment, ineligible state).</td>
+                                <td data-label="Expected result">A controlled 400 or 404 with a sanitised message, and the server keeps serving other requests.</td>
+                                <td data-label="Why it matters">DEF-001: the error handler read <code>error.message</code>, which the gateway SDK does not set, so the handler itself threw and took the process down. One bad refund request was an outage.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>REF-ERR-001</code>, <code>REF-ERR-002</code></p>
+                                        <p class="cov-note">REF-ERR-002 asserts that an unrelated <code>GET /health</code> still returns 200 afterwards; that liveness check is the regression assertion.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-ref-03">
+                                <th scope="row" data-label="ID">PG-REF-03</th>
+                                <td data-label="Scenario">Full refund of a paid order.</td>
+                                <td data-label="Expected result">The order moves from <code>paid</code> to <code>refunded</code>, with the amount and refund ID recorded.</td>
+                                <td data-label="Why it matters">Refund state is what finance reads. If it does not change, the order looks sold while the money has gone back.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">The transition is implemented, and a full-amount <code>refund.created</code> webhook moved a paid order to <code>refunded</code> in my scratch checks. There is no committed test, and no successful refund was completed against Razorpay.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-ref-04">
+                                <th scope="row" data-label="ID">PG-REF-04</th>
+                                <td data-label="Scenario">Two partial refunds that together equal the order amount.</td>
+                                <td data-label="Expected result">The refunded total is tracked, and the order reaches a fully refunded state when the sum equals the amount.</td>
+                                <td data-label="Why it matters">Logic that checks only whether a single refund equals the order amount never fires for partial refunds. The order keeps saying paid after the full amount has gone back.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">Failed in my scratch copy on 14 October 2026: two refunds of 25000 on a 50000 order left the order <code>paid</code>. I prototyped a fix there; nothing is applied to the public repository.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-ref-05">
+                                <th scope="row" data-label="ID">PG-REF-05</th>
+                                <td data-label="Scenario">A refund larger than the remaining balance (for example 30000 twice against a 50000 payment).</td>
+                                <td data-label="Expected result">Rejected before it reaches the gateway, or the gateway's rejection is handled; the recorded refunded total never exceeds the amount captured.</td>
+                                <td data-label="Why it matters">Gateways usually enforce the limit, but your own ledger is what support and finance read. A refunded total above the payment is either a loss or a ledger nobody can trust.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">One excessive refund amount was checked by hand after the DEF-001 fix and returned a controlled 400 (docs/DEFECTS.md). The cumulative case, which is the one that matters, is not tested.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-ref-06">
+                                <th scope="row" data-label="ID">PG-REF-06</th>
+                                <td data-label="Scenario">The same refund event is delivered twice.</td>
+                                <td data-label="Expected result">Recorded and counted once.</td>
+                                <td data-label="Why it matters">A duplicate refund event that adds to a running total shows the customer as refunded twice.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                </td>
+                            </tr>
+                            <tr id="pg-ref-07">
+                                <th scope="row" data-label="ID">PG-REF-07</th>
+                                <td data-label="Scenario">Refund against an order that was never paid, has failed, or is already refunded.</td>
+                                <td data-label="Expected result">Refused; only <code>paid</code> can move to <code>refunded</code>.</td>
+                                <td data-label="Why it matters">Refunding an order that was never paid sends out money that was never taken.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">Implemented in the state machine (<code>paid</code> is the only state that can move to <code>refunded</code>). No committed test exercises the transition.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-ref-08">
+                                <th scope="row" data-label="ID">PG-REF-08</th>
+                                <td data-label="Scenario">Refund amount edge cases: zero, negative, non-numeric, more than two decimal places, or a value in the wrong unit.</td>
+                                <td data-label="Expected result">400 with a clear message, and nothing is sent to the gateway.</td>
+                                <td data-label="Why it matters">Amounts in minor units invite unit mistakes: a refund of 500 meant as rupees is 5.00.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                </td>
+                            </tr>
+                            <tr id="pg-ref-09">
+                                <th scope="row" data-label="ID">PG-REF-09</th>
+                                <td data-label="Scenario">A successful refund end to end against the gateway, including the pending-then-processed status.</td>
+                                <td data-label="Expected result">The gateway confirms the refund, a webhook or status lookup updates the order and the customer-visible amount matches.</td>
+                                <td data-label="Why it matters">The only way to know the refund path works with real gateway behaviour and timing.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-fail">Beyond sandbox</span>
+                                        <p class="cov-note">Not demonstrated. The Test Mode account had an account-level restriction that blocked refunds, confirmed outside the app with raw HTTPS calls. The route, its validation and its error handling are tested; a live successful refund is not.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:REF:end -->
+
+                <p>
+                    The picture in my own project is lopsided. The rejection path (DEF-001) is tested and the
+                    success path is not, because the Test Mode account&rsquo;s restriction blocked every refund.
+                    The partial-refund row records a failure I found in a scratch copy of the app. The earlier
+                    article lists it with the other scratch findings
+                    (<a href="/blog/payment-gateway-testing-playwright/#failures">section 7</a>).
+                </p>
+
+
+                <h2 id="currency">8. Currency and rounding</h2>
+
+                <p>
+                    Money-arithmetic bugs are small per order and invisible in a screenshot. They show up weeks
+                    later as reconciliation differences nobody can explain. My demo app sells one item at a fixed
+                    INR amount, so it has no conversion or rounding logic to test. These are general cases, written
+                    from how amounts are usually handled, and they are not attributed to any project of mine.
+                </p>
+
+                <p>
+                    A gateway that takes amounts in the smallest currency unit (Razorpay&rsquo;s <code>50000</code>
+                    for 500.00 INR) turns every price conversion into a place for this bug:
+                </p>
+
+                <pre class="code-block" tabindex="0"><code>19.99 * 100              // 1998.9999999999998
+Math.floor(19.99 * 100)  // 1998, one minor unit short
+Math.round(19.99 * 100)  // 1999</code></pre>
+                <p class="code-caption">Run in Node. Use integer or decimal arithmetic, or a deliberate round. Never truncate a float.</p>
+
+                <!-- checklist:CUR:start -->
+                <div class="table-wrap checklist" role="region" aria-label="Currency and rounding: 6 cases" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Currency and rounding: 6 cases with expected result, why it matters, severity and my coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Why it matters</th>
+                                <th scope="col">Severity</th>
+                                <th scope="col">My coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pg-cur-01">
+                                <th scope="row" data-label="ID">PG-CUR-01</th>
+                                <td data-label="Scenario">The amount sent to the gateway is in minor units.</td>
+                                <td data-label="Expected result">500.00 INR is sent as 50000 (paise), and the response and the order record carry the same integer.</td>
+                                <td data-label="Why it matters">Sending 500 instead of 50000 charges a hundredth of the price, and nobody notices until revenue falls short.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-warn">Automated, cannot fail in CI</span>
+                                        <p class="cov-tests">Tests: <code>ORDER-001</code>, <code>UI-002</code></p>
+                                        <p class="cov-note">ORDER-001 asserts 50000 and INR only when order creation succeeds, so it cannot fail in CI. UI-002 needs the live Test Mode setup. The app has one fixed INR amount, so there is no conversion logic to test.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-cur-02">
+                                <th scope="row" data-label="ID">PG-CUR-02</th>
+                                <td data-label="Scenario">Currencies with 0 or 3 decimal places in a multi-currency checkout (for example JPY and KWD).</td>
+                                <td data-label="Expected result">Conversion uses each currency's own exponent: 500 JPY is sent as 500, not 50000, and 1.500 KWD as 1500.</td>
+                                <td data-label="Why it matters">Multiplying by 100 for every currency overcharges zero-decimal currencies 100 times and undercharges three-decimal ones tenfold. Checks on INR alone never show it. Confirm in the gateway's documentation how each currency is encoded.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">A general scenario. My demo app is INR-only and has no conversion to test, and I do not attribute this case to any employer project.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-cur-03">
+                                <th scope="row" data-label="ID">PG-CUR-03</th>
+                                <td data-label="Scenario">Floating-point conversion to minor units (19.99 x 100).</td>
+                                <td data-label="Expected result">1999, using integer or decimal arithmetic or a deliberate round, never truncation of a float.</td>
+                                <td data-label="Why it matters">In JavaScript, 19.99 * 100 is 1998.9999999999998. Truncating gives 1998, one minor unit short. Small per order, large across thousands, and it shows up as unexplained reconciliation differences.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">I checked the arithmetic in Node. The demo app uses a fixed integer amount, so it has no conversion to test.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-cur-04">
+                                <th scope="row" data-label="ID">PG-CUR-04</th>
+                                <td data-label="Scenario">Discounts, tax and fees on a multi-line cart.</td>
+                                <td data-label="Expected result">The sum of the rounded line amounts equals the rounded total under one documented rounding mode, and the gateway receives the same total the invoice shows.</td>
+                                <td data-label="Why it matters">Rounding each line, or only the total, gives totals that differ by a minor unit. Receipts, invoices and the gateway then disagree by small amounts that finance has to explain by hand.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                </td>
+                            </tr>
+                            <tr id="pg-cur-05">
+                                <th scope="row" data-label="ID">PG-CUR-05</th>
+                                <td data-label="Scenario">A webhook or refund in a different currency from the order.</td>
+                                <td data-label="Expected result">Not applied; flagged for review.</td>
+                                <td data-label="Why it matters">An amount in the wrong currency compared numerically looks valid. 500 USD is not 500 INR.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                </td>
+                            </tr>
+                            <tr id="pg-cur-06">
+                                <th scope="row" data-label="ID">PG-CUR-06</th>
+                                <td data-label="Scenario">A correctly signed event whose amount differs from the order amount.</td>
+                                <td data-label="Expected result">Not accepted as a full payment; flagged.</td>
+                                <td data-label="Why it matters">A valid signature proves who sent the event, not that the amount is right. A short payment accepted as complete ships a full order for part of the price.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">In the source I read at da9e7a2 (not executed), the webhook handler moves the order on without comparing the event amount to the order amount. The client verify route does compare them.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:CUR:end -->
+
+
+                <h2 id="timeouts">9. Timeouts and retries</h2>
+
+                <p>
+                    A timeout is the moment your app does not know what happened. These cases ask what it tells
+                    the customer then, and what it does with the answer when it finally arrives. The main hazard
+                    is a customer who retries because they were told &ldquo;failed&rdquo; about a payment that
+                    went through.
+                </p>
+
+                <!-- checklist:TMO:start -->
+                <div class="table-wrap checklist" role="region" aria-label="Timeouts and retries: 5 cases" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Timeouts and retries: 5 cases with expected result, why it matters, severity and my coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Why it matters</th>
+                                <th scope="col">Severity</th>
+                                <th scope="col">My coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pg-tmo-01">
+                                <th scope="row" data-label="ID">PG-TMO-01</th>
+                                <td data-label="Scenario">Timeout or dropped connection after the gateway captured the payment (browser closed, network cut, slow verify call).</td>
+                                <td data-label="Expected result">The order still ends <code>paid</code> through the webhook or a status lookup, and the customer is told the payment is being confirmed, not that it failed.</td>
+                                <td data-label="Why it matters">The costliest timing bug: the customer sees an error, pays again and is charged twice for one order.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">Not covered by any test in the public project.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-tmo-02">
+                                <th scope="row" data-label="ID">PG-TMO-02</th>
+                                <td data-label="Scenario">The gateway call fails or times out when the order is created.</td>
+                                <td data-label="Expected result">The customer gets a controlled error and can retry; no order is left looking paid and no partial state is stored.</td>
+                                <td data-label="Why it matters">Gateway outages happen. The app must fail visibly and recoverably, not leave an order the customer cannot pay.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">ORDER-002 checks that a failed order creation returns a sanitised error. It does not simulate a timeout.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-tmo-03">
+                                <th scope="row" data-label="ID">PG-TMO-03</th>
+                                <td data-label="Scenario">The webhook handler responds slowly or with a 5xx.</td>
+                                <td data-label="Expected result">Redelivered events are applied once, and the handler acknowledges quickly and keeps slow work out of the request.</td>
+                                <td data-label="Why it matters">Gateways generally treat a slow or failed response as a failed delivery and send it again; check your gateway's policy. The retry then arrives while the first attempt is still running.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">Razorpay's real retry schedule was never observed in this project.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-tmo-04">
+                                <th scope="row" data-label="ID">PG-TMO-04</th>
+                                <td data-label="Scenario">Retry storm: dozens of redeliveries of the same events in a burst.</td>
+                                <td data-label="Expected result">Each event is applied once, valid events see no errors and response time stays well inside the gateway's timeout.</td>
+                                <td data-label="Why it matters">After an outage a gateway can replay a backlog at once. A handler that is correct one request at a time can still lock the database or time out under the burst, which causes more retries.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">A small replay burst against your own sandbox, not load testing; see the scope section.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-tmo-05">
+                                <th scope="row" data-label="ID">PG-TMO-05</th>
+                                <td data-label="Scenario">The gateway's own redelivery schedule, ordering and expiry.</td>
+                                <td data-label="Expected result">Matches the gateway's documentation.</td>
+                                <td data-label="Why it matters">Handlers are designed around assumptions about retries and order. Wrong assumptions only show against the real service.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-fail">Beyond sandbox</span>
+                                        <p class="cov-note">No webhook sent by Razorpay itself was observed in this project, so none of this was tested against real behaviour.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:TMO:end -->
+
+
+                <h2 id="reconciliation">10. Reconciliation</h2>
+
+                <p>
+                    Everything above tries to keep the order and the gateway in agreement. Reconciliation checks
+                    that they actually agree, because some disagreement always gets through: a lost webhook, a
+                    rounding difference, an order marked paid in error. These cases need a scheduled job or a
+                    report more than a test. The public Razorpay project has no reconciliation job.
+                </p>
+
+                <!-- checklist:REC:start -->
+                <div class="table-wrap checklist" role="region" aria-label="Reconciliation: 5 cases" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Reconciliation: 5 cases with expected result, why it matters, severity and my coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Why it matters</th>
+                                <th scope="col">Severity</th>
+                                <th scope="col">My coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pg-rec-01">
+                                <th scope="row" data-label="ID">PG-REC-01</th>
+                                <td data-label="Scenario">Every order marked <code>paid</code> has a captured payment at the gateway with the same amount and currency.</td>
+                                <td data-label="Expected result">Zero mismatches, or each mismatch listed for follow-up.</td>
+                                <td data-label="Why it matters">The one control that catches a missed webhook, a wrong amount accepted earlier, or an order marked paid by mistake.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">The public project has no reconciliation job.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-rec-02">
+                                <th scope="row" data-label="ID">PG-REC-02</th>
+                                <td data-label="Scenario">Every captured payment at the gateway maps to an order that is <code>paid</code> (the reverse direction).</td>
+                                <td data-label="Expected result">No captured payment whose order is <code>failed</code>, <code>created</code> or missing.</td>
+                                <td data-label="Why it matters">Catches money taken for orders the app thinks failed (see the failed-then-captured case above) and payments with no order at all.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                </td>
+                            </tr>
+                            <tr id="pg-rec-03">
+                                <th scope="row" data-label="ID">PG-REC-03</th>
+                                <td data-label="Scenario">Refund totals: local refund records versus the gateway's refunds, per payment.</td>
+                                <td data-label="Expected result">Equal for every payment.</td>
+                                <td data-label="Why it matters">Refunds are the usual source of drift: partial refunds, retries, and events that arrived twice or not at all.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                </td>
+                            </tr>
+                            <tr id="pg-rec-04">
+                                <th scope="row" data-label="ID">PG-REC-04</th>
+                                <td data-label="Scenario">The webhook endpoint is down while a payment completes, then restored.</td>
+                                <td data-label="Expected result">The missed events are recovered by polling or a status lookup, and no order stays <code>created</code> while the gateway shows it captured.</td>
+                                <td data-label="Why it matters">A gateway stops redelivering at some point. After that, only your own reconciliation finds the gap.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                </td>
+                            </tr>
+                            <tr id="pg-rec-05">
+                                <th scope="row" data-label="ID">PG-REC-05</th>
+                                <td data-label="Scenario">Settlement and payout totals against orders, refunds and fees.</td>
+                                <td data-label="Expected result">The payout equals captured amounts less refunds and fees for the period.</td>
+                                <td data-label="Why it matters">Orders, gateway records and the bank statement are three ledgers, and only the third is money.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-fail">Beyond sandbox</span>
+                                        <p class="cov-note">Test Mode does not exercise settlement or reconciliation, so this cannot be shown in a sandbox.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:REC:end -->
+
+
+                <h2 id="security">11. Basic security checks</h2>
+
+                <p>
+                    These are checks you can run against your own app and sandbox by reading what it returns:
+                    configuration responses, page source, error bodies and which routes answer. Nothing here
+                    needs probing anyone else&rsquo;s system, and none of it replaces a security review or a
+                    penetration test.
+                </p>
+
+                <!-- checklist:SEC:start -->
+                <div class="table-wrap checklist" role="region" aria-label="Basic security checks: 7 cases" tabindex="0">
+                    <table>
+                        <caption class="sr-only">Basic security checks: 7 cases with expected result, why it matters, severity and my coverage</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Scenario</th>
+                                <th scope="col">Expected result</th>
+                                <th scope="col">Why it matters</th>
+                                <th scope="col">Severity</th>
+                                <th scope="col">My coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="pg-sec-01">
+                                <th scope="row" data-label="ID">PG-SEC-01</th>
+                                <td data-label="Scenario">The public configuration endpoint.</td>
+                                <td data-label="Expected result">Returns only publishable values (key ID, currency, a configured flag) and never the key secret or the webhook secret.</td>
+                                <td data-label="Why it matters">A secret in a public response is a full compromise of the gateway account.</td>
+                                <td data-label="Severity"><span class="sev">Critical</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>CONFIG-001</code>, <code>CONFIG-002</code></p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sec-02">
+                                <th scope="row" data-label="ID">PG-SEC-02</th>
+                                <td data-label="Scenario">The checkout page's HTML.</td>
+                                <td data-label="Expected result">Contains no secret keys or webhook secret, and loads the Checkout script from the gateway's own origin.</td>
+                                <td data-label="Why it matters">Anyone who views the source copies a secret in it. A look-alike script source is how payment pages get skimmed.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>UI-003</code>, <code>UI-004</code></p>
+                                        <p class="cov-note">UI-003 checks that a script tag pointing at checkout.razorpay.com exists and that the HTML has no live key or secret strings.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sec-03">
+                                <th scope="row" data-label="ID">PG-SEC-03</th>
+                                <td data-label="Scenario">Test and live key modes are not mixed.</td>
+                                <td data-label="Expected result">Test environments show only test keys and a visible Test Mode indicator.</td>
+                                <td data-label="Why it matters">A live key in staging moves real money during testing. A test key in production fails every payment.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>CONFIG-003</code>, <code>UI-005</code></p>
+                                        <p class="cov-note">CONFIG-002 also asserts that the returned key ID is a test key.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sec-04">
+                                <th scope="row" data-label="ID">PG-SEC-04</th>
+                                <td data-label="Scenario">Error responses from the payment endpoints.</td>
+                                <td data-label="Expected result">Human-readable, with no keys, URLs, stack traces or SDK internals.</td>
+                                <td data-label="Why it matters">Verbose errors show attackers what the server uses, and show customers things they cannot act on.</td>
+                                <td data-label="Severity"><span class="sev">Medium</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-pass">Automated, runs in CI</span>
+                                        <p class="cov-tests">Tests: <code>ERR-001</code>, <code>ERR-002</code>, <code>REF-ERR-001</code></p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sec-05">
+                                <th scope="row" data-label="ID">PG-SEC-05</th>
+                                <td data-label="Scenario">Debug or admin routes, for example listing or clearing processed webhook events.</td>
+                                <td data-label="Expected result">Not reachable without authentication in any shared environment.</td>
+                                <td data-label="Why it matters">An unauthenticated route that clears the deduplication ledger lets anyone make the next replay count as new.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">Found in my scratch copy on 14 October 2026: <code>DELETE /api/webhooks/events</code> cleared the processed event IDs without credentials. Not committed; I have not changed the public code.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sec-06">
+                                <th scope="row" data-label="ID">PG-SEC-06</th>
+                                <td data-label="Scenario">How the signature is compared.</td>
+                                <td data-label="Expected result">A constant-time comparison (for example <code>crypto.timingSafeEqual</code>) after a length check.</td>
+                                <td data-label="Why it matters">A hardening practice for comparing secrets. The limit matters: I measured no timing difference in my app, so this is a precaution, not a bug I proved.</td>
+                                <td data-label="Severity"><span class="sev">Low</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">Both HMAC checks in my app compare with <code>===</code>. A hardening idea only.</p>
+                                </td>
+                            </tr>
+                            <tr id="pg-sec-07">
+                                <th scope="row" data-label="ID">PG-SEC-07</th>
+                                <td data-label="Scenario">Ownership of orders and payments: user A reads or verifies user B's order.</td>
+                                <td data-label="Expected result">Refused.</td>
+                                <td data-label="Why it matters">Order and payment IDs are not secrets. Without an ownership check, enumerating IDs exposes other customers' orders.</td>
+                                <td data-label="Severity"><span class="sev">High</span></td>
+                                <td data-label="My coverage">
+                                    <span class="status status-info">Recommended, not automated</span>
+                                        <p class="cov-note">My demo app has no user accounts or authentication, so it cannot exercise this. A general scenario.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- checklist:SEC:end -->
+
+
+                <h2 id="def-002">12. Worked example: DEF-002</h2>
+
+                <p>
+                    DEF-002 shows why the cases above come in pairs. The full report, with the source excerpts,
+                    is on the <a href="/evidence/#defect-report">Evidence page</a>. In short: webhook
+                    signature validation could never succeed. It was found on 14 September 2026 during real Test
+                    Mode execution, rated High, and fixed the same day. The defect was in the demo app I built as the test
+                    target, so it is a bug in my own code and not in Razorpay&rsquo;s product.
+                </p>
+
+                <h3>What I saw</h3>
+
+                <p>
+                    A webhook with a provably correct signature returned 401 every time. I computed the HMAC
+                    exactly as the handler does, sent the exact raw body once with <code>fetch()</code> and once
+                    with <code>curl --data-binary</code> from a byte-identical file, and got the same 401. That
+                    ruled out the client and the comparison logic.
+                </p>
+
+                <h3>Why the tests did not notice</h3>
+
+                <p>
+                    When I reverted the fix in a scratch copy on 15 October 2026, 6 of the 11 webhook tests
+                    failed: <code>WEB-001</code>, <code>WEB-005</code>, <code>WEB-006</code>,
+                    <code>WEB-007</code>, <code>WEB-FIX-001</code> and <code>WEB-FIX-004</code>. The 5 that still
+                    passed were the rejection-only ones: <code>WEB-002</code>, <code>WEB-003</code>,
+                    <code>WEB-004</code>, <code>WEB-FIX-002</code> and <code>WEB-FIX-003</code>. A handler that
+                    rejects everything keeps the rejection-only tests green, which is why the defect could hide.
+                </p>
+
+                <h3>Root cause and fix</h3>
+
+                <p>
+                    A global <code>express.json()</code> parser was mounted before the webhook route. It consumed
+                    and parsed the body, so the route&rsquo;s own <code>express.raw()</code> received an object
+                    instead of a Buffer. Converting that object to a string gives <code>"[object Object]"</code>,
+                    and the HMAC was computed over that instead of the real payload. The comparison was correct.
+                    It was hashing the wrong bytes. The fix was to mount the webhook router first:
+                </p>
+
+                <pre class="code-block" tabindex="0"><code>// src/app.js (excerpt)
+app.use('/api/webhooks', webhooksRouter);
+
+// Middleware
+app.use(express.json());</code></pre>
+                <p class="code-caption">The fixed mount order in the repository at commit <code>da9e7a2</code>.</p>
+
+                <p>
+                    The impact was bounded. No correctly signed webhook could be accepted, but a forged one could
+                    not get through either: the defect failed safe, so it was a functional defect and not a
+                    security hole.
+                </p>
+
+                <h3>What it teaches, and which cases it maps to</h3>
+
+                <ul>
+                    <li><strong>Accept path first.</strong> PG-SIG-05 is the case that would have caught it on day one. PG-SIG-06 to PG-SIG-08 are the rejection cases that kept passing.</li>
+                    <li><strong>Isolate the cryptography.</strong> Building a valid signature by hand and watching it fail moved suspicion from the HMAC to what the route received.</li>
+                    <li><strong>Middleware order is part of the verification design.</strong> Anything that touches the body before the check can change the bytes.</li>
+                    <li><strong>A neighbouring gap remains.</strong> The regression tests build every payload with <code>JSON.stringify</code>. PG-SIG-09 is the case they cannot cover, and I have not added it.</li>
+                </ul>
+
+                <p>
+                    The limits apply here too. Every webhook in these tests is self-signed by the test. A webhook
+                    sent by Razorpay itself never reached the app, so DEF-002 was found and fixed against
+                    simulated deliveries.
+                </p>
+
+
+                <h2 id="not-covered">13. What this checklist does not cover</h2>
+
+                <ul>
+                    <li><strong>PCI DSS scope.</strong> How card data is handled, stored or tokenised, and what your compliance obligations are. The cases here assume a hosted checkout and do not assess compliance.</li>
+                    <li><strong>Fraud and risk tooling.</strong> Velocity rules, scoring services and manual review queues.</li>
+                    <li><strong>Live-gateway behaviour.</strong> Live keys, real issuing banks and card networks, real webhook delivery and settlement. The rows marked <em>Beyond sandbox</em> are the visible edge of this.</li>
+                    <li><strong>3D Secure and other bank-side flows.</strong> Authentication challenges, OTPs and bank redirects. I have not tested them. I saw one decline and one cancel-and-retry in Test Mode Checkout, and nothing else.</li>
+                    <li><strong>Load and performance.</strong> The retry-storm case is a small replay burst against your own sandbox, not a load test.</li>
+                    <li><strong>Chargebacks and disputes, subscriptions and saved cards, wallets, mobile SDKs, tax and invoicing.</strong> Each needs its own list.</li>
+                    <li><strong>Other gateways.</strong> Event names, retry behaviour, amount encoding and status models differ between providers. Check your gateway&rsquo;s documentation before treating a row as a requirement.</li>
+                </ul>
+
+                <p>
+                    This is a testing checklist. It is not a security assessment, a compliance review or a
+                    guarantee about any particular integration.
+                </p>
+
+
+                <h2 id="download">14. Download the checklist</h2>
+
+                <p>
+                    The same <!--cl:total-->62<!--/cl--> cases are available as a CSV with the same IDs and wording,
+                    plus an area column and the repository test IDs. It opens in any spreadsheet.
+                </p>
+
+                <p>
+                    <a class="btn btn-outline" href="/assets/downloads/payment-gateway-test-cases-checklist.csv" download>Download the CSV (payment-gateway-test-cases-checklist.csv)</a>
+                </p>
+
+                <p>
+                    The tables on this page and the CSV are generated together from one source file, so the IDs,
+                    wording and coverage labels cannot differ between them.
+                </p>
+
+            </article>
+
+            <aside class="article-cta" aria-labelledby="cta-heading">
+                <h2 id="cta-heading">Need this tested on your payment flow?</h2>
+                <p>
+                    I offer scoped freelance testing for web applications, APIs and payment workflows in sandbox
+                    or test environments. Scope and deliverables are agreed before any work begins.
+                </p>
+                <div class="btn-group">
+                    <a href="/services/" class="btn btn-primary"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.75em" height="1em"><use href="/assets/icons.svg#clipboard-check"/></svg></i> See the QA services</a>
+                </div>
+            </aside>
+
+            <section class="related" aria-labelledby="related-heading">
+                <h2 id="related-heading">Related</h2>
+                <ul class="related-list">
+                    <li><a class="related-card" href="/blog/payment-gateway-testing-playwright/">
+                        <span>Article</span>
+                        <strong>How to Test a Payment Gateway with Playwright: API, Webhooks, Refunds, and Failure Scenarios</strong>
+                    </a></li>
+                    <li><a class="related-card" href="/projects/razorpay-payment-gateway-qa-automation/">
+                        <span>Case study</span>
+                        <strong>Razorpay Payment Gateway QA &amp; Automation: the full case study</strong>
+                    </a></li>
+                    <li><a class="related-card" href="/evidence/">
+                        <span>Evidence</span>
+                        <strong>Defect report DEF-002, the coverage matrix of 37 tests and the test runs</strong>
+                    </a></li>
+                    <li><a class="related-card" href="/proof-of-work/">
+                        <span>Proof of work</span>
+                        <strong>All four public projects, with their limits stated</strong>
+                    </a></li>
+                </ul>
+            </section>
+
+            <aside class="author-note" aria-labelledby="author-heading">
+                <h2 id="author-heading">About the author</h2>
+                <p>
+                    I am Sayed Asif, a software QA engineer with 1+ years of professional experience, working on
+                    API and payment-workflow testing with Playwright. I describe no employer work here, so every
+                    result on this page that I call mine comes from the public Razorpay project. My
+                    <a href="/resume/">resume</a> lists my work history and the <a href="/about/">about page</a>
+                    explains how I approach testing.
+                </p>
+            </aside>
+
+            <div class="back-to-blog">
+                <a href="/blog/"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#arrow-left"/></svg></i> Back to Blog</a>
+            </div>
+
+        </div>
+
+
+    </main>
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+                    <p class="brand-name">Sayed<span>Asif</span></p>
+                    <p class="brand-title">Software QA Engineer</p>
+                    <p class="brand-tagline">API Testing &bull; Playwright Automation</p>
+                </div>
+
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <a href="/proof-of-work/">Proof of Work</a>
+                    <a href="/evidence/">Evidence</a>
+                    <a href="/about/">About</a>
+                    <a href="/services/">Services</a>
+                    <a href="/blog/">Blog</a>
+                    <a href="/resume/">Resume</a>
+                </nav>
+
+                <div class="footer-contact">
+                    <a href="/contact/" class="footer-contact-link">Contact</a>
+                    <div class="social-links">
+                        <a href="https://github.com/Open83" class="social-icon" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.969em" height="1em"><use href="/assets/icons.svg#github"/></svg></i></a>
+                        <a href="https://www.linkedin.com/in/asifsayed83/" class="social-icon" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"><i class="ic" aria-hidden="true"><svg focusable="false" width="0.875em" height="1em"><use href="/assets/icons.svg#linkedin"/></svg></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <p class="footer-disclaimer">Employer project work is confidential and shown only in general terms. No client names, data or system details are published.</p>
+
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2026 Sayed Asif. All rights reserved.</p>
+                <a href="/privacy/" class="privacy-link">Privacy Notice</a>
+            </div>
+
+        </div>
+
+        <!-- Floating WhatsApp button. No number here: contact-actions.js builds the link on click; without JavaScript it opens the contact page. -->
+        <a href="/contact/" class="wa-float" data-whatsapp aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+
+    </footer>
+
+    <script src="/assets/js/global-nav.js" defer></script>
+    <script src="/assets/js/contact-actions.js" defer></script>
+
+</body>
+</html>

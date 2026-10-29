@@ -50,11 +50,15 @@
     </url>
     <url>
         <loc>https://sayedasif.com/blog/</loc>
-        <lastmod>2026-10-22</lastmod>
+        <lastmod>2026-10-29</lastmod>
+    </url>
+    <url>
+        <loc>https://sayedasif.com/blog/payment-gateway-test-cases/</loc>
+        <lastmod>2026-10-29</lastmod>
     </url>
     <url>
         <loc>https://sayedasif.com/blog/payment-gateway-testing-playwright/</loc>
-        <lastmod>2026-10-22</lastmod>
+        <lastmod>2026-10-29</lastmod>
     </url>
     <url>
         <loc>https://sayedasif.com/blog/api-testing-best-practices/</loc>
