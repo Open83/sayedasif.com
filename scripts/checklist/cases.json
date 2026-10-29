@@ -1,0 +1,626 @@
+{
+  "_comment": "Single source for the payment gateway test case checklist. scripts/checklist/build.js writes the tables in blog/payment-gateway-test-cases/index.html and assets/downloads/payment-gateway-test-cases-checklist.csv from this file. Edit here, then run: node scripts/checklist/build.js. ASCII only; backticks mark code.",
+  "repo": { "github": "Open83/Razorpay-Payment-Gateway---QA---Automation", "sha": "da9e7a2" },
+  "repoTests": 37,
+  "coverage": {
+    "ci": { "label": "Automated, runs in CI", "csv": "Automated in Razorpay project (runs in CI)", "chip": "pass" },
+    "ci-weak": { "label": "Automated, cannot fail in CI", "csv": "Automated in Razorpay project (cannot fail in CI)", "chip": "warn" },
+    "live": { "label": "Automated, live gateway only", "csv": "Automated in Razorpay project (live gateway only, not in CI)", "chip": "warn" },
+    "rec": { "label": "Recommended, not automated", "csv": "Recommended, not automated", "chip": "info" },
+    "sbx": { "label": "Beyond sandbox", "csv": "Cannot be proven in sandbox testing", "chip": "fail" }
+  },
+  "areas": [
+    {
+      "key": "SUC",
+      "title": "Successful payments",
+      "cases": [
+        {
+          "scenario": "Happy path: the order is created on the server, Checkout is completed and the payment is verified server-side.",
+          "expected": "The order ends `paid` once, with the payment ID stored and the amount equal to the server's own order amount.",
+          "why": "The baseline, and the least informative case on this list: nearly every payment bug passes the happy path. Run it to prove the environment works, then move on.",
+          "severity": "High",
+          "coverage": "live",
+          "tests": ["SIG-001"],
+          "note": "SIG-001 verifies one real captured Test Mode payment through the app. The Checkout steps were driven once in a separate Playwright session (Phase 3.3 report) and are not a committed test."
+        },
+        {
+          "scenario": "The client sends its own amount or currency when the order is created.",
+          "expected": "The server ignores both and builds the order from its own configuration.",
+          "why": "If the amount comes from the browser, anyone can pay 1 instead of 500. The payment succeeds, nothing errors and the shop ships.",
+          "severity": "Critical",
+          "coverage": "ci-weak",
+          "tests": ["ORDER-003", "ORDER-001"],
+          "note": "Both tests assert only when order creation returns 200, which the CI placeholder credentials never produce, so CI cannot fail on this. They run for real with working Test Mode credentials; the Phase 3.3 report records ORDER-003 passing."
+        },
+        {
+          "scenario": "The amount shown on the page versus the amount charged.",
+          "expected": "The displayed amount, the order amount and the amount the gateway reports are the same figure in the same currency.",
+          "why": "Display and charge are computed in different places. A mismatch means the customer approves one price and is charged another, which becomes a dispute, not a bug report.",
+          "severity": "High",
+          "coverage": "live",
+          "tests": ["UI-002"],
+          "note": "UI-002 checks that the page shows the app's fixed amount (500.00 INR). It needs the live Test Mode setup, so it does not run in CI."
+        },
+        {
+          "scenario": "The customer refreshes or re-opens the success page after paying.",
+          "expected": "No second order, no second payment record and no second confirmation; the page shows the existing paid order.",
+          "why": "Refresh and back-button resubmits are normal behaviour. Without a guard they create duplicate orders or repeat fulfilment.",
+          "severity": "Medium",
+          "coverage": "rec",
+          "tests": [],
+          "note": ""
+        },
+        {
+          "scenario": "The gateway's webhook reaches the server before the browser's verify call, or the other way round.",
+          "expected": "The order ends `paid` whichever path wins. The second arrival changes nothing, and the customer sees a paid order, not an error.",
+          "why": "Two independent paths write the same order. If the late one treats `already paid` as a failure, a successful payment shows an error page and the customer pays again.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "In the public project I could only send self-signed webhooks (no webhook from Razorpay itself was ever observed), so the ordering of the two real paths is untested."
+        }
+      ]
+    },
+    {
+      "key": "DEC",
+      "title": "Declines and failures",
+      "cases": [
+        {
+          "scenario": "A payment attempt is declined (card, UPI or bank failure) and the customer tries again on the same order.",
+          "expected": "The failed attempt is recorded, the order stays open for another attempt and the customer sees a plain-language message.",
+          "why": "Razorpay's order documentation has no order-level failed status: an order stays open until a payment is captured. An app that closes the order on the first failure forces a restart and loses sales that would have completed.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "A real decline was seen once in Test Mode Checkout (Phase 3.3 report). There is no committed test."
+        },
+        {
+          "scenario": "A failed attempt is followed by a successful one for the same order (`payment.failed`, then `payment.captured`).",
+          "expected": "The order ends `paid`.",
+          "why": "Money has been captured. If the order stays `failed`, the customer is charged and the shop records no sale: the worst kind of mismatch, found only when the customer complains.",
+          "severity": "Critical",
+          "coverage": "rec",
+          "tests": [],
+          "note": "This case failed in my scratch copy on 14 October 2026: the app answered 200 to the late `payment.captured` and left the order `failed`. The scratch test is not in the repository and I have not changed the public code."
+        },
+        {
+          "scenario": "The customer closes Checkout without paying.",
+          "expected": "The order stays `created`, no payment is recorded and the customer can retry with no stale state.",
+          "why": "Abandonment is common. Bugs here leave half-open orders, or make the retry reuse state from the abandoned attempt.",
+          "severity": "Medium",
+          "coverage": "rec",
+          "tests": [],
+          "note": "Close-and-retry was run once by hand in Test Mode Checkout (Phase 3.3 report). The page has no dismiss handler and there is no committed test."
+        },
+        {
+          "scenario": "The payment is pending or processing when the customer returns (asynchronous payment methods).",
+          "expected": "The app shows a pending state, marks the order neither paid nor failed, and updates when the final event arrives.",
+          "why": "Treating pending as failed invites a second payment. Treating it as paid ships goods before the money exists.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "I have not tested an asynchronous payment method."
+        },
+        {
+          "scenario": "Issuer-side declines: insufficient funds, expired card, wrong CVV, bank downtime, risk blocks.",
+          "expected": "Each maps to a message the customer can act on, with no raw gateway text shown.",
+          "why": "A generic 'payment failed' drives abandonment. Raw gateway codes confuse customers and help anyone probing the checkout.",
+          "severity": "Medium",
+          "coverage": "sbx",
+          "tests": [],
+          "note": "Test Mode can simulate some failures, but how real issuers and banks respond cannot be proven in a sandbox. I observed one decline."
+        }
+      ]
+    },
+    {
+      "key": "SIG",
+      "title": "Signature and webhook validation",
+      "cases": [
+        {
+          "scenario": "Payment verification with a valid signature for a real captured payment.",
+          "expected": "Accepted (200, `verified: true`), with order, payment, amount and status taken from the gateway.",
+          "why": "Proves the accept path works against the real gateway, not only that bad input is rejected.",
+          "severity": "High",
+          "coverage": "live",
+          "tests": ["SIG-001"],
+          "note": "Needs one real Test Mode payment, so it is excluded from CI."
+        },
+        {
+          "scenario": "Payment verification with an invalid signature, including an upper-case or truncated copy of a valid one.",
+          "expected": "Rejected with 401 and the order unchanged.",
+          "why": "The signature is the only proof that the browser's success message is real. Accepting a near-match lets anyone mark their own order paid.",
+          "severity": "Critical",
+          "coverage": "ci",
+          "tests": ["SIG-002"],
+          "note": "SIG-002 covers a wrong signature. The upper-case and truncated variants were run once in my scratch copy and rejected; they are not committed."
+        },
+        {
+          "scenario": "A valid signature replayed against a different order ID.",
+          "expected": "Rejected with 401.",
+          "why": "Proves the signature is bound to the order and payment pair. Without that binding, one cheap paid order could confirm a more expensive one.",
+          "severity": "Critical",
+          "coverage": "ci",
+          "tests": ["SIG-003"],
+          "note": "The test computes a genuinely valid signature first, then changes the order ID."
+        },
+        {
+          "scenario": "Verification request with a missing field, or a malformed JSON body.",
+          "expected": "400 with a clear error; never a 500 or a hang.",
+          "why": "Bad input from a client or a proxy should be a clean refusal. A crash on missing fields is an outage waiting for a retry loop.",
+          "severity": "Medium",
+          "coverage": "ci",
+          "tests": ["SIG-004", "SIG-005", "SIG-006", "ERR-004"],
+          "note": ""
+        },
+        {
+          "scenario": "Webhook with a correct signature computed over the exact raw body.",
+          "expected": "Accepted (200), and the order moves from `created` to `paid`.",
+          "why": "This is the case DEF-002 broke: every genuine webhook was rejected while the rejection tests kept passing. See the worked example below.",
+          "severity": "Critical",
+          "coverage": "ci",
+          "tests": ["WEB-001", "WEB-FIX-001"],
+          "note": "WEB-FIX-001 fails when the DEF-002 fix is reverted (see the Evidence page)."
+        },
+        {
+          "scenario": "Webhook with a wrong signature.",
+          "expected": "401, and the order is untouched.",
+          "why": "Rejection is the security control, but it proves nothing alone: a handler that rejects everything also passes this case. Pair it with the accept path above.",
+          "severity": "Critical",
+          "coverage": "ci",
+          "tests": ["WEB-002", "WEB-FIX-003"],
+          "note": ""
+        },
+        {
+          "scenario": "Webhook with the signature header missing.",
+          "expected": "401 naming the missing header.",
+          "why": "A request that omits the header must not skip verification. A handler that verifies only when a signature is present fails open.",
+          "severity": "High",
+          "coverage": "ci",
+          "tests": ["WEB-003"],
+          "note": ""
+        },
+        {
+          "scenario": "Webhook payload changed after signing (one character appended, or the amount edited).",
+          "expected": "401, and the order stays as it was.",
+          "why": "Proves the HMAC covers the body, amount included, and not only the headers. A tampered amount that gets through is a free-goods bug.",
+          "severity": "Critical",
+          "coverage": "ci",
+          "tests": ["WEB-007", "WEB-FIX-002"],
+          "note": "WEB-FIX-002 also asserts the order status is unchanged afterwards."
+        },
+        {
+          "scenario": "Webhook signed over bytes that differ from what JSON re-serialisation would produce (pretty-printed body, different key order, escaped characters).",
+          "expected": "Accepted, because the signature is checked against the exact bytes received and never against parsed-and-re-serialised JSON.",
+          "why": "A handler that verifies `JSON.stringify(req.body)` passes tests that build their payload with `JSON.stringify` and rejects real traffic whose formatting differs. It looks fine in staging and refuses genuine webhooks in production.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "A gap in my own suite: its webhook tests all build the body with `JSON.stringify`, so they cannot tell raw-body verification from re-serialised verification."
+        },
+        {
+          "scenario": "Webhook with the event ID header missing.",
+          "expected": "400 naming the missing header.",
+          "why": "Deduplication depends on that ID. Accepting events without it makes duplicates undetectable.",
+          "severity": "Medium",
+          "coverage": "ci",
+          "tests": ["WEB-004"],
+          "note": ""
+        },
+        {
+          "scenario": "Replay of an already-processed event ID with a bad signature.",
+          "expected": "401, the same as any other badly signed request.",
+          "why": "If the duplicate check runs before the signature check, anyone who knows or guesses an event ID gets a 200 and learns the ID exists. Verify first, then deduplicate.",
+          "severity": "Low",
+          "coverage": "rec",
+          "tests": [],
+          "note": "Found in my scratch copy on 14 October 2026: the handler returns 200. Not committed; I have not changed the public code."
+        },
+        {
+          "scenario": "The webhook secret is configured per environment: production differs from test and matches the dashboard.",
+          "expected": "Genuine webhooks verify in each environment.",
+          "why": "A secret copied from the wrong environment rejects every genuine webhook. Nothing errors loudly; events are quietly refused until reconciliation notices.",
+          "severity": "High",
+          "coverage": "sbx",
+          "tests": [],
+          "note": "Needs the real dashboard webhook configuration. No webhook ever arrived from Razorpay in this project, so this was not exercised."
+        }
+      ]
+    },
+    {
+      "key": "DUP",
+      "title": "Duplicates and idempotency",
+      "cases": [
+        {
+          "scenario": "The same webhook event ID is delivered twice.",
+          "expected": "Applied once. The second delivery gets 200 `already processed` and the order is unchanged.",
+          "why": "Gateways redeliver when an acknowledgement is slow or lost, and Razorpay's webhook documentation says an endpoint might receive the same event more than once. A non-idempotent handler repeats fulfilment, emails or ledger entries.",
+          "severity": "High",
+          "coverage": "ci",
+          "tests": ["WEB-005", "WEB-FIX-004"],
+          "note": "The test sends both deliveries itself, one after the other. No redelivery from Razorpay was observed."
+        },
+        {
+          "scenario": "Different event IDs for different events.",
+          "expected": "Each is processed independently.",
+          "why": "Deduplication keyed too coarsely (on order or payment ID) silently drops genuine events, for example the refund that follows the payment.",
+          "severity": "Medium",
+          "coverage": "ci",
+          "tests": ["WEB-006"],
+          "note": ""
+        },
+        {
+          "scenario": "Client-side verification is called twice for the same payment.",
+          "expected": "Both calls succeed, the order stays `paid` with the same payment ID and nothing is duplicated.",
+          "why": "Browsers retry and users double-submit. The second call must be harmless: not an error and not a second state change.",
+          "severity": "High",
+          "coverage": "live",
+          "tests": ["REPLAY-001"],
+          "note": "Needs the one real captured payment, so it is excluded from CI."
+        },
+        {
+          "scenario": "Double-click on Pay, or the create-order request is sent twice.",
+          "expected": "One order, or a defined rule for reusing the open order.",
+          "why": "Which of two orders the customer ends up paying decides what the reconciliation shows. Duplicate orders turn one purchase into two records that finance must match by hand.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "In my app, create-order builds a new order on every call (read in the source; I did not run a double-click test), so this probably exposes a real question."
+        },
+        {
+          "scenario": "The verify path and the webhook path both report the same payment.",
+          "expected": "Side effects (confirmation email, fulfilment, ledger entry) happen once in total, not once per path.",
+          "why": "Event-ID deduplication does not help here: the browser callback has no event ID, and the two paths carry different identifiers. Customers get two emails, or two shipments.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": ""
+        },
+        {
+          "scenario": "Deduplication state after a restart, a deploy or a second server instance.",
+          "expected": "Already-processed event IDs are still recognised.",
+          "why": "An in-memory set forgets on deploy and is not shared between instances, so redeliveries after a deploy are applied a second time.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "My app stores processed event IDs in SQLite, so they should survive a restart, but no test restarts the server."
+        },
+        {
+          "scenario": "Out-of-order events: `payment.authorized` arrives after `payment.captured`.",
+          "expected": "A paid order does not move backwards.",
+          "why": "Razorpay's documentation says events may not arrive in order. A late, older event must not overwrite a more advanced state.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "Behaved as intended in my scratch checks on 14 October 2026. The state machine implements it, but no committed test covers it."
+        },
+        {
+          "scenario": "Several copies of the same event arrive at the same moment.",
+          "expected": "Applied once, with no error and no second record.",
+          "why": "Check-then-insert deduplication is correct when requests arrive one after another and can fail when they arrive together, which is how gateway retries often arrive.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "WEB-005 sends its two deliveries one after the other, so it cannot expose a race. Not covered."
+        }
+      ]
+    },
+    {
+      "key": "REF",
+      "title": "Refunds",
+      "cases": [
+        {
+          "scenario": "Refund request without a payment ID.",
+          "expected": "400 `Missing required field`, naming `paymentId`.",
+          "why": "A missing ID should be refused by the app, not discovered by a failing gateway call.",
+          "severity": "Low",
+          "coverage": "ci",
+          "tests": ["REF-001"],
+          "note": ""
+        },
+        {
+          "scenario": "The gateway rejects a refund (unknown payment, ineligible state).",
+          "expected": "A controlled 400 or 404 with a sanitised message, and the server keeps serving other requests.",
+          "why": "DEF-001: the error handler read `error.message`, which the gateway SDK does not set, so the handler itself threw and took the process down. One bad refund request was an outage.",
+          "severity": "High",
+          "coverage": "ci",
+          "tests": ["REF-ERR-001", "REF-ERR-002"],
+          "note": "REF-ERR-002 asserts that an unrelated `GET /health` still returns 200 afterwards; that liveness check is the regression assertion."
+        },
+        {
+          "scenario": "Full refund of a paid order.",
+          "expected": "The order moves from `paid` to `refunded`, with the amount and refund ID recorded.",
+          "why": "Refund state is what finance reads. If it does not change, the order looks sold while the money has gone back.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "The transition is implemented, and a full-amount `refund.created` webhook moved a paid order to `refunded` in my scratch checks. There is no committed test, and no successful refund was completed against Razorpay."
+        },
+        {
+          "scenario": "Two partial refunds that together equal the order amount.",
+          "expected": "The refunded total is tracked, and the order reaches a fully refunded state when the sum equals the amount.",
+          "why": "Logic that checks only whether a single refund equals the order amount never fires for partial refunds. The order keeps saying paid after the full amount has gone back.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "Failed in my scratch copy on 14 October 2026: two refunds of 25000 on a 50000 order left the order `paid`. I prototyped a fix there; nothing is applied to the public repository."
+        },
+        {
+          "scenario": "A refund larger than the remaining balance (for example 30000 twice against a 50000 payment).",
+          "expected": "Rejected before it reaches the gateway, or the gateway's rejection is handled; the recorded refunded total never exceeds the amount captured.",
+          "why": "Gateways usually enforce the limit, but your own ledger is what support and finance read. A refunded total above the payment is either a loss or a ledger nobody can trust.",
+          "severity": "Critical",
+          "coverage": "rec",
+          "tests": [],
+          "note": "One excessive refund amount was checked by hand after the DEF-001 fix and returned a controlled 400 (docs/DEFECTS.md). The cumulative case, which is the one that matters, is not tested."
+        },
+        {
+          "scenario": "The same refund event is delivered twice.",
+          "expected": "Recorded and counted once.",
+          "why": "A duplicate refund event that adds to a running total shows the customer as refunded twice.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": ""
+        },
+        {
+          "scenario": "Refund against an order that was never paid, has failed, or is already refunded.",
+          "expected": "Refused; only `paid` can move to `refunded`.",
+          "why": "Refunding an order that was never paid sends out money that was never taken.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "Implemented in the state machine (`paid` is the only state that can move to `refunded`). No committed test exercises the transition."
+        },
+        {
+          "scenario": "Refund amount edge cases: zero, negative, non-numeric, more than two decimal places, or a value in the wrong unit.",
+          "expected": "400 with a clear message, and nothing is sent to the gateway.",
+          "why": "Amounts in minor units invite unit mistakes: a refund of 500 meant as rupees is 5.00.",
+          "severity": "Medium",
+          "coverage": "rec",
+          "tests": [],
+          "note": ""
+        },
+        {
+          "scenario": "A successful refund end to end against the gateway, including the pending-then-processed status.",
+          "expected": "The gateway confirms the refund, a webhook or status lookup updates the order and the customer-visible amount matches.",
+          "why": "The only way to know the refund path works with real gateway behaviour and timing.",
+          "severity": "High",
+          "coverage": "sbx",
+          "tests": [],
+          "note": "Not demonstrated. The Test Mode account had an account-level restriction that blocked refunds, confirmed outside the app with raw HTTPS calls. The route, its validation and its error handling are tested; a live successful refund is not."
+        }
+      ]
+    },
+    {
+      "key": "CUR",
+      "title": "Currency and rounding",
+      "cases": [
+        {
+          "scenario": "The amount sent to the gateway is in minor units.",
+          "expected": "500.00 INR is sent as 50000 (paise), and the response and the order record carry the same integer.",
+          "why": "Sending 500 instead of 50000 charges a hundredth of the price, and nobody notices until revenue falls short.",
+          "severity": "Critical",
+          "coverage": "ci-weak",
+          "tests": ["ORDER-001", "UI-002"],
+          "note": "ORDER-001 asserts 50000 and INR only when order creation succeeds, so it cannot fail in CI. UI-002 needs the live Test Mode setup. The app has one fixed INR amount, so there is no conversion logic to test."
+        },
+        {
+          "scenario": "Currencies with 0 or 3 decimal places in a multi-currency checkout (for example JPY and KWD).",
+          "expected": "Conversion uses each currency's own exponent: 500 JPY is sent as 500, not 50000, and 1.500 KWD as 1500.",
+          "why": "Multiplying by 100 for every currency overcharges zero-decimal currencies 100 times and undercharges three-decimal ones tenfold. Checks on INR alone never show it. Confirm in the gateway's documentation how each currency is encoded.",
+          "severity": "Critical",
+          "coverage": "rec",
+          "tests": [],
+          "note": "A general scenario. My demo app is INR-only and has no conversion to test, and I do not attribute this case to any employer project."
+        },
+        {
+          "scenario": "Floating-point conversion to minor units (19.99 x 100).",
+          "expected": "1999, using integer or decimal arithmetic or a deliberate round, never truncation of a float.",
+          "why": "In JavaScript, 19.99 * 100 is 1998.9999999999998. Truncating gives 1998, one minor unit short. Small per order, large across thousands, and it shows up as unexplained reconciliation differences.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "I checked the arithmetic in Node. The demo app uses a fixed integer amount, so it has no conversion to test."
+        },
+        {
+          "scenario": "Discounts, tax and fees on a multi-line cart.",
+          "expected": "The sum of the rounded line amounts equals the rounded total under one documented rounding mode, and the gateway receives the same total the invoice shows.",
+          "why": "Rounding each line, or only the total, gives totals that differ by a minor unit. Receipts, invoices and the gateway then disagree by small amounts that finance has to explain by hand.",
+          "severity": "Medium",
+          "coverage": "rec",
+          "tests": [],
+          "note": ""
+        },
+        {
+          "scenario": "A webhook or refund in a different currency from the order.",
+          "expected": "Not applied; flagged for review.",
+          "why": "An amount in the wrong currency compared numerically looks valid. 500 USD is not 500 INR.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": ""
+        },
+        {
+          "scenario": "A correctly signed event whose amount differs from the order amount.",
+          "expected": "Not accepted as a full payment; flagged.",
+          "why": "A valid signature proves who sent the event, not that the amount is right. A short payment accepted as complete ships a full order for part of the price.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "In the source I read at da9e7a2 (not executed), the webhook handler moves the order on without comparing the event amount to the order amount. The client verify route does compare them."
+        }
+      ]
+    },
+    {
+      "key": "TMO",
+      "title": "Timeouts and retries",
+      "cases": [
+        {
+          "scenario": "Timeout or dropped connection after the gateway captured the payment (browser closed, network cut, slow verify call).",
+          "expected": "The order still ends `paid` through the webhook or a status lookup, and the customer is told the payment is being confirmed, not that it failed.",
+          "why": "The costliest timing bug: the customer sees an error, pays again and is charged twice for one order.",
+          "severity": "Critical",
+          "coverage": "rec",
+          "tests": [],
+          "note": "Not covered by any test in the public project."
+        },
+        {
+          "scenario": "The gateway call fails or times out when the order is created.",
+          "expected": "The customer gets a controlled error and can retry; no order is left looking paid and no partial state is stored.",
+          "why": "Gateway outages happen. The app must fail visibly and recoverably, not leave an order the customer cannot pay.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "ORDER-002 checks that a failed order creation returns a sanitised error. It does not simulate a timeout."
+        },
+        {
+          "scenario": "The webhook handler responds slowly or with a 5xx.",
+          "expected": "Redelivered events are applied once, and the handler acknowledges quickly and keeps slow work out of the request.",
+          "why": "Gateways generally treat a slow or failed response as a failed delivery and send it again; check your gateway's policy. The retry then arrives while the first attempt is still running.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "Razorpay's real retry schedule was never observed in this project."
+        },
+        {
+          "scenario": "Retry storm: dozens of redeliveries of the same events in a burst.",
+          "expected": "Each event is applied once, valid events see no errors and response time stays well inside the gateway's timeout.",
+          "why": "After an outage a gateway can replay a backlog at once. A handler that is correct one request at a time can still lock the database or time out under the burst, which causes more retries.",
+          "severity": "Medium",
+          "coverage": "rec",
+          "tests": [],
+          "note": "A small replay burst against your own sandbox, not load testing; see the scope section."
+        },
+        {
+          "scenario": "The gateway's own redelivery schedule, ordering and expiry.",
+          "expected": "Matches the gateway's documentation.",
+          "why": "Handlers are designed around assumptions about retries and order. Wrong assumptions only show against the real service.",
+          "severity": "Medium",
+          "coverage": "sbx",
+          "tests": [],
+          "note": "No webhook sent by Razorpay itself was observed in this project, so none of this was tested against real behaviour."
+        }
+      ]
+    },
+    {
+      "key": "REC",
+      "title": "Reconciliation",
+      "cases": [
+        {
+          "scenario": "Every order marked `paid` has a captured payment at the gateway with the same amount and currency.",
+          "expected": "Zero mismatches, or each mismatch listed for follow-up.",
+          "why": "The one control that catches a missed webhook, a wrong amount accepted earlier, or an order marked paid by mistake.",
+          "severity": "Critical",
+          "coverage": "rec",
+          "tests": [],
+          "note": "The public project has no reconciliation job."
+        },
+        {
+          "scenario": "Every captured payment at the gateway maps to an order that is `paid` (the reverse direction).",
+          "expected": "No captured payment whose order is `failed`, `created` or missing.",
+          "why": "Catches money taken for orders the app thinks failed (see the failed-then-captured case above) and payments with no order at all.",
+          "severity": "Critical",
+          "coverage": "rec",
+          "tests": [],
+          "note": ""
+        },
+        {
+          "scenario": "Refund totals: local refund records versus the gateway's refunds, per payment.",
+          "expected": "Equal for every payment.",
+          "why": "Refunds are the usual source of drift: partial refunds, retries, and events that arrived twice or not at all.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": ""
+        },
+        {
+          "scenario": "The webhook endpoint is down while a payment completes, then restored.",
+          "expected": "The missed events are recovered by polling or a status lookup, and no order stays `created` while the gateway shows it captured.",
+          "why": "A gateway stops redelivering at some point. After that, only your own reconciliation finds the gap.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": ""
+        },
+        {
+          "scenario": "Settlement and payout totals against orders, refunds and fees.",
+          "expected": "The payout equals captured amounts less refunds and fees for the period.",
+          "why": "Orders, gateway records and the bank statement are three ledgers, and only the third is money.",
+          "severity": "High",
+          "coverage": "sbx",
+          "tests": [],
+          "note": "Test Mode does not exercise settlement or reconciliation, so this cannot be shown in a sandbox."
+        }
+      ]
+    },
+    {
+      "key": "SEC",
+      "title": "Basic security checks",
+      "cases": [
+        {
+          "scenario": "The public configuration endpoint.",
+          "expected": "Returns only publishable values (key ID, currency, a configured flag) and never the key secret or the webhook secret.",
+          "why": "A secret in a public response is a full compromise of the gateway account.",
+          "severity": "Critical",
+          "coverage": "ci",
+          "tests": ["CONFIG-001", "CONFIG-002"],
+          "note": ""
+        },
+        {
+          "scenario": "The checkout page's HTML.",
+          "expected": "Contains no secret keys or webhook secret, and loads the Checkout script from the gateway's own origin.",
+          "why": "Anyone who views the source copies a secret in it. A look-alike script source is how payment pages get skimmed.",
+          "severity": "High",
+          "coverage": "ci",
+          "tests": ["UI-003", "UI-004"],
+          "note": "UI-003 checks that a script tag pointing at checkout.razorpay.com exists and that the HTML has no live key or secret strings."
+        },
+        {
+          "scenario": "Test and live key modes are not mixed.",
+          "expected": "Test environments show only test keys and a visible Test Mode indicator.",
+          "why": "A live key in staging moves real money during testing. A test key in production fails every payment.",
+          "severity": "High",
+          "coverage": "ci",
+          "tests": ["CONFIG-003", "UI-005"],
+          "note": "CONFIG-002 also asserts that the returned key ID is a test key."
+        },
+        {
+          "scenario": "Error responses from the payment endpoints.",
+          "expected": "Human-readable, with no keys, URLs, stack traces or SDK internals.",
+          "why": "Verbose errors show attackers what the server uses, and show customers things they cannot act on.",
+          "severity": "Medium",
+          "coverage": "ci",
+          "tests": ["ERR-001", "ERR-002", "REF-ERR-001"],
+          "note": ""
+        },
+        {
+          "scenario": "Debug or admin routes, for example listing or clearing processed webhook events.",
+          "expected": "Not reachable without authentication in any shared environment.",
+          "why": "An unauthenticated route that clears the deduplication ledger lets anyone make the next replay count as new.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "Found in my scratch copy on 14 October 2026: `DELETE /api/webhooks/events` cleared the processed event IDs without credentials. Not committed; I have not changed the public code."
+        },
+        {
+          "scenario": "How the signature is compared.",
+          "expected": "A constant-time comparison (for example `crypto.timingSafeEqual`) after a length check.",
+          "why": "A hardening practice for comparing secrets. The limit matters: I measured no timing difference in my app, so this is a precaution, not a bug I proved.",
+          "severity": "Low",
+          "coverage": "rec",
+          "tests": [],
+          "note": "Both HMAC checks in my app compare with `===`. A hardening idea only."
+        },
+        {
+          "scenario": "Ownership of orders and payments: user A reads or verifies user B's order.",
+          "expected": "Refused.",
+          "why": "Order and payment IDs are not secrets. Without an ownership check, enumerating IDs exposes other customers' orders.",
+          "severity": "High",
+          "coverage": "rec",
+          "tests": [],
+          "note": "My demo app has no user accounts or authentication, so it cannot exercise this. A general scenario."
+        }
+      ]
+    }
+  ]
+}

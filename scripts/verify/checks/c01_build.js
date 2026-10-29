@@ -32,6 +32,10 @@ async function runCheck(ctx) {
   const covers = run('node', ['scripts/covers/build.js', '--check']);
   r.expect(covers.code === 0, 'project covers in sync with their source (covers/build --check)', covers.out.trim().split('\n').pop());
 
+  // The payment checklist page tables and its CSV are both written from scripts/checklist/cases.json; any hand edit of either fails here
+  const checklist = run('node', ['scripts/checklist/build.js', '--check']);
+  r.expect(checklist.code === 0, 'payment checklist: page tables and CSV in sync with their one source, cited test IDs exist in the repo (checklist/build --check)', checklist.out.trim().split('\n').pop());
+
   // JS syntax
   const jsFiles = ctx.files.filter((f) => f.endsWith('.js'));
   const scriptJs = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', 'scripts'], { cwd: ROOT, encoding: 'utf8' })
