@@ -1,0 +1,4 @@
+# Files written by scripts/checklist/build.js are LF on every machine and every OS, so its --check compares
+# bytes exactly. Without this, core.autocrlf=true turns them into CRLF on Windows checkouts only.
+assets/downloads/payment-gateway-test-cases-checklist.csv text eol=lf
+blog/payment-gateway-test-cases/index.html text eol=lf

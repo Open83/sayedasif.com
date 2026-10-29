@@ -1,0 +1,192 @@
+{
+  "_comment": "Test definitions in Open83/Razorpay-Payment-Gateway---QA---Automation at the commit the site cites. Written by: node scripts/checklist/build.js --write-pin. build.js uses it to verify the test IDs cited in cases.json without a clone or a network call.",
+  "repo": "Open83/Razorpay-Payment-Gateway---QA---Automation",
+  "commit": "da9e7a2af73e78c3b0aab1a64449ca03bbc49384",
+  "tests": [
+    {
+      "id": "CONFIG-001",
+      "file": "tests/api/health.spec.js",
+      "live": false
+    },
+    {
+      "id": "CONFIG-002",
+      "file": "tests/api/health.spec.js",
+      "live": false
+    },
+    {
+      "id": "CONFIG-003",
+      "file": "tests/api/health.spec.js",
+      "live": false
+    },
+    {
+      "id": "HEALTH-001",
+      "file": "tests/api/health.spec.js",
+      "live": false
+    },
+    {
+      "id": "ORDER-001",
+      "file": "tests/api/orders.spec.js",
+      "live": false
+    },
+    {
+      "id": "ORDER-002",
+      "file": "tests/api/orders.spec.js",
+      "live": false
+    },
+    {
+      "id": "ORDER-003",
+      "file": "tests/api/orders.spec.js",
+      "live": false
+    },
+    {
+      "id": "ERR-001",
+      "file": "tests/security/error-handling.spec.js",
+      "live": false
+    },
+    {
+      "id": "ERR-002",
+      "file": "tests/security/error-handling.spec.js",
+      "live": false
+    },
+    {
+      "id": "ERR-003",
+      "file": "tests/security/error-handling.spec.js",
+      "live": false
+    },
+    {
+      "id": "ERR-004",
+      "file": "tests/security/error-handling.spec.js",
+      "live": false
+    },
+    {
+      "id": "REF-001",
+      "file": "tests/security/error-handling.spec.js",
+      "live": false
+    },
+    {
+      "id": "REF-ERR-001",
+      "file": "tests/security/refund-error-handling.spec.js",
+      "live": false
+    },
+    {
+      "id": "REF-ERR-002",
+      "file": "tests/security/refund-error-handling.spec.js",
+      "live": false
+    },
+    {
+      "id": "REPLAY-001",
+      "file": "tests/security/signature-verification.spec.js",
+      "live": true
+    },
+    {
+      "id": "SIG-001",
+      "file": "tests/security/signature-verification.spec.js",
+      "live": true
+    },
+    {
+      "id": "SIG-002",
+      "file": "tests/security/signature-verification.spec.js",
+      "live": false
+    },
+    {
+      "id": "SIG-003",
+      "file": "tests/security/signature-verification.spec.js",
+      "live": false
+    },
+    {
+      "id": "SIG-004",
+      "file": "tests/security/signature-verification.spec.js",
+      "live": false
+    },
+    {
+      "id": "SIG-005",
+      "file": "tests/security/signature-verification.spec.js",
+      "live": false
+    },
+    {
+      "id": "SIG-006",
+      "file": "tests/security/signature-verification.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-001",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-002",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-003",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-004",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-005",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-006",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-007",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-FIX-001",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-FIX-002",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-FIX-003",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "WEB-FIX-004",
+      "file": "tests/security/webhook-validation.spec.js",
+      "live": false
+    },
+    {
+      "id": "UI-001",
+      "file": "tests/ui/frontend.spec.js",
+      "live": false
+    },
+    {
+      "id": "UI-002",
+      "file": "tests/ui/frontend.spec.js",
+      "live": true
+    },
+    {
+      "id": "UI-003",
+      "file": "tests/ui/frontend.spec.js",
+      "live": false
+    },
+    {
+      "id": "UI-004",
+      "file": "tests/ui/frontend.spec.js",
+      "live": false
+    },
+    {
+      "id": "UI-005",
+      "file": "tests/ui/frontend.spec.js",
+      "live": false
+    }
+  ]
+}
